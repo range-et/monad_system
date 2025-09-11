@@ -4,7 +4,7 @@ Default colors and themes that I keep using
 ## **Summary**
 
 Heres an image with the colors I keep using :
-![Theme Image](default_colors_main.png)
+![Theme Image](assets/default_colors_main.png)
 
 ## **General UI Colors**
 
