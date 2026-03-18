@@ -3,7 +3,7 @@ import os
 import argparse
 
 from templates.c_sharp_template import create_csharp_template
-from templates.css_template import create_css_template, create_component_library
+from templates.css_template import create_css_template, create_monad_system
 from templates.python_template import create_python_template
 from templates.js_template import create_js_template
 from preview_render import render_palette
@@ -63,8 +63,8 @@ def prepare_templates(json_data):
         hand_color=hand_color,
     )
 
-    # --- Build: full component library CSS (design-system.css) ---
-    css_library = create_component_library(
+    # --- Build: Monad System CSS (monad.css) ---
+    css_library = create_monad_system(
         bg_dark=background_color,
         text_primary_dark=primary_text_color,
         text_secondary_dark=secondary_text_color,
@@ -201,8 +201,8 @@ if __name__ == "__main__":
 
         outputs = {
             "ColorPalette.css":     code["css_tokens"],
-            "design-system.css":    code["css_library"],
-            "design-system.js":     code["js"],
+            "monad.css":            code["css_library"],
+            "monad.js":             code["js"],
             "ColorPalette.cs":      code["c_sharp_dark"],
             "ColorPaletteLight.cs": code["c_sharp_light"],
             "seaborn_palette.py":   code["python"],

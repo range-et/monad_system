@@ -1,5 +1,4 @@
-def create_js_template():
-    return """/**
+/**
  * Monad System — Runtime
  * Generated from the Monad System build. Do not edit directly.
  *
@@ -130,4 +129,3 @@ def create_js_template():
     init();
   }
 })();
-"""

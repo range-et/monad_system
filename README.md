@@ -1,352 +1,298 @@
-# Default Colors — Design System
+# Monad System
 
-A personal, multi-platform design system built on a single source of truth: `colors.json`. Fuses your color palette with **Carbon Design System**'s physical language (8px grid, IBM Plex typography, token layering model) into a portable, cross-platform toolkit.
+A personal design language built on `colors.json`.
 
-**Platforms covered:** HTML/CSS/JS · Unity C# · Python / Matplotlib / Seaborn
+> "Form follows Function. Every element earns its place."
 
----
-
-![Color Palette](assets/default_colors_main.png)
+This is not Carbon. Not shadcn. It is an **engineered framework** — orthogonal, materially honest, and multi-platform.
 
 ---
 
-## What's Included
+## Tiers
 
-| File | Platform | Description |
+| Tier | Role | Scope |
 |---|---|---|
-| `build/design-system.css` | HTML/CSS/JS | Bootstrap-style component library with light + dark themes |
-| `build/ColorPalette.css` | HTML/CSS | Raw CSS custom property tokens (dark) |
-| `build/ColorPalette.cs` | Unity C# | Static color class — dark theme |
-| `build/ColorPaletteLight.cs` | Unity C# | Static color class — light theme |
-| `build/seaborn_palette.py` | Python | matplotlib/seaborn palette helpers + colormaps |
-| `.cursor/skills/design-system/SKILL.md` | Cursor / AI | AI skill for building UIs with this system |
+| **Akasha** | Connective state — CSS tokens, theme | `--akasha-*` |
+| **Monad** | Structural layout — root containers | `.monad-*` |
+| **Atomos** | Primitive components — indivisible units | `.atomos-*` |
+| **Threshold** | Navigation & transitions | `.threshold-*` |
+
+---
+
+## Build Artifacts
+
+Run the compile script to regenerate all artifacts from `colors.json`:
+
+```bash
+python src/compile_color.py --json_path colors.json --output_path build/
+```
+
+| File | Platform | Theme | Description |
+|---|---|---|---|
+| `build/monad.css` | HTML / CSS | Dark + Light | Full Monad System — Akasha tokens, Atomos components, Monad layout, Threshold nav |
+| `build/monad.js` | HTML / JS | — | Akasha toggle, Threshold nav, Rail drawer runtime |
+| `build/ColorPalette.css` | HTML / CSS | Dark | Raw CSS token variables only |
+| `build/ColorPalette.cs` | Unity C# | Dark | Static color class — dark Akasha |
+| `build/ColorPaletteLight.cs` | Unity C# | Light | Static color class — light Akasha |
+| `build/seaborn_palette.py` | Python | Dual | matplotlib / seaborn palette helpers |
 
 ---
 
 ## Samples
 
-| Sample | Description |
+| File | Description |
 |---|---|
-| [`samples/components.html`](samples/components.html) | Full component showcase — palette, typography, buttons, cards, tags, notifications, forms, tables, progress |
-| [`samples/dashboard.html`](samples/dashboard.html) | General-purpose app dashboard — header, sidenav, stat cards, activity feed, data table, status panels |
-
-Both samples include a light/dark theme toggle (top-right corner). Open directly in a browser — no build step needed.
+| `samples/components.html` | Atomos showcase — all components |
+| `samples/dashboard.html` | Monad shell — full app dashboard |
 
 ---
 
-## Color Palette
+## Visual Principles
 
-### General UI Colors
-
-| Category | Name | Hex | RGB |
-|---|---|---|---|
-| **General UI** | Primary Background | `#121212` | (18, 18, 18) |
-| | Primary Text | `#E0E0E0` | (224, 224, 224) |
-| | Secondary Text | `#B0B0B0` | (176, 176, 176) |
-| **Information** | Information 1 (Cyan) | `#00BCD4` | (0, 188, 212) |
-| | Information 2 (Blue) | `#03A9F4` | (3, 169, 244) |
-| | Information 3 (Green) | `#8BC34A` | (139, 195, 74) |
-| **Warnings** | Warning 1 (Amber) | `#FFC107` | (255, 193, 7) |
-| | Alert 1 (Red) | `#F44336` | (244, 67, 54) |
-| **Highlights** | Highlight (Yellow) | `#FFEB3B` | (255, 235, 59) |
-| | Disabled (Gray) | `#757575` | (117, 117, 117) |
-| **Movement** | Start Holds (Green) | `#4CAF50` | (76, 175, 80) |
-| | Hand Holds (Blue) | `#03A9F4` | (3, 169, 244) |
-| | Foot Holds (Yellow) | `#FFEB3B` | (255, 235, 59) |
-| | Finish Holds (Purple) | `#9C27B0` | (156, 39, 176) |
+1. **Orthogonal** — No border-radius. Softness is decoration.
+2. **Materially Honest** — No gradients. No decorative shadows. Depth via layered borders.
+3. **Haptic** — Transitions are `80ms linear`. Motion is predictable, not expressive.
+4. **High-contrast states** — Hover/active swap color completely, not fade opacity.
+5. **Mono for data** — Numeric values, overlines, IDs use JetBrains Mono.
 
 ---
 
-## Light & Dark Theming
-
-All build artifacts include both themes. The dark theme (your original palette) is the default. The light theme derives from Carbon's White-theme approach.
-
-| Token | Dark | Light |
-|---|---|---|
-| `--color-bg` | `#121212` | `#f4f4f4` |
-| `--color-layer-01` | `#1e1e1e` | `#ffffff` |
-| `--color-layer-02` | `#262626` | `#f4f4f4` |
-| `--color-layer-03` | `#333333` | `#e8e8e8` |
-| `--color-text-primary` | `#E0E0E0` | `#161616` |
-| `--color-text-secondary` | `#B0B0B0` | `#525252` |
-| `--color-border` | `#3d3d3d` | `#c6c6c6` |
-
-Accent and semantic colors (`--color-interactive`, status colors, movement colors) are shared across both themes.
-
----
-
-## HTML / CSS / JS
-
-### Using the component library
-
-Link a single CSS file — both themes included automatically:
+## HTML / CSS / JS Usage
 
 ```html
-<link rel="stylesheet" href="build/design-system.css">
+<link rel="stylesheet" href="path/to/build/monad.css">
+<script src="path/to/build/monad.js"></script>
 ```
 
-Set the initial theme via `data-theme` on `<html>`:
+### Theming
+
+Dark is default (`:root`). Light is `[data-akasha="light"]`.
 
 ```html
-<html data-theme="light">   <!-- light theme -->
-<html>                      <!-- dark theme (default) -->
+<button data-mn-theme-toggle>◑</button>
 ```
 
-Add a theme toggle anywhere:
+`monad.js` persists choice to `localStorage` and respects `prefers-color-scheme`.
+
+### Layout Shell
 
 ```html
-<button id="theme-toggle">◑</button>
+<header class="monad-header">
+  <button class="threshold-toggle" data-mn-rail-toggle>☰</button>
+  <span class="monad-header__name">App</span>
+  <nav class="threshold-nav">
+    <a href="#" class="active">Overview</a>
+  </nav>
+  <div class="monad-header__actions">
+    <button class="akasha-toggle" data-mn-theme-toggle>◑</button>
+  </div>
+</header>
 
-<script>
-  (function () {
-    const root = document.documentElement;
-    const btn = document.getElementById('theme-toggle');
-    const stored = localStorage.getItem('ds-theme');
-    if (stored) root.dataset.theme = stored;
-    btn?.addEventListener('click', () => {
-      const next = root.dataset.theme === 'light' ? 'dark' : 'light';
-      root.dataset.theme = next;
-      localStorage.setItem('ds-theme', next);
-    });
-  })();
-</script>
+<div class="monad-layout">
+  <nav class="monad-rail">
+    <div class="monad-rail__section">Main</div>
+    <a class="monad-rail__item active" href="#">Dashboard</a>
+  </nav>
+  <main class="monad-content">
+    <!-- content -->
+  </main>
+</div>
 ```
 
-`prefers-color-scheme` media query also applied automatically as an OS-level fallback.
-
-### Component class examples
+### Key Components
 
 ```html
 <!-- Buttons -->
-<button class="ds-btn ds-btn--primary">Primary</button>
-<button class="ds-btn ds-btn--secondary">Secondary</button>
-<button class="ds-btn ds-btn--danger">Danger</button>
-<button class="ds-btn ds-btn--ghost">Ghost</button>
+<button class="atomos-btn atomos-btn--primary">Action</button>
+<button class="atomos-btn atomos-btn--secondary">Secondary</button>
+<button class="atomos-btn atomos-btn--ghost">Ghost</button>
 
-<!-- Cards -->
-<div class="ds-card">
-  <div class="ds-card__title">Card title</div>
-  <div class="ds-card__body">Content on layer-01.</div>
+<!-- Card -->
+<div class="atomos-card">
+  <div class="atomos-card__header">
+    <span class="atomos-card__title">Title</span>
+  </div>
+  <div class="atomos-card__body">Content here.</div>
 </div>
 
-<!-- Status tags -->
-<span class="ds-tag ds-tag--success">Operational</span>
-<span class="ds-tag ds-tag--warning">Degraded</span>
-<span class="ds-tag ds-tag--error">Down</span>
+<!-- Stat / KPI -->
+<div class="atomos-stat atomos-stat--signal">
+  <div class="atomos-stat__eyebrow">Metric</div>
+  <div class="atomos-stat__value">2,847</div>
+  <div class="atomos-stat__delta atomos-stat__delta--up">↑ 12%</div>
+</div>
 
-<!-- Notifications -->
-<div class="ds-notification ds-notification--warning">
-  <span class="ds-notification__icon">⚠</span>
-  <div class="ds-notification__body">
-    <div class="ds-notification__title">Warning title</div>
-    <div class="ds-notification__msg">Warning message here.</div>
+<!-- Tags -->
+<span class="atomos-tag atomos-tag--success">ok</span>
+<span class="atomos-tag atomos-tag--error">error</span>
+
+<!-- Notice -->
+<div class="atomos-notice atomos-notice--warning">
+  <span class="atomos-notice__icon">!</span>
+  <div class="atomos-notice__body">
+    <div class="atomos-notice__title">Warning</div>
+    <div class="atomos-notice__msg">Something needs attention.</div>
   </div>
 </div>
 
-<!-- Progress -->
-<div class="ds-progress">
-  <div class="ds-progress__bar" style="--progress: 65%"></div>
+<!-- Form -->
+<div class="atomos-field">
+  <label class="atomos-label">Field</label>
+  <input class="atomos-input" type="text" placeholder="...">
 </div>
 
-<!-- Movement holds (domain-specific) -->
-<span class="ds-hold ds-hold--start">Start</span>
-<span class="ds-hold ds-hold--hand">Hand</span>
-<span class="ds-hold ds-hold--foot">Foot</span>
-<span class="ds-hold ds-hold--finish">Finish</span>
+<!-- Table -->
+<div class="atomos-table-wrap">
+  <table class="atomos-table">
+    <thead><tr><th>Col</th></tr></thead>
+    <tbody><tr><td>Row</td></tr></tbody>
+  </table>
+</div>
+
+<!-- Progress -->
+<div class="atomos-progress">
+  <div class="atomos-progress__fill" style="--progress:72%"></div>
+</div>
 ```
 
-### Typography
-
-Three Google Fonts typefaces — loaded via `@import` inside `design-system.css`, no extra `<link>` needed:
-
-| Role | Font | Usage |
-|---|---|---|
-| `--font-sans` | Inter | Body text, UI labels, headings |
-| `--font-mono` | JetBrains Mono | Code, tokens, monospace labels |
-| `--font-serif` | Lora | Editorial text, pull quotes, display sections |
-
-Type scale follows Carbon's steps from 12px → 54px.
-
-```css
-font-family: var(--font-sans);   /* Inter */
-font-family: var(--font-mono);   /* JetBrains Mono */
-font-family: var(--font-serif);  /* Lora */
-font-size: var(--type-base);     /* 16px */
-font-size: var(--type-3xl);      /* 32px heading */
-```
-
-### Grid (Carbon 2x Grid)
+### Grid
 
 ```html
-<div class="ds-grid">
-  <div class="ds-col-8">Half width</div>
-  <div class="ds-col-8">Half width</div>
+<div class="monad-grid">
+  <div class="monad-col-8">Half</div>
+  <div class="monad-col-8">Half</div>
 </div>
+```
 
-<div class="ds-grid">
-  <div class="ds-col-4">Quarter</div>
-  <div class="ds-col-12">Three quarters</div>
-</div>
+16 columns → 8 (≤1056px) → 4 (≤672px).
+
+### Custom Styles
+
+Reference only Akasha tokens:
+
+```css
+.my-component {
+  background: var(--akasha-layer-01);
+  border: 1px solid var(--akasha-border);
+  color: var(--akasha-text-primary);
+  transition: background var(--threshold-fast);
+}
 ```
 
 ---
 
 ## Unity C#
 
-Copy the generated files to your project:
-
-```bash
-cp build/ColorPalette.cs      Assets/Scripts/Utility/
-cp build/ColorPaletteLight.cs Assets/Scripts/Utility/
-```
-
-Usage:
-
 ```csharp
-using Utility;
+// Dark Akasha
+Color bg = ColorPalette.Background;
+Color signal = ColorPalette.Information2;
 
-// Dark theme (default)
-renderer.material.color = ColorPalette.Information1;
-text.color              = ColorPalette.PrimaryText;
-background.color        = ColorPalette.Background;
-
-// Light theme
-renderer.material.color = ColorPaletteLight.Background;
-text.color              = ColorPaletteLight.PrimaryText;
-
-// Movement / domain colors (same in both classes)
-holdRenderer.color = ColorPalette.Start;   // #4CAF50
-holdRenderer.color = ColorPalette.Hand;    // #03A9F4
-holdRenderer.color = ColorPalette.Foot;    // #FFEB3B
-holdRenderer.color = ColorPalette.Finish;  // #9C27B0
+// Light Akasha
+Color bgLight = ColorPaletteLight.Background;
 ```
-
-Both `ColorPalette` and `ColorPaletteLight` live in the `Utility` namespace and expose `ColorFromHex(string hexCode)` as a public helper.
 
 ---
 
-## Python / Matplotlib / Seaborn
-
-Copy or import the generated palette helper:
-
-```bash
-cp build/seaborn_palette.py your_project/utils/
-```
+## Python / Seaborn / Matplotlib
 
 ```python
-from utils.seaborn_palette import (
+from build.seaborn_palette import (
     PALETTE_DARK, PALETTE_LIGHT,
     CATEGORICAL, STATUS_COLORS, MOVEMENT_COLORS,
-    make_sequential_cmap, make_diverging_cmap, make_status_cmap,
-    apply_dark_theme, apply_light_theme,
+    make_sequential_cmap, apply_dark_theme, apply_light_theme
 )
-import seaborn as sns
+
+apply_dark_theme()
+
 import matplotlib.pyplot as plt
-
-# --- Categorical plot with design system palette ---
-sns.set_palette(CATEGORICAL)
-sns.barplot(data=df, x="category", y="value")
-
-# --- Status-colored chart ---
-colors = [STATUS_COLORS['success'], STATUS_COLORS['warning'], STATUS_COLORS['error']]
-plt.bar(labels, values, color=colors)
-
-# --- Sequential heatmap (dark theme) ---
-cmap = make_sequential_cmap(dark=True)
-sns.heatmap(matrix, cmap=cmap)
-
-# --- Apply dark theme styling to a figure ---
-fig, ax = plt.subplots()
-apply_dark_theme(fig, ax)
-ax.plot(x, y, color=PALETTE_DARK['interactive'])
-
-# --- Diverging colormap (error → neutral → success) ---
-cmap_div = make_diverging_cmap()
-sns.heatmap(corr_matrix, cmap=cmap_div, center=0)
-
-# --- Movement colors for sequence data ---
-for i, phase in enumerate(['start', 'hand', 'foot', 'finish']):
-    ax.scatter(x[i], y[i], color=MOVEMENT_COLORS[phase], s=100)
+import seaborn as sns
+sns.barplot(x=..., y=..., palette=CATEGORICAL)
 ```
 
 ---
 
-## Cursor / AI Skill
+## Color Architecture
 
-The `.cursor/skills/design-system/SKILL.md` skill activates automatically when you ask Cursor or Gemini to build UI elements. It teaches the AI to:
+Defined in `colors.json`. Two sections:
 
-- Use the correct CSS tokens (never hardcode hex values)
-- Follow Carbon's 2x grid (8px base unit) and IBM Plex type scale
-- Use `.ds-*` component classes from `design-system.css`
-- Always implement both light and dark themes
-- Include the JS theme toggle with `localStorage` persistence
-- Apply the correct conventions per platform (HTML, Unity C#, Python viz)
-- Use movement colors only for domain-specific contexts
+- `Default_Colors` — dark Akasha ground + all shared semantic colors
+- `Light_Mode` — light Akasha ground overrides
 
-The skill references the existing `frontend-design` skill for aesthetic direction, but overrides color, spacing, and typography with this system.
+Shared across both themes: interactive, status, movement domain colors.
+
+### Dark Akasha
+
+| Token | Hex | Role |
+|---|---|---|
+| `--akasha-bg` | `#121212` | Ground |
+| `--akasha-layer-01` | `#1e1e1e` | Raised surface |
+| `--akasha-layer-02` | `#262626` | Double-raised |
+| `--akasha-layer-03` | `#333333` | Triple-raised |
+| `--akasha-interactive` | `#03A9F4` | Signal blue |
+| `--akasha-success` | `#8BC34A` | |
+| `--akasha-warning` | `#FFC107` | |
+| `--akasha-error` | `#F44336` | |
+
+### Light Akasha
+
+| Token | Hex | Role |
+|---|---|---|
+| `--akasha-bg` | `#f4f4f4` | Ground |
+| `--akasha-layer-01` | `#ffffff` | Raised surface |
+| `--akasha-layer-02` | `#f4f4f4` | Double-raised |
+| `--akasha-layer-03` | `#e8e8e8` | Triple-raised |
 
 ---
 
-## Using in Other Projects
+## Typography
 
-Clone this repo as a submodule or standalone dependency:
+| Stack | Variable | Use |
+|---|---|---|
+| Inter | `--font-sans` | All UI text |
+| JetBrains Mono | `--font-mono` | Labels, overlines, data, code |
+| Lora | `--font-serif` | Editorial / longform only |
+
+All loaded from Google Fonts.
+
+---
+
+## AI Skill
+
+The Cursor / Gemini skill is at `.cursor/skills/monad-system/SKILL.md`.
+
+It defines:
+- All tier names and class prefixes
+- Component reference with exact HTML
+- Visual rules (no radius, no shadow, haptic transitions)
+- What NOT to do
+
+---
+
+## Clone Into Another Project
 
 ```bash
-# As a standalone clone
-git clone https://github.com/you/default_colors design-system
+# Add as remote
+git remote add monad https://github.com/YOUR/default_colors.git
+git fetch monad
 
-# Link the CSS in HTML
-<link rel="stylesheet" href="./design-system/build/design-system.css">
+# Copy build artifacts
+cp monad/build/monad.css  your-project/static/
+cp monad/build/monad.js   your-project/static/
 
-# Copy Unity files
-cp design-system/build/ColorPalette.cs      Assets/Scripts/Utility/
-cp design-system/build/ColorPaletteLight.cs Assets/Scripts/Utility/
-
-# Copy Python helpers
-cp design-system/build/seaborn_palette.py   src/utils/
-
-# As a git submodule (recommended for keeping in sync)
-git submodule add https://github.com/you/default_colors design-system
-git submodule update --init
+# Or submodule
+git submodule add https://github.com/YOUR/default_colors.git design-tokens
 ```
 
-The Cursor skill also works cross-project: copy `.cursor/skills/design-system/` to any project's `.cursor/skills/` folder.
+Reference `design-tokens/build/monad.css` in your HTML.
 
 ---
 
-## Regenerating Build Artifacts
+## What NOT to Do
 
-After editing `colors.json`, regenerate all artifacts:
-
-```bash
-cd default_colors
-python src/compile_color.py --json_path colors.json --output_path build/
-```
-
-This will regenerate all five files in `build/` plus the color palette preview image.
-
-### Requirements
-
-```bash
-pip install pillow
-```
-
----
-
-## Design Language Principles
-
-This system adopts Carbon Design System's physical language:
-
-- **Grid**: 8px mini unit base, 16px standard padding, Carbon breakpoints (320 / 672 / 1056 / 1312 / 1584px)
-- **Typography**: IBM Plex Sans / Mono / Serif; weights 300 / 400 / 600 only
-- **Layering**: Each depth level is one step lighter (dark) or alternates white/gray-10 (light); depth is always visible
-- **Tokens**: Role-based — `--color-interactive`, `--color-support-warning`, `--color-text-primary`. Never hardcode hex
-- **Interaction states**: hover (half-step), active (two-step), focus (2px interactive ring), disabled (gray family only)
-- **Accessibility**: 4.5:1 contrast for body text, 3:1 for large text/UI, always pair color with labels or icons
-
-### Integration Guidelines
-
-1. **Separation of concerns**: UI status colors and movement domain colors must not be mixed
-2. **Contrast**: Always verify text against its background using the token system
-3. **Colorblind accessibility**: Supplement movement colors with text labels and shapes
-4. **Single source**: All changes go to `colors.json` first, then regenerate — never patch build files directly
+- Do not use `ds-*` classes — retired
+- Do not hardcode hex colors in components — use `--akasha-*`
+- Do not add `border-radius` to Atomos
+- Do not use movement hold colors for generic UI status
+- Do not use `box-shadow` for depth
+- Do not use `ease` timing — use `var(--threshold-fast)` (80ms linear)

@@ -3,577 +3,536 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Design System — Component Showcase</title>
-  <link rel="stylesheet" href="../build/design-system.css">
-  <script src="../build/design-system.js"></script>
+  <title>Monad System — Atomos Showcase</title>
+  <link rel="stylesheet" href="../build/monad.css">
+  <script src="../build/monad.js"></script>
   <style>
-    .showcase-section {
+    /* Page-local structure — not part of the system, just the demo scaffold */
+    .section {
       margin-bottom: var(--space-8);
+      padding-bottom: var(--space-4);
+      border-bottom: 1px solid var(--akasha-border-subtle);
     }
-    .showcase-section h2 {
-      font-size: var(--type-xl);
-      font-weight: 600;
-      color: var(--color-text-primary);
-      margin-bottom: var(--space-1);
-      padding-bottom: var(--space-1);
-      border-bottom: 2px solid var(--color-border);
-    }
-    .showcase-section p.section-desc {
-      font-size: var(--type-sm);
-      color: var(--color-text-secondary);
-      margin-bottom: var(--space-3);
-    }
-    .row-flex {
+    .section:last-child { border-bottom: none; }
+
+    .section__head {
       display: flex;
-      flex-wrap: wrap;
-      align-items: center;
+      align-items: baseline;
       gap: var(--space-2);
-      margin-bottom: var(--space-2);
+      margin-bottom: var(--space-1);
     }
+    .section__title {
+      font-size: var(--type-lg);
+      font-weight: 600;
+      color: var(--akasha-text-primary);
+      letter-spacing: -0.01em;
+    }
+    .section__tier {
+      font-size: var(--type-xs);
+      font-family: var(--font-mono);
+      color: var(--akasha-text-disabled);
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+    }
+    .section__desc {
+      font-size: var(--type-sm);
+      color: var(--akasha-text-secondary);
+      margin-bottom: var(--space-3);
+      max-width: 640px;
+    }
+
+    .row { display: flex; flex-wrap: wrap; align-items: center; gap: var(--space-2); margin-bottom: var(--space-2); }
+
     .swatch-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
-      gap: var(--space-2);
+      grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
+      gap: 1px;
+      border: 1px solid var(--akasha-border);
+      margin-bottom: var(--space-3);
     }
-    .swatch {
-      border-radius: var(--radius-md);
-      overflow: hidden;
-      border: 1px solid var(--color-border);
+    .swatch__color { height: 56px; }
+    .swatch__info  {
+      background: var(--akasha-layer-01);
+      padding: 6px 8px;
+      border-top: 1px solid var(--akasha-border-subtle);
     }
-    .swatch__color {
-      height: 64px;
-    }
-    .swatch__info {
-      background: var(--color-layer-01);
-      padding: 8px 10px;
-    }
-    .swatch__name {
-      font-size: var(--type-xs);
-      font-weight: 600;
-      color: var(--color-text-primary);
-      display: block;
-    }
-    .swatch__hex {
-      font-size: var(--type-xs);
-      font-family: var(--font-mono);
-      color: var(--color-text-secondary);
-      display: block;
-    }
+    .swatch__name { font-size: var(--type-xs); font-weight: 600; color: var(--akasha-text-primary); display: block; }
+    .swatch__hex  { font-size: 10px; font-family: var(--font-mono); color: var(--akasha-text-disabled); display: block; }
+
     .code-block {
-      background: var(--color-layer-02);
-      border: 1px solid var(--color-border);
-      border-radius: var(--radius-md);
+      background: var(--akasha-layer-02);
+      border-left: 2px solid var(--akasha-interactive);
       padding: var(--space-2) var(--space-3);
       font-family: var(--font-mono);
-      font-size: var(--type-sm);
-      color: var(--color-text-secondary);
+      font-size: var(--type-xs);
+      color: var(--akasha-text-secondary);
       margin-top: var(--space-2);
       overflow-x: auto;
     }
-    .form-demo {
-      max-width: 480px;
-    }
-    .table-wrap {
-      overflow-x: auto;
-    }
-    .progress-demos {
-      display: flex;
-      flex-direction: column;
-      gap: var(--space-2);
-      max-width: 480px;
-    }
-    .progress-row {
-      display: flex;
-      align-items: center;
-      gap: var(--space-2);
-    }
+
+    .form-demo { max-width: 440px; }
+
+    .progress-demos { display: flex; flex-direction: column; gap: var(--space-2); max-width: 480px; }
+    .progress-row   { display: flex; align-items: center; gap: var(--space-2); }
     .progress-row span {
       font-size: var(--type-xs);
-      color: var(--color-text-secondary);
+      font-family: var(--font-mono);
+      color: var(--akasha-text-secondary);
       width: 72px;
       flex-shrink: 0;
     }
-    .progress-row .ds-progress {
-      flex: 1;
-    }
-    .page-header {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: var(--space-3) var(--space-4);
-      border-bottom: 1px solid var(--color-border);
-      background: var(--color-layer-01);
-      position: sticky;
-      top: 0;
-      z-index: 50;
-    }
-    .page-header h1 {
-      font-size: var(--type-xl);
-      font-weight: 600;
-    }
-    .page-header__sub {
-      font-size: var(--type-sm);
-      color: var(--color-text-secondary);
-      margin-top: 2px;
-    }
-    main {
-      max-width: 1200px;
-      margin: 0 auto;
-      padding: var(--space-6) var(--space-4);
-    }
-    .layer-demo {
-      display: flex;
-      gap: var(--space-2);
-    }
+    .progress-row .atomos-progress { flex: 1; }
+
+    .layer-demo { display: flex; gap: 1px; }
     .layer-box {
       flex: 1;
-      min-height: 80px;
-      border-radius: var(--radius-md);
-      border: 1px solid var(--color-border);
+      min-height: 72px;
+      border: 1px solid var(--akasha-border);
       display: flex;
       align-items: center;
       justify-content: center;
       font-size: var(--type-xs);
       font-family: var(--font-mono);
-      color: var(--color-text-secondary);
+      color: var(--akasha-text-disabled);
     }
   </style>
 </head>
 <body>
-  <div class="page-header">
-    <div>
-      <h1>Component Showcase</h1>
-      <div class="page-header__sub">Design System · Carbon Physical Language · Light &amp; Dark</div>
-    </div>
-    <nav class="ds-header__nav" aria-label="Page sections">
-      <a href="#palette">Colors</a>
-      <a href="#typography">Type</a>
-      <a href="#buttons">Buttons</a>
-      <a href="#cards">Cards</a>
-      <a href="#forms">Forms</a>
-      <a href="#tables">Tables</a>
+
+  <!-- Monad Header -->
+  <header class="monad-header">
+    <button class="threshold-toggle" aria-label="Toggle navigation" aria-expanded="false">
+      <span class="threshold-toggle__bar"></span>
+      <span class="threshold-toggle__bar"></span>
+      <span class="threshold-toggle__bar"></span>
+    </button>
+    <span class="monad-header__name">Monad System</span>
+    <nav class="threshold-nav" aria-label="Sections">
+      <a href="#akasha">Akasha</a>
+      <a href="#type">Type</a>
+      <a href="#atomos-btn">Atomos:Btn</a>
+      <a href="#atomos-card">Atomos:Card</a>
+      <a href="#atomos-form">Atomos:Form</a>
+      <a href="#atomos-table">Atomos:Table</a>
     </nav>
-    <div style="display:flex;gap:var(--space-1);align-items:center;margin-left:auto;">
-      <button class="ds-hamburger" aria-label="Toggle navigation" aria-expanded="false">
-        <span class="ds-hamburger__bar"></span>
-        <span class="ds-hamburger__bar"></span>
-        <span class="ds-hamburger__bar"></span>
-      </button>
-      <button class="ds-theme-toggle" data-ds-theme-toggle aria-label="Toggle color theme" title="Toggle theme">◑</button>
+    <div class="monad-header__actions">
+      <button class="akasha-toggle" data-mn-theme-toggle aria-label="Toggle theme">◑</button>
     </div>
-  </div>
+  </header>
 
-  <main>
+  <main style="max-width:1200px; margin:0 auto; padding:var(--space-6) var(--space-4);">
 
-    <!-- COLOR PALETTE -->
-    <section class="showcase-section">
-      <h2>Color Palette</h2>
-      <p class="section-desc">All colors from <code>colors.json</code>. Semantic tokens switch automatically between light and dark themes.</p>
+    <!-- AKASHA TOKENS -->
+    <section class="section" id="akasha">
+      <div class="section__head">
+        <span class="section__title">Akasha Layer</span>
+        <span class="section__tier">Tier: State &amp; Tokens</span>
+      </div>
+      <p class="section__desc">CSS custom properties (<code>--akasha-*</code>) are the connective state layer. Every component reads from these. Theme switching rewrites Akasha; components never hardcode color.</p>
 
-      <p style="font-size:var(--type-sm); font-weight:600; color:var(--color-text-secondary); margin-bottom:var(--space-1); text-transform:uppercase; letter-spacing:0.06em;">Theme-Switched</p>
-      <div class="swatch-grid" style="margin-bottom:var(--space-3);">
+      <p style="font-size:var(--type-xs); font-weight:700; color:var(--akasha-text-disabled); text-transform:uppercase; letter-spacing:0.1em; margin-bottom:var(--space-2);">Ground — switches with theme</p>
+      <div class="swatch-grid" style="margin-bottom:var(--space-4);">
         <div class="swatch">
-          <div class="swatch__color" style="background:var(--color-bg)"></div>
-          <div class="swatch__info"><span class="swatch__name">Background</span><span class="swatch__hex">--color-bg</span></div>
+          <div class="swatch__color" style="background:var(--akasha-bg)"></div>
+          <div class="swatch__info"><span class="swatch__name">Ground</span><span class="swatch__hex">--akasha-bg</span></div>
         </div>
         <div class="swatch">
-          <div class="swatch__color" style="background:var(--color-layer-01)"></div>
-          <div class="swatch__info"><span class="swatch__name">Layer 01</span><span class="swatch__hex">--color-layer-01</span></div>
+          <div class="swatch__color" style="background:var(--akasha-layer-01)"></div>
+          <div class="swatch__info"><span class="swatch__name">Layer 01</span><span class="swatch__hex">--akasha-layer-01</span></div>
         </div>
         <div class="swatch">
-          <div class="swatch__color" style="background:var(--color-layer-02)"></div>
-          <div class="swatch__info"><span class="swatch__name">Layer 02</span><span class="swatch__hex">--color-layer-02</span></div>
+          <div class="swatch__color" style="background:var(--akasha-layer-02)"></div>
+          <div class="swatch__info"><span class="swatch__name">Layer 02</span><span class="swatch__hex">--akasha-layer-02</span></div>
         </div>
         <div class="swatch">
-          <div class="swatch__color" style="background:var(--color-layer-03)"></div>
-          <div class="swatch__info"><span class="swatch__name">Layer 03</span><span class="swatch__hex">--color-layer-03</span></div>
+          <div class="swatch__color" style="background:var(--akasha-layer-03)"></div>
+          <div class="swatch__info"><span class="swatch__name">Layer 03</span><span class="swatch__hex">--akasha-layer-03</span></div>
         </div>
         <div class="swatch">
-          <div class="swatch__color" style="background:var(--color-text-primary)"></div>
-          <div class="swatch__info"><span class="swatch__name">Text Primary</span><span class="swatch__hex">--color-text-primary</span></div>
+          <div class="swatch__color" style="background:var(--akasha-text-primary)"></div>
+          <div class="swatch__info"><span class="swatch__name">Text Primary</span><span class="swatch__hex">--akasha-text-primary</span></div>
         </div>
         <div class="swatch">
-          <div class="swatch__color" style="background:var(--color-text-secondary)"></div>
-          <div class="swatch__info"><span class="swatch__name">Text Secondary</span><span class="swatch__hex">--color-text-secondary</span></div>
-        </div>
-        <div class="swatch">
-          <div class="swatch__color" style="background:var(--color-border); border-bottom:none;"></div>
-          <div class="swatch__info"><span class="swatch__name">Border</span><span class="swatch__hex">--color-border</span></div>
+          <div class="swatch__color" style="background:var(--akasha-border)"></div>
+          <div class="swatch__info"><span class="swatch__name">Border</span><span class="swatch__hex">--akasha-border</span></div>
         </div>
       </div>
 
-      <p style="font-size:var(--type-sm); font-weight:600; color:var(--color-text-secondary); margin-bottom:var(--space-1); text-transform:uppercase; letter-spacing:0.06em;">Shared Semantic</p>
-      <div class="swatch-grid" style="margin-bottom:var(--space-3);">
-        <div class="swatch">
-          <div class="swatch__color" style="background:#03A9F4"></div>
-          <div class="swatch__info"><span class="swatch__name">Interactive</span><span class="swatch__hex">#03A9F4</span></div>
-        </div>
-        <div class="swatch">
-          <div class="swatch__color" style="background:#00BCD4"></div>
-          <div class="swatch__info"><span class="swatch__name">Support Info</span><span class="swatch__hex">#00BCD4</span></div>
-        </div>
-        <div class="swatch">
-          <div class="swatch__color" style="background:#8BC34A"></div>
-          <div class="swatch__info"><span class="swatch__name">Support Success</span><span class="swatch__hex">#8BC34A</span></div>
-        </div>
-        <div class="swatch">
-          <div class="swatch__color" style="background:#FFC107"></div>
-          <div class="swatch__info"><span class="swatch__name">Support Warning</span><span class="swatch__hex">#FFC107</span></div>
-        </div>
-        <div class="swatch">
-          <div class="swatch__color" style="background:#F44336"></div>
-          <div class="swatch__info"><span class="swatch__name">Support Error</span><span class="swatch__hex">#F44336</span></div>
-        </div>
-        <div class="swatch">
-          <div class="swatch__color" style="background:#FFEB3B"></div>
-          <div class="swatch__info"><span class="swatch__name">Highlight</span><span class="swatch__hex">#FFEB3B</span></div>
-        </div>
-      </div>
-
-      <p style="font-size:var(--type-sm); font-weight:600; color:var(--color-text-secondary); margin-bottom:var(--space-1); text-transform:uppercase; letter-spacing:0.06em;">Movement Domain</p>
+      <p style="font-size:var(--type-xs); font-weight:700; color:var(--akasha-text-disabled); text-transform:uppercase; letter-spacing:0.1em; margin-bottom:var(--space-2);">Signal — fixed across themes</p>
       <div class="swatch-grid">
         <div class="swatch">
-          <div class="swatch__color" style="background:#4CAF50"></div>
-          <div class="swatch__info"><span class="swatch__name">Start</span><span class="swatch__hex">#4CAF50</span></div>
+          <div class="swatch__color" style="background:var(--akasha-interactive)"></div>
+          <div class="swatch__info"><span class="swatch__name">Interactive</span><span class="swatch__hex">--akasha-interactive</span></div>
         </div>
         <div class="swatch">
-          <div class="swatch__color" style="background:#03A9F4"></div>
-          <div class="swatch__info"><span class="swatch__name">Hand</span><span class="swatch__hex">#03A9F4</span></div>
+          <div class="swatch__color" style="background:var(--akasha-info)"></div>
+          <div class="swatch__info"><span class="swatch__name">Info</span><span class="swatch__hex">--akasha-info</span></div>
         </div>
         <div class="swatch">
-          <div class="swatch__color" style="background:#FFEB3B"></div>
-          <div class="swatch__info"><span class="swatch__name">Foot</span><span class="swatch__hex">#FFEB3B</span></div>
+          <div class="swatch__color" style="background:var(--akasha-success)"></div>
+          <div class="swatch__info"><span class="swatch__name">Success</span><span class="swatch__hex">--akasha-success</span></div>
         </div>
         <div class="swatch">
-          <div class="swatch__color" style="background:#9C27B0"></div>
-          <div class="swatch__info"><span class="swatch__name">Finish</span><span class="swatch__hex">#9C27B0</span></div>
+          <div class="swatch__color" style="background:var(--akasha-warning)"></div>
+          <div class="swatch__info"><span class="swatch__name">Warning</span><span class="swatch__hex">--akasha-warning</span></div>
+        </div>
+        <div class="swatch">
+          <div class="swatch__color" style="background:var(--akasha-error)"></div>
+          <div class="swatch__info"><span class="swatch__name">Error</span><span class="swatch__hex">--akasha-error</span></div>
+        </div>
+        <div class="swatch">
+          <div class="swatch__color" style="background:var(--akasha-highlight)"></div>
+          <div class="swatch__info"><span class="swatch__name">Highlight</span><span class="swatch__hex">--akasha-highlight</span></div>
         </div>
       </div>
-    </section>
 
-    <!-- LAYERING MODEL -->
-    <section class="showcase-section">
-      <h2>Layering Model</h2>
-      <p class="section-desc">Carbon's layering model — each level is one step lighter (dark) or alternates white/gray-10 (light). Depth is always visible.</p>
+      <p style="font-size:var(--type-xs); font-weight:700; color:var(--akasha-text-disabled); text-transform:uppercase; letter-spacing:0.1em; margin:var(--space-3) 0 var(--space-2);">Ground depth (Layering Model)</p>
       <div class="layer-demo">
-        <div class="layer-box" style="background:var(--color-bg)">bg</div>
-        <div class="layer-box" style="background:var(--color-layer-01)">layer-01</div>
-        <div class="layer-box" style="background:var(--color-layer-02)">layer-02</div>
-        <div class="layer-box" style="background:var(--color-layer-03)">layer-03</div>
+        <div class="layer-box" style="background:var(--akasha-bg)">bg</div>
+        <div class="layer-box" style="background:var(--akasha-layer-01)">layer-01</div>
+        <div class="layer-box" style="background:var(--akasha-layer-02)">layer-02</div>
+        <div class="layer-box" style="background:var(--akasha-layer-03)">layer-03</div>
       </div>
     </section>
 
     <!-- TYPOGRAPHY -->
-    <section class="showcase-section">
-      <h2>Typography</h2>
-      <p class="section-desc">IBM Plex Sans (body), IBM Plex Mono (code), IBM Plex Serif (editorial). Carbon type scale.</p>
+    <section class="section" id="type">
+      <div class="section__head">
+        <span class="section__title">Typography</span>
+        <span class="section__tier">Tier: Base</span>
+      </div>
+      <p class="section__desc">Inter (sans), JetBrains Mono (code), Lora (serif). Fluid scale via <code>clamp()</code>. No decorative weight — weight is structural.</p>
       <div style="display:flex; flex-direction:column; gap:var(--space-2);">
-        <div style="font-size:var(--type-5xl); font-weight:300; color:var(--color-text-primary);">Display — 54px Light</div>
-        <div style="font-size:var(--type-4xl); font-weight:300; color:var(--color-text-primary);">Hero — 42px Light</div>
-        <div style="font-size:var(--type-3xl); font-weight:600;">Page Heading — 32px SemiBold</div>
-        <div style="font-size:var(--type-2xl); font-weight:600;">Section Heading — 28px SemiBold</div>
-        <div style="font-size:var(--type-xl); font-weight:600;">Sub Heading — 24px SemiBold</div>
-        <div style="font-size:var(--type-base); color:var(--color-text-secondary);">Body text — 16px Regular. The quick brown fox jumps over the lazy dog.</div>
-        <div style="font-size:var(--type-sm); color:var(--color-text-secondary);">Secondary body — 14px Regular. Helper text, captions, and labels.</div>
-        <div style="font-size:var(--type-xs); color:var(--color-text-disabled); text-transform:uppercase; letter-spacing:0.08em; font-weight:600;">Overline label — 12px SemiBold uppercase</div>
-        <div style="font-family:var(--font-mono); font-size:var(--type-sm); color:var(--color-text-secondary);">Monospace — IBM Plex Mono 14px: const color = "#03A9F4";</div>
+        <div style="font-size:var(--type-5xl); font-weight:300; color:var(--akasha-text-primary); letter-spacing:-0.03em; line-height:1;">54px — Display Light</div>
+        <div style="font-size:var(--type-4xl); font-weight:300; color:var(--akasha-text-primary); letter-spacing:-0.02em; line-height:1.1;">42px — Hero Light</div>
+        <div style="font-size:var(--type-3xl); font-weight:600; letter-spacing:-0.01em;">32px — Page Heading 600</div>
+        <div style="font-size:var(--type-2xl); font-weight:600;">28px — Section Heading 600</div>
+        <div style="font-size:var(--type-xl); font-weight:600;">24px — Subheading 600</div>
+        <div style="font-size:var(--type-base); color:var(--akasha-text-secondary);">16px Body — The quick brown fox jumps over the lazy dog. Materially honest type.</div>
+        <div style="font-size:var(--type-sm); color:var(--akasha-text-secondary);">14px Secondary — Helper text, captions, labels, secondary descriptions.</div>
+        <div style="font-size:var(--type-xs); color:var(--akasha-text-disabled); text-transform:uppercase; letter-spacing:0.1em; font-weight:700; font-family:var(--font-mono);">12px — OVERLINE MONO 700</div>
+        <div style="font-family:var(--font-mono); font-size:var(--type-sm); color:var(--akasha-text-secondary);">Mono — const akasha = {{ interactive: "#03A9F4" }};</div>
+        <div style="font-family:var(--font-serif); font-size:var(--type-lg); color:var(--akasha-text-primary); font-style:italic;">Lora — editorial, longform, annotation contexts only.</div>
       </div>
     </section>
 
-    <!-- BUTTONS -->
-    <section class="showcase-section">
-      <h2>Buttons</h2>
-      <p class="section-desc">Four variants: primary, secondary, danger, ghost. Sizes: default, sm, lg.</p>
-      <div class="row-flex">
-        <button class="ds-btn ds-btn--primary">Primary</button>
-        <button class="ds-btn ds-btn--secondary">Secondary</button>
-        <button class="ds-btn ds-btn--danger">Danger</button>
-        <button class="ds-btn ds-btn--ghost">Ghost</button>
-        <button class="ds-btn ds-btn--primary" disabled>Disabled</button>
+    <!-- ATOMOS: BUTTONS -->
+    <section class="section" id="atomos-btn">
+      <div class="section__head">
+        <span class="section__title">Atomos — Buttons</span>
+        <span class="section__tier">Tier: Atomos / Indivisible</span>
       </div>
-      <div class="row-flex">
-        <button class="ds-btn ds-btn--primary ds-btn--sm">Small</button>
-        <button class="ds-btn ds-btn--primary">Default</button>
-        <button class="ds-btn ds-btn--primary ds-btn--lg">Large</button>
+      <p class="section__desc">Four intent variants. No radius. Transitions at <code>80ms linear</code> — immediate, haptic. Hover states are high-contrast, not gentle fades.</p>
+      <div class="row">
+        <button class="atomos-btn atomos-btn--primary">Primary</button>
+        <button class="atomos-btn atomos-btn--secondary">Secondary</button>
+        <button class="atomos-btn atomos-btn--danger">Danger</button>
+        <button class="atomos-btn atomos-btn--ghost">Ghost</button>
+        <button class="atomos-btn atomos-btn--primary" disabled>Disabled</button>
       </div>
-      <div class="code-block">&lt;button class="ds-btn ds-btn--primary"&gt;Primary&lt;/button&gt;</div>
+      <div class="row">
+        <button class="atomos-btn atomos-btn--primary atomos-btn--sm">Small</button>
+        <button class="atomos-btn atomos-btn--primary">Default</button>
+        <button class="atomos-btn atomos-btn--primary atomos-btn--lg">Large</button>
+      </div>
+      <div class="code-block">&lt;button class="atomos-btn atomos-btn--primary"&gt;Action&lt;/button&gt;</div>
     </section>
 
-    <!-- TAGS & BADGES -->
-    <section class="showcase-section">
-      <h2>Tags &amp; Badges</h2>
-      <p class="section-desc">Semantic status tags and numeric badges. Use tags for status indicators, badges for counts.</p>
-      <div class="row-flex" style="margin-bottom:var(--space-2);">
-        <span class="ds-tag ds-tag--info">Info</span>
-        <span class="ds-tag ds-tag--success">Success</span>
-        <span class="ds-tag ds-tag--warning">Warning</span>
-        <span class="ds-tag ds-tag--error">Error</span>
-        <span class="ds-tag ds-tag--neutral">Neutral</span>
+    <!-- ATOMOS: TAGS & BADGES -->
+    <section class="section" id="atomos-tag">
+      <div class="section__head">
+        <span class="section__title">Atomos — Tags &amp; Badges</span>
+        <span class="section__tier">Tier: Atomos / Indivisible</span>
       </div>
-      <div class="row-flex">
-        <span class="ds-badge">3</span>
-        <span class="ds-badge">12</span>
-        <span class="ds-badge ds-badge--error">!</span>
-        <span style="font-size:var(--type-sm); color:var(--color-text-secondary);">Notification count badges</span>
+      <p class="section__desc">Monospaced labels for state communication. Badges are numeric counters only — never use as tags.</p>
+      <div class="row" style="margin-bottom:var(--space-2);">
+        <span class="atomos-tag atomos-tag--info">info</span>
+        <span class="atomos-tag atomos-tag--success">success</span>
+        <span class="atomos-tag atomos-tag--warning">warning</span>
+        <span class="atomos-tag atomos-tag--error">error</span>
+        <span class="atomos-tag atomos-tag--neutral">neutral</span>
+      </div>
+      <div class="row">
+        <span class="atomos-badge">3</span>
+        <span class="atomos-badge">12</span>
+        <span class="atomos-badge atomos-badge--error">!</span>
+        <span style="font-size:var(--type-xs); font-family:var(--font-mono); color:var(--akasha-text-disabled);">numeric badges</span>
       </div>
     </section>
 
-    <!-- NOTIFICATIONS -->
-    <section class="showcase-section">
-      <h2>Notifications</h2>
-      <p class="section-desc">Inline notification banners with semantic left border. Include an icon, title, and message body.</p>
+    <!-- ATOMOS: NOTICES -->
+    <section class="section" id="atomos-notice">
+      <div class="section__head">
+        <span class="section__title">Atomos — Notices</span>
+        <span class="section__tier">Tier: Atomos / Indivisible</span>
+      </div>
+      <p class="section__desc">Left-border communicates severity. No background gradients — tinted flat fill only. Title + message mandatory.</p>
       <div style="display:flex; flex-direction:column; gap:var(--space-2);">
-        <div class="ds-notification ds-notification--info">
-          <span class="ds-notification__icon">ℹ</span>
-          <div class="ds-notification__body">
-            <div class="ds-notification__title">System status</div>
-            <div class="ds-notification__msg">All services are operating normally. No action required.</div>
+        <div class="atomos-notice atomos-notice--info">
+          <span class="atomos-notice__icon">i</span>
+          <div class="atomos-notice__body">
+            <div class="atomos-notice__title">System status</div>
+            <div class="atomos-notice__msg">All services are operating within normal parameters.</div>
           </div>
         </div>
-        <div class="ds-notification ds-notification--success">
-          <span class="ds-notification__icon">✓</span>
-          <div class="ds-notification__body">
-            <div class="ds-notification__title">Build succeeded</div>
-            <div class="ds-notification__msg">All artifacts were compiled and saved to <code>build/</code>.</div>
+        <div class="atomos-notice atomos-notice--success">
+          <span class="atomos-notice__icon">✓</span>
+          <div class="atomos-notice__body">
+            <div class="atomos-notice__title">Build complete</div>
+            <div class="atomos-notice__msg">All Monad artifacts compiled and written to <code>build/</code>.</div>
           </div>
         </div>
-        <div class="ds-notification ds-notification--warning">
-          <span class="ds-notification__icon">⚠</span>
-          <div class="ds-notification__body">
-            <div class="ds-notification__title">Deprecation warning</div>
-            <div class="ds-notification__msg">This API will be removed in the next major version. Please migrate before 2027-01-01.</div>
+        <div class="atomos-notice atomos-notice--warning">
+          <span class="atomos-notice__icon">!</span>
+          <div class="atomos-notice__body">
+            <div class="atomos-notice__title">Deprecation</div>
+            <div class="atomos-notice__msg">The <code>.ds-*</code> namespace is retired. Migrate to <code>.atomos-*</code> / <code>.monad-*</code>.</div>
           </div>
         </div>
-        <div class="ds-notification ds-notification--error">
-          <span class="ds-notification__icon">✕</span>
-          <div class="ds-notification__body">
-            <div class="ds-notification__title">Connection failed</div>
-            <div class="ds-notification__msg">Unable to reach the remote server. Check your network connection and try again.</div>
+        <div class="atomos-notice atomos-notice--error">
+          <span class="atomos-notice__icon">✕</span>
+          <div class="atomos-notice__body">
+            <div class="atomos-notice__title">Connection refused</div>
+            <div class="atomos-notice__msg">Unable to reach remote. Verify network and try again.</div>
           </div>
         </div>
       </div>
     </section>
 
-    <!-- CARDS -->
-    <section class="showcase-section">
-      <h2>Cards &amp; Tiles</h2>
-      <p class="section-desc">Cards sit on <code>--color-layer-01</code>. Tiles add hover/select interaction states.</p>
-      <div style="display:grid; grid-template-columns:repeat(auto-fill,minmax(240px,1fr)); gap:var(--space-3);">
-        <div class="ds-card">
-          <div class="ds-card__header">
-            <span class="ds-card__title">Standard Card</span>
-            <span class="ds-tag ds-tag--info">Active</span>
+    <!-- ATOMOS: CARDS -->
+    <section class="section" id="atomos-card">
+      <div class="section__head">
+        <span class="section__title">Atomos — Cards &amp; Tiles</span>
+        <span class="section__tier">Tier: Atomos / Indivisible</span>
+      </div>
+      <p class="section__desc">No border-radius. Depth via 1px border, not shadow. Cards contain; tiles navigate. Stat variant for dashboard KPIs.</p>
+      <div style="display:grid; grid-template-columns:repeat(auto-fill,minmax(220px,1fr)); gap:1px; background:var(--akasha-border); margin-bottom:var(--space-4);">
+        <div class="atomos-card">
+          <div class="atomos-card__header">
+            <span class="atomos-card__title">Standard</span>
+            <span class="atomos-tag atomos-tag--info">active</span>
           </div>
-          <div class="ds-card__body">Default card with border and shadow. Lives on layer-01.</div>
+          <div class="atomos-card__body">Default card on akasha-layer-01. Border is the only depth signal.</div>
         </div>
-        <div class="ds-card ds-card--flat">
-          <div class="ds-card__header">
-            <span class="ds-card__title">Flat Card</span>
+        <div class="atomos-card atomos-card--flat">
+          <div class="atomos-card__header">
+            <span class="atomos-card__title">Flat</span>
           </div>
-          <div class="ds-card__body">No shadow. Subtle border only. For dense layouts.</div>
+          <div class="atomos-card__body">Subtle border. For dense data layouts where structure is implicit.</div>
         </div>
-        <div class="ds-card ds-card--interactive" tabindex="0">
-          <div class="ds-card__header">
-            <span class="ds-card__title">Interactive Card</span>
+        <div class="atomos-card atomos-card--interactive" tabindex="0">
+          <div class="atomos-card__header">
+            <span class="atomos-card__title">Interactive</span>
           </div>
-          <div class="ds-card__body">Hover to see border highlight. Keyboard focusable.</div>
+          <div class="atomos-card__body">Hover to see border shift to interactive color. Keyboard accessible.</div>
         </div>
-        <div class="ds-tile" tabindex="0">
-          <div style="font-weight:600; color:var(--color-text-primary); margin-bottom:4px;">Tile Component</div>
-          <div style="font-size:var(--type-sm); color:var(--color-text-secondary);">Hover or click for selected state. Use for navigation items.</div>
+        <div class="atomos-tile" tabindex="0">
+          <div style="font-weight:600; color:var(--akasha-text-primary); margin-bottom:4px; font-size:var(--type-sm);">Tile</div>
+          <div style="font-size:var(--type-xs); color:var(--akasha-text-secondary); font-family:var(--font-mono);">hover → akasha-layer-02 + signal border</div>
+        </div>
+      </div>
+
+      <p style="font-size:var(--type-xs); font-weight:700; color:var(--akasha-text-disabled); text-transform:uppercase; letter-spacing:0.1em; margin-bottom:var(--space-2);">Stat — for dashboards</p>
+      <div style="display:grid; grid-template-columns:repeat(auto-fill,minmax(150px,1fr)); gap:1px; background:var(--akasha-border);">
+        <div class="atomos-stat atomos-stat--signal">
+          <div class="atomos-stat__eyebrow">Requests</div>
+          <div class="atomos-stat__value">2,847</div>
+          <div class="atomos-stat__delta atomos-stat__delta--up">↑ 12.4%</div>
+        </div>
+        <div class="atomos-stat atomos-stat--success">
+          <div class="atomos-stat__eyebrow">Uptime</div>
+          <div class="atomos-stat__value">99.2%</div>
+          <div class="atomos-stat__delta atomos-stat__delta--up">↑ 0.3%</div>
+        </div>
+        <div class="atomos-stat">
+          <div class="atomos-stat__eyebrow">Latency</div>
+          <div class="atomos-stat__value">148ms</div>
+          <div class="atomos-stat__delta atomos-stat__delta--down">↓ −8ms</div>
+        </div>
+        <div class="atomos-stat atomos-stat--error">
+          <div class="atomos-stat__eyebrow">Issues</div>
+          <div class="atomos-stat__value">14</div>
+          <div class="atomos-stat__delta atomos-stat__delta--down">↑ 3 today</div>
         </div>
       </div>
     </section>
 
-    <!-- STAT CARDS -->
-    <section class="showcase-section">
-      <h2>Stat Cards</h2>
-      <p class="section-desc">Large number + label + delta. Use <code>.ds-stat-card</code> for dashboards and summary panels.</p>
-      <div style="display:grid; grid-template-columns:repeat(auto-fill,minmax(160px,1fr)); gap:var(--space-3);">
-        <div class="ds-stat-card">
-          <div class="ds-stat-card__value">2,847</div>
-          <div class="ds-stat-card__label">Total requests</div>
-          <div class="ds-stat-card__delta ds-stat-card__delta--up">↑ 12.4% this week</div>
-        </div>
-        <div class="ds-stat-card">
-          <div class="ds-stat-card__value">99.2%</div>
-          <div class="ds-stat-card__label">Uptime</div>
-          <div class="ds-stat-card__delta ds-stat-card__delta--up">↑ 0.3%</div>
-        </div>
-        <div class="ds-stat-card">
-          <div class="ds-stat-card__value">148ms</div>
-          <div class="ds-stat-card__label">Avg latency</div>
-          <div class="ds-stat-card__delta ds-stat-card__delta--down">↓ 8ms slower</div>
-        </div>
-        <div class="ds-stat-card">
-          <div class="ds-stat-card__value">14</div>
-          <div class="ds-stat-card__label">Open issues</div>
-          <div class="ds-stat-card__delta ds-stat-card__delta--down">↑ 3 new today</div>
-        </div>
+    <!-- ATOMOS: FORMS -->
+    <section class="section" id="atomos-form">
+      <div class="section__head">
+        <span class="section__title">Atomos — Forms</span>
+        <span class="section__tier">Tier: Atomos / Indivisible</span>
       </div>
-    </section>
-
-    <!-- FORMS -->
-    <section class="showcase-section">
-      <h2>Forms</h2>
-      <p class="section-desc">Inputs, selects, textareas, and toggles. Focus state uses <code>--color-interactive</code> ring.</p>
+      <p class="section__desc">Focus state uses inset left-border (not glow ring). Labels are uppercase mono. No rounded inputs.</p>
       <div class="form-demo">
-        <div class="ds-form-group">
-          <label class="ds-label">Project name</label>
-          <input class="ds-input" type="text" placeholder="e.g. my-design-system">
+        <div class="atomos-field">
+          <label class="atomos-label">Project identifier</label>
+          <input class="atomos-input" type="text" placeholder="e.g. monad-system">
         </div>
-        <div class="ds-form-group">
-          <label class="ds-label">Platform</label>
-          <select class="ds-select">
+        <div class="atomos-field">
+          <label class="atomos-label">Platform target</label>
+          <select class="atomos-select">
             <option>HTML / CSS / JS</option>
             <option>Unity C#</option>
             <option>Python / Matplotlib</option>
           </select>
         </div>
-        <div class="ds-form-group">
-          <label class="ds-label">Notes</label>
-          <textarea class="ds-textarea" placeholder="Optional description..."></textarea>
-          <span class="ds-helper-text">Max 500 characters</span>
+        <div class="atomos-field">
+          <label class="atomos-label">Notes</label>
+          <textarea class="atomos-textarea" placeholder="Optional description..."></textarea>
+          <span class="atomos-helper">Max 500 characters</span>
         </div>
-        <div class="ds-form-group">
-          <label class="ds-label">API endpoint (error state)</label>
-          <input class="ds-input ds-input--error" type="text" value="not-a-valid-url">
-          <span class="ds-helper-text ds-helper-text--error">Must be a valid URL starting with https://</span>
+        <div class="atomos-field">
+          <label class="atomos-label">Endpoint — error state</label>
+          <input class="atomos-input atomos-input--error" type="text" value="not-a-valid-url">
+          <span class="atomos-helper atomos-helper--error">Must begin with https://</span>
         </div>
-        <div class="ds-form-group">
-          <label class="ds-toggle">
+        <div class="atomos-field">
+          <label class="atomos-switch">
             <input type="checkbox" checked>
-            <span class="ds-toggle__track"></span>
-            <span style="font-size:var(--type-sm); color:var(--color-text-secondary);">Enable notifications</span>
+            <span class="atomos-switch__track"></span>
+            <span class="atomos-switch__label">Enable notifications</span>
           </label>
         </div>
-        <div class="row-flex" style="margin-top:var(--space-2);">
-          <button class="ds-btn ds-btn--primary">Save settings</button>
-          <button class="ds-btn ds-btn--ghost">Cancel</button>
+        <div class="row" style="margin-top:var(--space-2);">
+          <button class="atomos-btn atomos-btn--primary">Save</button>
+          <button class="atomos-btn atomos-btn--ghost">Cancel</button>
         </div>
       </div>
     </section>
 
-    <!-- DATA TABLE -->
-    <section class="showcase-section">
-      <h2>Data Table</h2>
-      <p class="section-desc">Default and zebra-striped variants. Hover state built in.</p>
-      <div class="ds-table-wrap">
-        <table class="ds-table ds-table--zebra">
+    <!-- ATOMOS: TABLE -->
+    <section class="section" id="atomos-table">
+      <div class="section__head">
+        <span class="section__title">Atomos — Table</span>
+        <span class="section__tier">Tier: Atomos / Indivisible</span>
+      </div>
+      <p class="section__desc">Column headers are uppercase mono. Zebra stripes are <code>akasha-layer-01</code> / <code>akasha-bg</code>. Wrap in <code>.atomos-table-wrap</code> for overflow scroll.</p>
+      <div class="atomos-table-wrap">
+        <table class="atomos-table atomos-table--zebra">
           <thead>
             <tr>
-              <th>Name</th>
+              <th>Artifact</th>
               <th>Platform</th>
+              <th>Theme</th>
+              <th>Updated</th>
               <th>Status</th>
-              <th>Last updated</th>
-              <th>Size</th>
             </tr>
           </thead>
           <tbody>
             <tr>
-              <td><code class="ds-text-mono">design-system.css</code></td>
+              <td><code>monad.css</code></td>
               <td>HTML / CSS</td>
-              <td><span class="ds-tag ds-tag--success">Generated</span></td>
-              <td>Just now</td>
-              <td>18.4 KB</td>
+              <td><span class="atomos-tag atomos-tag--info">dual</span></td>
+              <td>just now</td>
+              <td><span class="atomos-tag atomos-tag--success">ready</span></td>
             </tr>
             <tr>
-              <td><code class="ds-text-mono">ColorPalette.cs</code></td>
+              <td><code>monad.js</code></td>
+              <td>HTML / JS</td>
+              <td><span class="atomos-tag atomos-tag--neutral">—</span></td>
+              <td>just now</td>
+              <td><span class="atomos-tag atomos-tag--success">ready</span></td>
+            </tr>
+            <tr>
+              <td><code>ColorPalette.cs</code></td>
               <td>Unity C#</td>
-              <td><span class="ds-tag ds-tag--success">Generated</span></td>
-              <td>Just now</td>
-              <td>3.1 KB</td>
+              <td><span class="atomos-tag atomos-tag--neutral">dark</span></td>
+              <td>just now</td>
+              <td><span class="atomos-tag atomos-tag--success">ready</span></td>
             </tr>
             <tr>
-              <td><code class="ds-text-mono">ColorPaletteLight.cs</code></td>
+              <td><code>ColorPaletteLight.cs</code></td>
               <td>Unity C#</td>
-              <td><span class="ds-tag ds-tag--success">Generated</span></td>
-              <td>Just now</td>
-              <td>3.1 KB</td>
+              <td><span class="atomos-tag atomos-tag--warning">light</span></td>
+              <td>just now</td>
+              <td><span class="atomos-tag atomos-tag--success">ready</span></td>
             </tr>
             <tr>
-              <td><code class="ds-text-mono">seaborn_palette.py</code></td>
+              <td><code>seaborn_palette.py</code></td>
               <td>Python</td>
-              <td><span class="ds-tag ds-tag--success">Generated</span></td>
-              <td>Just now</td>
-              <td>4.2 KB</td>
-            </tr>
-            <tr>
-              <td><code class="ds-text-mono">SKILL.md</code></td>
-              <td>Cursor / AI</td>
-              <td><span class="ds-tag ds-tag--info">Static</span></td>
-              <td>Today</td>
-              <td>6.8 KB</td>
+              <td><span class="atomos-tag atomos-tag--info">dual</span></td>
+              <td>just now</td>
+              <td><span class="atomos-tag atomos-tag--success">ready</span></td>
             </tr>
           </tbody>
         </table>
       </div>
     </section>
 
-    <!-- PROGRESS -->
-    <section class="showcase-section">
-      <h2>Progress</h2>
-      <p class="section-desc">Use <code>--progress</code> CSS variable to set fill width. Color variants match semantic tokens.</p>
+    <!-- ATOMOS: PROGRESS -->
+    <section class="section" id="atomos-progress">
+      <div class="section__head">
+        <span class="section__title">Atomos — Progress</span>
+        <span class="section__tier">Tier: Atomos / Indivisible</span>
+      </div>
+      <p class="section__desc">4px tall — functional, not decorative. Set <code>--progress: N%</code> on the fill. No radius.</p>
       <div class="progress-demos">
         <div class="progress-row">
-          <span>Interactive</span>
-          <div class="ds-progress"><div class="ds-progress__bar" style="--progress:72%"></div></div>
-          <span style="width:36px; text-align:right; color:var(--color-text-primary);">72%</span>
+          <span>signal</span>
+          <div class="atomos-progress"><div class="atomos-progress__fill" style="--progress:72%"></div></div>
+          <span style="width:36px;">72%</span>
         </div>
         <div class="progress-row">
-          <span>Success</span>
-          <div class="ds-progress"><div class="ds-progress__bar ds-progress__bar--success" style="--progress:100%"></div></div>
-          <span style="width:36px; text-align:right; color:var(--color-support-success);">100%</span>
+          <span>success</span>
+          <div class="atomos-progress"><div class="atomos-progress__fill atomos-progress__fill--success" style="--progress:100%"></div></div>
+          <span style="width:36px;">100%</span>
         </div>
         <div class="progress-row">
-          <span>Warning</span>
-          <div class="ds-progress"><div class="ds-progress__bar ds-progress__bar--warning" style="--progress:45%"></div></div>
-          <span style="width:36px; text-align:right; color:var(--color-support-warning);">45%</span>
+          <span>warning</span>
+          <div class="atomos-progress"><div class="atomos-progress__fill atomos-progress__fill--warning" style="--progress:45%"></div></div>
+          <span style="width:36px;">45%</span>
         </div>
         <div class="progress-row">
-          <span>Error</span>
-          <div class="ds-progress"><div class="ds-progress__bar ds-progress__bar--error" style="--progress:18%"></div></div>
-          <span style="width:36px; text-align:right; color:var(--color-support-error);">18%</span>
+          <span>error</span>
+          <div class="atomos-progress"><div class="atomos-progress__fill atomos-progress__fill--error" style="--progress:18%"></div></div>
+          <span style="width:36px;">18%</span>
         </div>
       </div>
     </section>
 
-    <!-- MOVEMENT HOLDS -->
-    <section class="showcase-section">
-      <h2>Movement Domain</h2>
-      <p class="section-desc">Domain-specific hold colors for climbing / motion / sequence visualization. Never use these for general UI status.</p>
-      <div class="row-flex">
-        <span class="ds-hold ds-hold--start">Start</span>
-        <span class="ds-hold ds-hold--hand">Hand</span>
-        <span class="ds-hold ds-hold--foot">Foot</span>
-        <span class="ds-hold ds-hold--finish">Finish</span>
+    <!-- ATOMOS: DOMAIN HOLDS -->
+    <section class="section" id="atomos-hold">
+      <div class="section__head">
+        <span class="section__title">Atomos — Domain Holds</span>
+        <span class="section__tier">Tier: Atomos / Movement Domain</span>
       </div>
-      <div class="code-block">&lt;span class="ds-hold ds-hold--start"&gt;Start&lt;/span&gt;</div>
+      <p class="section__desc">These colors are domain-specific and must not be repurposed for generic UI status. They map to physical movement classifications.</p>
+      <div class="row">
+        <span class="atomos-hold atomos-hold--start">Start</span>
+        <span class="atomos-hold atomos-hold--hand">Hand</span>
+        <span class="atomos-hold atomos-hold--foot">Foot</span>
+        <span class="atomos-hold atomos-hold--finish">Finish</span>
+      </div>
+      <div class="code-block">&lt;span class="atomos-hold atomos-hold--start"&gt;Start&lt;/span&gt;</div>
     </section>
 
-    <!-- NAVIGATION SHELL DEMO -->
-    <section class="showcase-section">
-      <h2>Navigation Shell</h2>
-      <p class="section-desc">Header + sidenav + content layout. See <code>samples/dashboard.html</code> for a full working demo.</p>
-      <div style="border:1px solid var(--color-border); border-radius:var(--radius-md); overflow:hidden; height:280px;">
-        <div style="display:flex; align-items:center; gap:var(--space-2); height:48px; padding:0 var(--space-2); background:var(--color-layer-01); border-bottom:1px solid var(--color-border);">
-          <span style="font-size:var(--type-sm); font-weight:600; color:var(--color-text-primary);">AppName</span>
-          <span style="font-size:var(--type-sm); color:var(--color-text-secondary); margin-left:var(--space-2);">Overview</span>
-          <span style="font-size:var(--type-sm); color:var(--color-text-secondary);">Analytics</span>
-          <span style="font-size:var(--type-sm); color:var(--color-text-secondary);">Settings</span>
-          <div style="margin-left:auto; display:flex; gap:var(--space-1);">
-            <button class="ds-btn ds-btn--ghost ds-btn--sm">Help</button>
+    <!-- MONAD: SHELL PREVIEW -->
+    <section class="section" id="monad-shell">
+      <div class="section__head">
+        <span class="section__title">Monad — Shell Preview</span>
+        <span class="section__tier">Tier: Monad / Structural</span>
+      </div>
+      <p class="section__desc">The structural skeleton. Header (48px fixed) + rail (240px) + content. See <code>dashboard.html</code> for a full working Monad shell.</p>
+      <div style="border:1px solid var(--akasha-border); overflow:hidden; height:260px;">
+        <div style="display:flex; align-items:center; gap:var(--space-2); height:48px; padding:0 var(--space-2); background:var(--akasha-layer-01); border-bottom:1px solid var(--akasha-border);">
+          <span style="font-size:var(--type-xs); font-weight:700; font-family:var(--font-mono); color:var(--akasha-text-primary); letter-spacing:0.06em; text-transform:uppercase;">Monad</span>
+          <span style="font-size:var(--type-xs); font-family:var(--font-mono); color:var(--akasha-text-secondary); border-bottom:2px solid var(--akasha-interactive); padding-bottom:1px;">Overview</span>
+          <span style="font-size:var(--type-xs); font-family:var(--font-mono); color:var(--akasha-text-disabled);">Rail</span>
+          <span style="font-size:var(--type-xs); font-family:var(--font-mono); color:var(--akasha-text-disabled);">Akasha</span>
+          <div style="margin-left:auto;">
+            <button class="akasha-toggle" aria-label="Theme">◑</button>
           </div>
         </div>
         <div style="display:flex; height:calc(100% - 48px);">
-          <div style="width:200px; background:var(--color-layer-01); border-right:1px solid var(--color-border); padding:var(--space-2) 0; font-size:var(--type-sm);">
-            <div style="padding:var(--space-1) var(--space-2); color:var(--color-interactive); border-left:3px solid var(--color-interactive); padding-left:calc(var(--space-2) - 3px); background:var(--color-layer-02);">Dashboard</div>
-            <div style="padding:var(--space-1) var(--space-2); color:var(--color-text-secondary);">Reports</div>
-            <div style="padding:var(--space-1) var(--space-2); color:var(--color-text-secondary);">Users</div>
-            <div style="padding:var(--space-1) var(--space-2); color:var(--color-text-secondary);">Settings</div>
+          <div style="width:160px; background:var(--akasha-layer-01); border-right:1px solid var(--akasha-border); font-size:var(--type-xs); font-family:var(--font-mono);">
+            <div style="padding:6px var(--space-2); color:var(--akasha-interactive); border-left:2px solid var(--akasha-interactive); background:var(--akasha-layer-02);">/ overview</div>
+            <div style="padding:6px var(--space-2); color:var(--akasha-text-disabled);">/ analytics</div>
+            <div style="padding:6px var(--space-2); color:var(--akasha-text-disabled);">/ deployments</div>
+            <div style="padding:6px var(--space-2); color:var(--akasha-text-disabled);">/ settings</div>
           </div>
-          <div style="flex:1; padding:var(--space-3); background:var(--color-bg);">
-            <p style="color:var(--color-text-secondary); font-size:var(--type-sm);">← Content area on <code>--color-bg</code></p>
+          <div style="flex:1; padding:var(--space-3); background:var(--akasha-bg);">
+            <div style="font-size:var(--type-xs); font-family:var(--font-mono); color:var(--akasha-text-disabled);">monad-content — akasha-bg — full page content renders here</div>
           </div>
         </div>
       </div>
@@ -581,6 +540,5 @@
 
   </main>
 
-  <!-- design-system.js handles theme, hamburger, and sidenav automatically -->
 </body>
 </html>
