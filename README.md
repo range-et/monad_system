@@ -6,6 +6,8 @@ A personal design language built on `colors.json`.
 
 This is not Carbon. Not shadcn. It is an **engineered framework** — orthogonal, materially honest, and multi-platform.
 
+The name comes from Leibniz: a monad is a fundamental, indivisible unit that contains its own complete world. One source of truth. Everything derives from it.
+
 ---
 
 ## Tiers
@@ -45,6 +47,8 @@ python src/compile_color.py --json_path colors.json --output_path build/
 | `build/ColorPalette.cs` | Unity C# | Dark | Static color class — dark Strata |
 | `build/ColorPaletteLight.cs` | Unity C# | Light | Static color class — light Strata |
 | `build/seaborn_palette.py` | Python | Dual | matplotlib / seaborn palette helpers |
+| `build/themes/vscode/` | VS Code / Cursor | Dark + Light | Editor color theme extension |
+| `build/themes/ghostty/` | Ghostty | Dark + Light | Terminal color theme |
 
 ---
 
@@ -264,6 +268,47 @@ Shared across both themes: interactive, status, movement domain colors.
 | Lora | `--font-serif` | Editorial / longform only |
 
 All loaded from Google Fonts.
+
+---
+
+## VS Code / Cursor Theme
+
+Dark and light editor themes, generated from `colors.json`.
+
+```bash
+make install        # build + install to both VS Code and Cursor
+```
+
+Themes are copied to:
+- `~/.vscode/extensions/monad-system.monad-system-theme-1.0.0/`
+- `~/.cursor/extensions/monad-system.monad-system-theme-1.0.0/`
+
+After install, **fully quit and reopen** the editor, then `Cmd+K Cmd+T` → select **Monad Dark** or **Monad Light**.
+
+To package for the Marketplace:
+
+```bash
+make vsce-install   # one-time: installs vsce
+make package-vscode # → build/themes/vscode/monad-system-theme.vsix
+make publish-vscode # publish (requires vsce login first)
+```
+
+---
+
+## Ghostty Theme
+
+Terminal themes for [Ghostty](https://ghostty.org), generated from `colors.json`.
+
+```bash
+make install-ghostty
+```
+
+Themes are copied to `~/.config/ghostty/themes/`. Activate in `~/.config/ghostty/config`:
+
+```
+# Auto-switches with macOS dark/light mode
+theme = light:Monad Light,dark:Monad Dark
+```
 
 ---
 

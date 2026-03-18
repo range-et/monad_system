@@ -1,0 +1,55 @@
+{
+  "name": "monad-system-theme",
+  "displayName": "Monad System",
+  "description": "Dark and light color themes derived from the Monad System design language. Engineered precision \u2014 every color earns its place.",
+  "version": "1.0.0",
+  "publisher": "monad-system",
+  "license": "MIT",
+  "icon": "icon.png",
+  "engines": {
+    "vscode": "^1.60.0"
+  },
+  "categories": [
+    "Themes"
+  ],
+  "keywords": [
+    "theme",
+    "dark",
+    "light",
+    "minimal",
+    "monad",
+    "design system",
+    "flat",
+    "high contrast"
+  ],
+  "galleryBanner": {
+    "color": "#121212",
+    "theme": "dark"
+  },
+  "contributes": {
+    "themes": [
+      {
+        "label": "Monad Dark",
+        "uiTheme": "vs-dark",
+        "path": "./monad-dark-color-theme.json"
+      },
+      {
+        "label": "Monad Light",
+        "uiTheme": "vs",
+        "path": "./monad-light-color-theme.json"
+      }
+    ]
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/monad-system/monad-system-theme"
+  },
+  "files": [
+    "monad-dark-color-theme.json",
+    "monad-light-color-theme.json",
+    "package.json",
+    "README.md",
+    "LICENSE",
+    "icon.png"
+  ]
+}

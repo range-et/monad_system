@@ -1,0 +1,41 @@
+# Monad Light
+# Derived from the Monad System design language — colors.json
+# Generated 2026-03-18
+#
+# Install:  cp "Monad Light" ~/.config/ghostty/themes/
+# Activate: theme = Monad Light
+# OS sync:  theme = light:Monad Light,dark:Monad Dark
+
+# ── Canvas ───────────────────────────────────────────────────────────────────
+background = #f4f4f4
+foreground = #161616
+
+# ── Cursor ───────────────────────────────────────────────────────────────────
+cursor-color       = #028FCF
+cursor-text        = #ffffff
+cursor-style       = block
+cursor-style-blink = true
+
+# ── Selection ────────────────────────────────────────────────────────────────
+selection-background = #ABD5E8
+selection-foreground = #161616
+
+# ── ANSI palette — normal (0-7) ───────────────────────────────────────────────
+palette = 0=#161616
+palette = 1=#AA2E25
+palette = 2=#5A7E30
+palette = 3=#E5AD06
+palette = 4=#028FCF
+palette = 5=#6D1B7B
+palette = 6=#007A89
+palette = 7=#525252
+
+# ── ANSI palette — bright (8-15) ──────────────────────────────────────────────
+palette = 8=#8d8d8d
+palette = 9=#F44336
+palette = 10=#8BC34A
+palette = 11=#FFC107
+palette = 12=#03A9F4
+palette = 13=#9C27B0
+palette = 14=#00BCD4
+palette = 15=#ffffff
