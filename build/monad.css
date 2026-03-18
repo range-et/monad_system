@@ -176,10 +176,27 @@ code, pre {
 code { padding: 1px 5px; }
 pre  { padding: var(--space-2); overflow-x: auto; border-left: 2px solid var(--strata-interactive); }
 
+::selection {
+  background: #03A9F4;
+  color: #121212;
+}
+
 :focus-visible {
   outline: 2px solid var(--strata-interactive);
   outline-offset: 1px;
 }
+
+/* Scrollbar — Webkit (Chrome, Safari, Edge) */
+::-webkit-scrollbar { width: 8px; height: 8px; }
+::-webkit-scrollbar-track { background: var(--strata-bg); }
+::-webkit-scrollbar-thumb {
+  background: var(--strata-border);
+  border: 2px solid var(--strata-bg);
+}
+::-webkit-scrollbar-thumb:hover { background: var(--strata-interactive); }
+
+/* Scrollbar — Firefox */
+* { scrollbar-width: thin; scrollbar-color: var(--strata-border) var(--strata-bg); }
 
 /* =========================================================================
    MONAD — GRID  (8px base unit, 16 columns)
