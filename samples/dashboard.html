@@ -14,7 +14,7 @@
     .avatar {
       width: 26px;
       height: 26px;
-      background: var(--akasha-interactive);
+      background: var(--strata-interactive);
       color: #fff;
       font-size: var(--type-xs);
       font-weight: 700;
@@ -36,7 +36,7 @@
     .app-main {
       flex: 1;
       overflow-y: auto;
-      background: var(--akasha-bg);
+      background: var(--strata-bg);
       padding: var(--space-4);
       display: flex;
       flex-direction: column;
@@ -56,13 +56,13 @@
     .titlebar h1 {
       font-size: var(--type-2xl);
       font-weight: 300;
-      color: var(--akasha-text-primary);
+      color: var(--strata-text-primary);
       letter-spacing: -0.02em;
     }
     .titlebar__sub {
       font-size: var(--type-xs);
       font-family: var(--font-mono);
-      color: var(--akasha-text-disabled);
+      color: var(--strata-text-disabled);
       margin-top: 4px;
     }
     .titlebar__actions { display: flex; gap: var(--space-1); align-items: center; }
@@ -72,7 +72,7 @@
       display: grid;
       grid-template-columns: repeat(4, 1fr);
       gap: 1px;
-      background: var(--akasha-border);
+      background: var(--strata-border);
     }
     @media (max-width: 1100px) { .stat-grid { grid-template-columns: repeat(2, 1fr); } }
     @media (max-width: 640px)  { .stat-grid { grid-template-columns: repeat(2, 1fr); } }
@@ -87,12 +87,12 @@
 
     /* Feed */
     .feed {
-      background: var(--akasha-layer-01);
-      border: 1px solid var(--akasha-border);
+      background: var(--strata-layer-01);
+      border: 1px solid var(--strata-border);
     }
     .feed__head {
       padding: var(--space-2) var(--space-3);
-      border-bottom: 1px solid var(--akasha-border-subtle);
+      border-bottom: 1px solid var(--strata-border-subtle);
       display: flex;
       align-items: center;
       justify-content: space-between;
@@ -100,7 +100,7 @@
     .feed__title {
       font-size: var(--type-sm);
       font-weight: 600;
-      color: var(--akasha-text-primary);
+      color: var(--strata-text-primary);
       letter-spacing: 0.01em;
     }
     .feed__item {
@@ -108,10 +108,10 @@
       align-items: flex-start;
       gap: var(--space-2);
       padding: var(--space-2) var(--space-3);
-      border-bottom: 1px solid var(--akasha-border-subtle);
+      border-bottom: 1px solid var(--strata-border-subtle);
       transition: background var(--threshold-fast);
     }
-    .feed__item:hover { background: var(--akasha-layer-02); }
+    .feed__item:hover { background: var(--strata-layer-02); }
     .feed__item:last-child { border-bottom: none; }
     .feed__line {
       width: 2px;
@@ -120,30 +120,30 @@
       margin-top: 4px;
       flex-shrink: 0;
     }
-    .feed__line--success { background: var(--akasha-success); }
-    .feed__line--warning { background: var(--akasha-warning); }
-    .feed__line--error   { background: var(--akasha-error); }
-    .feed__line--info    { background: var(--akasha-info); }
-    .feed__line--neutral { background: var(--akasha-border); }
+    .feed__line--success { background: var(--strata-success); }
+    .feed__line--warning { background: var(--strata-warning); }
+    .feed__line--error   { background: var(--strata-error); }
+    .feed__line--info    { background: var(--strata-info); }
+    .feed__line--neutral { background: var(--strata-border); }
     .feed__body { flex: 1; min-width: 0; }
-    .feed__text { font-size: var(--type-sm); color: var(--akasha-text-primary); }
+    .feed__text { font-size: var(--type-sm); color: var(--strata-text-primary); }
     .feed__text strong { font-weight: 600; }
-    .feed__time { font-size: var(--type-xs); font-family: var(--font-mono); color: var(--akasha-text-disabled); margin-top: 2px; }
+    .feed__time { font-size: var(--type-xs); font-family: var(--font-mono); color: var(--strata-text-disabled); margin-top: 2px; }
 
     /* Side panel */
     .side-panel { display: flex; flex-direction: column; gap: var(--space-3); }
 
     .panel {
-      background: var(--akasha-layer-01);
-      border: 1px solid var(--akasha-border);
+      background: var(--strata-layer-01);
+      border: 1px solid var(--strata-border);
     }
     .panel__head {
       padding: var(--space-2) var(--space-3);
-      border-bottom: 1px solid var(--akasha-border-subtle);
+      border-bottom: 1px solid var(--strata-border-subtle);
       font-size: var(--type-xs);
       font-weight: 700;
       font-family: var(--font-mono);
-      color: var(--akasha-text-disabled);
+      color: var(--strata-text-disabled);
       text-transform: uppercase;
       letter-spacing: 0.1em;
     }
@@ -156,7 +156,7 @@
       justify-content: space-between;
       font-size: var(--type-xs);
     }
-    .status-row__name { color: var(--akasha-text-secondary); font-family: var(--font-mono); }
+    .status-row__name { color: var(--strata-text-secondary); font-family: var(--font-mono); }
     .status-sig {
       display: flex;
       align-items: center;
@@ -173,17 +173,17 @@
       justify-content: space-between;
       align-items: baseline;
     }
-    .metric-row__name { font-size: var(--type-xs); font-family: var(--font-mono); color: var(--akasha-text-secondary); }
-    .metric-row__val  { font-size: var(--type-xs); font-weight: 700; font-family: var(--font-mono); color: var(--akasha-text-primary); }
+    .metric-row__name { font-size: var(--type-xs); font-family: var(--font-mono); color: var(--strata-text-secondary); }
+    .metric-row__val  { font-size: var(--type-xs); font-weight: 700; font-family: var(--font-mono); color: var(--strata-text-primary); }
 
     /* Table section */
     .table-section {
-      background: var(--akasha-layer-01);
-      border: 1px solid var(--akasha-border);
+      background: var(--strata-layer-01);
+      border: 1px solid var(--strata-border);
     }
     .table-section__head {
       padding: var(--space-2) var(--space-3);
-      border-bottom: 1px solid var(--akasha-border-subtle);
+      border-bottom: 1px solid var(--strata-border-subtle);
       display: flex;
       align-items: center;
       justify-content: space-between;
@@ -192,7 +192,7 @@
       font-size: var(--type-xs);
       font-weight: 700;
       font-family: var(--font-mono);
-      color: var(--akasha-text-disabled);
+      color: var(--strata-text-disabled);
       text-transform: uppercase;
       letter-spacing: 0.1em;
     }
@@ -210,9 +210,9 @@
       <span class="threshold-toggle__bar"></span>
       <span class="threshold-toggle__bar"></span>
     </button>
-    <div style="width:20px; height:20px; background:var(--akasha-interactive); display:flex; align-items:center; justify-content:center; font-size:10px; font-weight:800; font-family:var(--font-mono); color:#fff; letter-spacing:-0.05em; flex-shrink:0;">M</div>
+    <div style="width:20px; height:20px; background:var(--strata-interactive); display:flex; align-items:center; justify-content:center; font-size:10px; font-weight:800; font-family:var(--font-mono); color:#fff; letter-spacing:-0.05em; flex-shrink:0;">M</div>
     <span class="monad-header__name mn-hide-sm">Workspace</span>
-    <div style="width:1px; height:16px; background:var(--akasha-border); margin:0 4px;" class="mn-hide-md"></div>
+    <div style="width:1px; height:16px; background:var(--strata-border); margin:0 4px;" class="mn-hide-md"></div>
     <nav class="threshold-nav mn-hide-md" aria-label="Main navigation">
       <a href="#" class="active">Overview</a>
       <a href="#">Analytics</a>
@@ -221,7 +221,7 @@
     </nav>
     <div class="monad-header__actions">
       <button class="atomos-btn atomos-btn--primary atomos-btn--sm mn-hide-sm">+ Deploy</button>
-      <button class="akasha-toggle" data-mn-theme-toggle aria-label="Toggle theme">◑</button>
+      <button class="strata-toggle" data-mn-theme-toggle aria-label="Toggle theme">◑</button>
       <div class="avatar">R</div>
     </div>
   </header>
@@ -246,7 +246,7 @@
 
       <div class="monad-rail__section" style="margin-top:var(--space-2);">Monad</div>
       <a class="monad-rail__item" href="components.html">✦ Atomos</a>
-      <a class="monad-rail__item" href="#">◐ Akasha</a>
+      <a class="monad-rail__item" href="#">◐ Strata</a>
     </nav>
 
     <!-- App Main -->
@@ -286,7 +286,7 @@
           </div>
         </div>
         <div class="atomos-stat atomos-stat--success">
-          <div class="atomos-stat__eyebrow">Akasha tokens</div>
+          <div class="atomos-stat__eyebrow">Strata tokens</div>
           <div class="atomos-stat__value">38</div>
           <div class="atomos-stat__delta atomos-stat__delta--up">↑ dark + light sets</div>
           <div style="margin-top:var(--space-2);">
@@ -304,7 +304,7 @@
         <div class="atomos-stat">
           <div class="atomos-stat__eyebrow">Platforms</div>
           <div class="atomos-stat__value">3</div>
-          <div class="atomos-stat__delta" style="color:var(--akasha-info);">CSS · C# · Python</div>
+          <div class="atomos-stat__delta" style="color:var(--strata-info);">CSS · C# · Python</div>
           <div style="margin-top:var(--space-2);">
             <div class="atomos-progress"><div class="atomos-progress__fill atomos-progress__fill--success" style="--progress:100%"></div></div>
           </div>
@@ -331,7 +331,7 @@
           <div class="feed__item">
             <div class="feed__line feed__line--success"></div>
             <div class="feed__body">
-              <div class="feed__text"><strong>monad.css</strong> — dual-theme Akasha tokens + Atomos component library generated</div>
+              <div class="feed__text"><strong>monad.css</strong> — dual-theme Strata tokens + Atomos component library generated</div>
               <div class="feed__time">just now</div>
             </div>
             <span class="atomos-tag atomos-tag--info">css</span>
@@ -339,7 +339,7 @@
           <div class="feed__item">
             <div class="feed__line feed__line--success"></div>
             <div class="feed__body">
-              <div class="feed__text"><strong>monad.js</strong> — Akasha toggle, Threshold nav, Rail drawer runtime generated</div>
+              <div class="feed__text"><strong>monad.js</strong> — Strata toggle, Threshold nav, Rail drawer runtime generated</div>
               <div class="feed__time">just now</div>
             </div>
             <span class="atomos-tag atomos-tag--info">js</span>
@@ -355,7 +355,7 @@
           <div class="feed__item">
             <div class="feed__line feed__line--info"></div>
             <div class="feed__body">
-              <div class="feed__text"><strong>seaborn_palette.py</strong> — matplotlib / seaborn Akasha palette helpers generated</div>
+              <div class="feed__text"><strong>seaborn_palette.py</strong> — matplotlib / seaborn Strata palette helpers generated</div>
               <div class="feed__time">just now</div>
             </div>
             <span class="atomos-tag atomos-tag--info">py</span>
@@ -388,36 +388,36 @@
                 <div class="status-row">
                   <span class="status-row__name">monad.css</span>
                   <div class="status-sig">
-                    <div class="status-pip" style="background:var(--akasha-success)"></div>
-                    <span style="color:var(--akasha-success);">ok</span>
+                    <div class="status-pip" style="background:var(--strata-success)"></div>
+                    <span style="color:var(--strata-success);">ok</span>
                   </div>
                 </div>
                 <div class="status-row">
                   <span class="status-row__name">monad.js</span>
                   <div class="status-sig">
-                    <div class="status-pip" style="background:var(--akasha-success)"></div>
-                    <span style="color:var(--akasha-success);">ok</span>
+                    <div class="status-pip" style="background:var(--strata-success)"></div>
+                    <span style="color:var(--strata-success);">ok</span>
                   </div>
                 </div>
                 <div class="status-row">
                   <span class="status-row__name">Unity C#</span>
                   <div class="status-sig">
-                    <div class="status-pip" style="background:var(--akasha-success)"></div>
-                    <span style="color:var(--akasha-success);">ok</span>
+                    <div class="status-pip" style="background:var(--strata-success)"></div>
+                    <span style="color:var(--strata-success);">ok</span>
                   </div>
                 </div>
                 <div class="status-row">
                   <span class="status-row__name">Python</span>
                   <div class="status-sig">
-                    <div class="status-pip" style="background:var(--akasha-success)"></div>
-                    <span style="color:var(--akasha-success);">ok</span>
+                    <div class="status-pip" style="background:var(--strata-success)"></div>
+                    <span style="color:var(--strata-success);">ok</span>
                   </div>
                 </div>
                 <div class="status-row">
-                  <span class="status-row__name">Akasha toggle</span>
+                  <span class="status-row__name">Strata toggle</span>
                   <div class="status-sig">
-                    <div class="status-pip" style="background:var(--akasha-info)"></div>
-                    <span style="color:var(--akasha-info);">dark/light</span>
+                    <div class="status-pip" style="background:var(--strata-info)"></div>
+                    <span style="color:var(--strata-info);">dark/light</span>
                   </div>
                 </div>
               </div>
@@ -505,28 +505,28 @@
                 <td><code>monad.css</code></td>
                 <td>HTML / CSS</td>
                 <td><span class="atomos-tag atomos-tag--info">dual</span></td>
-                <td>Full Monad System — Akasha + Atomos + Monad + Threshold</td>
+                <td>Full Monad System — Strata + Atomos + Monad + Threshold</td>
                 <td><span class="atomos-tag atomos-tag--success">ready</span></td>
               </tr>
               <tr>
                 <td><code>monad.js</code></td>
                 <td>HTML / JS</td>
                 <td><span class="atomos-tag atomos-tag--neutral">—</span></td>
-                <td>Akasha toggle · Threshold nav · Rail drawer</td>
+                <td>Strata toggle · Threshold nav · Rail drawer</td>
                 <td><span class="atomos-tag atomos-tag--success">ready</span></td>
               </tr>
               <tr>
                 <td><code>ColorPalette.cs</code></td>
                 <td>Unity C#</td>
                 <td><span class="atomos-tag atomos-tag--neutral">dark</span></td>
-                <td>Static Unity color class — dark Akasha</td>
+                <td>Static Unity color class — dark Strata</td>
                 <td><span class="atomos-tag atomos-tag--success">ready</span></td>
               </tr>
               <tr>
                 <td><code>ColorPaletteLight.cs</code></td>
                 <td>Unity C#</td>
                 <td><span class="atomos-tag atomos-tag--warning">light</span></td>
-                <td>Static Unity color class — light Akasha</td>
+                <td>Static Unity color class — light Strata</td>
                 <td><span class="atomos-tag atomos-tag--success">ready</span></td>
               </tr>
               <tr>

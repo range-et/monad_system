@@ -12,7 +12,7 @@ This is not Carbon. Not shadcn. It is an **engineered framework** — orthogonal
 
 | Tier | Role | Scope |
 |---|---|---|
-| **Akasha** | Connective state — CSS tokens, theme | `--akasha-*` |
+| **Strata** | Connective state — CSS tokens, theme | `--strata-*` |
 | **Monad** | Structural layout — root containers | `.monad-*` |
 | **Atomos** | Primitive components — indivisible units | `.atomos-*` |
 | **Threshold** | Navigation & transitions | `.threshold-*` |
@@ -29,11 +29,11 @@ python src/compile_color.py --json_path colors.json --output_path build/
 
 | File | Platform | Theme | Description |
 |---|---|---|---|
-| `build/monad.css` | HTML / CSS | Dark + Light | Full Monad System — Akasha tokens, Atomos components, Monad layout, Threshold nav |
-| `build/monad.js` | HTML / JS | — | Akasha toggle, Threshold nav, Rail drawer runtime |
+| `build/monad.css` | HTML / CSS | Dark + Light | Full Monad System — Strata tokens, Atomos components, Monad layout, Threshold nav |
+| `build/monad.js` | HTML / JS | — | Strata toggle, Threshold nav, Rail drawer runtime |
 | `build/ColorPalette.css` | HTML / CSS | Dark | Raw CSS token variables only |
-| `build/ColorPalette.cs` | Unity C# | Dark | Static color class — dark Akasha |
-| `build/ColorPaletteLight.cs` | Unity C# | Light | Static color class — light Akasha |
+| `build/ColorPalette.cs` | Unity C# | Dark | Static color class — dark Strata |
+| `build/ColorPaletteLight.cs` | Unity C# | Light | Static color class — light Strata |
 | `build/seaborn_palette.py` | Python | Dual | matplotlib / seaborn palette helpers |
 
 ---
@@ -66,7 +66,7 @@ python src/compile_color.py --json_path colors.json --output_path build/
 
 ### Theming
 
-Dark is default (`:root`). Light is `[data-akasha="light"]`.
+Dark is default (`:root`). Light is `[data-strata="light"]`.
 
 ```html
 <button data-mn-theme-toggle>◑</button>
@@ -84,7 +84,7 @@ Dark is default (`:root`). Light is `[data-akasha="light"]`.
     <a href="#" class="active">Overview</a>
   </nav>
   <div class="monad-header__actions">
-    <button class="akasha-toggle" data-mn-theme-toggle>◑</button>
+    <button class="strata-toggle" data-mn-theme-toggle>◑</button>
   </div>
 </header>
 
@@ -168,13 +168,13 @@ Dark is default (`:root`). Light is `[data-akasha="light"]`.
 
 ### Custom Styles
 
-Reference only Akasha tokens:
+Reference only Strata tokens:
 
 ```css
 .my-component {
-  background: var(--akasha-layer-01);
-  border: 1px solid var(--akasha-border);
-  color: var(--akasha-text-primary);
+  background: var(--strata-layer-01);
+  border: 1px solid var(--strata-border);
+  color: var(--strata-text-primary);
   transition: background var(--threshold-fast);
 }
 ```
@@ -184,11 +184,11 @@ Reference only Akasha tokens:
 ## Unity C#
 
 ```csharp
-// Dark Akasha
+// Dark Strata
 Color bg = ColorPalette.Background;
 Color signal = ColorPalette.Information2;
 
-// Light Akasha
+// Light Strata
 Color bgLight = ColorPaletteLight.Background;
 ```
 
@@ -216,32 +216,32 @@ sns.barplot(x=..., y=..., palette=CATEGORICAL)
 
 Defined in `colors.json`. Two sections:
 
-- `Default_Colors` — dark Akasha ground + all shared semantic colors
-- `Light_Mode` — light Akasha ground overrides
+- `Default_Colors` — dark Strata ground + all shared semantic colors
+- `Light_Mode` — light Strata ground overrides
 
 Shared across both themes: interactive, status, movement domain colors.
 
-### Dark Akasha
+### Dark Strata
 
 | Token | Hex | Role |
 |---|---|---|
-| `--akasha-bg` | `#121212` | Ground |
-| `--akasha-layer-01` | `#1e1e1e` | Raised surface |
-| `--akasha-layer-02` | `#262626` | Double-raised |
-| `--akasha-layer-03` | `#333333` | Triple-raised |
-| `--akasha-interactive` | `#03A9F4` | Signal blue |
-| `--akasha-success` | `#8BC34A` | |
-| `--akasha-warning` | `#FFC107` | |
-| `--akasha-error` | `#F44336` | |
+| `--strata-bg` | `#121212` | Ground |
+| `--strata-layer-01` | `#1e1e1e` | Raised surface |
+| `--strata-layer-02` | `#262626` | Double-raised |
+| `--strata-layer-03` | `#333333` | Triple-raised |
+| `--strata-interactive` | `#03A9F4` | Signal blue |
+| `--strata-success` | `#8BC34A` | |
+| `--strata-warning` | `#FFC107` | |
+| `--strata-error` | `#F44336` | |
 
-### Light Akasha
+### Light Strata
 
 | Token | Hex | Role |
 |---|---|---|
-| `--akasha-bg` | `#f4f4f4` | Ground |
-| `--akasha-layer-01` | `#ffffff` | Raised surface |
-| `--akasha-layer-02` | `#f4f4f4` | Double-raised |
-| `--akasha-layer-03` | `#e8e8e8` | Triple-raised |
+| `--strata-bg` | `#f4f4f4` | Ground |
+| `--strata-layer-01` | `#ffffff` | Raised surface |
+| `--strata-layer-02` | `#f4f4f4` | Double-raised |
+| `--strata-layer-03` | `#e8e8e8` | Triple-raised |
 
 ---
 
@@ -291,7 +291,7 @@ Reference `design-tokens/build/monad.css` in your HTML.
 ## What NOT to Do
 
 - Do not use `ds-*` classes — retired
-- Do not hardcode hex colors in components — use `--akasha-*`
+- Do not hardcode hex colors in components — use `--strata-*`
 - Do not add `border-radius` to Atomos
 - Do not use movement hold colors for generic UI status
 - Do not use `box-shadow` for depth

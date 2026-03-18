@@ -3,7 +3,7 @@
  * Generated from the Monad System build. Do not edit directly.
  *
  * Handles:
- *   Akasha  — theme toggle ([data-mn-theme-toggle]), persists to localStorage
+ *   Strata  — theme toggle ([data-mn-theme-toggle]), persists to localStorage
  *   Threshold — hamburger (.threshold-toggle) + rail drawer (.monad-rail)
  *
  * No dependencies. Drop in <script src="monad.js"></script> before </body>.
@@ -12,23 +12,23 @@
   'use strict';
 
   // -----------------------------------------------------------------------
-  // Akasha — theme toggle
-  // data-akasha="light|dark" on <html>, persists via localStorage
+  // Strata — theme toggle
+  // data-strata="light|dark" on <html>, persists via localStorage
   // Respects prefers-color-scheme as OS fallback.
   // -----------------------------------------------------------------------
-  function initAkasha() {
+  function initStrata() {
     var root = document.documentElement;
-    var stored = localStorage.getItem('mn-akasha');
+    var stored = localStorage.getItem('mn-strata');
     if (stored) {
-      root.dataset.akasha = stored;
+      root.dataset.strata = stored;
     } else if (window.matchMedia('(prefers-color-scheme: light)').matches) {
-      root.dataset.akasha = 'light';
+      root.dataset.strata = 'light';
     }
     document.querySelectorAll('[data-mn-theme-toggle]').forEach(function (btn) {
       btn.addEventListener('click', function () {
-        var next = root.dataset.akasha === 'light' ? 'dark' : 'light';
-        root.dataset.akasha = next;
-        localStorage.setItem('mn-akasha', next);
+        var next = root.dataset.strata === 'light' ? 'dark' : 'light';
+        root.dataset.strata = next;
+        localStorage.setItem('mn-strata', next);
       });
     });
   }
@@ -118,7 +118,7 @@
   // Init
   // -----------------------------------------------------------------------
   function init() {
-    initAkasha();
+    initStrata();
     initThresholdNav();
     initRail();
   }

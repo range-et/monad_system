@@ -11,7 +11,7 @@
     .section {
       margin-bottom: var(--space-8);
       padding-bottom: var(--space-4);
-      border-bottom: 1px solid var(--akasha-border-subtle);
+      border-bottom: 1px solid var(--strata-border-subtle);
     }
     .section:last-child { border-bottom: none; }
 
@@ -24,19 +24,19 @@
     .section__title {
       font-size: var(--type-lg);
       font-weight: 600;
-      color: var(--akasha-text-primary);
+      color: var(--strata-text-primary);
       letter-spacing: -0.01em;
     }
     .section__tier {
       font-size: var(--type-xs);
       font-family: var(--font-mono);
-      color: var(--akasha-text-disabled);
+      color: var(--strata-text-disabled);
       text-transform: uppercase;
       letter-spacing: 0.1em;
     }
     .section__desc {
       font-size: var(--type-sm);
-      color: var(--akasha-text-secondary);
+      color: var(--strata-text-secondary);
       margin-bottom: var(--space-3);
       max-width: 640px;
     }
@@ -47,25 +47,25 @@
       display: grid;
       grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
       gap: 1px;
-      border: 1px solid var(--akasha-border);
+      border: 1px solid var(--strata-border);
       margin-bottom: var(--space-3);
     }
     .swatch__color { height: 56px; }
     .swatch__info  {
-      background: var(--akasha-layer-01);
+      background: var(--strata-layer-01);
       padding: 6px 8px;
-      border-top: 1px solid var(--akasha-border-subtle);
+      border-top: 1px solid var(--strata-border-subtle);
     }
-    .swatch__name { font-size: var(--type-xs); font-weight: 600; color: var(--akasha-text-primary); display: block; }
-    .swatch__hex  { font-size: 10px; font-family: var(--font-mono); color: var(--akasha-text-disabled); display: block; }
+    .swatch__name { font-size: var(--type-xs); font-weight: 600; color: var(--strata-text-primary); display: block; }
+    .swatch__hex  { font-size: 10px; font-family: var(--font-mono); color: var(--strata-text-disabled); display: block; }
 
     .code-block {
-      background: var(--akasha-layer-02);
-      border-left: 2px solid var(--akasha-interactive);
+      background: var(--strata-layer-02);
+      border-left: 2px solid var(--strata-interactive);
       padding: var(--space-2) var(--space-3);
       font-family: var(--font-mono);
       font-size: var(--type-xs);
-      color: var(--akasha-text-secondary);
+      color: var(--strata-text-secondary);
       margin-top: var(--space-2);
       overflow-x: auto;
     }
@@ -77,7 +77,7 @@
     .progress-row span {
       font-size: var(--type-xs);
       font-family: var(--font-mono);
-      color: var(--akasha-text-secondary);
+      color: var(--strata-text-secondary);
       width: 72px;
       flex-shrink: 0;
     }
@@ -87,13 +87,13 @@
     .layer-box {
       flex: 1;
       min-height: 72px;
-      border: 1px solid var(--akasha-border);
+      border: 1px solid var(--strata-border);
       display: flex;
       align-items: center;
       justify-content: center;
       font-size: var(--type-xs);
       font-family: var(--font-mono);
-      color: var(--akasha-text-disabled);
+      color: var(--strata-text-disabled);
     }
   </style>
 </head>
@@ -108,7 +108,7 @@
     </button>
     <span class="monad-header__name">Monad System</span>
     <nav class="threshold-nav" aria-label="Sections">
-      <a href="#akasha">Akasha</a>
+      <a href="#strata">Strata</a>
       <a href="#type">Type</a>
       <a href="#atomos-btn">Atomos:Btn</a>
       <a href="#atomos-card">Atomos:Card</a>
@@ -116,82 +116,82 @@
       <a href="#atomos-table">Atomos:Table</a>
     </nav>
     <div class="monad-header__actions">
-      <button class="akasha-toggle" data-mn-theme-toggle aria-label="Toggle theme">◑</button>
+      <button class="strata-toggle" data-mn-theme-toggle aria-label="Toggle theme">◑</button>
     </div>
   </header>
 
   <main style="max-width:1200px; margin:0 auto; padding:var(--space-6) var(--space-4);">
 
     <!-- AKASHA TOKENS -->
-    <section class="section" id="akasha">
+    <section class="section" id="strata">
       <div class="section__head">
-        <span class="section__title">Akasha Layer</span>
+        <span class="section__title">Strata Layer</span>
         <span class="section__tier">Tier: State &amp; Tokens</span>
       </div>
-      <p class="section__desc">CSS custom properties (<code>--akasha-*</code>) are the connective state layer. Every component reads from these. Theme switching rewrites Akasha; components never hardcode color.</p>
+      <p class="section__desc">CSS custom properties (<code>--strata-*</code>) are the connective state layer. Every component reads from these. Theme switching rewrites Strata; components never hardcode color.</p>
 
-      <p style="font-size:var(--type-xs); font-weight:700; color:var(--akasha-text-disabled); text-transform:uppercase; letter-spacing:0.1em; margin-bottom:var(--space-2);">Ground — switches with theme</p>
+      <p style="font-size:var(--type-xs); font-weight:700; color:var(--strata-text-disabled); text-transform:uppercase; letter-spacing:0.1em; margin-bottom:var(--space-2);">Ground — switches with theme</p>
       <div class="swatch-grid" style="margin-bottom:var(--space-4);">
         <div class="swatch">
-          <div class="swatch__color" style="background:var(--akasha-bg)"></div>
-          <div class="swatch__info"><span class="swatch__name">Ground</span><span class="swatch__hex">--akasha-bg</span></div>
+          <div class="swatch__color" style="background:var(--strata-bg)"></div>
+          <div class="swatch__info"><span class="swatch__name">Ground</span><span class="swatch__hex">--strata-bg</span></div>
         </div>
         <div class="swatch">
-          <div class="swatch__color" style="background:var(--akasha-layer-01)"></div>
-          <div class="swatch__info"><span class="swatch__name">Layer 01</span><span class="swatch__hex">--akasha-layer-01</span></div>
+          <div class="swatch__color" style="background:var(--strata-layer-01)"></div>
+          <div class="swatch__info"><span class="swatch__name">Layer 01</span><span class="swatch__hex">--strata-layer-01</span></div>
         </div>
         <div class="swatch">
-          <div class="swatch__color" style="background:var(--akasha-layer-02)"></div>
-          <div class="swatch__info"><span class="swatch__name">Layer 02</span><span class="swatch__hex">--akasha-layer-02</span></div>
+          <div class="swatch__color" style="background:var(--strata-layer-02)"></div>
+          <div class="swatch__info"><span class="swatch__name">Layer 02</span><span class="swatch__hex">--strata-layer-02</span></div>
         </div>
         <div class="swatch">
-          <div class="swatch__color" style="background:var(--akasha-layer-03)"></div>
-          <div class="swatch__info"><span class="swatch__name">Layer 03</span><span class="swatch__hex">--akasha-layer-03</span></div>
+          <div class="swatch__color" style="background:var(--strata-layer-03)"></div>
+          <div class="swatch__info"><span class="swatch__name">Layer 03</span><span class="swatch__hex">--strata-layer-03</span></div>
         </div>
         <div class="swatch">
-          <div class="swatch__color" style="background:var(--akasha-text-primary)"></div>
-          <div class="swatch__info"><span class="swatch__name">Text Primary</span><span class="swatch__hex">--akasha-text-primary</span></div>
+          <div class="swatch__color" style="background:var(--strata-text-primary)"></div>
+          <div class="swatch__info"><span class="swatch__name">Text Primary</span><span class="swatch__hex">--strata-text-primary</span></div>
         </div>
         <div class="swatch">
-          <div class="swatch__color" style="background:var(--akasha-border)"></div>
-          <div class="swatch__info"><span class="swatch__name">Border</span><span class="swatch__hex">--akasha-border</span></div>
+          <div class="swatch__color" style="background:var(--strata-border)"></div>
+          <div class="swatch__info"><span class="swatch__name">Border</span><span class="swatch__hex">--strata-border</span></div>
         </div>
       </div>
 
-      <p style="font-size:var(--type-xs); font-weight:700; color:var(--akasha-text-disabled); text-transform:uppercase; letter-spacing:0.1em; margin-bottom:var(--space-2);">Signal — fixed across themes</p>
+      <p style="font-size:var(--type-xs); font-weight:700; color:var(--strata-text-disabled); text-transform:uppercase; letter-spacing:0.1em; margin-bottom:var(--space-2);">Signal — fixed across themes</p>
       <div class="swatch-grid">
         <div class="swatch">
-          <div class="swatch__color" style="background:var(--akasha-interactive)"></div>
-          <div class="swatch__info"><span class="swatch__name">Interactive</span><span class="swatch__hex">--akasha-interactive</span></div>
+          <div class="swatch__color" style="background:var(--strata-interactive)"></div>
+          <div class="swatch__info"><span class="swatch__name">Interactive</span><span class="swatch__hex">--strata-interactive</span></div>
         </div>
         <div class="swatch">
-          <div class="swatch__color" style="background:var(--akasha-info)"></div>
-          <div class="swatch__info"><span class="swatch__name">Info</span><span class="swatch__hex">--akasha-info</span></div>
+          <div class="swatch__color" style="background:var(--strata-info)"></div>
+          <div class="swatch__info"><span class="swatch__name">Info</span><span class="swatch__hex">--strata-info</span></div>
         </div>
         <div class="swatch">
-          <div class="swatch__color" style="background:var(--akasha-success)"></div>
-          <div class="swatch__info"><span class="swatch__name">Success</span><span class="swatch__hex">--akasha-success</span></div>
+          <div class="swatch__color" style="background:var(--strata-success)"></div>
+          <div class="swatch__info"><span class="swatch__name">Success</span><span class="swatch__hex">--strata-success</span></div>
         </div>
         <div class="swatch">
-          <div class="swatch__color" style="background:var(--akasha-warning)"></div>
-          <div class="swatch__info"><span class="swatch__name">Warning</span><span class="swatch__hex">--akasha-warning</span></div>
+          <div class="swatch__color" style="background:var(--strata-warning)"></div>
+          <div class="swatch__info"><span class="swatch__name">Warning</span><span class="swatch__hex">--strata-warning</span></div>
         </div>
         <div class="swatch">
-          <div class="swatch__color" style="background:var(--akasha-error)"></div>
-          <div class="swatch__info"><span class="swatch__name">Error</span><span class="swatch__hex">--akasha-error</span></div>
+          <div class="swatch__color" style="background:var(--strata-error)"></div>
+          <div class="swatch__info"><span class="swatch__name">Error</span><span class="swatch__hex">--strata-error</span></div>
         </div>
         <div class="swatch">
-          <div class="swatch__color" style="background:var(--akasha-highlight)"></div>
-          <div class="swatch__info"><span class="swatch__name">Highlight</span><span class="swatch__hex">--akasha-highlight</span></div>
+          <div class="swatch__color" style="background:var(--strata-highlight)"></div>
+          <div class="swatch__info"><span class="swatch__name">Highlight</span><span class="swatch__hex">--strata-highlight</span></div>
         </div>
       </div>
 
-      <p style="font-size:var(--type-xs); font-weight:700; color:var(--akasha-text-disabled); text-transform:uppercase; letter-spacing:0.1em; margin:var(--space-3) 0 var(--space-2);">Ground depth (Layering Model)</p>
+      <p style="font-size:var(--type-xs); font-weight:700; color:var(--strata-text-disabled); text-transform:uppercase; letter-spacing:0.1em; margin:var(--space-3) 0 var(--space-2);">Ground depth (Layering Model)</p>
       <div class="layer-demo">
-        <div class="layer-box" style="background:var(--akasha-bg)">bg</div>
-        <div class="layer-box" style="background:var(--akasha-layer-01)">layer-01</div>
-        <div class="layer-box" style="background:var(--akasha-layer-02)">layer-02</div>
-        <div class="layer-box" style="background:var(--akasha-layer-03)">layer-03</div>
+        <div class="layer-box" style="background:var(--strata-bg)">bg</div>
+        <div class="layer-box" style="background:var(--strata-layer-01)">layer-01</div>
+        <div class="layer-box" style="background:var(--strata-layer-02)">layer-02</div>
+        <div class="layer-box" style="background:var(--strata-layer-03)">layer-03</div>
       </div>
     </section>
 
@@ -203,16 +203,16 @@
       </div>
       <p class="section__desc">Inter (sans), JetBrains Mono (code), Lora (serif). Fluid scale via <code>clamp()</code>. No decorative weight — weight is structural.</p>
       <div style="display:flex; flex-direction:column; gap:var(--space-2);">
-        <div style="font-size:var(--type-5xl); font-weight:300; color:var(--akasha-text-primary); letter-spacing:-0.03em; line-height:1;">54px — Display Light</div>
-        <div style="font-size:var(--type-4xl); font-weight:300; color:var(--akasha-text-primary); letter-spacing:-0.02em; line-height:1.1;">42px — Hero Light</div>
+        <div style="font-size:var(--type-5xl); font-weight:300; color:var(--strata-text-primary); letter-spacing:-0.03em; line-height:1;">54px — Display Light</div>
+        <div style="font-size:var(--type-4xl); font-weight:300; color:var(--strata-text-primary); letter-spacing:-0.02em; line-height:1.1;">42px — Hero Light</div>
         <div style="font-size:var(--type-3xl); font-weight:600; letter-spacing:-0.01em;">32px — Page Heading 600</div>
         <div style="font-size:var(--type-2xl); font-weight:600;">28px — Section Heading 600</div>
         <div style="font-size:var(--type-xl); font-weight:600;">24px — Subheading 600</div>
-        <div style="font-size:var(--type-base); color:var(--akasha-text-secondary);">16px Body — The quick brown fox jumps over the lazy dog. Materially honest type.</div>
-        <div style="font-size:var(--type-sm); color:var(--akasha-text-secondary);">14px Secondary — Helper text, captions, labels, secondary descriptions.</div>
-        <div style="font-size:var(--type-xs); color:var(--akasha-text-disabled); text-transform:uppercase; letter-spacing:0.1em; font-weight:700; font-family:var(--font-mono);">12px — OVERLINE MONO 700</div>
-        <div style="font-family:var(--font-mono); font-size:var(--type-sm); color:var(--akasha-text-secondary);">Mono — const akasha = {{ interactive: "#03A9F4" }};</div>
-        <div style="font-family:var(--font-serif); font-size:var(--type-lg); color:var(--akasha-text-primary); font-style:italic;">Lora — editorial, longform, annotation contexts only.</div>
+        <div style="font-size:var(--type-base); color:var(--strata-text-secondary);">16px Body — The quick brown fox jumps over the lazy dog. Materially honest type.</div>
+        <div style="font-size:var(--type-sm); color:var(--strata-text-secondary);">14px Secondary — Helper text, captions, labels, secondary descriptions.</div>
+        <div style="font-size:var(--type-xs); color:var(--strata-text-disabled); text-transform:uppercase; letter-spacing:0.1em; font-weight:700; font-family:var(--font-mono);">12px — OVERLINE MONO 700</div>
+        <div style="font-family:var(--font-mono); font-size:var(--type-sm); color:var(--strata-text-secondary);">Mono — const strata = {{ interactive: "#03A9F4" }};</div>
+        <div style="font-family:var(--font-serif); font-size:var(--type-lg); color:var(--strata-text-primary); font-style:italic;">Lora — editorial, longform, annotation contexts only.</div>
       </div>
     </section>
 
@@ -256,7 +256,7 @@
         <span class="atomos-badge">3</span>
         <span class="atomos-badge">12</span>
         <span class="atomos-badge atomos-badge--error">!</span>
-        <span style="font-size:var(--type-xs); font-family:var(--font-mono); color:var(--akasha-text-disabled);">numeric badges</span>
+        <span style="font-size:var(--type-xs); font-family:var(--font-mono); color:var(--strata-text-disabled);">numeric badges</span>
       </div>
     </section>
 
@@ -306,13 +306,13 @@
         <span class="section__tier">Tier: Atomos / Indivisible</span>
       </div>
       <p class="section__desc">No border-radius. Depth via 1px border, not shadow. Cards contain; tiles navigate. Stat variant for dashboard KPIs.</p>
-      <div style="display:grid; grid-template-columns:repeat(auto-fill,minmax(220px,1fr)); gap:1px; background:var(--akasha-border); margin-bottom:var(--space-4);">
+      <div style="display:grid; grid-template-columns:repeat(auto-fill,minmax(220px,1fr)); gap:1px; background:var(--strata-border); margin-bottom:var(--space-4);">
         <div class="atomos-card">
           <div class="atomos-card__header">
             <span class="atomos-card__title">Standard</span>
             <span class="atomos-tag atomos-tag--info">active</span>
           </div>
-          <div class="atomos-card__body">Default card on akasha-layer-01. Border is the only depth signal.</div>
+          <div class="atomos-card__body">Default card on strata-layer-01. Border is the only depth signal.</div>
         </div>
         <div class="atomos-card atomos-card--flat">
           <div class="atomos-card__header">
@@ -327,13 +327,13 @@
           <div class="atomos-card__body">Hover to see border shift to interactive color. Keyboard accessible.</div>
         </div>
         <div class="atomos-tile" tabindex="0">
-          <div style="font-weight:600; color:var(--akasha-text-primary); margin-bottom:4px; font-size:var(--type-sm);">Tile</div>
-          <div style="font-size:var(--type-xs); color:var(--akasha-text-secondary); font-family:var(--font-mono);">hover → akasha-layer-02 + signal border</div>
+          <div style="font-weight:600; color:var(--strata-text-primary); margin-bottom:4px; font-size:var(--type-sm);">Tile</div>
+          <div style="font-size:var(--type-xs); color:var(--strata-text-secondary); font-family:var(--font-mono);">hover → strata-layer-02 + signal border</div>
         </div>
       </div>
 
-      <p style="font-size:var(--type-xs); font-weight:700; color:var(--akasha-text-disabled); text-transform:uppercase; letter-spacing:0.1em; margin-bottom:var(--space-2);">Stat — for dashboards</p>
-      <div style="display:grid; grid-template-columns:repeat(auto-fill,minmax(150px,1fr)); gap:1px; background:var(--akasha-border);">
+      <p style="font-size:var(--type-xs); font-weight:700; color:var(--strata-text-disabled); text-transform:uppercase; letter-spacing:0.1em; margin-bottom:var(--space-2);">Stat — for dashboards</p>
+      <div style="display:grid; grid-template-columns:repeat(auto-fill,minmax(150px,1fr)); gap:1px; background:var(--strata-border);">
         <div class="atomos-stat atomos-stat--signal">
           <div class="atomos-stat__eyebrow">Requests</div>
           <div class="atomos-stat__value">2,847</div>
@@ -407,7 +407,7 @@
         <span class="section__title">Atomos — Table</span>
         <span class="section__tier">Tier: Atomos / Indivisible</span>
       </div>
-      <p class="section__desc">Column headers are uppercase mono. Zebra stripes are <code>akasha-layer-01</code> / <code>akasha-bg</code>. Wrap in <code>.atomos-table-wrap</code> for overflow scroll.</p>
+      <p class="section__desc">Column headers are uppercase mono. Zebra stripes are <code>strata-layer-01</code> / <code>strata-bg</code>. Wrap in <code>.atomos-table-wrap</code> for overflow scroll.</p>
       <div class="atomos-table-wrap">
         <table class="atomos-table atomos-table--zebra">
           <thead>
@@ -514,25 +514,25 @@
         <span class="section__tier">Tier: Monad / Structural</span>
       </div>
       <p class="section__desc">The structural skeleton. Header (48px fixed) + rail (240px) + content. See <code>dashboard.html</code> for a full working Monad shell.</p>
-      <div style="border:1px solid var(--akasha-border); overflow:hidden; height:260px;">
-        <div style="display:flex; align-items:center; gap:var(--space-2); height:48px; padding:0 var(--space-2); background:var(--akasha-layer-01); border-bottom:1px solid var(--akasha-border);">
-          <span style="font-size:var(--type-xs); font-weight:700; font-family:var(--font-mono); color:var(--akasha-text-primary); letter-spacing:0.06em; text-transform:uppercase;">Monad</span>
-          <span style="font-size:var(--type-xs); font-family:var(--font-mono); color:var(--akasha-text-secondary); border-bottom:2px solid var(--akasha-interactive); padding-bottom:1px;">Overview</span>
-          <span style="font-size:var(--type-xs); font-family:var(--font-mono); color:var(--akasha-text-disabled);">Rail</span>
-          <span style="font-size:var(--type-xs); font-family:var(--font-mono); color:var(--akasha-text-disabled);">Akasha</span>
+      <div style="border:1px solid var(--strata-border); overflow:hidden; height:260px;">
+        <div style="display:flex; align-items:center; gap:var(--space-2); height:48px; padding:0 var(--space-2); background:var(--strata-layer-01); border-bottom:1px solid var(--strata-border);">
+          <span style="font-size:var(--type-xs); font-weight:700; font-family:var(--font-mono); color:var(--strata-text-primary); letter-spacing:0.06em; text-transform:uppercase;">Monad</span>
+          <span style="font-size:var(--type-xs); font-family:var(--font-mono); color:var(--strata-text-secondary); border-bottom:2px solid var(--strata-interactive); padding-bottom:1px;">Overview</span>
+          <span style="font-size:var(--type-xs); font-family:var(--font-mono); color:var(--strata-text-disabled);">Rail</span>
+          <span style="font-size:var(--type-xs); font-family:var(--font-mono); color:var(--strata-text-disabled);">Strata</span>
           <div style="margin-left:auto;">
-            <button class="akasha-toggle" aria-label="Theme">◑</button>
+            <button class="strata-toggle" aria-label="Theme">◑</button>
           </div>
         </div>
         <div style="display:flex; height:calc(100% - 48px);">
-          <div style="width:160px; background:var(--akasha-layer-01); border-right:1px solid var(--akasha-border); font-size:var(--type-xs); font-family:var(--font-mono);">
-            <div style="padding:6px var(--space-2); color:var(--akasha-interactive); border-left:2px solid var(--akasha-interactive); background:var(--akasha-layer-02);">/ overview</div>
-            <div style="padding:6px var(--space-2); color:var(--akasha-text-disabled);">/ analytics</div>
-            <div style="padding:6px var(--space-2); color:var(--akasha-text-disabled);">/ deployments</div>
-            <div style="padding:6px var(--space-2); color:var(--akasha-text-disabled);">/ settings</div>
+          <div style="width:160px; background:var(--strata-layer-01); border-right:1px solid var(--strata-border); font-size:var(--type-xs); font-family:var(--font-mono);">
+            <div style="padding:6px var(--space-2); color:var(--strata-interactive); border-left:2px solid var(--strata-interactive); background:var(--strata-layer-02);">/ overview</div>
+            <div style="padding:6px var(--space-2); color:var(--strata-text-disabled);">/ analytics</div>
+            <div style="padding:6px var(--space-2); color:var(--strata-text-disabled);">/ deployments</div>
+            <div style="padding:6px var(--space-2); color:var(--strata-text-disabled);">/ settings</div>
           </div>
-          <div style="flex:1; padding:var(--space-3); background:var(--akasha-bg);">
-            <div style="font-size:var(--type-xs); font-family:var(--font-mono); color:var(--akasha-text-disabled);">monad-content — akasha-bg — full page content renders here</div>
+          <div style="flex:1; padding:var(--space-3); background:var(--strata-bg);">
+            <div style="font-size:var(--type-xs); font-family:var(--font-mono); color:var(--strata-text-disabled);">monad-content — strata-bg — full page content renders here</div>
           </div>
         </div>
       </div>

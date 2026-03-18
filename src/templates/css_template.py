@@ -76,7 +76,7 @@ def create_monad_system(
  * Generated from colors.json — do not edit directly.
  *
  * Tiers:
- *   Akasha  — CSS custom properties (--akasha-*)       connective state
+ *   Strata  — CSS custom properties (--strata-*)       connective state
  *   Monad   — Structural layout (.monad-*)              root containers
  *   Atomos  — Primitive components (.atomos-*)          indivisible units
  *   Threshold — Navigation & transitions (.threshold-*) state crossings
@@ -95,45 +95,45 @@ def create_monad_system(
    ========================================================================= */
 :root {{
   /* Ground */
-  --akasha-bg:             {bg_dark};
-  --akasha-layer-01:       {layer01_dark};
-  --akasha-layer-02:       {layer02_dark};
-  --akasha-layer-03:       {layer03_dark};
+  --strata-bg:             {bg_dark};
+  --strata-layer-01:       {layer01_dark};
+  --strata-layer-02:       {layer02_dark};
+  --strata-layer-03:       {layer03_dark};
 
   /* Type */
-  --akasha-text-primary:   {text_primary_dark};
-  --akasha-text-secondary: {text_secondary_dark};
-  --akasha-text-disabled:  {text_disabled_dark};
+  --strata-text-primary:   {text_primary_dark};
+  --strata-text-secondary: {text_secondary_dark};
+  --strata-text-disabled:  {text_disabled_dark};
 
   /* Structure */
-  --akasha-border:         {border_dark};
-  --akasha-border-subtle:  {border_subtle_dark};
-  --akasha-overlay:        rgba(0,0,0,0.72);
+  --strata-border:         {border_dark};
+  --strata-border-subtle:  {border_subtle_dark};
+  --strata-overlay:        rgba(0,0,0,0.72);
 
   /* Signal */
-  --akasha-interactive:        {interactive};
-  --akasha-interactive-hover:  {interactive_hover};
-  --akasha-interactive-active: {interactive_active};
+  --strata-interactive:        {interactive};
+  --strata-interactive-hover:  {interactive_hover};
+  --strata-interactive-active: {interactive_active};
 
   /* Status */
-  --akasha-info:     {support_info};
-  --akasha-success:  {support_success};
-  --akasha-warning:  {support_warning};
-  --akasha-error:    {support_error};
-  --akasha-info-bg:    {support_info}1a;
-  --akasha-success-bg: {support_success}1a;
-  --akasha-warning-bg: {support_warning}1a;
-  --akasha-error-bg:   {support_error}1a;
+  --strata-info:     {support_info};
+  --strata-success:  {support_success};
+  --strata-warning:  {support_warning};
+  --strata-error:    {support_error};
+  --strata-info-bg:    {support_info}1a;
+  --strata-success-bg: {support_success}1a;
+  --strata-warning-bg: {support_warning}1a;
+  --strata-error-bg:   {support_error}1a;
 
   /* Domain */
-  --akasha-move-start:  {move_start};
-  --akasha-move-hand:   {move_hand};
-  --akasha-move-foot:   {move_foot};
-  --akasha-move-finish: {move_finish};
+  --strata-move-start:  {move_start};
+  --strata-move-hand:   {move_hand};
+  --strata-move-foot:   {move_foot};
+  --strata-move-finish: {move_finish};
 
   /* Misc */
-  --akasha-highlight:  {highlight};
-  --akasha-disabled:   {disabled};
+  --strata-highlight:  {highlight};
+  --strata-disabled:   {disabled};
   --opacity-low:       0.2;
   --opacity-high:      0.8;
 
@@ -172,31 +172,31 @@ def create_monad_system(
 /* =========================================================================
    AKASHA — LIGHT
    ========================================================================= */
-[data-akasha="light"] {{
-  --akasha-bg:             {bg_light};
-  --akasha-layer-01:       {layer01_light};
-  --akasha-layer-02:       {layer02_light};
-  --akasha-layer-03:       {layer03_light};
-  --akasha-text-primary:   {text_primary_light};
-  --akasha-text-secondary: {text_secondary_light};
-  --akasha-text-disabled:  {text_disabled_light};
-  --akasha-border:         {border_light};
-  --akasha-border-subtle:  {border_subtle_light};
-  --akasha-overlay:        rgba(0,0,0,0.5);
+[data-strata="light"] {{
+  --strata-bg:             {bg_light};
+  --strata-layer-01:       {layer01_light};
+  --strata-layer-02:       {layer02_light};
+  --strata-layer-03:       {layer03_light};
+  --strata-text-primary:   {text_primary_light};
+  --strata-text-secondary: {text_secondary_light};
+  --strata-text-disabled:  {text_disabled_light};
+  --strata-border:         {border_light};
+  --strata-border-subtle:  {border_subtle_light};
+  --strata-overlay:        rgba(0,0,0,0.5);
 }}
 
 @media (prefers-color-scheme: light) {{
-  :root:not([data-akasha="dark"]) {{
-    --akasha-bg:             {bg_light};
-    --akasha-layer-01:       {layer01_light};
-    --akasha-layer-02:       {layer02_light};
-    --akasha-layer-03:       {layer03_light};
-    --akasha-text-primary:   {text_primary_light};
-    --akasha-text-secondary: {text_secondary_light};
-    --akasha-text-disabled:  {text_disabled_light};
-    --akasha-border:         {border_light};
-    --akasha-border-subtle:  {border_subtle_light};
-    --akasha-overlay:        rgba(0,0,0,0.5);
+  :root:not([data-strata="dark"]) {{
+    --strata-bg:             {bg_light};
+    --strata-layer-01:       {layer01_light};
+    --strata-layer-02:       {layer02_light};
+    --strata-layer-03:       {layer03_light};
+    --strata-text-primary:   {text_primary_light};
+    --strata-text-secondary: {text_secondary_light};
+    --strata-text-disabled:  {text_disabled_light};
+    --strata-border:         {border_light};
+    --strata-border-subtle:  {border_subtle_light};
+    --strata-overlay:        rgba(0,0,0,0.5);
   }}
 }}
 
@@ -211,8 +211,8 @@ body {{
   font-size: var(--type-base);
   font-weight: 400;
   line-height: 1.5;
-  color: var(--akasha-text-primary);
-  background-color: var(--akasha-bg);
+  color: var(--strata-text-primary);
+  background-color: var(--strata-bg);
   -webkit-font-smoothing: antialiased;
   transition: background-color var(--threshold-base), color var(--threshold-base);
 }}
@@ -221,7 +221,7 @@ h1, h2, h3, h4, h5, h6 {{
   font-family: var(--font-sans);
   font-weight: 600;
   line-height: 1.2;
-  color: var(--akasha-text-primary);
+  color: var(--strata-text-primary);
   letter-spacing: -0.01em;
 }}
 h1 {{ font-size: clamp(1.75rem,  4vw + 0.5rem,  var(--type-4xl)); }}
@@ -231,26 +231,26 @@ h4 {{ font-size: clamp(1.125rem, 2vw + 0.125rem, var(--type-xl)); }}
 h5 {{ font-size: clamp(1rem,     1.5vw,          var(--type-lg)); }}
 h6 {{ font-size: var(--type-base); }}
 
-p {{ color: var(--akasha-text-secondary); line-height: 1.65; }}
+p {{ color: var(--strata-text-secondary); line-height: 1.65; }}
 
 a {{
-  color: var(--akasha-interactive);
+  color: var(--strata-interactive);
   text-decoration: none;
   transition: color var(--threshold-fast);
 }}
-a:hover {{ color: var(--akasha-interactive-hover); text-decoration: underline; }}
+a:hover {{ color: var(--strata-interactive-hover); text-decoration: underline; }}
 
 code, pre {{
   font-family: var(--font-mono);
   font-size: var(--type-sm);
-  background: var(--akasha-layer-02);
-  border: 1px solid var(--akasha-border-subtle);
+  background: var(--strata-layer-02);
+  border: 1px solid var(--strata-border-subtle);
 }}
 code {{ padding: 1px 5px; }}
-pre  {{ padding: var(--space-2); overflow-x: auto; border-left: 2px solid var(--akasha-interactive); }}
+pre  {{ padding: var(--space-2); overflow-x: auto; border-left: 2px solid var(--strata-interactive); }}
 
 :focus-visible {{
-  outline: 2px solid var(--akasha-interactive);
+  outline: 2px solid var(--strata-interactive);
   outline-offset: 1px;
 }}
 
@@ -320,13 +320,13 @@ pre  {{ padding: var(--space-2); overflow-x: auto; border-left: 2px solid var(--
   gap: var(--space-2);
   height: 48px;
   padding-inline: var(--space-2);
-  background: var(--akasha-layer-01);
-  border-bottom: 1px solid var(--akasha-border);
+  background: var(--strata-layer-01);
+  border-bottom: 1px solid var(--strata-border);
 }}
 .monad-header__name {{
   font-size: var(--type-base);
   font-weight: 600;
-  color: var(--akasha-text-primary);
+  color: var(--strata-text-primary);
   letter-spacing: 0.01em;
   white-space: nowrap;
 }}
@@ -341,15 +341,15 @@ pre  {{ padding: var(--space-2); overflow-x: auto; border-left: 2px solid var(--
   width: 240px;
   min-height: 100vh;
   padding: var(--space-2) 0;
-  background: var(--akasha-layer-01);
-  border-right: 1px solid var(--akasha-border);
+  background: var(--strata-layer-01);
+  border-right: 1px solid var(--strata-border);
   flex-shrink: 0;
 }}
 .monad-rail__section {{
   padding: var(--space-2) var(--space-2) var(--space-1);
   font-size: var(--type-xs);
   font-weight: 600;
-  color: var(--akasha-text-disabled);
+  color: var(--strata-text-disabled);
   text-transform: uppercase;
   letter-spacing: 0.1em;
 }}
@@ -359,7 +359,7 @@ pre  {{ padding: var(--space-2); overflow-x: auto; border-left: 2px solid var(--
   gap: var(--space-1);
   padding: 9px var(--space-2);
   font-size: var(--type-sm);
-  color: var(--akasha-text-secondary);
+  color: var(--strata-text-secondary);
   cursor: pointer;
   border: none;
   background: transparent;
@@ -369,13 +369,13 @@ pre  {{ padding: var(--space-2); overflow-x: auto; border-left: 2px solid var(--
   transition: background var(--threshold-fast), color var(--threshold-fast);
 }}
 .monad-rail__item:hover {{
-  background: var(--akasha-layer-02);
-  color: var(--akasha-text-primary);
+  background: var(--strata-layer-02);
+  color: var(--strata-text-primary);
 }}
 .monad-rail__item.active {{
-  background: var(--akasha-layer-02);
-  color: var(--akasha-interactive);
-  border-left: 2px solid var(--akasha-interactive);
+  background: var(--strata-layer-02);
+  color: var(--strata-interactive);
+  border-left: 2px solid var(--strata-interactive);
   padding-left: calc(var(--space-2) - 2px);
 }}
 
@@ -399,18 +399,18 @@ pre  {{ padding: var(--space-2); overflow-x: auto; border-left: 2px solid var(--
   padding: 6px var(--space-2);
   font-size: var(--type-sm);
   font-weight: 400;
-  color: var(--akasha-text-secondary);
+  color: var(--strata-text-secondary);
   text-decoration: none;
   border-bottom: 2px solid transparent;
   transition: color var(--threshold-fast), border-color var(--threshold-fast);
 }}
 .threshold-nav a:hover, .threshold-link:hover {{
-  color: var(--akasha-text-primary);
+  color: var(--strata-text-primary);
   text-decoration: none;
 }}
 .threshold-nav a.active, .threshold-link.active {{
-  color: var(--akasha-interactive);
-  border-bottom-color: var(--akasha-interactive);
+  color: var(--strata-interactive);
+  border-bottom-color: var(--strata-interactive);
 }}
 
 /* Hamburger toggle */
@@ -424,13 +424,13 @@ pre  {{ padding: var(--space-2); overflow-x: auto; border-left: 2px solid var(--
   height: 36px;
   padding: 0;
   background: transparent;
-  border: 1px solid var(--akasha-border);
+  border: 1px solid var(--strata-border);
   cursor: pointer;
-  color: var(--akasha-text-secondary);
+  color: var(--strata-text-secondary);
   transition: background var(--threshold-fast), color var(--threshold-fast);
   flex-shrink: 0;
 }}
-.threshold-toggle:hover {{ background: var(--akasha-layer-02); color: var(--akasha-text-primary); }}
+.threshold-toggle:hover {{ background: var(--strata-layer-02); color: var(--strata-text-primary); }}
 .threshold-toggle__bar {{
   display: block;
   width: 16px;
@@ -447,7 +447,7 @@ pre  {{ padding: var(--space-2); overflow-x: auto; border-left: 2px solid var(--
   display: none;
   position: fixed;
   inset: 0;
-  background: var(--akasha-overlay);
+  background: var(--strata-overlay);
   z-index: 199;
 }}
 .threshold-overlay.is-visible {{ display: block; }}
@@ -460,8 +460,8 @@ pre  {{ padding: var(--space-2); overflow-x: auto; border-left: 2px solid var(--
     top: 48px;
     left: 0;
     right: 0;
-    background: var(--akasha-layer-01);
-    border-bottom: 2px solid var(--akasha-border);
+    background: var(--strata-layer-01);
+    border-bottom: 2px solid var(--strata-border);
     padding: var(--space-2);
     z-index: 98;
     flex-direction: column;
@@ -494,7 +494,7 @@ pre  {{ padding: var(--space-2); overflow-x: auto; border-left: 2px solid var(--
 /* =========================================================================
    AKASHA TOGGLE  (theme switcher)
    ========================================================================= */
-.akasha-toggle {{
+.strata-toggle {{
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -502,17 +502,17 @@ pre  {{ padding: var(--space-2); overflow-x: auto; border-left: 2px solid var(--
   height: 32px;
   padding: 0;
   background: transparent;
-  border: 1px solid var(--akasha-border);
-  color: var(--akasha-text-secondary);
+  border: 1px solid var(--strata-border);
+  color: var(--strata-text-secondary);
   cursor: pointer;
   font-size: var(--type-sm);
   font-family: var(--font-mono);
   transition: background var(--threshold-fast), color var(--threshold-fast), border-color var(--threshold-fast);
 }}
-.akasha-toggle:hover {{
-  background: var(--akasha-interactive);
+.strata-toggle:hover {{
+  background: var(--strata-interactive);
   color: #fff;
-  border-color: var(--akasha-interactive);
+  border-color: var(--strata-interactive);
 }}
 
 /* =========================================================================
@@ -543,51 +543,51 @@ pre  {{ padding: var(--space-2); overflow-x: auto; border-left: 2px solid var(--
 .atomos-btn--lg {{ padding: 14px var(--space-3); font-size: var(--type-base); }}
 
 .atomos-btn--primary {{
-  background: var(--akasha-interactive);
+  background: var(--strata-interactive);
   color: #fff;
-  border-color: var(--akasha-interactive);
+  border-color: var(--strata-interactive);
 }}
-.atomos-btn--primary:hover  {{ background: var(--akasha-interactive-hover);  border-color: var(--akasha-interactive-hover); }}
-.atomos-btn--primary:active {{ background: var(--akasha-interactive-active); border-color: var(--akasha-interactive-active); }}
+.atomos-btn--primary:hover  {{ background: var(--strata-interactive-hover);  border-color: var(--strata-interactive-hover); }}
+.atomos-btn--primary:active {{ background: var(--strata-interactive-active); border-color: var(--strata-interactive-active); }}
 
 .atomos-btn--secondary {{
   background: transparent;
-  color: var(--akasha-interactive);
-  border-color: var(--akasha-interactive);
+  color: var(--strata-interactive);
+  border-color: var(--strata-interactive);
 }}
-.atomos-btn--secondary:hover  {{ background: var(--akasha-interactive); color: #fff; }}
-.atomos-btn--secondary:active {{ background: var(--akasha-interactive-active); color: #fff; border-color: var(--akasha-interactive-active); }}
+.atomos-btn--secondary:hover  {{ background: var(--strata-interactive); color: #fff; }}
+.atomos-btn--secondary:active {{ background: var(--strata-interactive-active); color: #fff; border-color: var(--strata-interactive-active); }}
 
 .atomos-btn--danger {{
-  background: var(--akasha-error);
+  background: var(--strata-error);
   color: #fff;
-  border-color: var(--akasha-error);
+  border-color: var(--strata-error);
 }}
 .atomos-btn--danger:hover  {{ background: #d32f2f; border-color: #d32f2f; }}
 .atomos-btn--danger:active {{ background: #b71c1c; border-color: #b71c1c; }}
 
 .atomos-btn--ghost {{
   background: transparent;
-  color: var(--akasha-text-secondary);
+  color: var(--strata-text-secondary);
   border-color: transparent;
 }}
 .atomos-btn--ghost:hover {{
-  background: var(--akasha-layer-02);
-  color: var(--akasha-text-primary);
-  border-color: var(--akasha-border);
+  background: var(--strata-layer-02);
+  color: var(--strata-text-primary);
+  border-color: var(--strata-border);
 }}
 
 /* =========================================================================
    ATOMOS — CARDS  (contained surface units)
    ========================================================================= */
 .atomos-card {{
-  background: var(--akasha-layer-01);
-  border: 1px solid var(--akasha-border);
+  background: var(--strata-layer-01);
+  border: 1px solid var(--strata-border);
   padding: var(--space-3);
 }}
 .atomos-card--interactive {{ cursor: pointer; }}
-.atomos-card--interactive:hover {{ border-color: var(--akasha-interactive); }}
-.atomos-card--flat {{ border-color: var(--akasha-border-subtle); }}
+.atomos-card--interactive:hover {{ border-color: var(--strata-interactive); }}
+.atomos-card--flat {{ border-color: var(--strata-border-subtle); }}
 
 .atomos-card__header {{
   display: flex;
@@ -595,41 +595,41 @@ pre  {{ padding: var(--space-2); overflow-x: auto; border-left: 2px solid var(--
   justify-content: space-between;
   margin-bottom: var(--space-2);
   padding-bottom: var(--space-2);
-  border-bottom: 1px solid var(--akasha-border-subtle);
+  border-bottom: 1px solid var(--strata-border-subtle);
 }}
-.atomos-card__title {{ font-size: var(--type-base); font-weight: 600; color: var(--akasha-text-primary); }}
-.atomos-card__body  {{ color: var(--akasha-text-secondary); font-size: var(--type-sm); }}
+.atomos-card__title {{ font-size: var(--type-base); font-weight: 600; color: var(--strata-text-primary); }}
+.atomos-card__body  {{ color: var(--strata-text-secondary); font-size: var(--type-sm); }}
 
 .atomos-tile {{
-  background: var(--akasha-layer-01);
-  border: 1px solid var(--akasha-border);
+  background: var(--strata-layer-01);
+  border: 1px solid var(--strata-border);
   padding: var(--space-3);
   cursor: pointer;
   transition: background var(--threshold-fast), border-color var(--threshold-fast);
 }}
-.atomos-tile:hover  {{ background: var(--akasha-layer-02); border-color: var(--akasha-interactive); }}
+.atomos-tile:hover  {{ background: var(--strata-layer-02); border-color: var(--strata-interactive); }}
 .atomos-tile.active {{
-  background: var(--akasha-layer-02);
-  border-left: 2px solid var(--akasha-interactive);
+  background: var(--strata-layer-02);
+  border-left: 2px solid var(--strata-interactive);
   padding-left: calc(var(--space-3) - 2px);
 }}
 
 /* Stat variant */
 .atomos-stat {{
-  background: var(--akasha-layer-01);
-  border: 1px solid var(--akasha-border);
-  border-top: 2px solid var(--akasha-border);
+  background: var(--strata-layer-01);
+  border: 1px solid var(--strata-border);
+  border-top: 2px solid var(--strata-border);
   padding: var(--space-3);
 }}
-.atomos-stat--signal   {{ border-top-color: var(--akasha-interactive); }}
-.atomos-stat--success  {{ border-top-color: var(--akasha-success); }}
-.atomos-stat--warning  {{ border-top-color: var(--akasha-warning); }}
-.atomos-stat--error    {{ border-top-color: var(--akasha-error); }}
+.atomos-stat--signal   {{ border-top-color: var(--strata-interactive); }}
+.atomos-stat--success  {{ border-top-color: var(--strata-success); }}
+.atomos-stat--warning  {{ border-top-color: var(--strata-warning); }}
+.atomos-stat--error    {{ border-top-color: var(--strata-error); }}
 
 .atomos-stat__eyebrow {{
   font-size: var(--type-xs);
   font-weight: 600;
-  color: var(--akasha-text-disabled);
+  color: var(--strata-text-disabled);
   text-transform: uppercase;
   letter-spacing: 0.1em;
   margin-bottom: var(--space-1);
@@ -637,14 +637,14 @@ pre  {{ padding: var(--space-2); overflow-x: auto; border-left: 2px solid var(--
 .atomos-stat__value {{
   font-size: var(--type-3xl);
   font-weight: 300;
-  color: var(--akasha-text-primary);
+  color: var(--strata-text-primary);
   line-height: 1;
   font-variant-numeric: tabular-nums;
 }}
-.atomos-stat__label {{ font-size: var(--type-sm); color: var(--akasha-text-secondary); margin-top: 4px; }}
+.atomos-stat__label {{ font-size: var(--type-sm); color: var(--strata-text-secondary); margin-top: 4px; }}
 .atomos-stat__delta {{ font-size: var(--type-xs); margin-top: 6px; font-family: var(--font-mono); }}
-.atomos-stat__delta--up   {{ color: var(--akasha-success); }}
-.atomos-stat__delta--down {{ color: var(--akasha-error); }}
+.atomos-stat__delta--up   {{ color: var(--strata-success); }}
+.atomos-stat__delta--down {{ color: var(--strata-error); }}
 
 @media (max-width: 672px) {{
   .atomos-card, .atomos-tile, .atomos-stat {{ padding: var(--space-2); }}
@@ -665,11 +665,11 @@ pre  {{ padding: var(--space-2); overflow-x: auto; border-left: 2px solid var(--
   letter-spacing: 0.04em;
   white-space: nowrap;
 }}
-.atomos-tag--info    {{ background: var(--akasha-info-bg);    color: var(--akasha-info);    border-color: var(--akasha-info); }}
-.atomos-tag--success {{ background: var(--akasha-success-bg); color: var(--akasha-success); border-color: var(--akasha-success); }}
-.atomos-tag--warning {{ background: var(--akasha-warning-bg); color: var(--akasha-warning); border-color: var(--akasha-warning); }}
-.atomos-tag--error   {{ background: var(--akasha-error-bg);   color: var(--akasha-error);   border-color: var(--akasha-error); }}
-.atomos-tag--neutral {{ background: var(--akasha-layer-02); color: var(--akasha-text-secondary); border-color: var(--akasha-border); }}
+.atomos-tag--info    {{ background: var(--strata-info-bg);    color: var(--strata-info);    border-color: var(--strata-info); }}
+.atomos-tag--success {{ background: var(--strata-success-bg); color: var(--strata-success); border-color: var(--strata-success); }}
+.atomos-tag--warning {{ background: var(--strata-warning-bg); color: var(--strata-warning); border-color: var(--strata-warning); }}
+.atomos-tag--error   {{ background: var(--strata-error-bg);   color: var(--strata-error);   border-color: var(--strata-error); }}
+.atomos-tag--neutral {{ background: var(--strata-layer-02); color: var(--strata-text-secondary); border-color: var(--strata-border); }}
 
 .atomos-badge {{
   display: inline-flex;
@@ -681,10 +681,10 @@ pre  {{ padding: var(--space-2); overflow-x: auto; border-left: 2px solid var(--
   font-size: 10px;
   font-weight: 700;
   font-family: var(--font-mono);
-  background: var(--akasha-interactive);
+  background: var(--strata-interactive);
   color: #fff;
 }}
-.atomos-badge--error {{ background: var(--akasha-error); }}
+.atomos-badge--error {{ background: var(--strata-error); }}
 
 /* =========================================================================
    ATOMOS — NOTICES  (status communication)
@@ -699,19 +699,19 @@ pre  {{ padding: var(--space-2); overflow-x: auto; border-left: 2px solid var(--
 }}
 .atomos-notice__icon  {{ flex-shrink: 0; margin-top: 1px; font-family: var(--font-mono); }}
 .atomos-notice__body  {{ flex: 1; }}
-.atomos-notice__title {{ font-weight: 600; color: var(--akasha-text-primary); margin-bottom: 2px; letter-spacing: 0.01em; }}
-.atomos-notice__msg   {{ color: var(--akasha-text-secondary); }}
+.atomos-notice__title {{ font-weight: 600; color: var(--strata-text-primary); margin-bottom: 2px; letter-spacing: 0.01em; }}
+.atomos-notice__msg   {{ color: var(--strata-text-secondary); }}
 .atomos-notice__close {{
   background: transparent; border: none; cursor: pointer; padding: 0;
-  color: var(--akasha-text-disabled); font-size: var(--type-base); flex-shrink: 0;
+  color: var(--strata-text-disabled); font-size: var(--type-base); flex-shrink: 0;
   transition: color var(--threshold-fast);
 }}
-.atomos-notice__close:hover {{ color: var(--akasha-text-primary); }}
+.atomos-notice__close:hover {{ color: var(--strata-text-primary); }}
 
-.atomos-notice--info    {{ background: var(--akasha-info-bg);    border-color: var(--akasha-info); }}
-.atomos-notice--success {{ background: var(--akasha-success-bg); border-color: var(--akasha-success); }}
-.atomos-notice--warning {{ background: var(--akasha-warning-bg); border-color: var(--akasha-warning); }}
-.atomos-notice--error   {{ background: var(--akasha-error-bg);   border-color: var(--akasha-error); }}
+.atomos-notice--info    {{ background: var(--strata-info-bg);    border-color: var(--strata-info); }}
+.atomos-notice--success {{ background: var(--strata-success-bg); border-color: var(--strata-success); }}
+.atomos-notice--warning {{ background: var(--strata-warning-bg); border-color: var(--strata-warning); }}
+.atomos-notice--error   {{ background: var(--strata-error-bg);   border-color: var(--strata-error); }}
 
 /* =========================================================================
    ATOMOS — FORMS
@@ -725,7 +725,7 @@ pre  {{ padding: var(--space-2); overflow-x: auto; border-left: 2px solid var(--
 .atomos-label {{
   font-size: var(--type-xs);
   font-weight: 600;
-  color: var(--akasha-text-secondary);
+  color: var(--strata-text-secondary);
   text-transform: uppercase;
   letter-spacing: 0.08em;
 }}
@@ -734,9 +734,9 @@ pre  {{ padding: var(--space-2); overflow-x: auto; border-left: 2px solid var(--
   width: 100%;
   font-family: var(--font-sans);
   font-size: var(--type-sm);
-  color: var(--akasha-text-primary);
-  background: var(--akasha-layer-01);
-  border: 1px solid var(--akasha-border);
+  color: var(--strata-text-primary);
+  background: var(--strata-layer-01);
+  border: 1px solid var(--strata-border);
   outline: none;
   -webkit-appearance: none;
   transition: border-color var(--threshold-fast);
@@ -745,21 +745,21 @@ pre  {{ padding: var(--space-2); overflow-x: auto; border-left: 2px solid var(--
 .atomos-select   {{ padding: 10px var(--space-2); cursor: pointer; }}
 .atomos-textarea {{ padding: var(--space-2); resize: vertical; min-height: 96px; }}
 
-.atomos-input::placeholder {{ color: var(--akasha-text-disabled); }}
+.atomos-input::placeholder {{ color: var(--strata-text-disabled); }}
 .atomos-input:focus, .atomos-select:focus, .atomos-textarea:focus {{
-  border-color: var(--akasha-interactive);
-  box-shadow: inset 2px 0 0 var(--akasha-interactive);
+  border-color: var(--strata-interactive);
+  box-shadow: inset 2px 0 0 var(--strata-interactive);
 }}
 .atomos-input:disabled {{
   opacity: 0.45;
   cursor: not-allowed;
-  background: var(--akasha-layer-02);
+  background: var(--strata-layer-02);
 }}
-.atomos-input--error {{ border-color: var(--akasha-error); }}
-.atomos-input--error:focus {{ box-shadow: inset 2px 0 0 var(--akasha-error); }}
+.atomos-input--error {{ border-color: var(--strata-error); }}
+.atomos-input--error:focus {{ box-shadow: inset 2px 0 0 var(--strata-error); }}
 
-.atomos-helper {{ font-size: var(--type-xs); color: var(--akasha-text-disabled); font-family: var(--font-mono); }}
-.atomos-helper--error {{ color: var(--akasha-error); }}
+.atomos-helper {{ font-size: var(--type-xs); color: var(--strata-text-disabled); font-family: var(--font-mono); }}
+.atomos-helper--error {{ color: var(--strata-error); }}
 
 /* Toggle switch */
 .atomos-switch {{
@@ -772,8 +772,8 @@ pre  {{ padding: var(--space-2); overflow-x: auto; border-left: 2px solid var(--
   position: relative;
   width: 36px;
   height: 20px;
-  background: var(--akasha-layer-03);
-  border: 1px solid var(--akasha-border);
+  background: var(--strata-layer-03);
+  border: 1px solid var(--strata-border);
   transition: background var(--threshold-fast), border-color var(--threshold-fast);
   flex-shrink: 0;
 }}
@@ -784,13 +784,13 @@ pre  {{ padding: var(--space-2); overflow-x: auto; border-left: 2px solid var(--
   left: 2px;
   width: 14px;
   height: 14px;
-  background: var(--akasha-text-disabled);
+  background: var(--strata-text-disabled);
   transition: transform var(--threshold-fast), background var(--threshold-fast);
 }}
-.atomos-switch input:checked + .atomos-switch__track {{ background: var(--akasha-interactive); border-color: var(--akasha-interactive); }}
+.atomos-switch input:checked + .atomos-switch__track {{ background: var(--strata-interactive); border-color: var(--strata-interactive); }}
 .atomos-switch input:checked + .atomos-switch__track::after {{ transform: translateX(16px); background: #fff; }}
 .atomos-switch input {{ position: absolute; opacity: 0; width: 0; height: 0; }}
-.atomos-switch__label {{ font-size: var(--type-sm); color: var(--akasha-text-secondary); }}
+.atomos-switch__label {{ font-size: var(--type-sm); color: var(--strata-text-secondary); }}
 
 /* =========================================================================
    ATOMOS — TABLE
@@ -798,7 +798,7 @@ pre  {{ padding: var(--space-2); overflow-x: auto; border-left: 2px solid var(--
 .atomos-table-wrap {{
   overflow-x: auto;
   -webkit-overflow-scrolling: touch;
-  border: 1px solid var(--akasha-border);
+  border: 1px solid var(--strata-border);
 }}
 .atomos-table-wrap > .atomos-table {{ border: none; min-width: 480px; }}
 
@@ -813,23 +813,23 @@ pre  {{ padding: var(--space-2); overflow-x: auto; border-left: 2px solid var(--
   font-size: var(--type-xs);
   font-weight: 700;
   font-family: var(--font-mono);
-  color: var(--akasha-text-disabled);
+  color: var(--strata-text-disabled);
   text-transform: uppercase;
   letter-spacing: 0.08em;
-  border-bottom: 2px solid var(--akasha-border);
-  background: var(--akasha-layer-01);
+  border-bottom: 2px solid var(--strata-border);
+  background: var(--strata-layer-01);
 }}
 .atomos-table td {{
   padding: var(--space-1) var(--space-2);
-  color: var(--akasha-text-primary);
-  border-bottom: 1px solid var(--akasha-border-subtle);
+  color: var(--strata-text-primary);
+  border-bottom: 1px solid var(--strata-border-subtle);
   vertical-align: middle;
 }}
 .atomos-table tbody tr {{ transition: background var(--threshold-fast); }}
-.atomos-table tbody tr:hover {{ background: var(--akasha-layer-02); }}
-.atomos-table--zebra tbody tr:nth-child(even) {{ background: var(--akasha-layer-01); }}
-.atomos-table--zebra tbody tr:nth-child(odd)  {{ background: var(--akasha-bg); }}
-.atomos-table--zebra tbody tr:hover {{ background: var(--akasha-layer-02); }}
+.atomos-table tbody tr:hover {{ background: var(--strata-layer-02); }}
+.atomos-table--zebra tbody tr:nth-child(even) {{ background: var(--strata-layer-01); }}
+.atomos-table--zebra tbody tr:nth-child(odd)  {{ background: var(--strata-bg); }}
+.atomos-table--zebra tbody tr:hover {{ background: var(--strata-layer-02); }}
 
 @media (max-width: 672px) {{
   .atomos-table {{ display: block; overflow-x: auto; -webkit-overflow-scrolling: touch; }}
@@ -840,18 +840,18 @@ pre  {{ padding: var(--space-2); overflow-x: auto; border-left: 2px solid var(--
    ========================================================================= */
 .atomos-progress {{
   height: 4px;
-  background: var(--akasha-layer-03);
+  background: var(--strata-layer-03);
   overflow: hidden;
 }}
 .atomos-progress__fill {{
   height: 100%;
   width: var(--progress, 0%);
-  background: var(--akasha-interactive);
+  background: var(--strata-interactive);
   transition: width var(--threshold-slow);
 }}
-.atomos-progress__fill--success {{ background: var(--akasha-success); }}
-.atomos-progress__fill--warning {{ background: var(--akasha-warning); }}
-.atomos-progress__fill--error   {{ background: var(--akasha-error); }}
+.atomos-progress__fill--success {{ background: var(--strata-success); }}
+.atomos-progress__fill--warning {{ background: var(--strata-warning); }}
+.atomos-progress__fill--error   {{ background: var(--strata-error); }}
 
 /* =========================================================================
    ATOMOS — DOMAIN HOLDS  (movement-specific, never reuse for status)
@@ -876,28 +876,28 @@ pre  {{ padding: var(--space-2); overflow-x: auto; border-left: 2px solid var(--
   background: currentColor;
 }}
 
-.atomos-hold--start  {{ color: var(--akasha-move-start);  background: {move_start}18;  border-color: var(--akasha-move-start); }}
-.atomos-hold--hand   {{ color: var(--akasha-move-hand);   background: {move_hand}18;   border-color: var(--akasha-move-hand); }}
-.atomos-hold--foot   {{ color: var(--akasha-move-foot);   background: {move_foot}18;   border-color: var(--akasha-move-foot); }}
-.atomos-hold--finish {{ color: var(--akasha-move-finish); background: {move_finish}18; border-color: var(--akasha-move-finish); }}
+.atomos-hold--start  {{ color: var(--strata-move-start);  background: {move_start}18;  border-color: var(--strata-move-start); }}
+.atomos-hold--hand   {{ color: var(--strata-move-hand);   background: {move_hand}18;   border-color: var(--strata-move-hand); }}
+.atomos-hold--foot   {{ color: var(--strata-move-foot);   background: {move_foot}18;   border-color: var(--strata-move-foot); }}
+.atomos-hold--finish {{ color: var(--strata-move-finish); background: {move_finish}18; border-color: var(--strata-move-finish); }}
 
 /* =========================================================================
    UTILITIES
    ========================================================================= */
 .mn-divider {{
   border: none;
-  border-top: 1px solid var(--akasha-border-subtle);
+  border-top: 1px solid var(--strata-border-subtle);
   margin: var(--space-3) 0;
 }}
 .mn-spacer {{ flex: 1; }}
 
-.mn-text-primary   {{ color: var(--akasha-text-primary); }}
-.mn-text-secondary {{ color: var(--akasha-text-secondary); }}
-.mn-text-disabled  {{ color: var(--akasha-text-disabled); }}
-.mn-text-info      {{ color: var(--akasha-info); }}
-.mn-text-success   {{ color: var(--akasha-success); }}
-.mn-text-warning   {{ color: var(--akasha-warning); }}
-.mn-text-error     {{ color: var(--akasha-error); }}
+.mn-text-primary   {{ color: var(--strata-text-primary); }}
+.mn-text-secondary {{ color: var(--strata-text-secondary); }}
+.mn-text-disabled  {{ color: var(--strata-text-disabled); }}
+.mn-text-info      {{ color: var(--strata-info); }}
+.mn-text-success   {{ color: var(--strata-success); }}
+.mn-text-warning   {{ color: var(--strata-warning); }}
+.mn-text-error     {{ color: var(--strata-error); }}
 .mn-text-mono      {{ font-family: var(--font-mono); }}
 .mn-truncate       {{ overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }}
 .mn-sr-only        {{ position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0,0,0,0); white-space: nowrap; border-width: 0; }}

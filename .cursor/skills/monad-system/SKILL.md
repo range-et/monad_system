@@ -12,65 +12,65 @@ The Monad System has four named tiers. Use these names precisely when describing
 
 | Tier | Role | CSS Scope |
 |---|---|---|
-| **Akasha** | Connective state — CSS tokens, theme, context | `--akasha-*` custom properties |
+| **Strata** | Connective state — CSS tokens, theme, context | `--strata-*` custom properties |
 | **Monad** | Structural layout — root containers, shell | `.monad-*` classes |
 | **Atomos** | Primitive components — indivisible units | `.atomos-*` classes |
 | **Threshold** | Navigation & transitions — state crossings | `.threshold-*` classes |
 
-## Akasha — Tokens
+## Strata — Tokens
 
 All color and state information lives as CSS custom properties. Components NEVER hardcode color.
 
 ```css
 /* Ground (switches with theme) */
---akasha-bg
---akasha-layer-01
---akasha-layer-02
---akasha-layer-03
+--strata-bg
+--strata-layer-01
+--strata-layer-02
+--strata-layer-03
 
 /* Type */
---akasha-text-primary
---akasha-text-secondary
---akasha-text-disabled
+--strata-text-primary
+--strata-text-secondary
+--strata-text-disabled
 
 /* Structure */
---akasha-border
---akasha-border-subtle
---akasha-overlay
+--strata-border
+--strata-border-subtle
+--strata-overlay
 
 /* Signal */
---akasha-interactive
---akasha-interactive-hover
---akasha-interactive-active
+--strata-interactive
+--strata-interactive-hover
+--strata-interactive-active
 
 /* Status */
---akasha-info
---akasha-success
---akasha-warning
---akasha-error
---akasha-info-bg / --akasha-success-bg / --akasha-warning-bg / --akasha-error-bg
+--strata-info
+--strata-success
+--strata-warning
+--strata-error
+--strata-info-bg / --strata-success-bg / --strata-warning-bg / --strata-error-bg
 
 /* Domain (movement — never repurpose for UI status) */
---akasha-move-start
---akasha-move-hand
---akasha-move-foot
---akasha-move-finish
+--strata-move-start
+--strata-move-hand
+--strata-move-foot
+--strata-move-finish
 
 /* Misc */
---akasha-highlight
---akasha-disabled
+--strata-highlight
+--strata-disabled
 ```
 
 ### Theming
 
-Dark theme is `:root` (default). Light theme is `[data-akasha="light"]`.
+Dark theme is `:root` (default). Light theme is `[data-strata="light"]`.
 
 ```html
 <!-- Toggle theme -->
 <button data-mn-theme-toggle>◑</button>
 ```
 
-`monad.js` reads `localStorage` key `mn-akasha` and respects `prefers-color-scheme` as fallback.
+`monad.js` reads `localStorage` key `mn-strata` and respects `prefers-color-scheme` as fallback.
 
 ## Monad — Structural Layout
 
@@ -81,7 +81,7 @@ Dark theme is `:root` (default). Light theme is `[data-akasha="light"]`.
   <span class="monad-header__name">AppName</span>
   <nav class="threshold-nav">...</nav>
   <div class="monad-header__actions">
-    <button class="akasha-toggle" data-mn-theme-toggle>◑</button>
+    <button class="strata-toggle" data-mn-theme-toggle>◑</button>
   </div>
 </header>
 
@@ -112,7 +112,7 @@ Responsive: 16 col → 8 col (≤1056px) → 4 col (≤672px).
 
 ## Atomos — Primitive Components
 
-Each Atomos is self-contained. Never add decorative overrides to Atomos; adjust the Akasha layer instead.
+Each Atomos is self-contained. Never add decorative overrides to Atomos; adjust the Strata layer instead.
 
 ### Buttons
 
@@ -258,10 +258,10 @@ Variants: `--signal`, `--success`, `--warning`, `--error`
 
 `monad.js` wires all threshold interactions automatically.
 
-## Akasha Toggle
+## Strata Toggle
 
 ```html
-<button class="akasha-toggle" data-mn-theme-toggle aria-label="Toggle theme">◑</button>
+<button class="strata-toggle" data-mn-theme-toggle aria-label="Toggle theme">◑</button>
 ```
 
 ## Typography
@@ -279,7 +279,7 @@ Variants: `--signal`, `--success`, `--warning`, `--error`
 ## Visual Principles
 
 1. **No border-radius** — The system is orthogonal. Softness is not structural. If you add `border-radius`, you are adding decoration.
-2. **No decorative shadows** — Depth is communicated by 1px borders and layered backgrounds (`akasha-layer-01/02/03`). Do not add `box-shadow` for aesthetics.
+2. **No decorative shadows** — Depth is communicated by 1px borders and layered backgrounds (`strata-layer-01/02/03`). Do not add `box-shadow` for aesthetics.
 3. **No gradients** — Flat fills only. Color is information, not texture.
 4. **Haptic transitions** — All transitions use `var(--threshold-fast)` (80ms linear) by default. Motion is predictable, not expressive.
 5. **High-contrast states** — Hover/active states change color completely, not opacity. Interactive feedback should feel solid.
@@ -292,13 +292,13 @@ Variants: `--signal`, `--success`, `--warning`, `--error`
 <script src="path/to/build/monad.js"></script>
 ```
 
-Include `monad.js` before `</body>`. It auto-initializes Akasha theme, Threshold nav, and Rail drawer.
+Include `monad.js` before `</body>`. It auto-initializes Strata theme, Threshold nav, and Rail drawer.
 
 ## Platform Targets
 
 ### HTML / CSS / JS
 
-Use `monad.css` + `monad.js`. Reference only `--akasha-*` tokens in custom styles.
+Use `monad.css` + `monad.js`. Reference only `--strata-*` tokens in custom styles.
 
 ### Unity C#
 
@@ -333,7 +333,7 @@ Output: `build/monad.css`, `build/monad.js`, `build/ColorPalette.cs`, `build/Col
 ## What NOT to Do
 
 - Do not use `ds-*` classes — they are retired
-- Do not hardcode color hex values in components — use `--akasha-*`
+- Do not hardcode color hex values in components — use `--strata-*`
 - Do not add `border-radius` to Atomos
 - Do not use movement hold colors (`atomos-hold--*`) for generic status
 - Do not use `box-shadow` for depth — use borders
