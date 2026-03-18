@@ -1,4 +1,48 @@
 {
+  "Light_Mode": {
+    "General_UI_Colors": {
+      "Background": {
+        "name": "Light Background",
+        "hex": "#f4f4f4",
+        "rgb": [244, 244, 244]
+      },
+      "Layer_01": {
+        "name": "Light Layer 01",
+        "hex": "#ffffff",
+        "rgb": [255, 255, 255]
+      },
+      "Layer_02": {
+        "name": "Light Layer 02",
+        "hex": "#f4f4f4",
+        "rgb": [244, 244, 244]
+      },
+      "Layer_03": {
+        "name": "Light Layer 03",
+        "hex": "#e8e8e8",
+        "rgb": [232, 232, 232]
+      },
+      "Primary_Text": {
+        "name": "Light Primary Text",
+        "hex": "#161616",
+        "rgb": [22, 22, 22]
+      },
+      "Secondary_Text": {
+        "name": "Light Secondary Text",
+        "hex": "#525252",
+        "rgb": [82, 82, 82]
+      },
+      "Disabled_Text": {
+        "name": "Light Disabled Text",
+        "hex": "#8d8d8d",
+        "rgb": [141, 141, 141]
+      },
+      "Border": {
+        "name": "Light Border",
+        "hex": "#c6c6c6",
+        "rgb": [198, 198, 198]
+      }
+    }
+  },
   "Default_Colors": {
     "General_UI_Colors": {
       "Background": {

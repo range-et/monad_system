@@ -1,0 +1,725 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Design System — App Dashboard</title>
+  <link rel="stylesheet" href="../build/design-system.css">
+  <style>
+    html, body { height: 100%; }
+    body { display: flex; flex-direction: column; overflow: hidden; }
+
+    /* ---- Header ---- */
+    .app-header {
+      display: flex;
+      align-items: center;
+      gap: var(--space-2);
+      height: 48px;
+      padding: 0 var(--space-3);
+      background: var(--color-layer-01);
+      border-bottom: 1px solid var(--color-border);
+      flex-shrink: 0;
+      z-index: 100;
+    }
+    .app-header__logo {
+      width: 24px;
+      height: 24px;
+      background: var(--color-interactive);
+      border-radius: var(--radius-sm);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 12px;
+      color: #fff;
+      font-weight: 700;
+    }
+    .app-header__name {
+      font-size: var(--type-base);
+      font-weight: 600;
+      color: var(--color-text-primary);
+    }
+    .app-header__divider {
+      width: 1px;
+      height: 20px;
+      background: var(--color-border);
+      margin: 0 var(--space-1);
+    }
+    .app-header__nav {
+      display: flex;
+      gap: 2px;
+    }
+    .app-header__nav a {
+      padding: 6px var(--space-2);
+      font-size: var(--type-sm);
+      color: var(--color-text-secondary);
+      border-radius: var(--radius-sm);
+      text-decoration: none;
+      transition: background var(--transition-fast), color var(--transition-fast);
+    }
+    .app-header__nav a:hover { background: var(--color-layer-02); color: var(--color-text-primary); }
+    .app-header__nav a.active { color: var(--color-text-primary); background: var(--color-layer-02); }
+    .app-header__right {
+      margin-left: auto;
+      display: flex;
+      align-items: center;
+      gap: var(--space-1);
+    }
+    .avatar {
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      background: var(--color-interactive);
+      color: #fff;
+      font-size: var(--type-xs);
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    /* ---- Layout ---- */
+    .app-body {
+      display: flex;
+      flex: 1;
+      overflow: hidden;
+    }
+
+    /* ---- Sidenav ---- */
+    .app-sidenav {
+      width: 220px;
+      flex-shrink: 0;
+      background: var(--color-layer-01);
+      border-right: 1px solid var(--color-border);
+      overflow-y: auto;
+      padding: var(--space-2) 0;
+    }
+    .app-sidenav__section {
+      padding: var(--space-2) var(--space-2) var(--space-1);
+      font-size: var(--type-xs);
+      font-weight: 600;
+      color: var(--color-text-disabled);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+    }
+    .app-sidenav__item {
+      display: flex;
+      align-items: center;
+      gap: var(--space-1);
+      padding: 8px var(--space-2);
+      font-size: var(--type-sm);
+      color: var(--color-text-secondary);
+      cursor: pointer;
+      text-decoration: none;
+      border: none;
+      background: transparent;
+      width: 100%;
+      text-align: left;
+      transition: background var(--transition-fast), color var(--transition-fast);
+    }
+    .app-sidenav__item:hover { background: var(--color-layer-02); color: var(--color-text-primary); }
+    .app-sidenav__item.active {
+      background: var(--color-layer-02);
+      color: var(--color-interactive);
+      border-left: 3px solid var(--color-interactive);
+      padding-left: calc(var(--space-2) - 3px);
+    }
+    .app-sidenav__icon { font-size: 14px; width: 16px; text-align: center; }
+    .app-sidenav__badge {
+      margin-left: auto;
+      background: var(--color-support-error);
+      color: #fff;
+      font-size: 10px;
+      font-weight: 600;
+      padding: 1px 5px;
+      border-radius: 8px;
+    }
+
+    /* ---- Main content ---- */
+    .app-main {
+      flex: 1;
+      overflow-y: auto;
+      background: var(--color-bg);
+      padding: var(--space-4);
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-4);
+    }
+
+    /* ---- Page title bar ---- */
+    .page-titlebar {
+      display: flex;
+      align-items: flex-end;
+      justify-content: space-between;
+      gap: var(--space-3);
+    }
+    .page-titlebar h1 {
+      font-size: var(--type-2xl);
+      font-weight: 300;
+      color: var(--color-text-primary);
+    }
+    .page-titlebar__sub {
+      font-size: var(--type-sm);
+      color: var(--color-text-secondary);
+      margin-top: 2px;
+    }
+    .page-titlebar__actions {
+      display: flex;
+      gap: var(--space-1);
+      align-items: center;
+    }
+
+    /* ---- Stat grid ---- */
+    .stat-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: var(--space-3);
+    }
+    @media (max-width: 1100px) { .stat-grid { grid-template-columns: repeat(2, 1fr); } }
+    @media (max-width: 640px)  { .stat-grid { grid-template-columns: 1fr; } }
+
+    .stat-card {
+      background: var(--color-layer-01);
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-md);
+      padding: var(--space-3);
+    }
+    .stat-card__eyebrow {
+      font-size: var(--type-xs);
+      font-weight: 600;
+      color: var(--color-text-disabled);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      margin-bottom: var(--space-1);
+    }
+    .stat-card__value {
+      font-size: var(--type-3xl);
+      font-weight: 300;
+      color: var(--color-text-primary);
+      line-height: 1;
+    }
+    .stat-card__delta {
+      font-size: var(--type-xs);
+      margin-top: 6px;
+    }
+    .stat-card__delta--up   { color: var(--color-support-success); }
+    .stat-card__delta--down { color: var(--color-support-error); }
+    .stat-card__bar {
+      margin-top: var(--space-2);
+    }
+
+    /* ---- Content grid ---- */
+    .content-grid {
+      display: grid;
+      grid-template-columns: 1fr 360px;
+      gap: var(--space-3);
+    }
+    @media (max-width: 1100px) { .content-grid { grid-template-columns: 1fr; } }
+
+    /* ---- Activity feed ---- */
+    .feed {
+      background: var(--color-layer-01);
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-md);
+    }
+    .feed__header {
+      padding: var(--space-2) var(--space-3);
+      border-bottom: 1px solid var(--color-border-subtle);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .feed__title {
+      font-size: var(--type-base);
+      font-weight: 600;
+      color: var(--color-text-primary);
+    }
+    .feed__item {
+      display: flex;
+      align-items: flex-start;
+      gap: var(--space-2);
+      padding: var(--space-2) var(--space-3);
+      border-bottom: 1px solid var(--color-border-subtle);
+      transition: background var(--transition-fast);
+    }
+    .feed__item:hover { background: var(--color-layer-02); }
+    .feed__item:last-child { border-bottom: none; }
+    .feed__dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      margin-top: 6px;
+      flex-shrink: 0;
+    }
+    .feed__dot--success { background: var(--color-support-success); }
+    .feed__dot--warning { background: var(--color-support-warning); }
+    .feed__dot--error   { background: var(--color-support-error); }
+    .feed__dot--info    { background: var(--color-support-info); }
+    .feed__dot--neutral { background: var(--color-text-disabled); }
+    .feed__body {
+      flex: 1;
+      min-width: 0;
+    }
+    .feed__text {
+      font-size: var(--type-sm);
+      color: var(--color-text-primary);
+    }
+    .feed__text strong { font-weight: 600; }
+    .feed__time {
+      font-size: var(--type-xs);
+      color: var(--color-text-disabled);
+      margin-top: 2px;
+    }
+
+    /* ---- Sidebar panel ---- */
+    .side-panel {
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-3);
+    }
+    .panel {
+      background: var(--color-layer-01);
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-md);
+    }
+    .panel__header {
+      padding: var(--space-2) var(--space-3);
+      border-bottom: 1px solid var(--color-border-subtle);
+      font-size: var(--type-base);
+      font-weight: 600;
+      color: var(--color-text-primary);
+    }
+    .panel__body { padding: var(--space-3); }
+
+    .status-list { display: flex; flex-direction: column; gap: var(--space-2); }
+    .status-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      font-size: var(--type-sm);
+    }
+    .status-row__name { color: var(--color-text-secondary); }
+    .status-indicator {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-size: var(--type-xs);
+    }
+    .status-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+    }
+
+    .metric-list { display: flex; flex-direction: column; gap: var(--space-2); }
+    .metric-row { display: flex; flex-direction: column; gap: 4px; }
+    .metric-row__header {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+    }
+    .metric-row__name { font-size: var(--type-sm); color: var(--color-text-secondary); }
+    .metric-row__val  { font-size: var(--type-sm); font-weight: 600; color: var(--color-text-primary); }
+
+    /* ---- Data table section ---- */
+    .table-section {
+      background: var(--color-layer-01);
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-md);
+    }
+    .table-section__header {
+      padding: var(--space-2) var(--space-3);
+      border-bottom: 1px solid var(--color-border-subtle);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .table-section__title {
+      font-size: var(--type-base);
+      font-weight: 600;
+      color: var(--color-text-primary);
+    }
+    .table-section__body { overflow-x: auto; }
+
+    /* ---- Notification strip ---- */
+    .notif-strip {
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-2);
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Header -->
+  <header class="app-header">
+    <div class="app-header__logo">DS</div>
+    <span class="app-header__name">Workspace</span>
+    <div class="app-header__divider"></div>
+    <nav class="app-header__nav">
+      <a href="#" class="active">Overview</a>
+      <a href="#">Analytics</a>
+      <a href="#">Deployments</a>
+      <a href="#">Settings</a>
+    </nav>
+    <div class="app-header__right">
+      <button class="ds-btn ds-btn--primary ds-btn--sm">+ New</button>
+      <button class="ds-theme-toggle" id="theme-toggle" aria-label="Toggle theme" title="Toggle light/dark">◑</button>
+      <div class="avatar">R</div>
+    </div>
+  </header>
+
+  <div class="app-body">
+
+    <!-- Sidenav -->
+    <nav class="app-sidenav">
+      <div class="app-sidenav__section">Main</div>
+      <a class="app-sidenav__item active" href="#">
+        <span class="app-sidenav__icon">⊞</span> Dashboard
+      </a>
+      <a class="app-sidenav__item" href="#">
+        <span class="app-sidenav__icon">◎</span> Projects
+      </a>
+      <a class="app-sidenav__item" href="#">
+        <span class="app-sidenav__icon">⚡</span> Activity
+        <span class="app-sidenav__badge">3</span>
+      </a>
+      <a class="app-sidenav__item" href="#">
+        <span class="app-sidenav__icon">↗</span> Analytics
+      </a>
+
+      <div class="app-sidenav__section" style="margin-top:var(--space-2);">System</div>
+      <a class="app-sidenav__item" href="#">
+        <span class="app-sidenav__icon">◈</span> Pipelines
+      </a>
+      <a class="app-sidenav__item" href="#">
+        <span class="app-sidenav__icon">⬡</span> Integrations
+      </a>
+      <a class="app-sidenav__item" href="#">
+        <span class="app-sidenav__icon">⚙</span> Settings
+      </a>
+
+      <div class="app-sidenav__section" style="margin-top:var(--space-2);">Design</div>
+      <a class="app-sidenav__item" href="components.html">
+        <span class="app-sidenav__icon">✦</span> Components
+      </a>
+      <a class="app-sidenav__item" href="#">
+        <span class="app-sidenav__icon">◐</span> Tokens
+      </a>
+    </nav>
+
+    <!-- Main -->
+    <main class="app-main">
+
+      <!-- Page title -->
+      <div class="page-titlebar">
+        <div>
+          <h1>Overview</h1>
+          <div class="page-titlebar__sub">Last updated: just now &nbsp;·&nbsp; Design System v2.0</div>
+        </div>
+        <div class="page-titlebar__actions">
+          <button class="ds-btn ds-btn--ghost ds-btn--sm">Export</button>
+          <button class="ds-btn ds-btn--secondary ds-btn--sm">Refresh</button>
+          <button class="ds-btn ds-btn--primary ds-btn--sm">Deploy</button>
+        </div>
+      </div>
+
+      <!-- Notifications -->
+      <div class="notif-strip">
+        <div class="ds-notification ds-notification--warning">
+          <span class="ds-notification__icon">⚠</span>
+          <div class="ds-notification__body">
+            <div class="ds-notification__title">Dependency update available</div>
+            <div class="ds-notification__msg">3 packages have newer versions. Run <code>pip install --upgrade</code> to update.</div>
+          </div>
+          <button class="ds-btn ds-btn--ghost ds-btn--sm" style="flex-shrink:0;">Dismiss</button>
+        </div>
+      </div>
+
+      <!-- Stat cards -->
+      <div class="stat-grid">
+        <div class="stat-card">
+          <div class="stat-card__eyebrow">Build artifacts</div>
+          <div class="stat-card__value">5</div>
+          <div class="stat-card__delta stat-card__delta--up">↑ 2 new this session</div>
+          <div class="stat-card__bar">
+            <div class="ds-progress"><div class="ds-progress__bar" style="--progress:100%"></div></div>
+          </div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-card__eyebrow">CSS tokens</div>
+          <div class="stat-card__value">38</div>
+          <div class="stat-card__delta stat-card__delta--up">↑ Light + Dark sets</div>
+          <div class="stat-card__bar">
+            <div class="ds-progress"><div class="ds-progress__bar ds-progress__bar--success" style="--progress:80%"></div></div>
+          </div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-card__eyebrow">Component classes</div>
+          <div class="stat-card__value">60+</div>
+          <div class="stat-card__delta stat-card__delta--up">↑ .ds-* classes</div>
+          <div class="stat-card__bar">
+            <div class="ds-progress"><div class="ds-progress__bar ds-progress__bar--success" style="--progress:92%"></div></div>
+          </div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-card__eyebrow">Platforms covered</div>
+          <div class="stat-card__value">3</div>
+          <div class="stat-card__delta" style="color:var(--color-support-info);">CSS · C# · Python</div>
+          <div class="stat-card__bar">
+            <div class="ds-progress"><div class="ds-progress__bar ds-progress__bar--success" style="--progress:100%"></div></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Main content grid -->
+      <div class="content-grid">
+
+        <!-- Activity feed -->
+        <div class="feed">
+          <div class="feed__header">
+            <span class="feed__title">Activity</span>
+            <span class="ds-tag ds-tag--neutral">Live</span>
+          </div>
+          <div class="feed__item">
+            <div class="feed__dot feed__dot--success"></div>
+            <div class="feed__body">
+              <div class="feed__text"><strong>compile_color.py</strong> ran successfully — 5 artifacts written to <code>build/</code></div>
+              <div class="feed__time">Just now</div>
+            </div>
+            <span class="ds-tag ds-tag--success">OK</span>
+          </div>
+          <div class="feed__item">
+            <div class="feed__dot feed__dot--success"></div>
+            <div class="feed__body">
+              <div class="feed__text"><strong>design-system.css</strong> generated with dual light/dark token sets</div>
+              <div class="feed__time">Just now</div>
+            </div>
+            <span class="ds-tag ds-tag--info">CSS</span>
+          </div>
+          <div class="feed__item">
+            <div class="feed__dot feed__dot--success"></div>
+            <div class="feed__body">
+              <div class="feed__text"><strong>ColorPalette.cs</strong> + <strong>ColorPaletteLight.cs</strong> — Unity C# classes generated</div>
+              <div class="feed__time">Just now</div>
+            </div>
+            <span class="ds-tag ds-tag--info">C#</span>
+          </div>
+          <div class="feed__item">
+            <div class="feed__dot feed__dot--info"></div>
+            <div class="feed__body">
+              <div class="feed__text"><strong>seaborn_palette.py</strong> — matplotlib/seaborn helpers with dark + light palettes</div>
+              <div class="feed__time">Just now</div>
+            </div>
+            <span class="ds-tag ds-tag--info">Python</span>
+          </div>
+          <div class="feed__item">
+            <div class="feed__dot feed__dot--success"></div>
+            <div class="feed__body">
+              <div class="feed__text"><strong>SKILL.md</strong> created — Cursor / Gemini AI design language skill</div>
+              <div class="feed__time">This session</div>
+            </div>
+            <span class="ds-tag ds-tag--success">New</span>
+          </div>
+          <div class="feed__item">
+            <div class="feed__dot feed__dot--warning"></div>
+            <div class="feed__body">
+              <div class="feed__text"><strong>colors.json</strong> updated — added <code>Light_Mode</code> section with Carbon White-theme tokens</div>
+              <div class="feed__time">This session</div>
+            </div>
+            <span class="ds-tag ds-tag--warning">Updated</span>
+          </div>
+          <div class="feed__item">
+            <div class="feed__dot feed__dot--neutral"></div>
+            <div class="feed__body">
+              <div class="feed__text"><strong>README.md</strong> updated with full documentation</div>
+              <div class="feed__time">This session</div>
+            </div>
+            <span class="ds-tag ds-tag--neutral">Docs</span>
+          </div>
+        </div>
+
+        <!-- Side panel -->
+        <div class="side-panel">
+
+          <!-- System status -->
+          <div class="panel">
+            <div class="panel__header">System Status</div>
+            <div class="panel__body">
+              <div class="status-list">
+                <div class="status-row">
+                  <span class="status-row__name">CSS Component Library</span>
+                  <div class="status-indicator">
+                    <div class="status-dot" style="background:var(--color-support-success)"></div>
+                    <span style="color:var(--color-support-success);">Operational</span>
+                  </div>
+                </div>
+                <div class="status-row">
+                  <span class="status-row__name">Unity C# Classes</span>
+                  <div class="status-indicator">
+                    <div class="status-dot" style="background:var(--color-support-success)"></div>
+                    <span style="color:var(--color-support-success);">Operational</span>
+                  </div>
+                </div>
+                <div class="status-row">
+                  <span class="status-row__name">Python Palette</span>
+                  <div class="status-indicator">
+                    <div class="status-dot" style="background:var(--color-support-success)"></div>
+                    <span style="color:var(--color-support-success);">Operational</span>
+                  </div>
+                </div>
+                <div class="status-row">
+                  <span class="status-row__name">Theme Toggle</span>
+                  <div class="status-indicator">
+                    <div class="status-dot" style="background:var(--color-support-success)"></div>
+                    <span style="color:var(--color-support-success);">Light + Dark</span>
+                  </div>
+                </div>
+                <div class="status-row">
+                  <span class="status-row__name">Cursor AI Skill</span>
+                  <div class="status-indicator">
+                    <div class="status-dot" style="background:var(--color-support-info)"></div>
+                    <span style="color:var(--color-support-info);">Active</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Coverage metrics -->
+          <div class="panel">
+            <div class="panel__header">Coverage</div>
+            <div class="panel__body">
+              <div class="metric-list">
+                <div class="metric-row">
+                  <div class="metric-row__header">
+                    <span class="metric-row__name">HTML / CSS / JS</span>
+                    <span class="metric-row__val">100%</span>
+                  </div>
+                  <div class="ds-progress"><div class="ds-progress__bar ds-progress__bar--success" style="--progress:100%"></div></div>
+                </div>
+                <div class="metric-row">
+                  <div class="metric-row__header">
+                    <span class="metric-row__name">Unity C# (dark)</span>
+                    <span class="metric-row__val">100%</span>
+                  </div>
+                  <div class="ds-progress"><div class="ds-progress__bar ds-progress__bar--success" style="--progress:100%"></div></div>
+                </div>
+                <div class="metric-row">
+                  <div class="metric-row__header">
+                    <span class="metric-row__name">Unity C# (light)</span>
+                    <span class="metric-row__val">100%</span>
+                  </div>
+                  <div class="ds-progress"><div class="ds-progress__bar ds-progress__bar--success" style="--progress:100%"></div></div>
+                </div>
+                <div class="metric-row">
+                  <div class="metric-row__header">
+                    <span class="metric-row__name">Python / Seaborn</span>
+                    <span class="metric-row__val">100%</span>
+                  </div>
+                  <div class="ds-progress"><div class="ds-progress__bar ds-progress__bar--success" style="--progress:100%"></div></div>
+                </div>
+                <div class="metric-row">
+                  <div class="metric-row__header">
+                    <span class="metric-row__name">Cursor AI Skill</span>
+                    <span class="metric-row__val">100%</span>
+                  </div>
+                  <div class="ds-progress"><div class="ds-progress__bar ds-progress__bar--success" style="--progress:100%"></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Movement colors -->
+          <div class="panel">
+            <div class="panel__header">Movement Domain</div>
+            <div class="panel__body" style="display:flex; flex-direction:column; gap:var(--space-1);">
+              <span class="ds-hold ds-hold--start">Start Hold</span>
+              <span class="ds-hold ds-hold--hand">Hand Hold</span>
+              <span class="ds-hold ds-hold--foot">Foot Hold</span>
+              <span class="ds-hold ds-hold--finish">Finish Hold</span>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- Artifacts table -->
+      <div class="table-section">
+        <div class="table-section__header">
+          <span class="table-section__title">Build Artifacts</span>
+          <div style="display:flex; gap:var(--space-1);">
+            <button class="ds-btn ds-btn--ghost ds-btn--sm">Filter</button>
+            <button class="ds-btn ds-btn--secondary ds-btn--sm">Rebuild all</button>
+          </div>
+        </div>
+        <div class="table-section__body">
+          <table class="ds-table">
+            <thead>
+              <tr>
+                <th>File</th>
+                <th>Platform</th>
+                <th>Theme</th>
+                <th>Description</th>
+                <th>Status</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><code>ColorPalette.css</code></td>
+                <td>HTML / CSS</td>
+                <td><span class="ds-tag ds-tag--neutral">Dark</span></td>
+                <td>Raw CSS custom property tokens only</td>
+                <td><span class="ds-tag ds-tag--success">✓ Ready</span></td>
+              </tr>
+              <tr>
+                <td><code>design-system.css</code></td>
+                <td>HTML / CSS / JS</td>
+                <td><span class="ds-tag ds-tag--info">Dual</span></td>
+                <td>Full component library — light &amp; dark, all .ds-* classes</td>
+                <td><span class="ds-tag ds-tag--success">✓ Ready</span></td>
+              </tr>
+              <tr>
+                <td><code>ColorPalette.cs</code></td>
+                <td>Unity C#</td>
+                <td><span class="ds-tag ds-tag--neutral">Dark</span></td>
+                <td>Static Unity color class — dark theme</td>
+                <td><span class="ds-tag ds-tag--success">✓ Ready</span></td>
+              </tr>
+              <tr>
+                <td><code>ColorPaletteLight.cs</code></td>
+                <td>Unity C#</td>
+                <td><span class="ds-tag ds-tag--warning">Light</span></td>
+                <td>Static Unity color class — light theme</td>
+                <td><span class="ds-tag ds-tag--success">✓ Ready</span></td>
+              </tr>
+              <tr>
+                <td><code>seaborn_palette.py</code></td>
+                <td>Python</td>
+                <td><span class="ds-tag ds-tag--info">Dual</span></td>
+                <td>matplotlib / seaborn palette helpers, colormaps, theme appliers</td>
+                <td><span class="ds-tag ds-tag--success">✓ Ready</span></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+    </main>
+  </div>
+
+  <script>
+    (function () {
+      const root = document.documentElement;
+      const btn = document.getElementById('theme-toggle');
+      const stored = localStorage.getItem('ds-theme');
+      if (stored) root.dataset.theme = stored;
+      btn?.addEventListener('click', () => {
+        const next = root.dataset.theme === 'light' ? 'dark' : 'light';
+        root.dataset.theme = next;
+        localStorage.setItem('ds-theme', next);
+      });
+    })();
+  </script>
+
+</body>
+</html>

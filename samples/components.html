@@ -1,0 +1,582 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Design System — Component Showcase</title>
+  <link rel="stylesheet" href="../build/design-system.css">
+  <style>
+    .showcase-section {
+      margin-bottom: var(--space-8);
+    }
+    .showcase-section h2 {
+      font-size: var(--type-xl);
+      font-weight: 600;
+      color: var(--color-text-primary);
+      margin-bottom: var(--space-1);
+      padding-bottom: var(--space-1);
+      border-bottom: 2px solid var(--color-border);
+    }
+    .showcase-section p.section-desc {
+      font-size: var(--type-sm);
+      color: var(--color-text-secondary);
+      margin-bottom: var(--space-3);
+    }
+    .row-flex {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: var(--space-2);
+      margin-bottom: var(--space-2);
+    }
+    .swatch-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+      gap: var(--space-2);
+    }
+    .swatch {
+      border-radius: var(--radius-md);
+      overflow: hidden;
+      border: 1px solid var(--color-border);
+    }
+    .swatch__color {
+      height: 64px;
+    }
+    .swatch__info {
+      background: var(--color-layer-01);
+      padding: 8px 10px;
+    }
+    .swatch__name {
+      font-size: var(--type-xs);
+      font-weight: 600;
+      color: var(--color-text-primary);
+      display: block;
+    }
+    .swatch__hex {
+      font-size: var(--type-xs);
+      font-family: var(--font-mono);
+      color: var(--color-text-secondary);
+      display: block;
+    }
+    .code-block {
+      background: var(--color-layer-02);
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-md);
+      padding: var(--space-2) var(--space-3);
+      font-family: var(--font-mono);
+      font-size: var(--type-sm);
+      color: var(--color-text-secondary);
+      margin-top: var(--space-2);
+      overflow-x: auto;
+    }
+    .form-demo {
+      max-width: 480px;
+    }
+    .table-wrap {
+      overflow-x: auto;
+    }
+    .progress-demos {
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-2);
+      max-width: 480px;
+    }
+    .progress-row {
+      display: flex;
+      align-items: center;
+      gap: var(--space-2);
+    }
+    .progress-row span {
+      font-size: var(--type-xs);
+      color: var(--color-text-secondary);
+      width: 72px;
+      flex-shrink: 0;
+    }
+    .progress-row .ds-progress {
+      flex: 1;
+    }
+    .page-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: var(--space-3) var(--space-4);
+      border-bottom: 1px solid var(--color-border);
+      background: var(--color-layer-01);
+      position: sticky;
+      top: 0;
+      z-index: 50;
+    }
+    .page-header h1 {
+      font-size: var(--type-xl);
+      font-weight: 600;
+    }
+    .page-header__sub {
+      font-size: var(--type-sm);
+      color: var(--color-text-secondary);
+      margin-top: 2px;
+    }
+    main {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: var(--space-6) var(--space-4);
+    }
+    .layer-demo {
+      display: flex;
+      gap: var(--space-2);
+    }
+    .layer-box {
+      flex: 1;
+      min-height: 80px;
+      border-radius: var(--radius-md);
+      border: 1px solid var(--color-border);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: var(--type-xs);
+      font-family: var(--font-mono);
+      color: var(--color-text-secondary);
+    }
+  </style>
+</head>
+<body>
+  <div class="page-header">
+    <div>
+      <h1>Component Showcase</h1>
+      <div class="page-header__sub">Design System · Carbon Physical Language · Light &amp; Dark</div>
+    </div>
+    <button class="ds-theme-toggle" id="theme-toggle" aria-label="Toggle color theme" title="Toggle theme">◑</button>
+  </div>
+
+  <main>
+
+    <!-- COLOR PALETTE -->
+    <section class="showcase-section">
+      <h2>Color Palette</h2>
+      <p class="section-desc">All colors from <code>colors.json</code>. Semantic tokens switch automatically between light and dark themes.</p>
+
+      <p style="font-size:var(--type-sm); font-weight:600; color:var(--color-text-secondary); margin-bottom:var(--space-1); text-transform:uppercase; letter-spacing:0.06em;">Theme-Switched</p>
+      <div class="swatch-grid" style="margin-bottom:var(--space-3);">
+        <div class="swatch">
+          <div class="swatch__color" style="background:var(--color-bg)"></div>
+          <div class="swatch__info"><span class="swatch__name">Background</span><span class="swatch__hex">--color-bg</span></div>
+        </div>
+        <div class="swatch">
+          <div class="swatch__color" style="background:var(--color-layer-01)"></div>
+          <div class="swatch__info"><span class="swatch__name">Layer 01</span><span class="swatch__hex">--color-layer-01</span></div>
+        </div>
+        <div class="swatch">
+          <div class="swatch__color" style="background:var(--color-layer-02)"></div>
+          <div class="swatch__info"><span class="swatch__name">Layer 02</span><span class="swatch__hex">--color-layer-02</span></div>
+        </div>
+        <div class="swatch">
+          <div class="swatch__color" style="background:var(--color-layer-03)"></div>
+          <div class="swatch__info"><span class="swatch__name">Layer 03</span><span class="swatch__hex">--color-layer-03</span></div>
+        </div>
+        <div class="swatch">
+          <div class="swatch__color" style="background:var(--color-text-primary)"></div>
+          <div class="swatch__info"><span class="swatch__name">Text Primary</span><span class="swatch__hex">--color-text-primary</span></div>
+        </div>
+        <div class="swatch">
+          <div class="swatch__color" style="background:var(--color-text-secondary)"></div>
+          <div class="swatch__info"><span class="swatch__name">Text Secondary</span><span class="swatch__hex">--color-text-secondary</span></div>
+        </div>
+        <div class="swatch">
+          <div class="swatch__color" style="background:var(--color-border); border-bottom:none;"></div>
+          <div class="swatch__info"><span class="swatch__name">Border</span><span class="swatch__hex">--color-border</span></div>
+        </div>
+      </div>
+
+      <p style="font-size:var(--type-sm); font-weight:600; color:var(--color-text-secondary); margin-bottom:var(--space-1); text-transform:uppercase; letter-spacing:0.06em;">Shared Semantic</p>
+      <div class="swatch-grid" style="margin-bottom:var(--space-3);">
+        <div class="swatch">
+          <div class="swatch__color" style="background:#03A9F4"></div>
+          <div class="swatch__info"><span class="swatch__name">Interactive</span><span class="swatch__hex">#03A9F4</span></div>
+        </div>
+        <div class="swatch">
+          <div class="swatch__color" style="background:#00BCD4"></div>
+          <div class="swatch__info"><span class="swatch__name">Support Info</span><span class="swatch__hex">#00BCD4</span></div>
+        </div>
+        <div class="swatch">
+          <div class="swatch__color" style="background:#8BC34A"></div>
+          <div class="swatch__info"><span class="swatch__name">Support Success</span><span class="swatch__hex">#8BC34A</span></div>
+        </div>
+        <div class="swatch">
+          <div class="swatch__color" style="background:#FFC107"></div>
+          <div class="swatch__info"><span class="swatch__name">Support Warning</span><span class="swatch__hex">#FFC107</span></div>
+        </div>
+        <div class="swatch">
+          <div class="swatch__color" style="background:#F44336"></div>
+          <div class="swatch__info"><span class="swatch__name">Support Error</span><span class="swatch__hex">#F44336</span></div>
+        </div>
+        <div class="swatch">
+          <div class="swatch__color" style="background:#FFEB3B"></div>
+          <div class="swatch__info"><span class="swatch__name">Highlight</span><span class="swatch__hex">#FFEB3B</span></div>
+        </div>
+      </div>
+
+      <p style="font-size:var(--type-sm); font-weight:600; color:var(--color-text-secondary); margin-bottom:var(--space-1); text-transform:uppercase; letter-spacing:0.06em;">Movement Domain</p>
+      <div class="swatch-grid">
+        <div class="swatch">
+          <div class="swatch__color" style="background:#4CAF50"></div>
+          <div class="swatch__info"><span class="swatch__name">Start</span><span class="swatch__hex">#4CAF50</span></div>
+        </div>
+        <div class="swatch">
+          <div class="swatch__color" style="background:#03A9F4"></div>
+          <div class="swatch__info"><span class="swatch__name">Hand</span><span class="swatch__hex">#03A9F4</span></div>
+        </div>
+        <div class="swatch">
+          <div class="swatch__color" style="background:#FFEB3B"></div>
+          <div class="swatch__info"><span class="swatch__name">Foot</span><span class="swatch__hex">#FFEB3B</span></div>
+        </div>
+        <div class="swatch">
+          <div class="swatch__color" style="background:#9C27B0"></div>
+          <div class="swatch__info"><span class="swatch__name">Finish</span><span class="swatch__hex">#9C27B0</span></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- LAYERING MODEL -->
+    <section class="showcase-section">
+      <h2>Layering Model</h2>
+      <p class="section-desc">Carbon's layering model — each level is one step lighter (dark) or alternates white/gray-10 (light). Depth is always visible.</p>
+      <div class="layer-demo">
+        <div class="layer-box" style="background:var(--color-bg)">bg</div>
+        <div class="layer-box" style="background:var(--color-layer-01)">layer-01</div>
+        <div class="layer-box" style="background:var(--color-layer-02)">layer-02</div>
+        <div class="layer-box" style="background:var(--color-layer-03)">layer-03</div>
+      </div>
+    </section>
+
+    <!-- TYPOGRAPHY -->
+    <section class="showcase-section">
+      <h2>Typography</h2>
+      <p class="section-desc">IBM Plex Sans (body), IBM Plex Mono (code), IBM Plex Serif (editorial). Carbon type scale.</p>
+      <div style="display:flex; flex-direction:column; gap:var(--space-2);">
+        <div style="font-size:var(--type-5xl); font-weight:300; color:var(--color-text-primary);">Display — 54px Light</div>
+        <div style="font-size:var(--type-4xl); font-weight:300; color:var(--color-text-primary);">Hero — 42px Light</div>
+        <div style="font-size:var(--type-3xl); font-weight:600;">Page Heading — 32px SemiBold</div>
+        <div style="font-size:var(--type-2xl); font-weight:600;">Section Heading — 28px SemiBold</div>
+        <div style="font-size:var(--type-xl); font-weight:600;">Sub Heading — 24px SemiBold</div>
+        <div style="font-size:var(--type-base); color:var(--color-text-secondary);">Body text — 16px Regular. The quick brown fox jumps over the lazy dog.</div>
+        <div style="font-size:var(--type-sm); color:var(--color-text-secondary);">Secondary body — 14px Regular. Helper text, captions, and labels.</div>
+        <div style="font-size:var(--type-xs); color:var(--color-text-disabled); text-transform:uppercase; letter-spacing:0.08em; font-weight:600;">Overline label — 12px SemiBold uppercase</div>
+        <div style="font-family:var(--font-mono); font-size:var(--type-sm); color:var(--color-text-secondary);">Monospace — IBM Plex Mono 14px: const color = "#03A9F4";</div>
+      </div>
+    </section>
+
+    <!-- BUTTONS -->
+    <section class="showcase-section">
+      <h2>Buttons</h2>
+      <p class="section-desc">Four variants: primary, secondary, danger, ghost. Sizes: default, sm, lg.</p>
+      <div class="row-flex">
+        <button class="ds-btn ds-btn--primary">Primary</button>
+        <button class="ds-btn ds-btn--secondary">Secondary</button>
+        <button class="ds-btn ds-btn--danger">Danger</button>
+        <button class="ds-btn ds-btn--ghost">Ghost</button>
+        <button class="ds-btn ds-btn--primary" disabled>Disabled</button>
+      </div>
+      <div class="row-flex">
+        <button class="ds-btn ds-btn--primary ds-btn--sm">Small</button>
+        <button class="ds-btn ds-btn--primary">Default</button>
+        <button class="ds-btn ds-btn--primary ds-btn--lg">Large</button>
+      </div>
+      <div class="code-block">&lt;button class="ds-btn ds-btn--primary"&gt;Primary&lt;/button&gt;</div>
+    </section>
+
+    <!-- TAGS & BADGES -->
+    <section class="showcase-section">
+      <h2>Tags &amp; Badges</h2>
+      <p class="section-desc">Semantic status tags and numeric badges. Use tags for status indicators, badges for counts.</p>
+      <div class="row-flex" style="margin-bottom:var(--space-2);">
+        <span class="ds-tag ds-tag--info">Info</span>
+        <span class="ds-tag ds-tag--success">Success</span>
+        <span class="ds-tag ds-tag--warning">Warning</span>
+        <span class="ds-tag ds-tag--error">Error</span>
+        <span class="ds-tag ds-tag--neutral">Neutral</span>
+      </div>
+      <div class="row-flex">
+        <span class="ds-badge">3</span>
+        <span class="ds-badge">12</span>
+        <span class="ds-badge ds-badge--error">!</span>
+        <span style="font-size:var(--type-sm); color:var(--color-text-secondary);">Notification count badges</span>
+      </div>
+    </section>
+
+    <!-- NOTIFICATIONS -->
+    <section class="showcase-section">
+      <h2>Notifications</h2>
+      <p class="section-desc">Inline notification banners with semantic left border. Include an icon, title, and message body.</p>
+      <div style="display:flex; flex-direction:column; gap:var(--space-2);">
+        <div class="ds-notification ds-notification--info">
+          <span class="ds-notification__icon">ℹ</span>
+          <div class="ds-notification__body">
+            <div class="ds-notification__title">System status</div>
+            <div class="ds-notification__msg">All services are operating normally. No action required.</div>
+          </div>
+        </div>
+        <div class="ds-notification ds-notification--success">
+          <span class="ds-notification__icon">✓</span>
+          <div class="ds-notification__body">
+            <div class="ds-notification__title">Build succeeded</div>
+            <div class="ds-notification__msg">All artifacts were compiled and saved to <code>build/</code>.</div>
+          </div>
+        </div>
+        <div class="ds-notification ds-notification--warning">
+          <span class="ds-notification__icon">⚠</span>
+          <div class="ds-notification__body">
+            <div class="ds-notification__title">Deprecation warning</div>
+            <div class="ds-notification__msg">This API will be removed in the next major version. Please migrate before 2027-01-01.</div>
+          </div>
+        </div>
+        <div class="ds-notification ds-notification--error">
+          <span class="ds-notification__icon">✕</span>
+          <div class="ds-notification__body">
+            <div class="ds-notification__title">Connection failed</div>
+            <div class="ds-notification__msg">Unable to reach the remote server. Check your network connection and try again.</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CARDS -->
+    <section class="showcase-section">
+      <h2>Cards &amp; Tiles</h2>
+      <p class="section-desc">Cards sit on <code>--color-layer-01</code>. Tiles add hover/select interaction states.</p>
+      <div style="display:grid; grid-template-columns:repeat(auto-fill,minmax(240px,1fr)); gap:var(--space-3);">
+        <div class="ds-card">
+          <div class="ds-card__header">
+            <span class="ds-card__title">Standard Card</span>
+            <span class="ds-tag ds-tag--info">Active</span>
+          </div>
+          <div class="ds-card__body">Default card with border and shadow. Lives on layer-01.</div>
+        </div>
+        <div class="ds-card ds-card--flat">
+          <div class="ds-card__header">
+            <span class="ds-card__title">Flat Card</span>
+          </div>
+          <div class="ds-card__body">No shadow. Subtle border only. For dense layouts.</div>
+        </div>
+        <div class="ds-card ds-card--interactive" tabindex="0">
+          <div class="ds-card__header">
+            <span class="ds-card__title">Interactive Card</span>
+          </div>
+          <div class="ds-card__body">Hover to see border highlight. Keyboard focusable.</div>
+        </div>
+        <div class="ds-tile" tabindex="0">
+          <div style="font-weight:600; color:var(--color-text-primary); margin-bottom:4px;">Tile Component</div>
+          <div style="font-size:var(--type-sm); color:var(--color-text-secondary);">Hover or click for selected state. Use for navigation items.</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- STAT CARDS -->
+    <section class="showcase-section">
+      <h2>Stat Cards</h2>
+      <p class="section-desc">Large number + label + delta. Use <code>.ds-stat-card</code> for dashboards and summary panels.</p>
+      <div style="display:grid; grid-template-columns:repeat(auto-fill,minmax(160px,1fr)); gap:var(--space-3);">
+        <div class="ds-stat-card">
+          <div class="ds-stat-card__value">2,847</div>
+          <div class="ds-stat-card__label">Total requests</div>
+          <div class="ds-stat-card__delta ds-stat-card__delta--up">↑ 12.4% this week</div>
+        </div>
+        <div class="ds-stat-card">
+          <div class="ds-stat-card__value">99.2%</div>
+          <div class="ds-stat-card__label">Uptime</div>
+          <div class="ds-stat-card__delta ds-stat-card__delta--up">↑ 0.3%</div>
+        </div>
+        <div class="ds-stat-card">
+          <div class="ds-stat-card__value">148ms</div>
+          <div class="ds-stat-card__label">Avg latency</div>
+          <div class="ds-stat-card__delta ds-stat-card__delta--down">↓ 8ms slower</div>
+        </div>
+        <div class="ds-stat-card">
+          <div class="ds-stat-card__value">14</div>
+          <div class="ds-stat-card__label">Open issues</div>
+          <div class="ds-stat-card__delta ds-stat-card__delta--down">↑ 3 new today</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- FORMS -->
+    <section class="showcase-section">
+      <h2>Forms</h2>
+      <p class="section-desc">Inputs, selects, textareas, and toggles. Focus state uses <code>--color-interactive</code> ring.</p>
+      <div class="form-demo">
+        <div class="ds-form-group">
+          <label class="ds-label">Project name</label>
+          <input class="ds-input" type="text" placeholder="e.g. my-design-system">
+        </div>
+        <div class="ds-form-group">
+          <label class="ds-label">Platform</label>
+          <select class="ds-select">
+            <option>HTML / CSS / JS</option>
+            <option>Unity C#</option>
+            <option>Python / Matplotlib</option>
+          </select>
+        </div>
+        <div class="ds-form-group">
+          <label class="ds-label">Notes</label>
+          <textarea class="ds-textarea" placeholder="Optional description..."></textarea>
+          <span class="ds-helper-text">Max 500 characters</span>
+        </div>
+        <div class="ds-form-group">
+          <label class="ds-label">API endpoint (error state)</label>
+          <input class="ds-input ds-input--error" type="text" value="not-a-valid-url">
+          <span class="ds-helper-text ds-helper-text--error">Must be a valid URL starting with https://</span>
+        </div>
+        <div class="ds-form-group">
+          <label class="ds-toggle">
+            <input type="checkbox" checked>
+            <span class="ds-toggle__track"></span>
+            <span style="font-size:var(--type-sm); color:var(--color-text-secondary);">Enable notifications</span>
+          </label>
+        </div>
+        <div class="row-flex" style="margin-top:var(--space-2);">
+          <button class="ds-btn ds-btn--primary">Save settings</button>
+          <button class="ds-btn ds-btn--ghost">Cancel</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- DATA TABLE -->
+    <section class="showcase-section">
+      <h2>Data Table</h2>
+      <p class="section-desc">Default and zebra-striped variants. Hover state built in.</p>
+      <div class="table-wrap">
+        <table class="ds-table ds-table--zebra">
+          <thead>
+            <tr>
+              <th>Name</th>
+              <th>Platform</th>
+              <th>Status</th>
+              <th>Last updated</th>
+              <th>Size</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><code class="ds-text-mono">design-system.css</code></td>
+              <td>HTML / CSS</td>
+              <td><span class="ds-tag ds-tag--success">Generated</span></td>
+              <td>Just now</td>
+              <td>18.4 KB</td>
+            </tr>
+            <tr>
+              <td><code class="ds-text-mono">ColorPalette.cs</code></td>
+              <td>Unity C#</td>
+              <td><span class="ds-tag ds-tag--success">Generated</span></td>
+              <td>Just now</td>
+              <td>3.1 KB</td>
+            </tr>
+            <tr>
+              <td><code class="ds-text-mono">ColorPaletteLight.cs</code></td>
+              <td>Unity C#</td>
+              <td><span class="ds-tag ds-tag--success">Generated</span></td>
+              <td>Just now</td>
+              <td>3.1 KB</td>
+            </tr>
+            <tr>
+              <td><code class="ds-text-mono">seaborn_palette.py</code></td>
+              <td>Python</td>
+              <td><span class="ds-tag ds-tag--success">Generated</span></td>
+              <td>Just now</td>
+              <td>4.2 KB</td>
+            </tr>
+            <tr>
+              <td><code class="ds-text-mono">SKILL.md</code></td>
+              <td>Cursor / AI</td>
+              <td><span class="ds-tag ds-tag--info">Static</span></td>
+              <td>Today</td>
+              <td>6.8 KB</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- PROGRESS -->
+    <section class="showcase-section">
+      <h2>Progress</h2>
+      <p class="section-desc">Use <code>--progress</code> CSS variable to set fill width. Color variants match semantic tokens.</p>
+      <div class="progress-demos">
+        <div class="progress-row">
+          <span>Interactive</span>
+          <div class="ds-progress"><div class="ds-progress__bar" style="--progress:72%"></div></div>
+          <span style="width:36px; text-align:right; color:var(--color-text-primary);">72%</span>
+        </div>
+        <div class="progress-row">
+          <span>Success</span>
+          <div class="ds-progress"><div class="ds-progress__bar ds-progress__bar--success" style="--progress:100%"></div></div>
+          <span style="width:36px; text-align:right; color:var(--color-support-success);">100%</span>
+        </div>
+        <div class="progress-row">
+          <span>Warning</span>
+          <div class="ds-progress"><div class="ds-progress__bar ds-progress__bar--warning" style="--progress:45%"></div></div>
+          <span style="width:36px; text-align:right; color:var(--color-support-warning);">45%</span>
+        </div>
+        <div class="progress-row">
+          <span>Error</span>
+          <div class="ds-progress"><div class="ds-progress__bar ds-progress__bar--error" style="--progress:18%"></div></div>
+          <span style="width:36px; text-align:right; color:var(--color-support-error);">18%</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- MOVEMENT HOLDS -->
+    <section class="showcase-section">
+      <h2>Movement Domain</h2>
+      <p class="section-desc">Domain-specific hold colors for climbing / motion / sequence visualization. Never use these for general UI status.</p>
+      <div class="row-flex">
+        <span class="ds-hold ds-hold--start">Start</span>
+        <span class="ds-hold ds-hold--hand">Hand</span>
+        <span class="ds-hold ds-hold--foot">Foot</span>
+        <span class="ds-hold ds-hold--finish">Finish</span>
+      </div>
+      <div class="code-block">&lt;span class="ds-hold ds-hold--start"&gt;Start&lt;/span&gt;</div>
+    </section>
+
+    <!-- NAVIGATION SHELL DEMO -->
+    <section class="showcase-section">
+      <h2>Navigation Shell</h2>
+      <p class="section-desc">Header + sidenav + content layout. See <code>samples/dashboard.html</code> for a full working demo.</p>
+      <div style="border:1px solid var(--color-border); border-radius:var(--radius-md); overflow:hidden; height:280px;">
+        <div style="display:flex; align-items:center; gap:var(--space-2); height:48px; padding:0 var(--space-2); background:var(--color-layer-01); border-bottom:1px solid var(--color-border);">
+          <span style="font-size:var(--type-sm); font-weight:600; color:var(--color-text-primary);">AppName</span>
+          <span style="font-size:var(--type-sm); color:var(--color-text-secondary); margin-left:var(--space-2);">Overview</span>
+          <span style="font-size:var(--type-sm); color:var(--color-text-secondary);">Analytics</span>
+          <span style="font-size:var(--type-sm); color:var(--color-text-secondary);">Settings</span>
+          <div style="margin-left:auto; display:flex; gap:var(--space-1);">
+            <button class="ds-btn ds-btn--ghost ds-btn--sm">Help</button>
+          </div>
+        </div>
+        <div style="display:flex; height:calc(100% - 48px);">
+          <div style="width:200px; background:var(--color-layer-01); border-right:1px solid var(--color-border); padding:var(--space-2) 0; font-size:var(--type-sm);">
+            <div style="padding:var(--space-1) var(--space-2); color:var(--color-interactive); border-left:3px solid var(--color-interactive); padding-left:calc(var(--space-2) - 3px); background:var(--color-layer-02);">Dashboard</div>
+            <div style="padding:var(--space-1) var(--space-2); color:var(--color-text-secondary);">Reports</div>
+            <div style="padding:var(--space-1) var(--space-2); color:var(--color-text-secondary);">Users</div>
+            <div style="padding:var(--space-1) var(--space-2); color:var(--color-text-secondary);">Settings</div>
+          </div>
+          <div style="flex:1; padding:var(--space-3); background:var(--color-bg);">
+            <p style="color:var(--color-text-secondary); font-size:var(--type-sm);">← Content area on <code>--color-bg</code></p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <script>
+    (function () {
+      const root = document.documentElement;
+      const btn = document.getElementById('theme-toggle');
+      const stored = localStorage.getItem('ds-theme');
+      if (stored) root.dataset.theme = stored;
+      btn?.addEventListener('click', () => {
+        const next = root.dataset.theme === 'light' ? 'dark' : 'light';
+        root.dataset.theme = next;
+        localStorage.setItem('ds-theme', next);
+      });
+    })();
+  </script>
+</body>
+</html>
