@@ -23,6 +23,7 @@ from templates.xcode_template import (
     create_xcode_dark_theme,
     create_xcode_light_theme,
 )
+from templates.swiftui_template import create_swiftui_strata
 
 
 def load_json(json_path):
@@ -379,6 +380,41 @@ def prepare_templates(json_data):
         console_cursor=information_2_color,
     )
 
+    # SwiftUI Strata — layers/borders match create_monad_system defaults (monad.css)
+    swiftui_strata = create_swiftui_strata(
+        bg_dark=background_color,
+        layer01_dark="#1e1e1e",
+        layer02_dark="#262626",
+        layer03_dark="#333333",
+        text_primary_dark=primary_text_color,
+        text_secondary_dark=secondary_text_color,
+        text_disabled_dark=disabled_color,
+        border_dark="#3d3d3d",
+        border_subtle_dark="#2a2a2a",
+        bg_light=bg_light,
+        layer01_light=layer01_light,
+        layer02_light=layer02_light,
+        layer03_light=layer03_light,
+        text_primary_light=text_primary_light,
+        text_secondary_light=text_secondary_light,
+        text_disabled_light=text_disabled_light,
+        border_light=border_light,
+        border_subtle_light="#e0e0e0",
+        interactive=information_2_color,
+        interactive_hover="#0288d1",
+        interactive_active="#0277bd",
+        support_info=information_1_color,
+        support_success=information_3_color,
+        support_warning=warning_color,
+        support_error=alert_color,
+        highlight=highlight_color,
+        disabled=disabled_color,
+        move_start=start_color,
+        move_hand=hand_color,
+        move_foot=foot_color,
+        move_finish=end_color,
+    )
+
     xcode_light = create_xcode_light_theme(
         background=bg_light,
         line_highlight=layer02_light,
@@ -436,6 +472,7 @@ def prepare_templates(json_data):
         "ghostty_light": ghostty_light,
         "xcode_dark":    xcode_dark,
         "xcode_light":   xcode_light,
+        "swiftui_strata": swiftui_strata,
     }
 
 
@@ -487,9 +524,11 @@ if __name__ == "__main__":
             "themes/vscode/LICENSE":                       code["vscode_license"],
             # ── Ghostty themes ────────────────────────────────────────────────
             "themes/ghostty/Monad Dark":   code["ghostty_dark"],
-            "themes/ghostty/Monad Light":  code["ghostty_light"],            # ── Xcode themes ─────────────────────────────────────────────────
-            "themes/xcode/Monad Dark.xccolortheme":  code["xcode_dark"],
-            "themes/xcode/Monad Light.xccolortheme": code["xcode_light"],        }
+            "themes/ghostty/Monad Light": code["ghostty_light"],
+            "themes/xcode/Monad Dark.xccolortheme": code["xcode_dark"],
+            "themes/xcode/Monad Light.xccolortheme": code["xcode_light"],
+            "themes/swiftui/MonadStrata.swift": code["swiftui_strata"],
+        }
 
         for filename, content in outputs.items():
             path = os.path.join(args.output_path, filename)
@@ -512,6 +551,7 @@ if __name__ == "__main__":
                          "themes/ghostty/Monad Light"]),
             ("Xcode",   ["themes/xcode/Monad Dark.xccolortheme",
                          "themes/xcode/Monad Light.xccolortheme"]),
+            ("SwiftUI", ["themes/swiftui/MonadStrata.swift"]),
         ]
         for group_name, files in groups:
             print(f"\n  [{group_name}]")

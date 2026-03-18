@@ -1,354 +1,113 @@
 # Monad System
 
-A personal design language built on `colors.json`.
+**Site:** [range-et.github.io/monad_system](https://range-et.github.io/monad_system/)
 
-> "Form follows Function. Every element earns its place."
-
-This is not Carbon. Not shadcn. It is an **engineered framework** — orthogonal, materially honest, and multi-platform.
-
-The name comes from Leibniz: a monad is a fundamental, indivisible unit that contains its own complete world. One source of truth. Everything derives from it.
-
----
+Source: `colors.json`. Build outputs go to `build/`.
 
 ## Tiers
 
-| Tier | Role | Scope |
-|---|---|---|
-| **Strata** | Connective state — CSS tokens, theme | `--strata-*` |
-| **Monad** | Structural layout — root containers | `.monad-*` |
-| **Atomos** | Primitive components — indivisible units | `.atomos-*` |
-| **Threshold** | Navigation & transitions | `.threshold-*` |
-
----
+| Tier | Scope |
+|---|---|
+| Strata | `--strata-*` tokens |
+| Monad | `.monad-*` layout |
+| Atomos | `.atomos-*` components |
+| Threshold | `.threshold-*` nav / motion |
 
 ## Build
 
 ```bash
-pip install -r requirements.txt   # first time only
-
-make          # build all artifacts (default)
-make serve    # local server → localhost:8000
-make dev      # build + serve + open in one step
-make clean    # wipe build/
-make help     # list all targets
+pip install -r requirements.txt
+make
 ```
-
-Or call the script directly:
 
 ```bash
 python src/compile_color.py --json_path colors.json --output_path build/
 ```
 
-| File | Platform | Theme | Description |
-|---|---|---|---|
-| `build/monad.css` | HTML / CSS | Dark + Light | Full Monad System — Strata tokens, Atomos components, Monad layout, Threshold nav |
-| `build/monad.js` | HTML / JS | — | Strata toggle, Threshold nav, Rail drawer runtime |
-| `build/ColorPalette.css` | HTML / CSS | Dark | Raw CSS token variables only |
-| `build/ColorPalette.cs` | Unity C# | Dark | Static color class — dark Strata |
-| `build/ColorPaletteLight.cs` | Unity C# | Light | Static color class — light Strata |
-| `build/seaborn_palette.py` | Python | Dual | matplotlib / seaborn palette helpers |
-| `build/themes/vscode/` | VS Code / Cursor | Dark + Light | Editor color theme extension |
-| `build/themes/ghostty/` | Ghostty | Dark + Light | Terminal color theme |
-| `build/themes/xcode/` | Xcode | Dark + Light | Editor color theme — install via `make install-xcode` |
+| Output | Target |
+|---|---|
+| `build/monad.css` | HTML/CSS — full system |
+| `build/monad.js` | HTML/JS — theme + nav |
+| `build/ColorPalette.css` | HTML/CSS — tokens only |
+| `build/ColorPalette.cs` | Unity — dark |
+| `build/ColorPaletteLight.cs` | Unity — light |
+| `build/seaborn_palette.py` | Python / matplotlib |
+| `build/themes/swiftui/MonadStrata.swift` | SwiftUI — Strata `Color` |
+| `build/themes/vscode/` | VS Code / Cursor |
+| `build/themes/ghostty/` | Ghostty |
+| `build/themes/xcode/` | Xcode editor themes |
 
----
+```bash
+make serve          # localhost:8000
+make dev            # build + serve + open
+make clean
+make install        # VS Code + Ghostty + Xcode themes
+make install-vscode
+make install-ghostty
+make install-xcode
+make package-vscode
+```
+
+## SwiftUI
+
+Add `build/themes/swiftui/MonadStrata.swift` to the Xcode target.
+
+```swift
+Text("Title").foregroundStyle(MonadStrata.textPrimary)
+Rectangle().fill(MonadStrata.layer01)
+```
+
+Adaptive colors follow system light/dark. Shared tokens (`interactive`, `info`, movement, etc.) are fixed hex. `MonadStrata.thresholdFastSeconds` is `0.08`.
+
+## HTML
+
+```html
+<link rel="stylesheet" href="build/monad.css">
+<script src="build/monad.js"></script>
+```
+
+Theme: dark default; light = `data-strata="light"`. Toggle: `data-mn-theme-toggle`.
+
+## Unity
+
+```csharp
+ColorPalette.Background
+ColorPaletteLight.Background
+```
+
+## Python
+
+```python
+from build.seaborn_palette import apply_dark_theme, CATEGORICAL
+apply_dark_theme()
+```
 
 ## Samples
 
-| File | Description |
+| Path |
+|---|
+| `samples/components.html` |
+| `samples/dashboard.html` |
+
+## `colors.json`
+
+- `Default_Colors` — dark ground + shared semantics
+- `Light_Mode.General_UI_Colors` — light ground overrides
+
+## Typography (CSS)
+
+| Token | Stack |
 |---|---|
-| `samples/components.html` | Atomos showcase — all components |
-| `samples/dashboard.html` | Monad shell — full app dashboard |
+| `--font-sans` | Inter |
+| `--font-mono` | JetBrains Mono |
+| `--font-serif` | Lora |
 
----
-
-## Visual Principles
-
-1. **Orthogonal** — No border-radius. Softness is decoration.
-2. **Materially Honest** — No gradients. No decorative shadows. Depth via layered borders.
-3. **Haptic** — Transitions are `80ms linear`. Motion is predictable, not expressive.
-4. **High-contrast states** — Hover/active swap color completely, not fade opacity.
-5. **Mono for data** — Numeric values, overlines, IDs use JetBrains Mono.
-
----
-
-## HTML / CSS / JS Usage
-
-```html
-<link rel="stylesheet" href="path/to/build/monad.css">
-<script src="path/to/build/monad.js"></script>
-```
-
-### Theming
-
-Dark is default (`:root`). Light is `[data-strata="light"]`.
-
-```html
-<button data-mn-theme-toggle>◑</button>
-```
-
-`monad.js` persists choice to `localStorage` and respects `prefers-color-scheme`.
-
-### Layout Shell
-
-```html
-<header class="monad-header">
-  <button class="threshold-toggle" data-mn-rail-toggle>☰</button>
-  <span class="monad-header__name">App</span>
-  <nav class="threshold-nav">
-    <a href="#" class="active">Overview</a>
-  </nav>
-  <div class="monad-header__actions">
-    <button class="strata-toggle" data-mn-theme-toggle>◑</button>
-  </div>
-</header>
-
-<div class="monad-layout">
-  <nav class="monad-rail">
-    <div class="monad-rail__section">Main</div>
-    <a class="monad-rail__item active" href="#">Dashboard</a>
-  </nav>
-  <main class="monad-content">
-    <!-- content -->
-  </main>
-</div>
-```
-
-### Key Components
-
-```html
-<!-- Buttons -->
-<button class="atomos-btn atomos-btn--primary">Action</button>
-<button class="atomos-btn atomos-btn--secondary">Secondary</button>
-<button class="atomos-btn atomos-btn--ghost">Ghost</button>
-
-<!-- Card -->
-<div class="atomos-card">
-  <div class="atomos-card__header">
-    <span class="atomos-card__title">Title</span>
-  </div>
-  <div class="atomos-card__body">Content here.</div>
-</div>
-
-<!-- Stat / KPI -->
-<div class="atomos-stat atomos-stat--signal">
-  <div class="atomos-stat__eyebrow">Metric</div>
-  <div class="atomos-stat__value">2,847</div>
-  <div class="atomos-stat__delta atomos-stat__delta--up">↑ 12%</div>
-</div>
-
-<!-- Tags -->
-<span class="atomos-tag atomos-tag--success">ok</span>
-<span class="atomos-tag atomos-tag--error">error</span>
-
-<!-- Notice -->
-<div class="atomos-notice atomos-notice--warning">
-  <span class="atomos-notice__icon">!</span>
-  <div class="atomos-notice__body">
-    <div class="atomos-notice__title">Warning</div>
-    <div class="atomos-notice__msg">Something needs attention.</div>
-  </div>
-</div>
-
-<!-- Form -->
-<div class="atomos-field">
-  <label class="atomos-label">Field</label>
-  <input class="atomos-input" type="text" placeholder="...">
-</div>
-
-<!-- Table -->
-<div class="atomos-table-wrap">
-  <table class="atomos-table">
-    <thead><tr><th>Col</th></tr></thead>
-    <tbody><tr><td>Row</td></tr></tbody>
-  </table>
-</div>
-
-<!-- Progress -->
-<div class="atomos-progress">
-  <div class="atomos-progress__fill" style="--progress:72%"></div>
-</div>
-```
-
-### Grid
-
-```html
-<div class="monad-grid">
-  <div class="monad-col-8">Half</div>
-  <div class="monad-col-8">Half</div>
-</div>
-```
-
-16 columns → 8 (≤1056px) → 4 (≤672px).
-
-### Custom Styles
-
-Reference only Strata tokens:
-
-```css
-.my-component {
-  background: var(--strata-layer-01);
-  border: 1px solid var(--strata-border);
-  color: var(--strata-text-primary);
-  transition: background var(--threshold-fast);
-}
-```
-
----
-
-## Unity C#
-
-```csharp
-// Dark Strata
-Color bg = ColorPalette.Background;
-Color signal = ColorPalette.Information2;
-
-// Light Strata
-Color bgLight = ColorPaletteLight.Background;
-```
-
----
-
-## Python / Seaborn / Matplotlib
-
-```python
-from build.seaborn_palette import (
-    PALETTE_DARK, PALETTE_LIGHT,
-    CATEGORICAL, STATUS_COLORS, MOVEMENT_COLORS,
-    make_sequential_cmap, apply_dark_theme, apply_light_theme
-)
-
-apply_dark_theme()
-
-import matplotlib.pyplot as plt
-import seaborn as sns
-sns.barplot(x=..., y=..., palette=CATEGORICAL)
-```
-
----
-
-## Color Architecture
-
-Defined in `colors.json`. Two sections:
-
-- `Default_Colors` — dark Strata ground + all shared semantic colors
-- `Light_Mode` — light Strata ground overrides
-
-Shared across both themes: interactive, status, movement domain colors.
-
-### Dark Strata
-
-| Token | Hex | Role |
-|---|---|---|
-| `--strata-bg` | `#121212` | Ground |
-| `--strata-layer-01` | `#1e1e1e` | Raised surface |
-| `--strata-layer-02` | `#262626` | Double-raised |
-| `--strata-layer-03` | `#333333` | Triple-raised |
-| `--strata-interactive` | `#03A9F4` | Signal blue |
-| `--strata-success` | `#8BC34A` | |
-| `--strata-warning` | `#FFC107` | |
-| `--strata-error` | `#F44336` | |
-
-### Light Strata
-
-| Token | Hex | Role |
-|---|---|---|
-| `--strata-bg` | `#f4f4f4` | Ground |
-| `--strata-layer-01` | `#ffffff` | Raised surface |
-| `--strata-layer-02` | `#f4f4f4` | Double-raised |
-| `--strata-layer-03` | `#e8e8e8` | Triple-raised |
-
----
-
-## Typography
-
-| Stack | Variable | Use |
-|---|---|---|
-| Inter | `--font-sans` | All UI text |
-| JetBrains Mono | `--font-mono` | Labels, overlines, data, code |
-| Lora | `--font-serif` | Editorial / longform only |
-
-All loaded from Google Fonts.
-
----
-
-## VS Code / Cursor Theme
-
-Dark and light editor themes, generated from `colors.json`.
+## Submodule / copy
 
 ```bash
-make install        # build + install to both VS Code and Cursor
-```
-
-Themes are copied to:
-- `~/.vscode/extensions/monad-system.monad-system-theme-1.0.0/`
-- `~/.cursor/extensions/monad-system.monad-system-theme-1.0.0/`
-
-After install, **fully quit and reopen** the editor, then `Cmd+K Cmd+T` → select **Monad Dark** or **Monad Light**.
-
-To package for the Marketplace:
-
-```bash
-make vsce-install   # one-time: installs vsce
-make package-vscode # → build/themes/vscode/monad-system-theme.vsix
-make publish-vscode # publish (requires vsce login first)
-```
-
----
-
-## Ghostty Theme
-
-Terminal themes for [Ghostty](https://ghostty.org), generated from `colors.json`.
-
-```bash
-make install-ghostty
-```
-
-Themes are copied to `~/.config/ghostty/themes/`. Activate in `~/.config/ghostty/config`:
-
-```
-# Auto-switches with macOS dark/light mode
-theme = light:Monad Light,dark:Monad Dark
-```
-
----
-
-## AI Skill
-
-The Cursor / Gemini skill is at `.cursor/skills/monad-system/SKILL.md`.
-
-It defines:
-- All tier names and class prefixes
-- Component reference with exact HTML
-- Visual rules (no radius, no shadow, haptic transitions)
-- What NOT to do
-
----
-
-## Clone Into Another Project
-
-```bash
-# Add as remote
-git remote add monad https://github.com/range-et/monad_system.git
-git fetch monad
-
-# Copy build artifacts
-cp monad/build/monad.css  your-project/static/
-cp monad/build/monad.js   your-project/static/
-
-# Or submodule
 git submodule add https://github.com/range-et/monad_system.git design-tokens
 ```
 
-Reference `design-tokens/build/monad.css` in your HTML.
+## Cursor skill
 
----
-
-## What NOT to Do
-
-- Do not use `ds-*` classes — retired
-- Do not hardcode hex colors in components — use `--strata-*`
-- Do not add `border-radius` to Atomos
-- Do not use movement hold colors for generic UI status
-- Do not use `box-shadow` for depth
-- Do not use `ease` timing — use `var(--threshold-fast)` (80ms linear)
+`.cursor/skills/monad-system/SKILL.md`
