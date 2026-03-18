@@ -283,7 +283,7 @@ It defines:
 
 ```bash
 # Add as remote
-git remote add monad https://github.com/YOUR/default_colors.git
+git remote add monad https://github.com/range-et/monad_system.git
 git fetch monad
 
 # Copy build artifacts
@@ -291,7 +291,7 @@ cp monad/build/monad.css  your-project/static/
 cp monad/build/monad.js   your-project/static/
 
 # Or submodule
-git submodule add https://github.com/YOUR/default_colors.git design-tokens
+git submodule add https://github.com/range-et/monad_system.git design-tokens
 ```
 
 Reference `design-tokens/build/monad.css` in your HTML.
