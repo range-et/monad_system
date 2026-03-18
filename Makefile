@@ -1,4 +1,4 @@
-.PHONY: build serve open dev clean install install-vscode install-ghostty package-vscode publish-vscode
+.PHONY: build serve open dev clean install install-vscode install-ghostty install-xcode package-vscode publish-vscode
 
 PYTHON    := python3
 SRC       := src/compile_color.py
@@ -11,6 +11,8 @@ VSCODE_EXT_DIR    := $(HOME)/.vscode/extensions/monad-system.monad-system-theme-
 CURSOR_EXT_DIR    := $(HOME)/.cursor/extensions/monad-system.monad-system-theme-1.0.0
 VSCODE_BUILD_DIR  := $(OUT)/themes/vscode
 GHOSTTY_THEME_DIR := $(HOME)/.config/ghostty/themes
+XCODE_THEME_DIR   := $(HOME)/Library/Developer/Xcode/UserData/FontAndColorThemes
+XCODE_BUILD_DIR   := $(OUT)/themes/xcode
 
 ## build           — compile colors.json → all artifacts in build/
 build:
@@ -18,8 +20,8 @@ build:
 	$(PYTHON) $(SRC) --json_path $(JSON) --output_path $(OUT)/
 	@sips -z 128 128 assets/icon.png --out $(VSCODE_BUILD_DIR)/icon.png > /dev/null 2>&1 || true
 
-## install         — build, then install VS Code + Ghostty themes
-install: build install-vscode install-ghostty
+## install         — build, then install VS Code + Ghostty + Xcode themes
+install: build install-vscode install-ghostty install-xcode
 
 ## install-vscode  — copy built theme to VS Code + Cursor extensions
 install-vscode:
@@ -65,6 +67,14 @@ install-ghostty:
 	@cp "$(OUT)/themes/ghostty/Monad Light" "$(GHOSTTY_THEME_DIR)/Monad Light"
 	@echo "Ghostty themes installed → $(GHOSTTY_THEME_DIR)"
 	@echo "Add to ~/.config/ghostty/config:  theme = light:Monad Light,dark:Monad Dark"
+
+## install-xcode   — copy built Xcode themes to Xcode's FontAndColorThemes directory
+install-xcode:
+	@mkdir -p "$(XCODE_THEME_DIR)"
+	@cp "$(XCODE_BUILD_DIR)/Monad Dark.xccolortheme" "$(XCODE_THEME_DIR)/"
+	@cp "$(XCODE_BUILD_DIR)/Monad Light.xccolortheme" "$(XCODE_THEME_DIR)/"
+	@echo "Xcode themes installed → $(XCODE_THEME_DIR)"
+	@echo "Restart Xcode, then: Settings → Themes → Monad Dark / Monad Light"
 
 ## serve           — start a local server at localhost:8000
 serve:

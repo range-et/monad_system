@@ -49,6 +49,7 @@ python src/compile_color.py --json_path colors.json --output_path build/
 | `build/seaborn_palette.py` | Python | Dual | matplotlib / seaborn palette helpers |
 | `build/themes/vscode/` | VS Code / Cursor | Dark + Light | Editor color theme extension |
 | `build/themes/ghostty/` | Ghostty | Dark + Light | Terminal color theme |
+| `build/themes/xcode/` | Xcode | Dark + Light | Editor color theme — install via `make install-xcode` |
 
 ---
 

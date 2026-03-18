@@ -19,6 +19,10 @@ from templates.ghostty_template import (
     create_ghostty_dark_theme,
     create_ghostty_light_theme,
 )
+from templates.xcode_template import (
+    create_xcode_dark_theme,
+    create_xcode_light_theme,
+)
 
 
 def load_json(json_path):
@@ -333,6 +337,89 @@ def prepare_templates(json_data):
         ansi_bright_white=layer01_light,
     )
 
+    # ── Xcode themes ──────────────────────────────────────────────────────────
+    xcode_dark = create_xcode_dark_theme(
+        background=background_color,
+        line_highlight=layer01_dark,
+        insertion_point=information_2_color,
+        invisibles=layer03_dark,
+        selection=_blend(information_2_color, background_color, 0.30),
+        plain_text=primary_text_color,
+        comment=disabled_color,
+        comment_doc=disabled_color,
+        comment_doc_keyword=information_2_color,
+        keyword=information_2_color,
+        preprocessor=end_color,
+        string=information_3_color,
+        character=information_3_color,
+        number=warning_color,
+        url=information_2_color,
+        identifier_class=information_1_color,
+        identifier_class_system=information_1_color,
+        identifier_type=information_1_color,
+        identifier_type_system=information_1_color,
+        identifier_function=information_1_color,
+        identifier_function_system=information_1_color,
+        identifier_constant=highlight_color,
+        identifier_constant_system=highlight_color,
+        identifier_variable=primary_text_color,
+        identifier_variable_system=primary_text_color,
+        identifier_macro=end_color,
+        identifier_macro_system=end_color,
+        declaration_other=primary_text_color,
+        declaration_type=information_1_color,
+        attribute=secondary_text_color,
+        gutter_bg=activity_bar_dark,
+        gutter_fg=disabled_color,
+        console_bg=background_color,
+        console_fg=primary_text_color,
+        console_input=information_2_color,
+        console_output=secondary_text_color,
+        console_exec_status=disabled_color,
+        console_cursor=information_2_color,
+    )
+
+    xcode_light = create_xcode_light_theme(
+        background=bg_light,
+        line_highlight=layer02_light,
+        insertion_point=ia_hover,
+        invisibles=border_light,
+        selection=_blend(ia_hover, bg_light, 0.30),
+        plain_text=text_primary_light,
+        comment=text_disabled_light,
+        comment_doc=text_disabled_light,
+        comment_doc_keyword=ia_hover,
+        keyword=ia_hover,
+        preprocessor=_darken(end_color, 0.70),
+        string=_darken(information_3_color, 0.65),
+        character=_darken(information_3_color, 0.65),
+        number=_darken(warning_color, 0.75),
+        url=ia_hover,
+        identifier_class=_darken(information_1_color, 0.65),
+        identifier_class_system=_darken(information_1_color, 0.65),
+        identifier_type=_darken(information_1_color, 0.65),
+        identifier_type_system=_darken(information_1_color, 0.65),
+        identifier_function=_darken(information_1_color, 0.65),
+        identifier_function_system=_darken(information_1_color, 0.65),
+        identifier_constant=_darken(warning_color, 0.55),
+        identifier_constant_system=_darken(warning_color, 0.55),
+        identifier_variable=text_primary_light,
+        identifier_variable_system=text_primary_light,
+        identifier_macro=_darken(end_color, 0.70),
+        identifier_macro_system=_darken(end_color, 0.70),
+        declaration_other=text_primary_light,
+        declaration_type=_darken(information_1_color, 0.65),
+        attribute=text_secondary_light,
+        gutter_bg=layer01_light,
+        gutter_fg=text_disabled_light,
+        console_bg=bg_light,
+        console_fg=text_primary_light,
+        console_input=ia_hover,
+        console_output=text_secondary_light,
+        console_exec_status=text_disabled_light,
+        console_cursor=ia_hover,
+    )
+
     return {
         "css_tokens":    css_tokens,
         "css_library":   css_library,
@@ -347,6 +434,8 @@ def prepare_templates(json_data):
         "vscode_license": vscode_license,
         "ghostty_dark":  ghostty_dark,
         "ghostty_light": ghostty_light,
+        "xcode_dark":    xcode_dark,
+        "xcode_light":   xcode_light,
     }
 
 
@@ -398,8 +487,9 @@ if __name__ == "__main__":
             "themes/vscode/LICENSE":                       code["vscode_license"],
             # ── Ghostty themes ────────────────────────────────────────────────
             "themes/ghostty/Monad Dark":   code["ghostty_dark"],
-            "themes/ghostty/Monad Light":  code["ghostty_light"],
-        }
+            "themes/ghostty/Monad Light":  code["ghostty_light"],            # ── Xcode themes ─────────────────────────────────────────────────
+            "themes/xcode/Monad Dark.xccolortheme":  code["xcode_dark"],
+            "themes/xcode/Monad Light.xccolortheme": code["xcode_light"],        }
 
         for filename, content in outputs.items():
             path = os.path.join(args.output_path, filename)
@@ -420,6 +510,8 @@ if __name__ == "__main__":
                          "themes/vscode/LICENSE"]),
             ("Ghostty", ["themes/ghostty/Monad Dark",
                          "themes/ghostty/Monad Light"]),
+            ("Xcode",   ["themes/xcode/Monad Dark.xccolortheme",
+                         "themes/xcode/Monad Light.xccolortheme"]),
         ]
         for group_name, files in groups:
             print(f"\n  [{group_name}]")
