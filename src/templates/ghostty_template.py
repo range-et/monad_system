@@ -62,7 +62,7 @@ foreground = {foreground}
 cursor-color       = {cursor_color}
 cursor-text        = {cursor_text}
 cursor-style       = block
-cursor-style-blink = true
+cursor-style-blink = false
 
 # ── Selection ────────────────────────────────────────────────────────────────
 selection-background = {selection_background}
@@ -135,7 +135,7 @@ foreground = {foreground}
 cursor-color       = {cursor_color}
 cursor-text        = {cursor_text}
 cursor-style       = block
-cursor-style-blink = true
+cursor-style-blink = false
 
 # ── Selection ────────────────────────────────────────────────────────────────
 selection-background = {selection_background}

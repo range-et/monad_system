@@ -14,7 +14,7 @@ foreground = #E0E0E0
 cursor-color       = #03A9F4
 cursor-text        = #121212
 cursor-style       = block
-cursor-style-blink = true
+cursor-style-blink = false
 
 # ── Selection ────────────────────────────────────────────────────────────────
 selection-background = #0D3F55
