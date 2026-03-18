@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Design System — App Dashboard</title>
   <link rel="stylesheet" href="../build/design-system.css">
+  <script src="../build/design-system.js"></script>
   <style>
     html, body { height: 100%; }
     body { display: flex; flex-direction: column; overflow: hidden; }
@@ -350,28 +351,36 @@
 </head>
 <body>
 
+  <!-- Nav overlay (injected by JS but pre-declared for no-JS fallback) -->
+  <div class="ds-nav-overlay" aria-hidden="true"></div>
+
   <!-- Header -->
   <header class="app-header">
+    <button class="ds-hamburger" data-ds-nav-toggle aria-label="Open navigation" aria-expanded="false">
+      <span class="ds-hamburger__bar"></span>
+      <span class="ds-hamburger__bar"></span>
+      <span class="ds-hamburger__bar"></span>
+    </button>
     <div class="app-header__logo">DS</div>
     <span class="app-header__name">Workspace</span>
-    <div class="app-header__divider"></div>
-    <nav class="app-header__nav">
+    <div class="app-header__divider ds-hide-md"></div>
+    <nav class="ds-header__nav app-header__nav" aria-label="Main navigation">
       <a href="#" class="active">Overview</a>
       <a href="#">Analytics</a>
       <a href="#">Deployments</a>
       <a href="#">Settings</a>
     </nav>
     <div class="app-header__right">
-      <button class="ds-btn ds-btn--primary ds-btn--sm">+ New</button>
-      <button class="ds-theme-toggle" id="theme-toggle" aria-label="Toggle theme" title="Toggle light/dark">◑</button>
+      <button class="ds-btn ds-btn--primary ds-btn--sm ds-hide-sm">+ New</button>
+      <button class="ds-theme-toggle" data-ds-theme-toggle aria-label="Toggle theme" title="Toggle light/dark">◑</button>
       <div class="avatar">R</div>
     </div>
   </header>
 
   <div class="app-body">
 
-    <!-- Sidenav -->
-    <nav class="app-sidenav">
+    <!-- Sidenav (becomes off-canvas drawer on ≤1056px, toggled by hamburger) -->
+    <nav class="app-sidenav ds-sidenav" aria-label="Sidebar navigation" aria-hidden="false">
       <div class="app-sidenav__section">Main</div>
       <a class="app-sidenav__item active" href="#">
         <span class="app-sidenav__icon">⊞</span> Dashboard
@@ -653,6 +662,7 @@
           </div>
         </div>
         <div class="table-section__body">
+          <div class="ds-table-wrap" style="border:none; border-radius:0;">
           <table class="ds-table">
             <thead>
               <tr>
@@ -701,25 +711,14 @@
               </tr>
             </tbody>
           </table>
+          </div>
         </div>
       </div>
 
     </main>
   </div>
 
-  <script>
-    (function () {
-      const root = document.documentElement;
-      const btn = document.getElementById('theme-toggle');
-      const stored = localStorage.getItem('ds-theme');
-      if (stored) root.dataset.theme = stored;
-      btn?.addEventListener('click', () => {
-        const next = root.dataset.theme === 'light' ? 'dark' : 'light';
-        root.dataset.theme = next;
-        localStorage.setItem('ds-theme', next);
-      });
-    })();
-  </script>
+  <!-- design-system.js handles theme, hamburger, and sidenav automatically -->
 
 </body>
 </html>

@@ -5,6 +5,7 @@ import argparse
 from templates.c_sharp_template import create_csharp_template
 from templates.css_template import create_css_template, create_component_library
 from templates.python_template import create_python_template
+from templates.js_template import create_js_template
 from preview_render import render_palette
 
 
@@ -155,12 +156,15 @@ def prepare_templates(json_data):
         move_finish=end_color,
     )
 
+    js_code = create_js_template()
+
     return {
         "css_tokens": css_tokens,
         "css_library": css_library,
         "c_sharp_dark": csharp_dark,
         "c_sharp_light": csharp_light,
         "python": python_code,
+        "js": js_code,
     }
 
 
@@ -196,11 +200,12 @@ if __name__ == "__main__":
         print("Generated all templates")
 
         outputs = {
-            "ColorPalette.css":    code["css_tokens"],
-            "design-system.css":   code["css_library"],
-            "ColorPalette.cs":     code["c_sharp_dark"],
+            "ColorPalette.css":     code["css_tokens"],
+            "design-system.css":    code["css_library"],
+            "design-system.js":     code["js"],
+            "ColorPalette.cs":      code["c_sharp_dark"],
             "ColorPaletteLight.cs": code["c_sharp_light"],
-            "seaborn_palette.py":  code["python"],
+            "seaborn_palette.py":   code["python"],
         }
 
         for filename, content in outputs.items():

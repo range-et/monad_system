@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Design System — Component Showcase</title>
   <link rel="stylesheet" href="../build/design-system.css">
+  <script src="../build/design-system.js"></script>
   <style>
     .showcase-section {
       margin-bottom: var(--space-8);
@@ -144,7 +145,22 @@
       <h1>Component Showcase</h1>
       <div class="page-header__sub">Design System · Carbon Physical Language · Light &amp; Dark</div>
     </div>
-    <button class="ds-theme-toggle" id="theme-toggle" aria-label="Toggle color theme" title="Toggle theme">◑</button>
+    <nav class="ds-header__nav" aria-label="Page sections">
+      <a href="#palette">Colors</a>
+      <a href="#typography">Type</a>
+      <a href="#buttons">Buttons</a>
+      <a href="#cards">Cards</a>
+      <a href="#forms">Forms</a>
+      <a href="#tables">Tables</a>
+    </nav>
+    <div style="display:flex;gap:var(--space-1);align-items:center;margin-left:auto;">
+      <button class="ds-hamburger" aria-label="Toggle navigation" aria-expanded="false">
+        <span class="ds-hamburger__bar"></span>
+        <span class="ds-hamburger__bar"></span>
+        <span class="ds-hamburger__bar"></span>
+      </button>
+      <button class="ds-theme-toggle" data-ds-theme-toggle aria-label="Toggle color theme" title="Toggle theme">◑</button>
+    </div>
   </div>
 
   <main>
@@ -442,7 +458,7 @@
     <section class="showcase-section">
       <h2>Data Table</h2>
       <p class="section-desc">Default and zebra-striped variants. Hover state built in.</p>
-      <div class="table-wrap">
+      <div class="ds-table-wrap">
         <table class="ds-table ds-table--zebra">
           <thead>
             <tr>
@@ -565,18 +581,6 @@
 
   </main>
 
-  <script>
-    (function () {
-      const root = document.documentElement;
-      const btn = document.getElementById('theme-toggle');
-      const stored = localStorage.getItem('ds-theme');
-      if (stored) root.dataset.theme = stored;
-      btn?.addEventListener('click', () => {
-        const next = root.dataset.theme === 'light' ? 'dark' : 'light';
-        root.dataset.theme = next;
-        localStorage.setItem('ds-theme', next);
-      });
-    })();
-  </script>
+  <!-- design-system.js handles theme, hamburger, and sidenav automatically -->
 </body>
 </html>

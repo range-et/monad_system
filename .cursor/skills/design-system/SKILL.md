@@ -316,6 +316,61 @@ Rules:
 
 ---
 
+## Responsive
+
+Always include both CSS and JS:
+```html
+<link rel="stylesheet" href="path/to/build/design-system.css">
+<script src="path/to/build/design-system.js"></script>
+```
+
+`design-system.js` automatically handles: theme toggle, hamburger nav collapse, sidenav off-canvas drawer, and overlay backdrop. No configuration required — just add the right elements.
+
+**Breakpoints:**
+| Name | Width | Grid columns |
+|---|---|---|
+| `sm` | ≤ 672px | 4 |
+| `md` | ≤ 1056px | 8 |
+| `lg` | > 1056px | 16 |
+
+**Responsive column overrides:**
+```html
+<!-- Stack full-width on mobile, half on tablet -->
+<div class="ds-col-8 ds-col-sm-full ds-col-md-half">...</div>
+```
+
+**Show/hide utilities:**
+```html
+<span class="ds-hide-sm">Hidden on mobile</span>
+<span class="ds-show-sm">Mobile only</span>
+<span class="ds-hide-md">Hidden on tablet/mobile</span>
+```
+
+**Hamburger nav** — add `.ds-hamburger` button + `.ds-header__nav` nav inside your header. The JS wires them automatically:
+```html
+<button class="ds-hamburger" aria-label="Open navigation">
+  <span class="ds-hamburger__bar"></span>
+  <span class="ds-hamburger__bar"></span>
+  <span class="ds-hamburger__bar"></span>
+</button>
+<nav class="ds-header__nav">...</nav>
+```
+
+**Sidenav drawer** — add `data-ds-nav-toggle` to any trigger button. The sidenav becomes off-canvas at ≤ 1056px:
+```html
+<button data-ds-nav-toggle aria-label="Open sidebar">☰</button>
+<nav class="ds-sidenav">...</nav>
+```
+
+**Table overflow** — wrap tables in `.ds-table-wrap` for horizontal scroll on narrow viewports:
+```html
+<div class="ds-table-wrap">
+  <table class="ds-table">...</table>
+</div>
+```
+
+---
+
 ## Layering & Depth Rules
 
 Follow Carbon's layering model — always maintain visual depth hierarchy:

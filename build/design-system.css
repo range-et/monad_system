@@ -833,3 +833,161 @@ pre { padding: var(--space-2); overflow-x: auto; }
 
 .ds-truncate { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 .ds-sr-only  { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0,0,0,0); white-space: nowrap; border-width: 0; }
+
+/* =========================================================================
+   RESPONSIVE
+   ========================================================================= */
+
+/* --- Fluid type scale (clamp: min at 320px → max at 1200px) --- */
+h1 { font-size: clamp(1.75rem,  4vw + 0.5rem, var(--type-4xl)); }
+h2 { font-size: clamp(1.5rem,   3vw + 0.5rem, var(--type-3xl)); }
+h3 { font-size: clamp(1.25rem,  2.5vw + 0.25rem, var(--type-2xl)); }
+h4 { font-size: clamp(1.125rem, 2vw + 0.125rem, var(--type-xl)); }
+h5 { font-size: clamp(1rem,     1.5vw, var(--type-lg)); }
+
+/* --- Mobile column overrides --- */
+/* .ds-col-sm-* = override at ≤672px, .ds-col-md-* = override at ≤1056px */
+@media (max-width: 1056px) {
+  .ds-col-md-full { grid-column: 1 / -1 !important; }
+  .ds-col-md-half { grid-column: span 4 !important; }
+  .ds-row { grid-template-columns: repeat(8, 1fr); }
+}
+
+@media (max-width: 672px) {
+  .ds-row { grid-template-columns: repeat(4, 1fr); }
+  /* All explicit column spans collapse to full width on small screens
+     unless a .ds-col-sm-* override is applied */
+  [class*="ds-col-"]:not([class*="ds-col-sm-"]) { grid-column: span 4; }
+  .ds-col-sm-full { grid-column: 1 / -1 !important; }
+  .ds-col-sm-half { grid-column: span 2 !important; }
+  .ds-col-sm-1    { grid-column: span 1 !important; }
+}
+
+/* --- Header: hamburger on mobile --- */
+.ds-hamburger {
+  display: none;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 5px;
+  width: 36px;
+  height: 36px;
+  padding: 0;
+  background: transparent;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  color: var(--color-text-secondary);
+  transition: background var(--transition-fast), color var(--transition-fast);
+  flex-shrink: 0;
+}
+.ds-hamburger:hover { background: var(--color-layer-02); color: var(--color-text-primary); }
+.ds-hamburger__bar {
+  display: block;
+  width: 16px;
+  height: 2px;
+  background: currentColor;
+  border-radius: 2px;
+  transition: transform var(--transition-fast), opacity var(--transition-fast);
+}
+.ds-hamburger[aria-expanded="true"] .ds-hamburger__bar:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+.ds-hamburger[aria-expanded="true"] .ds-hamburger__bar:nth-child(2) { opacity: 0; }
+.ds-hamburger[aria-expanded="true"] .ds-hamburger__bar:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+@media (max-width: 1056px) {
+  .ds-hamburger { display: flex; }
+  .ds-header__nav {
+    display: none;
+    position: fixed;
+    top: 48px;
+    left: 0;
+    right: 0;
+    background: var(--color-layer-01);
+    border-bottom: 2px solid var(--color-border);
+    padding: var(--space-2);
+    z-index: 98;
+    box-shadow: var(--shadow-md);
+    flex-direction: column;
+    gap: 2px;
+  }
+  .ds-header__nav.is-open { display: flex; }
+  .ds-header__nav a {
+    padding: var(--space-1) var(--space-2);
+    width: 100%;
+    border-radius: var(--radius-sm);
+  }
+}
+
+/* --- Sidenav: off-canvas drawer on tablet/mobile --- */
+.ds-nav-overlay {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: var(--color-overlay);
+  z-index: 199;
+  backdrop-filter: blur(2px);
+  -webkit-backdrop-filter: blur(2px);
+}
+.ds-nav-overlay.is-visible { display: block; }
+
+@media (max-width: 1056px) {
+  .ds-sidenav {
+    position: fixed;
+    top: 48px;
+    left: 0;
+    bottom: 0;
+    z-index: 200;
+    transform: translateX(-100%);
+    transition: transform var(--transition-base);
+    min-height: unset;
+    box-shadow: var(--shadow-lg);
+    overflow-y: auto;
+  }
+  .ds-sidenav.is-open { transform: translateX(0); }
+  .ds-content { padding: var(--space-3); }
+}
+
+@media (max-width: 672px) {
+  .ds-content { padding: var(--space-2); }
+}
+
+/* --- Table: scroll wrapper for overflow --- */
+.ds-table-wrap {
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+}
+.ds-table-wrap > .ds-table {
+  border: none;
+  border-radius: 0;
+  min-width: 480px;
+}
+
+@media (max-width: 672px) {
+  .ds-table {
+    display: block;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+}
+
+/* --- Cards: tighter padding on small screens --- */
+@media (max-width: 672px) {
+  .ds-card, .ds-tile, .ds-stat-card { padding: var(--space-2); }
+}
+
+/* --- Responsive show/hide utilities --- */
+.ds-hide-sm { }
+.ds-hide-md { }
+.ds-show-sm { display: none; }
+.ds-show-md { display: none; }
+
+@media (max-width: 672px) {
+  .ds-hide-sm { display: none !important; }
+  .ds-show-sm { display: revert !important; }
+}
+@media (max-width: 1056px) {
+  .ds-hide-md { display: none !important; }
+  .ds-show-md { display: revert !important; }
+}
