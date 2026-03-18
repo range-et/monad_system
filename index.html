@@ -1,0 +1,519 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Monad System</title>
+  <meta name="description" content="A personal design language. Orthogonal, materially honest, multi-platform.">
+  <link rel="stylesheet" href="build/monad.css">
+  <script src="build/monad.js"></script>
+  <style>
+    /* Landing-page-only layout — not part of the system */
+    .land-hero {
+      border-bottom: 1px solid var(--strata-border);
+      padding: var(--space-10) var(--space-4) var(--space-8);
+      max-width: 960px;
+      margin: 0 auto;
+    }
+    .land-eyebrow {
+      font-size: var(--type-xs);
+      font-family: var(--font-mono);
+      font-weight: 700;
+      color: var(--strata-interactive);
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      margin-bottom: var(--space-2);
+    }
+    .land-headline {
+      font-size: clamp(3rem, 8vw, 5.5rem);
+      font-weight: 300;
+      letter-spacing: -0.04em;
+      line-height: 0.95;
+      color: var(--strata-text-primary);
+      margin-bottom: var(--space-4);
+    }
+    .land-headline span {
+      color: var(--strata-text-disabled);
+    }
+    .land-lead {
+      font-size: var(--type-lg);
+      color: var(--strata-text-secondary);
+      max-width: 560px;
+      line-height: 1.6;
+      margin-bottom: var(--space-4);
+    }
+    .land-actions { display: flex; gap: var(--space-2); flex-wrap: wrap; }
+
+    .land-body {
+      max-width: 960px;
+      margin: 0 auto;
+      padding: var(--space-8) var(--space-4);
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-8);
+    }
+
+    .land-section__label {
+      font-size: var(--type-xs);
+      font-family: var(--font-mono);
+      font-weight: 700;
+      color: var(--strata-text-disabled);
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      margin-bottom: var(--space-3);
+      padding-bottom: var(--space-1);
+      border-bottom: 1px solid var(--strata-border-subtle);
+    }
+
+    /* Tier cards */
+    .tier-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 1px;
+      background: var(--strata-border);
+    }
+    @media (max-width: 768px) { .tier-grid { grid-template-columns: repeat(2, 1fr); } }
+    @media (max-width: 480px) { .tier-grid { grid-template-columns: 1fr; } }
+
+    .tier-card {
+      background: var(--strata-layer-01);
+      padding: var(--space-3);
+    }
+    .tier-card__name {
+      font-size: var(--type-xl);
+      font-weight: 600;
+      color: var(--strata-text-primary);
+      letter-spacing: -0.02em;
+      margin-bottom: 4px;
+    }
+    .tier-card__prefix {
+      font-size: var(--type-xs);
+      font-family: var(--font-mono);
+      color: var(--strata-interactive);
+      margin-bottom: var(--space-2);
+    }
+    .tier-card__desc {
+      font-size: var(--type-sm);
+      color: var(--strata-text-secondary);
+      line-height: 1.55;
+    }
+
+    /* Demo links */
+    .demo-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 1px;
+      background: var(--strata-border);
+    }
+    @media (max-width: 600px) { .demo-grid { grid-template-columns: 1fr; } }
+
+    .demo-card {
+      background: var(--strata-layer-01);
+      padding: var(--space-4);
+      text-decoration: none;
+      display: block;
+      border-left: 2px solid transparent;
+      transition: background var(--threshold-fast), border-color var(--threshold-fast);
+    }
+    .demo-card:hover {
+      background: var(--strata-layer-02);
+      border-left-color: var(--strata-interactive);
+      text-decoration: none;
+    }
+    .demo-card__label {
+      font-size: var(--type-xs);
+      font-family: var(--font-mono);
+      color: var(--strata-text-disabled);
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      margin-bottom: var(--space-1);
+    }
+    .demo-card__title {
+      font-size: var(--type-xl);
+      font-weight: 600;
+      color: var(--strata-text-primary);
+      letter-spacing: -0.01em;
+      margin-bottom: var(--space-1);
+    }
+    .demo-card__desc {
+      font-size: var(--type-sm);
+      color: var(--strata-text-secondary);
+    }
+    .demo-card__arrow {
+      font-family: var(--font-mono);
+      color: var(--strata-interactive);
+      margin-top: var(--space-2);
+      font-size: var(--type-sm);
+    }
+
+    /* Code block */
+    .code-panel {
+      background: var(--strata-layer-01);
+      border: 1px solid var(--strata-border);
+    }
+    .code-panel__head {
+      padding: var(--space-1) var(--space-2);
+      border-bottom: 1px solid var(--strata-border-subtle);
+      font-size: var(--type-xs);
+      font-family: var(--font-mono);
+      color: var(--strata-text-disabled);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .code-panel__body {
+      padding: var(--space-3);
+      font-family: var(--font-mono);
+      font-size: var(--type-sm);
+      color: var(--strata-text-secondary);
+      overflow-x: auto;
+      white-space: pre;
+      line-height: 1.7;
+    }
+    .code-kw   { color: var(--strata-interactive); }
+    .code-str  { color: var(--strata-success); }
+    .code-cmt  { color: var(--strata-text-disabled); }
+
+    /* Artifacts */
+    .artifact-list {
+      display: flex;
+      flex-direction: column;
+      gap: 1px;
+      background: var(--strata-border);
+    }
+    .artifact-row {
+      display: flex;
+      align-items: center;
+      gap: var(--space-3);
+      padding: var(--space-2) var(--space-3);
+      background: var(--strata-layer-01);
+      font-size: var(--type-sm);
+    }
+    .artifact-row__file {
+      font-family: var(--font-mono);
+      color: var(--strata-text-primary);
+      min-width: 180px;
+    }
+    .artifact-row__desc { color: var(--strata-text-secondary); flex: 1; }
+    @media (max-width: 600px) {
+      .artifact-row { flex-direction: column; align-items: flex-start; gap: 4px; }
+      .artifact-row__file { min-width: unset; }
+    }
+
+    /* Color swatches */
+    .swatch-row {
+      display: flex;
+      gap: 1px;
+      background: var(--strata-border);
+    }
+    .swatch-cell { flex: 1; min-width: 0; }
+    .swatch-cell__color { height: 48px; }
+    .swatch-cell__label {
+      background: var(--strata-layer-01);
+      padding: 4px 6px;
+      font-size: 10px;
+      font-family: var(--font-mono);
+      color: var(--strata-text-disabled);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    /* Footer */
+    .land-footer {
+      border-top: 1px solid var(--strata-border-subtle);
+      padding: var(--space-4);
+      max-width: 960px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      font-size: var(--type-xs);
+      font-family: var(--font-mono);
+      color: var(--strata-text-disabled);
+      flex-wrap: wrap;
+      gap: var(--space-2);
+    }
+  </style>
+</head>
+<body>
+
+  <header class="monad-header">
+    <span class="monad-header__name">Monad System</span>
+    <nav class="threshold-nav mn-hide-md">
+      <a href="#tiers">Tiers</a>
+      <a href="#demos">Demos</a>
+      <a href="#quickstart">Start</a>
+      <a href="#artifacts">Artifacts</a>
+    </nav>
+    <div class="monad-header__actions">
+      <button class="threshold-toggle" aria-label="Menu" aria-expanded="false">
+        <span class="threshold-toggle__bar"></span>
+        <span class="threshold-toggle__bar"></span>
+        <span class="threshold-toggle__bar"></span>
+      </button>
+      <button class="strata-toggle" data-mn-theme-toggle aria-label="Toggle theme">◑</button>
+    </div>
+  </header>
+
+  <!-- Hero -->
+  <div class="land-hero">
+    <div class="land-eyebrow">Personal Design Language</div>
+    <h1 class="land-headline">Monad<br><span>System</span></h1>
+    <p class="land-lead">An engineered framework — not a UI kit. Orthogonal, materially honest, multi-platform. Form follows function.</p>
+    <div class="land-actions">
+      <a class="atomos-btn atomos-btn--primary" href="samples/dashboard.html">View Dashboard →</a>
+      <a class="atomos-btn atomos-btn--secondary" href="samples/components.html">Atomos Showcase</a>
+      <a class="atomos-btn atomos-btn--ghost" href="https://github.com/range-et/default_colors" target="_blank" rel="noopener">GitHub ↗</a>
+    </div>
+  </div>
+
+  <div class="land-body">
+
+    <!-- Tiers -->
+    <section id="tiers">
+      <div class="land-section__label">System Tiers</div>
+      <div class="tier-grid">
+        <div class="tier-card" style="border-top:2px solid var(--strata-interactive);">
+          <div class="tier-card__name">Strata</div>
+          <div class="tier-card__prefix">--strata-*</div>
+          <div class="tier-card__desc">CSS custom properties. The connective state layer — every component reads from here. Theme switching rewrites Strata; components never hardcode color.</div>
+        </div>
+        <div class="tier-card" style="border-top:2px solid var(--strata-text-disabled);">
+          <div class="tier-card__name">Monad</div>
+          <div class="tier-card__prefix">.monad-*</div>
+          <div class="tier-card__desc">Structural layout. Root containers, shell, grid, rail navigation. The skeleton that holds everything in place.</div>
+        </div>
+        <div class="tier-card" style="border-top:2px solid var(--strata-text-disabled);">
+          <div class="tier-card__name">Atomos</div>
+          <div class="tier-card__prefix">.atomos-*</div>
+          <div class="tier-card__desc">Primitive components. Indivisible units — buttons, cards, tags, forms, tables, progress. Each reads only from Strata.</div>
+        </div>
+        <div class="tier-card" style="border-top:2px solid var(--strata-text-disabled);">
+          <div class="tier-card__name">Threshold</div>
+          <div class="tier-card__prefix">.threshold-*</div>
+          <div class="tier-card__desc">Navigation and transitions. State crossings — hamburger toggle, rail drawer, header nav. Motion is 80ms linear; always predictable.</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Strata color preview -->
+    <section>
+      <div class="land-section__label">Strata — Color Ground</div>
+      <div class="swatch-row" style="margin-bottom:1px;">
+        <div class="swatch-cell">
+          <div class="swatch-cell__color" style="background:var(--strata-bg)"></div>
+          <div class="swatch-cell__label">bg</div>
+        </div>
+        <div class="swatch-cell">
+          <div class="swatch-cell__color" style="background:var(--strata-layer-01)"></div>
+          <div class="swatch-cell__label">layer-01</div>
+        </div>
+        <div class="swatch-cell">
+          <div class="swatch-cell__color" style="background:var(--strata-layer-02)"></div>
+          <div class="swatch-cell__label">layer-02</div>
+        </div>
+        <div class="swatch-cell">
+          <div class="swatch-cell__color" style="background:var(--strata-layer-03)"></div>
+          <div class="swatch-cell__label">layer-03</div>
+        </div>
+        <div class="swatch-cell">
+          <div class="swatch-cell__color" style="background:var(--strata-interactive)"></div>
+          <div class="swatch-cell__label">interactive</div>
+        </div>
+        <div class="swatch-cell">
+          <div class="swatch-cell__color" style="background:var(--strata-success)"></div>
+          <div class="swatch-cell__label">success</div>
+        </div>
+        <div class="swatch-cell">
+          <div class="swatch-cell__color" style="background:var(--strata-warning)"></div>
+          <div class="swatch-cell__label">warning</div>
+        </div>
+        <div class="swatch-cell">
+          <div class="swatch-cell__color" style="background:var(--strata-error)"></div>
+          <div class="swatch-cell__label">error</div>
+        </div>
+      </div>
+      <div class="swatch-row">
+        <div class="swatch-cell">
+          <div class="swatch-cell__color" style="background:var(--strata-move-start)"></div>
+          <div class="swatch-cell__label">move-start</div>
+        </div>
+        <div class="swatch-cell">
+          <div class="swatch-cell__color" style="background:var(--strata-move-hand)"></div>
+          <div class="swatch-cell__label">move-hand</div>
+        </div>
+        <div class="swatch-cell">
+          <div class="swatch-cell__color" style="background:var(--strata-move-foot)"></div>
+          <div class="swatch-cell__label">move-foot</div>
+        </div>
+        <div class="swatch-cell">
+          <div class="swatch-cell__color" style="background:var(--strata-move-finish)"></div>
+          <div class="swatch-cell__label">move-finish</div>
+        </div>
+        <div class="swatch-cell" style="flex:4;">
+          <div class="swatch-cell__color" style="background:var(--strata-layer-01)"></div>
+          <div class="swatch-cell__label" style="color:var(--strata-text-disabled);">Movement domain — never repurpose for UI status</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Demos -->
+    <section id="demos">
+      <div class="land-section__label">Live Demos</div>
+      <div class="demo-grid">
+        <a class="demo-card" href="samples/dashboard.html">
+          <div class="demo-card__label">Sample 01</div>
+          <div class="demo-card__title">Dashboard</div>
+          <div class="demo-card__desc">Full Monad shell — header, rail, stat grid, activity feed, data table. Responsive with off-canvas rail on mobile.</div>
+          <div class="demo-card__arrow">→ dashboard.html</div>
+        </a>
+        <a class="demo-card" href="samples/components.html">
+          <div class="demo-card__label">Sample 02</div>
+          <div class="demo-card__title">Atomos Showcase</div>
+          <div class="demo-card__desc">Every primitive component — buttons, cards, tags, notices, forms, tables, progress, domain holds, and the Strata layer model.</div>
+          <div class="demo-card__arrow">→ components.html</div>
+        </a>
+      </div>
+    </section>
+
+    <!-- Quickstart -->
+    <section id="quickstart">
+      <div class="land-section__label">Quick Start</div>
+      <div class="code-panel">
+        <div class="code-panel__head">
+          <span>HTML</span>
+          <span class="atomos-tag atomos-tag--neutral">drop-in</span>
+        </div>
+        <div class="code-panel__body"><span class="code-cmt">&lt;!-- 1. Link the system --&gt;</span>
+<span class="code-kw">&lt;link</span> rel=<span class="code-str">"stylesheet"</span> href=<span class="code-str">"build/monad.css"</span><span class="code-kw">&gt;</span>
+<span class="code-kw">&lt;script</span> src=<span class="code-str">"build/monad.js"</span><span class="code-kw">&gt;&lt;/script&gt;</span>
+
+<span class="code-cmt">&lt;!-- 2. Shell --&gt;</span>
+<span class="code-kw">&lt;header</span> class=<span class="code-str">"monad-header"</span><span class="code-kw">&gt;</span>
+  <span class="code-kw">&lt;span</span> class=<span class="code-str">"monad-header__name"</span><span class="code-kw">&gt;</span>App<span class="code-kw">&lt;/span&gt;</span>
+  <span class="code-kw">&lt;button</span> class=<span class="code-str">"strata-toggle"</span> data-mn-theme-toggle<span class="code-kw">&gt;</span>◑<span class="code-kw">&lt;/button&gt;</span>
+<span class="code-kw">&lt;/header&gt;</span>
+
+<span class="code-cmt">&lt;!-- 3. Components --&gt;</span>
+<span class="code-kw">&lt;button</span> class=<span class="code-str">"atomos-btn atomos-btn--primary"</span><span class="code-kw">&gt;</span>Action<span class="code-kw">&lt;/button&gt;</span>
+
+<span class="code-kw">&lt;div</span> class=<span class="code-str">"atomos-card"</span><span class="code-kw">&gt;</span>
+  <span class="code-kw">&lt;div</span> class=<span class="code-str">"atomos-card__header"</span><span class="code-kw">&gt;</span>
+    <span class="code-kw">&lt;span</span> class=<span class="code-str">"atomos-card__title"</span><span class="code-kw">&gt;</span>Title<span class="code-kw">&lt;/span&gt;</span>
+  <span class="code-kw">&lt;/div&gt;</span>
+  <span class="code-kw">&lt;div</span> class=<span class="code-str">"atomos-card__body"</span><span class="code-kw">&gt;</span>Content.<span class="code-kw">&lt;/div&gt;</span>
+<span class="code-kw">&lt;/div&gt;</span>
+
+<span class="code-cmt">&lt;!-- Custom styles: only use --strata-* tokens --&gt;</span>
+<span class="code-kw">&lt;style&gt;</span>
+  .my-component {
+    background: <span class="code-str">var(--strata-layer-01)</span>;
+    border: 1px solid <span class="code-str">var(--strata-border)</span>;
+    color: <span class="code-str">var(--strata-text-primary)</span>;
+    transition: background <span class="code-str">var(--threshold-fast)</span>;
+  }
+<span class="code-kw">&lt;/style&gt;</span></div>
+      </div>
+
+      <div style="display:grid; grid-template-columns:1fr 1fr; gap:1px; background:var(--strata-border); margin-top:1px;">
+        <div class="code-panel" style="border:none;">
+          <div class="code-panel__head"><span>Python</span></div>
+          <div class="code-panel__body" style="font-size:var(--type-xs);"><span class="code-kw">from</span> build.seaborn_palette <span class="code-kw">import</span> (
+    PALETTE_DARK, CATEGORICAL,
+    apply_dark_theme
+)
+
+apply_dark_theme()
+sns.barplot(palette=CATEGORICAL)</div>
+        </div>
+        <div class="code-panel" style="border:none;">
+          <div class="code-panel__head"><span>Unity C#</span></div>
+          <div class="code-panel__body" style="font-size:var(--type-xs);"><span class="code-cmt">// Dark Strata</span>
+Color bg = ColorPalette.Background;
+Color sig = ColorPalette.Information2;
+
+<span class="code-cmt">// Light Strata</span>
+Color bgL = ColorPaletteLight.Background;</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Artifacts -->
+    <section id="artifacts">
+      <div class="land-section__label">Build Artifacts — <code style="font-size:var(--type-xs);">python src/compile_color.py --json_path colors.json --output_path build/</code></div>
+      <div class="artifact-list">
+        <div class="artifact-row">
+          <span class="artifact-row__file">build/monad.css</span>
+          <span class="artifact-row__desc">Full system — Strata tokens (dark + light), Atomos, Monad, Threshold</span>
+          <span class="atomos-tag atomos-tag--info">CSS · dual</span>
+        </div>
+        <div class="artifact-row">
+          <span class="artifact-row__file">build/monad.js</span>
+          <span class="artifact-row__desc">Runtime — Strata toggle, Threshold nav, Rail drawer</span>
+          <span class="atomos-tag atomos-tag--info">JS</span>
+        </div>
+        <div class="artifact-row">
+          <span class="artifact-row__file">build/ColorPalette.css</span>
+          <span class="artifact-row__desc">Raw CSS token variables only (dark)</span>
+          <span class="atomos-tag atomos-tag--neutral">CSS · dark</span>
+        </div>
+        <div class="artifact-row">
+          <span class="artifact-row__file">build/ColorPalette.cs</span>
+          <span class="artifact-row__desc">Static Unity C# color class — dark Strata</span>
+          <span class="atomos-tag atomos-tag--neutral">C#</span>
+        </div>
+        <div class="artifact-row">
+          <span class="artifact-row__file">build/ColorPaletteLight.cs</span>
+          <span class="artifact-row__desc">Static Unity C# color class — light Strata</span>
+          <span class="atomos-tag atomos-tag--warning">C# · light</span>
+        </div>
+        <div class="artifact-row">
+          <span class="artifact-row__file">build/seaborn_palette.py</span>
+          <span class="artifact-row__desc">matplotlib / seaborn palette helpers, colormaps, theme appliers</span>
+          <span class="atomos-tag atomos-tag--info">Python · dual</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- Principles -->
+    <section>
+      <div class="land-section__label">Principles</div>
+      <div style="display:grid; grid-template-columns:repeat(auto-fill,minmax(280px,1fr)); gap:1px; background:var(--strata-border);">
+        <div style="background:var(--strata-layer-01); padding:var(--space-3);">
+          <div style="font-size:var(--type-xs); font-family:var(--font-mono); color:var(--strata-interactive); margin-bottom:6px;">01 — ORTHOGONAL</div>
+          <div style="font-size:var(--type-sm); color:var(--strata-text-secondary);">No border-radius. Softness is decoration. Every corner is a right angle.</div>
+        </div>
+        <div style="background:var(--strata-layer-01); padding:var(--space-3);">
+          <div style="font-size:var(--type-xs); font-family:var(--font-mono); color:var(--strata-interactive); margin-bottom:6px;">02 — MATERIALLY HONEST</div>
+          <div style="font-size:var(--type-sm); color:var(--strata-text-secondary);">No gradients. No decorative shadows. Depth is structural — 1px border and layered ground.</div>
+        </div>
+        <div style="background:var(--strata-layer-01); padding:var(--space-3);">
+          <div style="font-size:var(--type-xs); font-family:var(--font-mono); color:var(--strata-interactive); margin-bottom:6px;">03 — HAPTIC</div>
+          <div style="font-size:var(--type-sm); color:var(--strata-text-secondary);">All transitions are 80ms linear. Motion is predictable, not expressive. Hover states are immediate.</div>
+        </div>
+        <div style="background:var(--strata-layer-01); padding:var(--space-3);">
+          <div style="font-size:var(--type-xs); font-family:var(--font-mono); color:var(--strata-interactive); margin-bottom:6px;">04 — STRATA ONLY</div>
+          <div style="font-size:var(--type-sm); color:var(--strata-text-secondary);">Components never hardcode color. Every visual property reads from <code>--strata-*</code>.</div>
+        </div>
+        <div style="background:var(--strata-layer-01); padding:var(--space-3);">
+          <div style="font-size:var(--type-xs); font-family:var(--font-mono); color:var(--strata-interactive); margin-bottom:6px;">05 — MONO FOR DATA</div>
+          <div style="font-size:var(--type-sm); color:var(--strata-text-secondary);">Numeric values, IDs, overlines, and timestamps use JetBrains Mono for visual precision.</div>
+        </div>
+        <div style="background:var(--strata-layer-01); padding:var(--space-3);">
+          <div style="font-size:var(--type-xs); font-family:var(--font-mono); color:var(--strata-interactive); margin-bottom:6px;">06 — EARN YOUR PLACE</div>
+          <div style="font-size:var(--type-sm); color:var(--strata-text-secondary);">If a visual element doesn't facilitate a function, delete it.</div>
+        </div>
+      </div>
+    </section>
+
+  </div>
+
+  <footer class="land-footer">
+    <span>Monad System · <a href="colors.json" style="color:var(--strata-text-disabled);">colors.json</a></span>
+    <span>Strata · Monad · Atomos · Threshold</span>
+    <a href="https://github.com/range-et/default_colors" target="_blank" rel="noopener" style="color:var(--strata-text-disabled);">GitHub ↗</a>
+  </footer>
+
+</body>
+</html>
