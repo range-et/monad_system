@@ -19,9 +19,19 @@ This is not Carbon. Not shadcn. It is an **engineered framework** — orthogonal
 
 ---
 
-## Build Artifacts
+## Build
 
-Run the compile script to regenerate all artifacts from `colors.json`:
+```bash
+pip install -r requirements.txt   # first time only
+
+make          # build all artifacts (default)
+make serve    # local server → localhost:8000
+make dev      # build + serve + open in one step
+make clean    # wipe build/
+make help     # list all targets
+```
+
+Or call the script directly:
 
 ```bash
 python src/compile_color.py --json_path colors.json --output_path build/

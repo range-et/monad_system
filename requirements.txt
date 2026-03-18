@@ -1,0 +1,7 @@
+# Build dependencies — required to run src/compile_color.py
+Pillow>=10.0.0
+
+# Runtime dependencies — required to use the generated seaborn_palette.py
+matplotlib>=3.7.0
+numpy>=1.24.0
+seaborn>=0.12.0

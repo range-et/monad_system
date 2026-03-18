@@ -6,7 +6,6 @@ from templates.c_sharp_template import create_csharp_template
 from templates.css_template import create_css_template, create_monad_system
 from templates.python_template import create_python_template
 from templates.js_template import create_js_template
-from preview_render import render_palette
 
 
 def load_json(json_path):
@@ -191,6 +190,7 @@ if __name__ == "__main__":
 
         if args.visualize:
             try:
+                from preview_render import render_palette
                 render_palette(json_data, args.output_path)
                 print("Rendered color palette image → build/rendered_palette.png")
             except Exception as e:
