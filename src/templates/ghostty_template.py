@@ -47,7 +47,7 @@ def create_ghostty_dark_theme(
 
     return f"""\
 # Monad Dark
-# Derived from the Monad System design language — colors.json
+# Generated from Monad System colors.json
 # Generated {datetime.now().strftime("%Y-%m-%d")}
 #
 # Install:  cp "Monad Dark" ~/.config/ghostty/themes/

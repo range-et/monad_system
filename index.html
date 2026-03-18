@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Monad System</title>
-  <meta name="description" content="A personal design language. Orthogonal, materially honest, multi-platform.">
+  <meta name="description" content="Design tokens and generated outputs for HTML, Unity, Python, SwiftUI, VS Code, Ghostty, and Xcode.">
   <link rel="stylesheet" href="build/monad.css">
   <script src="build/monad.js"></script>
   <style>
@@ -258,12 +258,12 @@
 
   <!-- Hero -->
   <div class="land-hero">
-    <div class="land-eyebrow">Personal Design Language</div>
+    <div class="land-eyebrow">Design Tokens</div>
     <h1 class="land-headline">Monad<br><span>System</span></h1>
-    <p class="land-lead">An engineered framework — not a UI kit. Orthogonal, materially honest, multi-platform. Form follows function.</p>
+    <p class="land-lead">Generated from colors.json. Includes CSS, JS, C#, Python, SwiftUI, VS Code, Ghostty, and Xcode outputs.</p>
     <div class="land-actions">
-      <a class="atomos-btn atomos-btn--primary" href="samples/dashboard.html">View Dashboard →</a>
-      <a class="atomos-btn atomos-btn--secondary" href="samples/components.html">Atomos Showcase</a>
+      <a class="atomos-btn atomos-btn--primary" href="samples/dashboard.html">Dashboard Sample</a>
+      <a class="atomos-btn atomos-btn--secondary" href="samples/components.html">Components Sample</a>
       <a class="atomos-btn atomos-btn--ghost" href="https://github.com/range-et/monad_system" target="_blank" rel="noopener">GitHub ↗</a>
     </div>
   </div>
@@ -272,34 +272,34 @@
 
     <!-- Tiers -->
     <section id="tiers">
-      <div class="land-section__label">System Tiers</div>
+      <div class="land-section__label">Tiers</div>
       <div class="tier-grid">
         <div class="tier-card" style="border-top:2px solid var(--strata-interactive);">
           <div class="tier-card__name">Strata</div>
           <div class="tier-card__prefix">--strata-*</div>
-          <div class="tier-card__desc">CSS custom properties. The connective state layer — every component reads from here. Theme switching rewrites Strata; components never hardcode color.</div>
+          <div class="tier-card__desc">Token layer. CSS custom properties for color, spacing, type, and motion.</div>
         </div>
         <div class="tier-card" style="border-top:2px solid var(--strata-text-disabled);">
           <div class="tier-card__name">Monad</div>
           <div class="tier-card__prefix">.monad-*</div>
-          <div class="tier-card__desc">Structural layout. Root containers, shell, grid, rail navigation. The skeleton that holds everything in place.</div>
+          <div class="tier-card__desc">Layout layer. Shell, grid, header, rail, and page structure.</div>
         </div>
         <div class="tier-card" style="border-top:2px solid var(--strata-text-disabled);">
           <div class="tier-card__name">Atomos</div>
           <div class="tier-card__prefix">.atomos-*</div>
-          <div class="tier-card__desc">Primitive components. Indivisible units — buttons, cards, tags, forms, tables, progress. Each reads only from Strata.</div>
+          <div class="tier-card__desc">Component layer. Buttons, cards, tags, forms, tables, and progress.</div>
         </div>
         <div class="tier-card" style="border-top:2px solid var(--strata-text-disabled);">
           <div class="tier-card__name">Threshold</div>
           <div class="tier-card__prefix">.threshold-*</div>
-          <div class="tier-card__desc">Navigation and transitions. State crossings — hamburger toggle, rail drawer, header nav. Motion is 80ms linear; always predictable.</div>
+          <div class="tier-card__desc">Navigation and state changes. Menu toggle, rail drawer, and transitions.</div>
         </div>
       </div>
     </section>
 
     <!-- Strata color preview -->
     <section>
-      <div class="land-section__label">Strata — Color Ground</div>
+      <div class="land-section__label">Strata Tokens</div>
       <div class="swatch-row" style="margin-bottom:1px;">
         <div class="swatch-cell">
           <div class="swatch-cell__color" style="background:var(--strata-bg)"></div>
@@ -353,25 +353,25 @@
         </div>
         <div class="swatch-cell" style="flex:4;">
           <div class="swatch-cell__color" style="background:var(--strata-layer-01)"></div>
-          <div class="swatch-cell__label" style="color:var(--strata-text-disabled);">Movement domain — never repurpose for UI status</div>
+          <div class="swatch-cell__label" style="color:var(--strata-text-disabled);">Movement tokens</div>
         </div>
       </div>
     </section>
 
     <!-- Demos -->
     <section id="demos">
-      <div class="land-section__label">Live Demos</div>
+      <div class="land-section__label">Samples</div>
       <div class="demo-grid">
         <a class="demo-card" href="samples/dashboard.html">
           <div class="demo-card__label">Sample 01</div>
           <div class="demo-card__title">Dashboard</div>
-          <div class="demo-card__desc">Full Monad shell — header, rail, stat grid, activity feed, data table. Responsive with off-canvas rail on mobile.</div>
+          <div class="demo-card__desc">Example app shell with header, rail, cards, activity feed, and table.</div>
           <div class="demo-card__arrow">→ dashboard.html</div>
         </a>
         <a class="demo-card" href="samples/components.html">
           <div class="demo-card__label">Sample 02</div>
-          <div class="demo-card__title">Atomos Showcase</div>
-          <div class="demo-card__desc">Every primitive component — buttons, cards, tags, notices, forms, tables, progress, domain holds, and the Strata layer model.</div>
+          <div class="demo-card__title">Components</div>
+          <div class="demo-card__desc">Reference page for buttons, cards, tags, notices, forms, tables, and progress.</div>
           <div class="demo-card__arrow">→ components.html</div>
         </a>
       </div>
@@ -441,36 +441,36 @@ Color bgL = ColorPaletteLight.Background;</div>
 
     <!-- Artifacts -->
     <section id="artifacts">
-      <div class="land-section__label">Build Artifacts — <code style="font-size:var(--type-xs);">python src/compile_color.py --json_path colors.json --output_path build/</code></div>
+      <div class="land-section__label">Build Outputs — <code style="font-size:var(--type-xs);">python src/compile_color.py --json_path colors.json --output_path build/</code></div>
       <div class="artifact-list">
         <div class="artifact-row">
           <span class="artifact-row__file">build/monad.css</span>
-          <span class="artifact-row__desc">Full system — Strata tokens (dark + light), Atomos, Monad, Threshold</span>
+          <span class="artifact-row__desc">CSS system bundle.</span>
           <span class="atomos-tag atomos-tag--info">CSS · dual</span>
         </div>
         <div class="artifact-row">
           <span class="artifact-row__file">build/monad.js</span>
-          <span class="artifact-row__desc">Runtime — Strata toggle, Threshold nav, Rail drawer</span>
+          <span class="artifact-row__desc">Theme toggle and navigation helpers.</span>
           <span class="atomos-tag atomos-tag--info">JS</span>
         </div>
         <div class="artifact-row">
           <span class="artifact-row__file">build/ColorPalette.css</span>
-          <span class="artifact-row__desc">Raw CSS token variables only (dark)</span>
+          <span class="artifact-row__desc">CSS tokens only.</span>
           <span class="atomos-tag atomos-tag--neutral">CSS · dark</span>
         </div>
         <div class="artifact-row">
           <span class="artifact-row__file">build/ColorPalette.cs</span>
-          <span class="artifact-row__desc">Static Unity C# color class — dark Strata</span>
+          <span class="artifact-row__desc">Unity C# color class for dark mode.</span>
           <span class="atomos-tag atomos-tag--neutral">C#</span>
         </div>
         <div class="artifact-row">
           <span class="artifact-row__file">build/ColorPaletteLight.cs</span>
-          <span class="artifact-row__desc">Static Unity C# color class — light Strata</span>
+          <span class="artifact-row__desc">Unity C# color class for light mode.</span>
           <span class="atomos-tag atomos-tag--warning">C# · light</span>
         </div>
         <div class="artifact-row">
           <span class="artifact-row__file">build/seaborn_palette.py</span>
-          <span class="artifact-row__desc">matplotlib / seaborn palette helpers, colormaps, theme appliers</span>
+          <span class="artifact-row__desc">matplotlib and seaborn palette helpers.</span>
           <span class="atomos-tag atomos-tag--info">Python · dual</span>
         </div>
       </div>
@@ -478,31 +478,31 @@ Color bgL = ColorPaletteLight.Background;</div>
 
     <!-- Principles -->
     <section>
-      <div class="land-section__label">Principles</div>
+      <div class="land-section__label">Rules</div>
       <div style="display:grid; grid-template-columns:repeat(auto-fill,minmax(280px,1fr)); gap:1px; background:var(--strata-border);">
         <div style="background:var(--strata-layer-01); padding:var(--space-3);">
-          <div style="font-size:var(--type-xs); font-family:var(--font-mono); color:var(--strata-interactive); margin-bottom:6px;">01 — ORTHOGONAL</div>
-          <div style="font-size:var(--type-sm); color:var(--strata-text-secondary);">No border-radius. Softness is decoration. Every corner is a right angle.</div>
+          <div style="font-size:var(--type-xs); font-family:var(--font-mono); color:var(--strata-interactive); margin-bottom:6px;">01 — SHAPE</div>
+          <div style="font-size:var(--type-sm); color:var(--strata-text-secondary);">No border radius.</div>
         </div>
         <div style="background:var(--strata-layer-01); padding:var(--space-3);">
-          <div style="font-size:var(--type-xs); font-family:var(--font-mono); color:var(--strata-interactive); margin-bottom:6px;">02 — MATERIALLY HONEST</div>
-          <div style="font-size:var(--type-sm); color:var(--strata-text-secondary);">No gradients. No decorative shadows. Depth is structural — 1px border and layered ground.</div>
+          <div style="font-size:var(--type-xs); font-family:var(--font-mono); color:var(--strata-interactive); margin-bottom:6px;">02 — DEPTH</div>
+          <div style="font-size:var(--type-sm); color:var(--strata-text-secondary);">No gradients. Use borders and layer steps for depth.</div>
         </div>
         <div style="background:var(--strata-layer-01); padding:var(--space-3);">
-          <div style="font-size:var(--type-xs); font-family:var(--font-mono); color:var(--strata-interactive); margin-bottom:6px;">03 — HAPTIC</div>
-          <div style="font-size:var(--type-sm); color:var(--strata-text-secondary);">All transitions are 80ms linear. Motion is predictable, not expressive. Hover states are immediate.</div>
+          <div style="font-size:var(--type-xs); font-family:var(--font-mono); color:var(--strata-interactive); margin-bottom:6px;">03 — MOTION</div>
+          <div style="font-size:var(--type-sm); color:var(--strata-text-secondary);">Use 80ms linear transitions.</div>
         </div>
         <div style="background:var(--strata-layer-01); padding:var(--space-3);">
-          <div style="font-size:var(--type-xs); font-family:var(--font-mono); color:var(--strata-interactive); margin-bottom:6px;">04 — STRATA ONLY</div>
+          <div style="font-size:var(--type-xs); font-family:var(--font-mono); color:var(--strata-interactive); margin-bottom:6px;">04 — COLOR</div>
           <div style="font-size:var(--type-sm); color:var(--strata-text-secondary);">Components never hardcode color. Every visual property reads from <code>--strata-*</code>.</div>
         </div>
         <div style="background:var(--strata-layer-01); padding:var(--space-3);">
-          <div style="font-size:var(--type-xs); font-family:var(--font-mono); color:var(--strata-interactive); margin-bottom:6px;">05 — MONO FOR DATA</div>
-          <div style="font-size:var(--type-sm); color:var(--strata-text-secondary);">Numeric values, IDs, overlines, and timestamps use JetBrains Mono for visual precision.</div>
+          <div style="font-size:var(--type-xs); font-family:var(--font-mono); color:var(--strata-interactive); margin-bottom:6px;">05 — TYPE</div>
+          <div style="font-size:var(--type-sm); color:var(--strata-text-secondary);">Use mono for numeric values, IDs, labels, and timestamps.</div>
         </div>
         <div style="background:var(--strata-layer-01); padding:var(--space-3);">
-          <div style="font-size:var(--type-xs); font-family:var(--font-mono); color:var(--strata-interactive); margin-bottom:6px;">06 — EARN YOUR PLACE</div>
-          <div style="font-size:var(--type-sm); color:var(--strata-text-secondary);">If a visual element doesn't facilitate a function, delete it.</div>
+          <div style="font-size:var(--type-xs); font-family:var(--font-mono); color:var(--strata-interactive); margin-bottom:6px;">06 — SCOPE</div>
+          <div style="font-size:var(--type-sm); color:var(--strata-text-secondary);">Keep decorative styling out of the system.</div>
         </div>
       </div>
     </section>

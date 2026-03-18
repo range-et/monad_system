@@ -1,10 +1,9 @@
 # Monad System
 
-> **Form follows Function.** Every color earns its place.
+Dark and light VS Code themes generated from `colors.json`.
 
-A dark and light theme pair derived from the **Monad System** — a precision
-design language built on a single `colors.json` source of truth. Every color
-in this theme is generated programmatically; nothing is hand-tweaked.
+The extension is built from the same source as the HTML, C#, Python,
+SwiftUI, Ghostty, and Xcode outputs.
 
 ---
 
@@ -46,16 +45,6 @@ in this theme is generated programmatically; nothing is hand-tweaked.
 
 ---
 
-## Design Principles
-
-- **No border-radius** — orthogonal, structural, undecorated
-- **No box-shadow depth** — layering via 1px borders and background steps
-- **No gradients** — flat fills only; color is information, not texture
-- **Haptic transitions** — 80ms linear; motion is predictable, not expressive
-- **Mono for data** — numeric values, labels, and overlines use JetBrains Mono
-
----
-
 ## Installation
 
 Search **"Monad System"** in the VS Code Extension Marketplace, or install via CLI:
@@ -74,10 +63,9 @@ Cmd+K  Cmd+T  →  Monad Dark  /  Monad Light
 
 ## Source
 
-This theme is **generated** from `colors.json` — the single source of truth
-for the entire Monad System (CSS, C#, Python/seaborn, Ghostty, and VS Code).
+This theme is generated from `colors.json`.
 
-To regenerate after editing colors:
+To rebuild after editing colors:
 
 ```bash
 make install

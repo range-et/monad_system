@@ -80,8 +80,6 @@ def create_monad_system(
  *   Monad   — Structural layout (.monad-*)              root containers
  *   Atomos  — Primitive components (.atomos-*)          indivisible units
  *   Threshold — Navigation & transitions (.threshold-*) state crossings
- *
- * Principle: Form follows Function. Every element earns its place.
  */
 
 /* =========================================================================

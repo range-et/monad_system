@@ -1,7 +1,7 @@
 {
   "name": "monad-system-theme",
   "displayName": "Monad System",
-  "description": "Dark and light color themes derived from the Monad System design language. Engineered precision \u2014 every color earns its place.",
+  "description": "Dark and light color themes generated from Monad System colors.json.",
   "version": "1.0.0",
   "publisher": "monad-system",
   "license": "MIT",

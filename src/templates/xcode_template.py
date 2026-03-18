@@ -87,7 +87,7 @@ def _plist(colors, fonts, title="Monad Dark"):
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <!-- {title} — Xcode Color Theme                                               -->
-<!-- Derived from the Monad System design language — colors.json               -->
+<!-- Generated from Monad System colors.json                                  -->
 <!-- Generated {date_str}                                                      -->
 <!--                                                                           -->
 <!-- Install: cp "{title}.xccolortheme"                                        -->
