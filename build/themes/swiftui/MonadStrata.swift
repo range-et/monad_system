@@ -21,11 +21,11 @@ public enum MonadStrata {
     )
     public static let layer01 = _adaptive(
         light: "#ffffff",
-        dark: "#1e1e1e"
+        dark: "#242424"
     )
     public static let layer02 = _adaptive(
         light: "#f4f4f4",
-        dark: "#262626"
+        dark: "#2C2C2C"
     )
     public static let layer03 = _adaptive(
         light: "#e8e8e8",
@@ -47,11 +47,11 @@ public enum MonadStrata {
 
     public static let border = _adaptive(
         light: "#c6c6c6",
-        dark: "#3d3d3d"
+        dark: "#434343"
     )
     public static let borderSubtle = _adaptive(
-        light: "#e0e0e0",
-        dark: "#2a2a2a"
+        light: "#E0E0E0",
+        dark: "#2A2A2A"
     )
 
     public static var overlay: Color {
@@ -72,8 +72,8 @@ public enum MonadStrata {
     // MARK: - Signal (shared + hover states)
 
     public static let interactive = Color(hex: "#03A9F4")
-    public static let interactiveHover = Color(hex: "#0288d1")
-    public static let interactiveActive = Color(hex: "#0277bd")
+    public static let interactiveHover = Color(hex: "#028FCF")
+    public static let interactiveActive = Color(hex: "#027EB7")
 
     // MARK: - Status
 

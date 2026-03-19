@@ -100,6 +100,10 @@ def prepare_templates(json_data):
     text_disabled_light = lm.get("Disabled_Text", {}).get("hex", "#8d8d8d")
     border_light = lm.get("Border", {}).get("hex", "#c6c6c6")
 
+    # ── Derived interactive hover/active shades ───────────────────────────────
+    ia_hover  = _darken(information_2_color, 0.85)   # #0288d1 for #03A9F4
+    ia_active = _darken(information_2_color, 0.75)   # #0277bd
+
     # --- Build: raw tokens CSS (ColorPalette.css) ---
     css_tokens = create_css_template(
         background_color=background_color,
@@ -133,8 +137,8 @@ def prepare_templates(json_data):
         text_disabled_light=text_disabled_light,
         border_light=border_light,
         interactive=information_2_color,
-        interactive_hover="#0288d1",
-        interactive_active="#0277bd",
+        interactive_hover=ia_hover,
+        interactive_active=ia_active,
         support_info=information_1_color,
         support_success=information_3_color,
         support_warning=warning_color,
@@ -219,10 +223,6 @@ def prepare_templates(json_data):
     layer03_dark = _shift_bg(background_color, 33)   # #333333
     activity_bar_dark = _shift_bg(background_color, -5) if background_color != "#121212" \
         else "#0d0d0d"
-
-    # ── Derived interactive hover/active shades ───────────────────────────────
-    ia_hover  = _darken(information_2_color, 0.85)   # #0288d1 for #03A9F4
-    ia_active = _darken(information_2_color, 0.75)   # #0277bd
 
     # ── VS Code themes ────────────────────────────────────────────────────────
     dark_pal = vsc_dark_palette(
@@ -383,14 +383,14 @@ def prepare_templates(json_data):
     # SwiftUI Strata — layers/borders match create_monad_system defaults (monad.css)
     swiftui_strata = create_swiftui_strata(
         bg_dark=background_color,
-        layer01_dark="#1e1e1e",
-        layer02_dark="#262626",
-        layer03_dark="#333333",
+        layer01_dark=layer01_dark,
+        layer02_dark=layer02_dark,
+        layer03_dark=layer03_dark,
         text_primary_dark=primary_text_color,
         text_secondary_dark=secondary_text_color,
         text_disabled_dark=disabled_color,
-        border_dark="#3d3d3d",
-        border_subtle_dark="#2a2a2a",
+        border_dark=_shift_bg(background_color, 49),
+        border_subtle_dark=_shift_bg(background_color, 24),
         bg_light=bg_light,
         layer01_light=layer01_light,
         layer02_light=layer02_light,
@@ -399,10 +399,10 @@ def prepare_templates(json_data):
         text_secondary_light=text_secondary_light,
         text_disabled_light=text_disabled_light,
         border_light=border_light,
-        border_subtle_light="#e0e0e0",
+        border_subtle_light=_shift_bg(border_light, 26),
         interactive=information_2_color,
-        interactive_hover="#0288d1",
-        interactive_active="#0277bd",
+        interactive_hover=ia_hover,
+        interactive_active=ia_active,
         support_info=information_1_color,
         support_success=information_3_color,
         support_warning=warning_color,
