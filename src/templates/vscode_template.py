@@ -15,6 +15,34 @@ extension, or place them in:
 import json
 
 
+def _hex_to_rgb(hex_color):
+    """Convert #RRGGBB to an (r, g, b) tuple."""
+    h = hex_color.lstrip("#")
+    return int(h[0:2], 16), int(h[2:4], 16), int(h[4:6], 16)
+
+
+def _rgb_to_hex(r, g, b):
+    """Convert RGB integer channels to #RRGGBB."""
+    return f"#{r:02X}{g:02X}{b:02X}"
+
+
+def _mix(hex_a, hex_b, t):
+    """Blend hex_a toward hex_b by t (0..1)."""
+    ar, ag, ab = _hex_to_rgb(hex_a)
+    br, bg, bb = _hex_to_rgb(hex_b)
+    r = round(ar + (br - ar) * t)
+    g = round(ag + (bg - ag) * t)
+    b = round(ab + (bb - ab) * t)
+    return _rgb_to_hex(r, g, b)
+
+
+def _on_color(bg_hex, light="#FFFFFF", dark="#0F1113"):
+    """Pick readable foreground for a filled surface using relative luminance."""
+    r, g, b = _hex_to_rgb(bg_hex)
+    luminance = (0.299 * r + 0.587 * g + 0.114 * b) / 255.0
+    return dark if luminance > 0.62 else light
+
+
 # ─── Palette → workbench + token mappings ────────────────────────────────────
 
 def _workbench_dark(p):
@@ -331,6 +359,9 @@ def _workbench_light(p):
     succ    = p["success_dark"]
     warn    = p["warning"]
     err     = p["error_dark"]
+    on_ia   = p["on_interactive"]
+    on_warn = p["on_warning"]
+    on_err  = p["on_error"]
 
     return {
         "editor.background":                          bg,
@@ -371,7 +402,7 @@ def _workbench_light(p):
         "activityBar.inactiveForeground":             txt_d,
         "activityBar.border":                         brd,
         "activityBarBadge.background":                ia,
-        "activityBarBadge.foreground":                "#ffffff",
+        "activityBarBadge.foreground":                on_ia,
         "sideBar.background":                         l01,
         "sideBar.foreground":                         txt_s,
         "sideBar.border":                             brd,
@@ -409,16 +440,16 @@ def _workbench_light(p):
         "tab.hoverBackground":                        l03,
         "tab.hoverForeground":                        txt_p,
         "statusBar.background":                       ia,
-        "statusBar.foreground":                       "#ffffff",
+        "statusBar.foreground":                       on_ia,
         "statusBar.border":                           ia_a,
         "statusBar.noFolderBackground":               l03,
         "statusBar.noFolderForeground":               txt_s,
         "statusBar.debuggingBackground":              warn,
-        "statusBar.debuggingForeground":              "#ffffff",
+        "statusBar.debuggingForeground":              on_warn,
         "statusBarItem.errorBackground":              err,
-        "statusBarItem.errorForeground":              "#ffffff",
+        "statusBarItem.errorForeground":              on_err,
         "statusBarItem.warningBackground":            warn,
-        "statusBarItem.warningForeground":            "#ffffff",
+        "statusBarItem.warningForeground":            on_warn,
         "panel.background":                           l01,
         "panel.border":                               brd,
         "panel.dropBorder":                           ia,
@@ -454,22 +485,22 @@ def _workbench_light(p):
         "inputOption.activeBorder":                   ia,
         "inputOption.activeBackground":               ia + "20",
         "inputValidation.infoBorder":                 info,
-        "inputValidation.infoBackground":             "#e0f7fa",
+        "inputValidation.infoBackground":             info + "1a",
         "inputValidation.warningBorder":              warn,
-        "inputValidation.warningBackground":          "#fff8e1",
+        "inputValidation.warningBackground":          warn + "1a",
         "inputValidation.errorBorder":                err,
-        "inputValidation.errorBackground":            "#ffebee",
+        "inputValidation.errorBackground":            err + "1a",
         "dropdown.background":                        l01,
         "dropdown.foreground":                        txt_p,
         "dropdown.border":                            brd,
         "button.background":                          ia,
-        "button.foreground":                          "#ffffff",
+        "button.foreground":                          on_ia,
         "button.hoverBackground":                     ia_h,
         "button.secondaryBackground":                 l03,
         "button.secondaryForeground":                 txt_p,
         "button.secondaryHoverBackground":            brd,
         "badge.background":                           ia,
-        "badge.foreground":                           "#ffffff",
+        "badge.foreground":                           on_ia,
         "scrollbarSlider.background":                 brd + "80",
         "scrollbarSlider.hoverBackground":            brd + "CC",
         "scrollbarSlider.activeBackground":           ia + "60",
@@ -497,7 +528,7 @@ def _workbench_light(p):
         "quickInputList.focusBackground":             l03,
         "quickInputList.focusForeground":             txt_p,
         "extensionButton.prominentBackground":        ia,
-        "extensionButton.prominentForeground":        "#ffffff",
+        "extensionButton.prominentForeground":        on_ia,
         "extensionButton.prominentHoverBackground":   ia_h,
         "settings.modifiedItemIndicator":             ia,
         "settings.focusedRowBackground":              bg,
@@ -780,13 +811,13 @@ def _token_colors_light(p):
          "settings": {"foreground": info}},
         {"name": "Number",
          "scope": ["constant.numeric"],
-         "settings": {"foreground": "#e65100"}},
+         "settings": {"foreground": warn}},
         {"name": "Boolean / built-in",
          "scope": ["constant.language"],
-         "settings": {"foreground": "#e65100", "fontStyle": "italic"}},
+         "settings": {"foreground": warn, "fontStyle": "italic"}},
         {"name": "Constant — other",
          "scope": ["constant.other", "variable.other.constant"],
-         "settings": {"foreground": "#bf360c"}},
+         "settings": {"foreground": hi}},
         {"name": "Function definition",
          "scope": ["entity.name.function"],
          "settings": {"foreground": info}},
@@ -905,7 +936,7 @@ def _semantic_light(p):
         "class":              p["ia_dark"],
         "interface":          p["ia_dark"],
         "enum":               p["ia_dark"],
-        "enumMember":         "#bf360c",
+        "enumMember":         p["highlight_dark"],
         "function":           info,
         "method":             info,
         "property":           p["text_secondary"],
@@ -913,7 +944,7 @@ def _semantic_light(p):
         "variable.defaultLibrary": ia,
         "parameter":          {"foreground": p["text_secondary"], "italic": True},
         "keyword":            ia,
-        "number":             "#e65100",
+        "number":             warn,
         "string":             succ,
         "namespace":          info,
         "decorator":          fin,
@@ -925,31 +956,36 @@ def _semantic_light(p):
 # ─── Public API ──────────────────────────────────────────────────────────────
 
 def build_dark_palette(
-    bg="#121212",
-    text_primary="#E0E0E0",
-    text_secondary="#B0B0B0",
-    text_disabled="#757575",
-    border="#3d3d3d",
-    border_subtle="#2a2a2a",
-    interactive="#03A9F4",
-    interactive_hover="#0288d1",
-    interactive_active="#0277bd",
-    info="#00BCD4",
-    success="#8BC34A",
-    warning="#FFC107",
-    error="#F44336",
+    bg="#0F1113",
+    text_primary="#EEF2F6",
+    text_secondary="#B6BFCC",
+    text_disabled="#7D8794",
+    border="#3A434F",
+    border_subtle="#2B323A",
+    interactive="#1E88C8",
+    interactive_hover="#1A74AA",
+    interactive_active="#176696",
+    info="#2B9ED1",
+    success="#6EAD45",
+    warning="#D7A12A",
+    error="#D64C45",
     highlight="#FFEB3B",
     move_start="#4CAF50",
     move_hand="#03A9F4",
     move_foot="#FFEB3B",
     move_finish="#9C27B0",
     # Derived dark surface layers (computed by caller if absent)
-    layer01="#1e1e1e",
-    layer02="#262626",
-    layer03="#333333",
-    activity_bar_bg="#0d0d0d",
+    layer01="#171A1E",
+    layer02="#1F242B",
+    layer03="#2A313A",
+    activity_bar_bg="#0A0C0E",
 ):
     """Assemble the full dark palette dict including derived/computed values."""
+    ia_light = _mix(interactive, "#FFFFFF", 0.20)
+    info_light = _mix(info, "#FFFFFF", 0.25)
+    succ_vivid = _mix(success, "#FFFFFF", 0.15)
+    fin_light = _mix(move_finish, "#FFFFFF", 0.35)
+
     return {
         "bg":              bg,
         "layer01":         layer01,
@@ -974,10 +1010,10 @@ def build_dark_palette(
         "move_foot":       move_foot,
         "move_finish":     move_finish,
         # Derived syntax shades (lighter for dark bg context)
-        "ia_light":        "#29B6F6",
-        "info_light":      "#4DD0E1",
-        "succ_vivid":      "#4CAF50",
-        "fin_light":       "#CE93D8",
+        "ia_light":        ia_light,
+        "info_light":      info_light,
+        "succ_vivid":      succ_vivid,
+        "fin_light":       fin_light,
         # Terminal ANSI 0-7 (normal — slightly muted)
         "ansi_black":      bg,
         "ansi_red":        error,
@@ -989,48 +1025,52 @@ def build_dark_palette(
         "ansi_white":      text_secondary,
         # Terminal ANSI 8-15 (bright — vivid palette values)
         "ansi_bright_black":   layer03,
-        "ansi_bright_red":     "#EF5350",
+        "ansi_bright_red":     _mix(error, "#FFFFFF", 0.15),
         "ansi_bright_green":   move_start,
         "ansi_bright_yellow":  highlight,
-        "ansi_bright_blue":    "#29B6F6",
-        "ansi_bright_magenta": "#CE93D8",
-        "ansi_bright_cyan":    "#4DD0E1",
+        "ansi_bright_blue":    ia_light,
+        "ansi_bright_magenta": fin_light,
+        "ansi_bright_cyan":    info_light,
         "ansi_bright_white":   text_primary,
     }
 
 
 def build_light_palette(
-    bg="#f4f4f4",
+    bg="#F2F4F7",
     layer01="#ffffff",
-    layer02="#f4f4f4",
-    layer03="#e8e8e8",
-    text_primary="#161616",
-    text_secondary="#525252",
-    text_disabled="#8d8d8d",
-    border="#c6c6c6",
-    border_subtle="#e0e0e0",
+    layer02="#EDF1F5",
+    layer03="#E3E8EE",
+    text_primary="#141A22",
+    text_secondary="#4F5A69",
+    text_disabled="#7E8998",
+    border="#BCC6D2",
+    border_subtle="#D8DFE7",
     # Light theme uses dark shades of vivid colors for contrast
-    interactive="#0288d1",
-    interactive_hover="#0277bd",
-    interactive_active="#01579b",
-    info="#00838f",
-    success="#558b2f",
-    warning="#e6ac00",
-    error="#c62828",
-    highlight="#e6ac00",
-    move_start="#2e7d32",
-    move_hand="#0277bd",
-    move_foot="#e6ac00",
-    move_finish="#6a1b9a",
+    interactive="#1A74AA",
+    interactive_hover="#176696",
+    interactive_active="#145A88",
+    info="#1C6788",
+    success="#47702D",
+    warning="#C29126",
+    error="#963531",
+    highlight="#A17920",
+    move_start="#317232",
+    move_hand="#176696",
+    move_foot="#A17920",
+    move_finish="#6D1B7B",
     # Full-vivid versions used in bright ANSI slots
-    vivid_interactive="#03A9F4",
-    vivid_info="#00BCD4",
-    vivid_success="#8BC34A",
-    vivid_warning="#FFC107",
-    vivid_error="#F44336",
+    vivid_interactive="#1E88C8",
+    vivid_info="#2B9ED1",
+    vivid_success="#6EAD45",
+    vivid_warning="#D7A12A",
+    vivid_error="#D64C45",
     vivid_finish="#9C27B0",
 ):
     """Assemble the full light palette dict."""
+    on_interactive = _on_color(interactive)
+    on_warning = _on_color(warning)
+    on_error = _on_color(error)
+
     return {
         "bg":              bg,
         "layer01":         layer01,
@@ -1052,6 +1092,9 @@ def build_light_palette(
         "highlight_dark":  highlight,
         "ia_dark":         interactive_active,
         "move_finish_dark": move_finish,
+        "on_interactive":  on_interactive,
+        "on_warning":      on_warning,
+        "on_error":        on_error,
         # Terminal ANSI 0-7 (dark/muted for light bg readability)
         "ansi_black":      text_primary,
         "ansi_red":        error,
@@ -1069,7 +1112,7 @@ def build_light_palette(
         "ansi_bright_blue":    vivid_interactive,
         "ansi_bright_magenta": vivid_finish,
         "ansi_bright_cyan":    vivid_info,
-        "ansi_bright_white":   "#ffffff",
+        "ansi_bright_white":   layer01,
     }
 
 

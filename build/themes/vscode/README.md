@@ -11,8 +11,8 @@ SwiftUI, Ghostty, and Xcode outputs.
 
 | Theme | Type | Background | Foreground |
 |---|---|---|---|
-| **Monad Dark** | Dark | <img src="https://placehold.co/14x14/121212/121212.png" width="14" height="14" alt="Background" title="Background #121212"> `#121212` | <img src="https://placehold.co/14x14/E0E0E0/E0E0E0.png" width="14" height="14" alt="Text" title="Text #E0E0E0"> `#E0E0E0` |
-| **Monad Light** | Light | <img src="https://placehold.co/14x14/f4f4f4/f4f4f4.png" width="14" height="14" alt="Background" title="Background #f4f4f4"> `#f4f4f4` | <img src="https://placehold.co/14x14/161616/161616.png" width="14" height="14" alt="Text" title="Text #161616"> `#161616` |
+| **Monad Dark** | Dark | <img src="https://placehold.co/14x14/0F1113/0F1113.png" width="14" height="14" alt="Background" title="Background #0F1113"> `#0F1113` | <img src="https://placehold.co/14x14/EEF2F6/EEF2F6.png" width="14" height="14" alt="Text" title="Text #EEF2F6"> `#EEF2F6` |
+| **Monad Light** | Light | <img src="https://placehold.co/14x14/F2F4F7/F2F4F7.png" width="14" height="14" alt="Background" title="Background #F2F4F7"> `#F2F4F7` | <img src="https://placehold.co/14x14/141A22/141A22.png" width="14" height="14" alt="Text" title="Text #141A22"> `#141A22` |
 
 ---
 
@@ -20,18 +20,18 @@ SwiftUI, Ghostty, and Xcode outputs.
 
 | Role | Color |
 |---|---|
-| Background | <img src="https://placehold.co/14x14/121212/121212.png" width="14" height="14" alt="bg" title="bg #121212"> `#121212` |
-| Layer 01 | <img src="https://placehold.co/14x14/242424/242424.png" width="14" height="14" alt="layer01" title="layer01 #242424"> `#242424` |
-| Layer 02 | <img src="https://placehold.co/14x14/2C2C2C/2C2C2C.png" width="14" height="14" alt="layer02" title="layer02 #2C2C2C"> `#2C2C2C` |
-| Layer 03 | <img src="https://placehold.co/14x14/333333/333333.png" width="14" height="14" alt="layer03" title="layer03 #333333"> `#333333` |
-| Primary Text | <img src="https://placehold.co/14x14/E0E0E0/E0E0E0.png" width="14" height="14" alt="text_primary" title="text_primary #E0E0E0"> `#E0E0E0` |
-| Secondary Text | <img src="https://placehold.co/14x14/B0B0B0/B0B0B0.png" width="14" height="14" alt="text_secondary" title="text_secondary #B0B0B0"> `#B0B0B0` |
+| Background | <img src="https://placehold.co/14x14/0F1113/0F1113.png" width="14" height="14" alt="bg" title="bg #0F1113"> `#0F1113` |
+| Layer 01 | <img src="https://placehold.co/14x14/171A1E/171A1E.png" width="14" height="14" alt="layer01" title="layer01 #171A1E"> `#171A1E` |
+| Layer 02 | <img src="https://placehold.co/14x14/1F242B/1F242B.png" width="14" height="14" alt="layer02" title="layer02 #1F242B"> `#1F242B` |
+| Layer 03 | <img src="https://placehold.co/14x14/2A313A/2A313A.png" width="14" height="14" alt="layer03" title="layer03 #2A313A"> `#2A313A` |
+| Primary Text | <img src="https://placehold.co/14x14/EEF2F6/EEF2F6.png" width="14" height="14" alt="text_primary" title="text_primary #EEF2F6"> `#EEF2F6` |
+| Secondary Text | <img src="https://placehold.co/14x14/B6BFCC/B6BFCC.png" width="14" height="14" alt="text_secondary" title="text_secondary #B6BFCC"> `#B6BFCC` |
 | Disabled Text | <img src="https://placehold.co/14x14/757575/757575.png" width="14" height="14" alt="text_disabled" title="text_disabled #757575"> `#757575` |
-| Interactive (blue) | <img src="https://placehold.co/14x14/03A9F4/03A9F4.png" width="14" height="14" alt="interactive" title="interactive #03A9F4"> `#03A9F4` |
-| Info (cyan) | <img src="https://placehold.co/14x14/00BCD4/00BCD4.png" width="14" height="14" alt="info" title="info #00BCD4"> `#00BCD4` |
-| Success (green) | <img src="https://placehold.co/14x14/8BC34A/8BC34A.png" width="14" height="14" alt="success" title="success #8BC34A"> `#8BC34A` |
-| Warning (amber) | <img src="https://placehold.co/14x14/FFC107/FFC107.png" width="14" height="14" alt="warning" title="warning #FFC107"> `#FFC107` |
-| Error (red) | <img src="https://placehold.co/14x14/F44336/F44336.png" width="14" height="14" alt="error" title="error #F44336"> `#F44336` |
+| Interactive (blue) | <img src="https://placehold.co/14x14/1E88C8/1E88C8.png" width="14" height="14" alt="interactive" title="interactive #1E88C8"> `#1E88C8` |
+| Info (cyan) | <img src="https://placehold.co/14x14/2B9ED1/2B9ED1.png" width="14" height="14" alt="info" title="info #2B9ED1"> `#2B9ED1` |
+| Success (green) | <img src="https://placehold.co/14x14/6EAD45/6EAD45.png" width="14" height="14" alt="success" title="success #6EAD45"> `#6EAD45` |
+| Warning (amber) | <img src="https://placehold.co/14x14/D7A12A/D7A12A.png" width="14" height="14" alt="warning" title="warning #D7A12A"> `#D7A12A` |
+| Error (red) | <img src="https://placehold.co/14x14/D64C45/D64C45.png" width="14" height="14" alt="error" title="error #D64C45"> `#D64C45` |
 | Highlight (yellow) | <img src="https://placehold.co/14x14/FFEB3B/FFEB3B.png" width="14" height="14" alt="highlight" title="highlight #FFEB3B"> `#FFEB3B` |
 
 ### Domain Colors (Movement)

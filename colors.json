@@ -3,8 +3,8 @@
     "General_UI_Colors": {
       "Background": {
         "name": "Light Background",
-        "hex": "#f4f4f4",
-        "rgb": [244, 244, 244]
+        "hex": "#F2F4F7",
+        "rgb": [242, 244, 247]
       },
       "Layer_01": {
         "name": "Light Layer 01",
@@ -13,33 +13,43 @@
       },
       "Layer_02": {
         "name": "Light Layer 02",
-        "hex": "#f4f4f4",
-        "rgb": [244, 244, 244]
+        "hex": "#EDF1F5",
+        "rgb": [237, 241, 245]
       },
       "Layer_03": {
         "name": "Light Layer 03",
-        "hex": "#e8e8e8",
-        "rgb": [232, 232, 232]
+        "hex": "#E3E8EE",
+        "rgb": [227, 232, 238]
       },
       "Primary_Text": {
         "name": "Light Primary Text",
-        "hex": "#161616",
-        "rgb": [22, 22, 22]
+        "hex": "#141A22",
+        "rgb": [20, 26, 34]
       },
       "Secondary_Text": {
         "name": "Light Secondary Text",
-        "hex": "#525252",
-        "rgb": [82, 82, 82]
+        "hex": "#4F5A69",
+        "rgb": [79, 90, 105]
       },
       "Disabled_Text": {
         "name": "Light Disabled Text",
-        "hex": "#8d8d8d",
-        "rgb": [141, 141, 141]
+        "hex": "#7E8998",
+        "rgb": [126, 137, 152]
       },
       "Border": {
         "name": "Light Border",
-        "hex": "#c6c6c6",
-        "rgb": [198, 198, 198]
+        "hex": "#BCC6D2",
+        "rgb": [188, 198, 210]
+      },
+      "Border_Subtle": {
+        "name": "Light Border Subtle",
+        "hex": "#D8DFE7",
+        "rgb": [216, 223, 231]
+      },
+      "Overlay": {
+        "name": "Light Overlay",
+        "hex": "rgba(10,14,20,0.24)",
+        "rgb": [10, 14, 20]
       }
     }
   },
@@ -47,78 +57,141 @@
     "General_UI_Colors": {
       "Background": {
         "name": "Primary Background",
-        "hex": "#121212",
+        "hex": "#0F1113",
         "rgb": [
-          18,
-          18,
-          18
+          15,
+          17,
+          19
+        ]
+      },
+      "Layer_01": {
+        "name": "Dark Layer 01",
+        "hex": "#171A1E",
+        "rgb": [
+          23,
+          26,
+          30
+        ]
+      },
+      "Layer_02": {
+        "name": "Dark Layer 02",
+        "hex": "#1F242B",
+        "rgb": [
+          31,
+          36,
+          43
+        ]
+      },
+      "Layer_03": {
+        "name": "Dark Layer 03",
+        "hex": "#2A313A",
+        "rgb": [
+          42,
+          49,
+          58
         ]
       },
       "Primary_Text": {
         "name": "Primary Text",
-        "hex": "#E0E0E0",
+        "hex": "#EEF2F6",
         "rgb": [
-          224,
-          224,
-          224
+          238,
+          242,
+          246
         ]
       },
       "Secondary_Text": {
         "name": "Secondary Text",
-        "hex": "#B0B0B0",
+        "hex": "#B6BFCC",
         "rgb": [
-          176,
-          176,
-          176
+          182,
+          191,
+          204
+        ]
+      },
+      "Disabled_Text": {
+        "name": "Dark Disabled Text",
+        "hex": "#7D8794",
+        "rgb": [
+          125,
+          135,
+          148
+        ]
+      },
+      "Border": {
+        "name": "Dark Border",
+        "hex": "#3A434F",
+        "rgb": [
+          58,
+          67,
+          79
+        ]
+      },
+      "Border_Subtle": {
+        "name": "Dark Border Subtle",
+        "hex": "#2B323A",
+        "rgb": [
+          43,
+          50,
+          58
+        ]
+      },
+      "Overlay": {
+        "name": "Dark Overlay",
+        "hex": "rgba(0,0,0,0.65)",
+        "rgb": [
+          0,
+          0,
+          0
         ]
       }
     },
     "Information_Indicators": {
       "Information_1": {
         "name": "Information 1",
-        "hex": "#00BCD4",
+        "hex": "#2B9ED1",
         "rgb": [
-          0,
-          188,
-          212
+          43,
+          158,
+          209
         ]
       },
       "Information_2": {
         "name": "Information 2",
-        "hex": "#03A9F4",
+        "hex": "#1E88C8",
         "rgb": [
-          3,
-          169,
-          244
+          30,
+          136,
+          200
         ]
       },
       "Information_3": {
         "name": "Information 3",
-        "hex": "#8BC34A",
+        "hex": "#6EAD45",
         "rgb": [
-          139,
-          195,
-          74
+          110,
+          173,
+          69
         ]
       }
     },
     "Warnings_and_Alerts": {
       "Warning_1": {
         "name": "Warning 1",
-        "hex": "#FFC107",
+        "hex": "#D7A12A",
         "rgb": [
-          255,
-          193,
-          7
+          215,
+          161,
+          42
         ]
       },
       "Alert_1": {
         "name": "Alert 1",
-        "hex": "#F44336",
+        "hex": "#D64C45",
         "rgb": [
-          244,
-          67,
-          54
+          214,
+          76,
+          69
         ]
       }
     },

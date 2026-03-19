@@ -33,17 +33,17 @@
             static ColorPalette()
             {
                 // Base
-                Background = ColorFromHex("#121212");
-                PrimaryText = ColorFromHex("#E0E0E0");
-                SecondaryText = ColorFromHex("#B0B0B0");
+                Background = ColorFromHex("#0F1113");
+                PrimaryText = ColorFromHex("#EEF2F6");
+                SecondaryText = ColorFromHex("#B6BFCC");
 
                 // Annotation colors
-                Information1 = ColorFromHex("#00BCD4");
-                Information2 = ColorFromHex("#03A9F4");
-                Information3 = ColorFromHex("#8BC34A");
+                Information1 = ColorFromHex("#2B9ED1");
+                Information2 = ColorFromHex("#1E88C8");
+                Information3 = ColorFromHex("#6EAD45");
 
-                Warning1 = ColorFromHex("#FFC107");
-                Alert = ColorFromHex("#F44336");
+                Warning1 = ColorFromHex("#D7A12A");
+                Alert = ColorFromHex("#D64C45");
 
                 Highlight = ColorFromHex("#FFEB3B");
                 Disabled = ColorFromHex("#757575");
@@ -53,7 +53,7 @@
                 Foot = ColorFromHex("#FFEB3B");
                 Finish = ColorFromHex("#9C27B0");
 
-                // set the cpossible opacities
+                // Set the available opacities.
                 LowOpacity = 0.2f;
                 HighOpacity = 0.8f;
             }

@@ -21,45 +21,45 @@ import matplotlib.pyplot as plt
 # ---------------------------------------------------------------------------
 
 PALETTE_DARK = {
-    "bg":             "#121212",
+    "bg":             "#0F1113",
     "layer_01":       "#1e1e1e",
     "layer_02":       "#262626",
     "layer_03":       "#333333",
-    "text_primary":   "#E0E0E0",
-    "text_secondary": "#B0B0B0",
-    "text_disabled":  "#757575",
-    "interactive":    "#03A9F4",
-    "info":           "#00BCD4",
-    "success":        "#8BC34A",
-    "warning":        "#FFC107",
-    "error":          "#F44336",
+    "text_primary":   "#EEF2F6",
+    "text_secondary": "#B6BFCC",
+    "text_disabled":  "#7D8794",
+    "interactive":    "#1E88C8",
+    "info":           "#2B9ED1",
+    "success":        "#6EAD45",
+    "warning":        "#D7A12A",
+    "error":          "#D64C45",
     "highlight":      "#FFEB3B",
     "disabled":       "#757575",
 }
 
 PALETTE_LIGHT = {
-    "bg":             "#f4f4f4",
+    "bg":             "#F2F4F7",
     "layer_01":       "#ffffff",
-    "layer_02":       "#f4f4f4",
-    "layer_03":       "#e8e8e8",
-    "text_primary":   "#161616",
-    "text_secondary": "#525252",
-    "text_disabled":  "#8d8d8d",
-    "interactive":    "#03A9F4",
-    "info":           "#00BCD4",
-    "success":        "#8BC34A",
-    "warning":        "#FFC107",
-    "error":          "#F44336",
+    "layer_02":       "#EDF1F5",
+    "layer_03":       "#E3E8EE",
+    "text_primary":   "#141A22",
+    "text_secondary": "#4F5A69",
+    "text_disabled":  "#7E8998",
+    "interactive":    "#1E88C8",
+    "info":           "#2B9ED1",
+    "success":        "#6EAD45",
+    "warning":        "#D7A12A",
+    "error":          "#D64C45",
     "highlight":      "#FFEB3B",
     "disabled":       "#757575",
 }
 
 STATUS_COLORS = {
-    "info":     "#00BCD4",
-    "info_alt": "#03A9F4",
-    "success":  "#8BC34A",
-    "warning":  "#FFC107",
-    "error":    "#F44336",
+    "info":     "#2B9ED1",
+    "info_alt": "#1E88C8",
+    "success":  "#6EAD45",
+    "warning":  "#D7A12A",
+    "error":    "#D64C45",
 }
 
 MOVEMENT_COLORS = {
@@ -72,11 +72,11 @@ MOVEMENT_COLORS = {
 # Ordered categorical palette — use with sns.set_palette() or as bar/line colors.
 # Order: interactive → info → success → warning → error → highlight → finish
 CATEGORICAL = [
-    "#03A9F4",
-    "#00BCD4",
-    "#8BC34A",
-    "#FFC107",
-    "#F44336",
+    "#1E88C8",
+    "#2B9ED1",
+    "#6EAD45",
+    "#D7A12A",
+    "#D64C45",
     "#FFEB3B",
     "#9C27B0",
     "#4CAF50",
@@ -99,9 +99,9 @@ def make_sequential_cmap(dark: bool = True, name: str = "ds_sequential") -> Line
         plt.imshow(data, cmap=cmap)
     """
     if dark:
-        colors = ["#121212", "#262626", "#00BCD4", "#03A9F4"]
+        colors = ["#0F1113", "#262626", "#2B9ED1", "#1E88C8"]
     else:
-        colors = ["#f4f4f4", "#e8e8e8", "#00BCD4", "#03A9F4"]
+        colors = ["#F2F4F7", "#E3E8EE", "#2B9ED1", "#1E88C8"]
     return LinearSegmentedColormap.from_list(name, colors)
 
 
@@ -111,7 +111,7 @@ def make_diverging_cmap(name: str = "ds_diverging") -> LinearSegmentedColormap:
 
     Useful for correlation matrices, diff views, and gain/loss charts.
     """
-    colors = ["#F44336", "#757575", "#8BC34A"]
+    colors = ["#D64C45", "#757575", "#6EAD45"]
     return LinearSegmentedColormap.from_list(name, colors)
 
 
@@ -180,12 +180,12 @@ def apply_light_theme(fig=None, ax=None):
     plt.rcParams.update({
         "figure.facecolor": bg,
         "axes.facecolor":   layer,
-        "axes.edgecolor":   "#c6c6c6",
+        "axes.edgecolor":   "#BCC6D2",
         "axes.labelcolor":  text,
         "xtick.color":      subtext,
         "ytick.color":      subtext,
         "text.color":       text,
-        "grid.color":       "#e8e8e8",
+        "grid.color":       "#D8DFE7",
         "grid.linestyle":   "--",
         "grid.linewidth":   0.5,
         "font.family":      "Inter",

@@ -15,6 +15,8 @@ def create_python_template(
     text_primary_light="#161616",
     text_secondary_light="#525252",
     text_disabled_light="#8d8d8d",
+    border_light="#c6c6c6",
+    border_subtle_light="#e0e0e0",
     # Shared semantic colors
     interactive="#03A9F4",
     support_info="#00BCD4",
@@ -212,12 +214,12 @@ def apply_light_theme(fig=None, ax=None):
     plt.rcParams.update({{
         "figure.facecolor": bg,
         "axes.facecolor":   layer,
-        "axes.edgecolor":   "#c6c6c6",
+        "axes.edgecolor":   "{border_light}",
         "axes.labelcolor":  text,
         "xtick.color":      subtext,
         "ytick.color":      subtext,
         "text.color":       text,
-        "grid.color":       "#e8e8e8",
+        "grid.color":       "{border_subtle_light}",
         "grid.linestyle":   "--",
         "grid.linewidth":   0.5,
         "font.family":      "Inter",

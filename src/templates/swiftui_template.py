@@ -21,6 +21,8 @@ def create_swiftui_strata(
     text_disabled_light,
     border_light,
     border_subtle_light,
+    overlay_dark_alpha,
+    overlay_light_alpha,
     interactive,
     interactive_hover,
     interactive_active,
@@ -40,7 +42,7 @@ def create_swiftui_strata(
     def esc(s):
         return s.replace("\\", "\\\\").replace('"', '\\"')
 
-    # Overlay: dark 72% black, light 50% black (matches monad.css)
+    # Overlay alpha values are passed from compile_color.py and mirror monad.css.
     return f'''// MonadStrata.swift
 // Generated from colors.json — do not edit directly.
 // Strata tokens mirror build/monad.css (--strata-*).
@@ -101,13 +103,13 @@ public enum MonadStrata {{
         #if os(macOS)
         Color(nsColor: NSColor(name: nil, dynamicProvider: {{ appearance in
             let dark = appearance.bestMatch(from: [.darkAqua, .aqua]) == .darkAqua
-            return NSColor.black.withAlphaComponent(dark ? 0.72 : 0.50)
+            return NSColor.black.withAlphaComponent(dark ? {overlay_dark_alpha:.2f} : {overlay_light_alpha:.2f})
         }})!)
         #else
         Color(uiColor: UIColor {{ traits in
             traits.userInterfaceStyle == .dark
-                ? UIColor.black.withAlphaComponent(0.72)
-                : UIColor.black.withAlphaComponent(0.50)
+                ? UIColor.black.withAlphaComponent({overlay_dark_alpha:.2f})
+                : UIColor.black.withAlphaComponent({overlay_light_alpha:.2f})
         }})
         #endif
     }}

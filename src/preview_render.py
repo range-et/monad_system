@@ -1,79 +1,144 @@
 from PIL import Image, ImageDraw, ImageFont
 import os
 
-def render_palette(data: dict, out_path: str, width: int = 2000, height: int = 2000):
-    """
-    Render a color spec JSON (using the schema you provided) into a preview image.
-    - json_path: path to your colors.json
-    - out_path: where to save the PNG
-    - width/height: canvas size
-    """
+
+def _rgb(data, fallback=(0, 0, 0)):
+    rgb = data.get("rgb")
+    if isinstance(rgb, list) and len(rgb) >= 3:
+        return tuple(rgb[:3])
+    return fallback
+
+
+def render_palette(data: dict, out_path: str, width: int = 2200, height: int = 2000):
+    """Render a high-contrast swatch board for dark/light base layers and semantic tokens."""
 
     d = data["Default_Colors"]
-    g = d["General_UI_Colors"]
+    g_dark = d["General_UI_Colors"]
+    g_light = data["Light_Mode"]["General_UI_Colors"]
     info = d["Information_Indicators"]
     warn = d["Warnings_and_Alerts"]
     hl = d["Highlights_and_Disabled"]
     move = d["Movement_Colors"]
 
-    # Base colors
-    bg = tuple(g["Background"]["rgb"])
-    primary = tuple(g["Primary_Text"]["rgb"])
-    secondary = tuple(g["Secondary_Text"]["rgb"])
-
-    # Canvas
-    img = Image.new("RGB", (width, height), bg)
+    canvas_bg = (18, 20, 24)
+    card_bg = (27, 31, 38)
+    label_color = (200, 208, 220)
+    img = Image.new("RGB", (width, height), canvas_bg)
     draw = ImageDraw.Draw(img)
 
-    # Fonts (falls back gracefully if DejaVuSans isn’t available)
     try:
-        font_main = ImageFont.truetype("Helvetica", 64)
-        font_sub  = ImageFont.truetype("Helvetica", 52)
-        font_small= ImageFont.truetype("Helvetica", 40)
-    except Exception as e:
-        print(e)
-        font_main = ImageFont.load_default()
-        font_sub  = ImageFont.load_default()
-        font_small= ImageFont.load_default()
+        font_title = ImageFont.truetype("Helvetica", 52)
+        font_head = ImageFont.truetype("Helvetica", 34)
+        font_body = ImageFont.truetype("Helvetica", 24)
+        font_small = ImageFont.truetype("Helvetica", 20)
+    except Exception:
+        font_title = ImageFont.load_default()
+        font_head = ImageFont.load_default()
+        font_body = ImageFont.load_default()
+        font_small = ImageFont.load_default()
 
-    # Layout helpers
-    x_margin, y = 100, 80
-    line_gap, block_gap = 14, 64
+    draw.text((60, 36), "Monad Palette Board", fill=(242, 246, 252), font=font_title)
+    draw.text((60, 96), "Dark + Light base layers + semantic roles", fill=(157, 171, 191), font=font_body)
 
-    def add_line(text, color, font):
-        nonlocal y
-        draw.text((x_margin, y), text, fill=tuple(color), font=font)
-        y += int(font.size + line_gap)
+    def draw_chip(x, y, w, h, name, token, color, text_color=(10, 12, 14)):
+        draw.rounded_rectangle((x, y, x + w, y + h), radius=8, fill=color)
+        draw.text((x + 14, y + 12), name, fill=text_color, font=font_body)
+        draw.text((x + 14, y + 42), token, fill=text_color, font=font_small)
 
-    def add_pair(head, color, sub=None, sub_color=None):
-        nonlocal y
-        add_line(head, color, font_main)
-        if sub:
-            add_line(sub, sub_color if sub_color else secondary, font_sub)
-        y += block_gap - line_gap
+    chip_h = 86
+    chip_gap = 16
+    col_top = 150
+    col_title_y = 174
+    col_chip_start = 240
 
-    # Sections (mirrors your sample layout)
-    add_pair(g["Primary_Text"]["name"], primary, g["Secondary_Text"]["name"], secondary)
+    def _col_bottom(token_count):
+        chips_height = token_count * chip_h + max(0, token_count - 1) * chip_gap
+        return col_chip_start + chips_height + 76
 
-    add_pair(f'{info["Information_1"]["name"]} - System status',    info["Information_1"]["rgb"])
-    add_pair(f'{info["Information_2"]["name"]} - Secondary information', info["Information_2"]["rgb"])
-    add_pair('Secondary Text - Successful operations', info["Information_3"]["rgb"])
+    def draw_column(title, base_x, tokens, text_rgb):
+        col_bottom = _col_bottom(len(tokens))
+        draw.rounded_rectangle((base_x, col_top, base_x + 980, col_bottom), radius=14, fill=card_bg)
+        draw.text((base_x + 26, col_title_y), title, fill=(245, 248, 252), font=font_head)
+        y = col_chip_start
+        for entry in tokens:
+            name, token_name, node = entry
+            color = _rgb(node)
+            chip_text = (245, 248, 252) if sum(color) < 420 else (20, 26, 34)
+            draw_chip(base_x + 26, y, 930, chip_h, name, token_name, color, chip_text)
+            y += chip_h + chip_gap
 
-    add_pair(f'{warn["Warning_1"]["name"]} - Caution', warn["Warning_1"]["rgb"])
-    add_pair(f'{warn["Alert_1"]["name"]} - Critical Alert', warn["Alert_1"]["rgb"])
+        draw.text((base_x + 26, col_bottom - 58), "Primary text sample", fill=text_rgb, font=font_body)
+        draw.text((base_x + 26, col_bottom - 30), "Secondary text sample", fill=_rgb(tokens[5][2]), font=font_body)
 
-    add_pair(f'{hl["Highlight"]["name"]} 1 - Temp focus', hl["Highlight"]["rgb"])
-    add_pair(f'{hl["Disabled"]["name"]} 1 - Inactive',    hl["Disabled"]["rgb"])
+        return col_bottom
 
-    add_pair('Start Indicator - Start a move / line / waypoint', move["Start"]["rgb"])
-    add_pair('Hand / Position / upper body waypoint',            move["Hand"]["rgb"])
-    add_pair('Foot / Position / lower body waypoint',            move["Foot"]["rgb"])
-    add_pair('Finish Indicator - finish move / line / waypoint', move["Finish"]["rgb"])
+    dark_tokens = [
+        ("Background", "--strata-bg", g_dark["Background"]),
+        ("Layer 01", "--strata-layer-01", g_dark["Layer_01"]),
+        ("Layer 02", "--strata-layer-02", g_dark["Layer_02"]),
+        ("Layer 03", "--strata-layer-03", g_dark["Layer_03"]),
+        ("Primary Text", "--strata-text-primary", g_dark["Primary_Text"]),
+        ("Secondary Text", "--strata-text-secondary", g_dark["Secondary_Text"]),
+        ("Disabled Text", "--strata-text-disabled", g_dark["Disabled_Text"]),
+        ("Border", "--strata-border", g_dark["Border"]),
+        ("Border Subtle", "--strata-border-subtle", g_dark["Border_Subtle"]),
+    ]
 
-    # “Background” tag in the top-right
-    tag = "Background"
-    tw, th = draw.textbbox((0,0), tag, font=font_small)[2:]
-    draw.text((width - tw - 40, 24), tag, fill=secondary, font=font_small)
+    light_tokens = [
+        ("Background", "--strata-bg", g_light["Background"]),
+        ("Layer 01", "--strata-layer-01", g_light["Layer_01"]),
+        ("Layer 02", "--strata-layer-02", g_light["Layer_02"]),
+        ("Layer 03", "--strata-layer-03", g_light["Layer_03"]),
+        ("Primary Text", "--strata-text-primary", g_light["Primary_Text"]),
+        ("Secondary Text", "--strata-text-secondary", g_light["Secondary_Text"]),
+        ("Disabled Text", "--strata-text-disabled", g_light["Disabled_Text"]),
+        ("Border", "--strata-border", g_light["Border"]),
+        ("Border Subtle", "--strata-border-subtle", g_light["Border_Subtle"]),
+    ]
 
-    # save
+    dark_col_bottom = draw_column("Dark Base Layer", 60, dark_tokens, _rgb(g_dark["Primary_Text"]))
+    light_col_bottom = draw_column("Light Base Layer", 1140, light_tokens, _rgb(g_light["Primary_Text"]))
+    base_section_bottom = max(dark_col_bottom, light_col_bottom)
+
+    semantic_top = base_section_bottom + 36
+    semantic_title_y = semantic_top + 24
+
+    semantic_cards_y = semantic_top + 80
+
+    semantic = [
+        ("Info", "--strata-info", info["Information_1"]),
+        ("Interactive", "--strata-interactive", info["Information_2"]),
+        ("Success", "--strata-success", info["Information_3"]),
+        ("Warning", "--strata-warning", warn["Warning_1"]),
+        ("Error", "--strata-error", warn["Alert_1"]),
+        ("Highlight", "--strata-highlight", hl["Highlight"]),
+        ("Disabled", "--strata-disabled", hl["Disabled"]),
+        ("Move Start", "--strata-move-start", move["Start"]),
+        ("Move Hand", "--strata-move-hand", move["Hand"]),
+        ("Move Foot", "--strata-move-foot", move["Foot"]),
+        ("Move Finish", "--strata-move-finish", move["Finish"]),
+    ]
+
+    x = 86
+    y = semantic_cards_y
+    w = 350
+    h = 110
+    gap_x = 20
+    gap_y = 20
+    per_row = 5
+
+    semantic_rows = (len(semantic) + per_row - 1) // per_row
+    semantic_bottom = y + semantic_rows * h + max(0, semantic_rows - 1) * gap_y + 48
+    draw.rounded_rectangle((60, semantic_top, 2060, semantic_bottom), radius=14, fill=card_bg)
+    draw.text((86, semantic_title_y), "Semantic + Domain Colors", fill=(245, 248, 252), font=font_head)
+
+    for i, (name, token_name, node) in enumerate(semantic):
+        color = _rgb(node)
+        chip_text = (245, 248, 252) if sum(color) < 430 else (20, 26, 34)
+        cx = x + (i % per_row) * (w + gap_x)
+        cy = y + (i // per_row) * (h + gap_y)
+        draw_chip(cx, cy, w, h, name, token_name, color, chip_text)
+
+    draw.text((86, semantic_bottom - 22), "Tip: compare this board against previous render to verify perceptual shifts.", fill=label_color, font=font_small)
+
     img.save(os.path.join(out_path, "rendered_palette.png"), "PNG")

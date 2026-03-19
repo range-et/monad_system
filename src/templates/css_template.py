@@ -45,6 +45,7 @@ def create_monad_system(
     text_disabled_dark="#757575",
     border_dark="#3d3d3d",
     border_subtle_dark="#2a2a2a",
+    overlay_dark="rgba(0,0,0,0.72)",
     # --- Light theme backgrounds/text ---
     bg_light="#f4f4f4",
     layer01_light="#ffffff",
@@ -55,6 +56,7 @@ def create_monad_system(
     text_disabled_light="#8d8d8d",
     border_light="#c6c6c6",
     border_subtle_light="#e0e0e0",
+    overlay_light="rgba(0,0,0,0.5)",
     # --- Shared semantic colors ---
     interactive="#03A9F4",
     interactive_hover="#0288d1",
@@ -106,18 +108,23 @@ def create_monad_system(
   /* Structure */
   --strata-border:         {border_dark};
   --strata-border-subtle:  {border_subtle_dark};
-  --strata-overlay:        rgba(0,0,0,0.72);
+  --strata-overlay:        {overlay_dark};
 
   /* Signal */
   --strata-interactive:        {interactive};
   --strata-interactive-hover:  {interactive_hover};
   --strata-interactive-active: {interactive_active};
+  --strata-on-interactive:     {bg_dark};
 
   /* Status */
   --strata-info:     {support_info};
   --strata-success:  {support_success};
   --strata-warning:  {support_warning};
   --strata-error:    {support_error};
+  --strata-on-info:    {bg_dark};
+  --strata-on-success: {bg_dark};
+  --strata-on-warning: {bg_dark};
+  --strata-on-error:   {bg_dark};
   --strata-info-bg:    {support_info}1a;
   --strata-success-bg: {support_success}1a;
   --strata-warning-bg: {support_warning}1a;
@@ -180,7 +187,7 @@ def create_monad_system(
   --strata-text-disabled:  {text_disabled_light};
   --strata-border:         {border_light};
   --strata-border-subtle:  {border_subtle_light};
-  --strata-overlay:        rgba(0,0,0,0.5);
+  --strata-overlay:        {overlay_light};
 }}
 
 @media (prefers-color-scheme: light) {{
@@ -194,7 +201,7 @@ def create_monad_system(
     --strata-text-disabled:  {text_disabled_light};
     --strata-border:         {border_light};
     --strata-border-subtle:  {border_subtle_light};
-    --strata-overlay:        rgba(0,0,0,0.5);
+    --strata-overlay:        {overlay_light};
   }}
 }}
 
@@ -526,7 +533,7 @@ pre  {{ padding: var(--space-2); overflow-x: auto; border-left: 2px solid var(--
 }}
 .strata-toggle:hover {{
   background: var(--strata-interactive);
-  color: #fff;
+  color: var(--strata-on-interactive);
   border-color: var(--strata-interactive);
 }}
 
@@ -559,7 +566,7 @@ pre  {{ padding: var(--space-2); overflow-x: auto; border-left: 2px solid var(--
 
 .atomos-btn--primary {{
   background: var(--strata-interactive);
-  color: #fff;
+  color: var(--strata-on-interactive);
   border-color: var(--strata-interactive);
 }}
 .atomos-btn--primary:hover  {{ background: var(--strata-interactive-hover);  border-color: var(--strata-interactive-hover); }}
@@ -570,12 +577,12 @@ pre  {{ padding: var(--space-2); overflow-x: auto; border-left: 2px solid var(--
   color: var(--strata-interactive);
   border-color: var(--strata-interactive);
 }}
-.atomos-btn--secondary:hover  {{ background: var(--strata-interactive); color: #fff; }}
-.atomos-btn--secondary:active {{ background: var(--strata-interactive-active); color: #fff; border-color: var(--strata-interactive-active); }}
+.atomos-btn--secondary:hover  {{ background: var(--strata-interactive); color: var(--strata-on-interactive); }}
+.atomos-btn--secondary:active {{ background: var(--strata-interactive-active); color: var(--strata-on-interactive); border-color: var(--strata-interactive-active); }}
 
 .atomos-btn--danger {{
   background: var(--strata-error);
-  color: #fff;
+  color: var(--strata-on-error);
   border-color: var(--strata-error);
 }}
 .atomos-btn--danger:hover  {{ background: #d32f2f; border-color: #d32f2f; }}
@@ -697,9 +704,9 @@ pre  {{ padding: var(--space-2); overflow-x: auto; border-left: 2px solid var(--
   font-weight: 700;
   font-family: var(--font-mono);
   background: var(--strata-interactive);
-  color: #fff;
+  color: var(--strata-on-interactive);
 }}
-.atomos-badge--error {{ background: var(--strata-error); }}
+.atomos-badge--error {{ background: var(--strata-error); color: var(--strata-on-error); }}
 
 /* =========================================================================
    ATOMOS — NOTICES  (status communication)
@@ -805,6 +812,10 @@ pre  {{ padding: var(--space-2); overflow-x: auto; border-left: 2px solid var(--
 .atomos-switch input:checked + .atomos-switch__track {{ background: var(--strata-interactive); border-color: var(--strata-interactive); }}
 .atomos-switch input:checked + .atomos-switch__track::after {{ transform: translateX(16px); background: #fff; }}
 .atomos-switch input {{ position: absolute; opacity: 0; width: 0; height: 0; }}
+.atomos-switch input:focus-visible + .atomos-switch__track {{
+  outline: 2px solid var(--strata-interactive);
+  outline-offset: 2px;
+}}
 .atomos-switch__label {{ font-size: var(--type-sm); color: var(--strata-text-secondary); }}
 
 /* =========================================================================

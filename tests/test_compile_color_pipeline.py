@@ -18,6 +18,14 @@ class CompileColorPipelineTests(unittest.TestCase):
         with open(REPO_ROOT / "colors.json", "r", encoding="utf-8") as f:
             return json.load(f)
 
+    @staticmethod
+    def _xcode_color(hex_color):
+        h = hex_color.lstrip("#")
+        r = int(h[0:2], 16) / 255.0
+        g = int(h[2:4], 16) / 255.0
+        b = int(h[4:6], 16) / 255.0
+        return f"{r:.4f} {g:.4f} {b:.4f} 1"
+
     def test_prepare_templates_emits_expected_artifacts(self):
         outputs = cc.prepare_templates(self._load_colors())
 
@@ -74,6 +82,14 @@ class CompileColorPipelineTests(unittest.TestCase):
         modified = copy.deepcopy(data)
         bg = "#102030"
 
+        # Remove explicit layer overrides to verify derivation fallback path.
+        modified["Default_Colors"]["General_UI_Colors"].pop("Layer_01", None)
+        modified["Default_Colors"]["General_UI_Colors"].pop("Layer_02", None)
+        modified["Default_Colors"]["General_UI_Colors"].pop("Layer_03", None)
+        modified["Default_Colors"]["General_UI_Colors"].pop("Border", None)
+        modified["Default_Colors"]["General_UI_Colors"].pop("Border_Subtle", None)
+        modified["Light_Mode"]["General_UI_Colors"].pop("Border_Subtle", None)
+
         modified["Default_Colors"]["General_UI_Colors"]["Background"]["hex"] = bg
         outputs = cc.prepare_templates(modified)
 
@@ -82,13 +98,17 @@ class CompileColorPipelineTests(unittest.TestCase):
         layer03 = cc._shift_bg(bg, 33)
         border_dark = cc._shift_bg(bg, 49)
         border_subtle_dark = cc._shift_bg(bg, 24)
-        border_subtle_light = cc._shift_bg("#c6c6c6", 26)
+        light_layer01 = modified["Light_Mode"]["General_UI_Colors"]["Layer_01"]["hex"]
+        light_layer02 = modified["Light_Mode"]["General_UI_Colors"]["Layer_02"]["hex"]
+        light_layer03 = modified["Light_Mode"]["General_UI_Colors"]["Layer_03"]["hex"]
+        light_border = modified["Light_Mode"]["General_UI_Colors"]["Border"]["hex"]
+        border_subtle_light = cc._shift_bg(light_border, 26)
 
-        self.assertIn(f'light: "#ffffff",\n        dark: "{layer01}"', outputs["swiftui_strata"])
-        self.assertIn(f'light: "#f4f4f4",\n        dark: "{layer02}"', outputs["swiftui_strata"])
-        self.assertIn(f'light: "#e8e8e8",\n        dark: "{layer03}"', outputs["swiftui_strata"])
+        self.assertIn(f'light: "{light_layer01}",\n        dark: "{layer01}"', outputs["swiftui_strata"])
+        self.assertIn(f'light: "{light_layer02}",\n        dark: "{layer02}"', outputs["swiftui_strata"])
+        self.assertIn(f'light: "{light_layer03}",\n        dark: "{layer03}"', outputs["swiftui_strata"])
         self.assertIn(
-            f'public static let border = _adaptive(\n        light: "#c6c6c6",\n        dark: "{border_dark}"',
+            f'public static let border = _adaptive(\n        light: "{light_border}",\n        dark: "{border_dark}"',
             outputs["swiftui_strata"],
         )
         self.assertIn(
@@ -97,6 +117,70 @@ class CompileColorPipelineTests(unittest.TestCase):
         )
         self.assertIn(f"background = {bg}", outputs["ghostty_dark"])
         self.assertIn(f"palette = 0={bg}", outputs["ghostty_dark"])
+
+    def test_generated_js_uses_explicit_threshold_and_rail_contracts(self):
+        outputs = cc.prepare_templates(self._load_colors())
+        js = outputs["js"]
+
+        self.assertIn("[data-mn-threshold-toggle]", js)
+        self.assertIn("[data-mn-threshold-nav]", js)
+        self.assertIn("[data-mn-rail-toggle]", js)
+        self.assertIn("[data-mn-rail]", js)
+        self.assertIn("aria-pressed", js)
+
+    def test_generated_css_emits_on_signal_tokens_and_switch_focus_style(self):
+        outputs = cc.prepare_templates(self._load_colors())
+        css = outputs["css_library"]
+
+        self.assertIn("--strata-on-interactive:", css)
+        self.assertIn("--strata-on-info:", css)
+        self.assertIn("--strata-on-success:", css)
+        self.assertIn("--strata-on-warning:", css)
+        self.assertIn("--strata-on-error:", css)
+        self.assertIn(".atomos-switch input:focus-visible + .atomos-switch__track", css)
+
+    def test_dark_palette_token_propagates_across_all_targets(self):
+        data = self._load_colors()
+        modified = copy.deepcopy(data)
+
+        info2 = "#13579B"
+        modified["Default_Colors"]["Information_Indicators"]["Information_2"]["hex"] = info2
+
+        outputs = cc.prepare_templates(modified)
+
+        self.assertIn(f"--strata-interactive:        {info2};", outputs["css_library"])
+        self.assertIn(f"Information2 = ColorFromHex(\"{info2}\");", outputs["c_sharp_dark"])
+        self.assertIn(f'"interactive":    "{info2}"', outputs["python"])
+        self.assertIn(f'public static let interactive = Color(hex: "{info2}")', outputs["swiftui_strata"])
+        self.assertIn(f"cursor-color       = {info2}", outputs["ghostty_dark"])
+        self.assertIn(f'"button.background": "{info2}"', outputs["vscode_dark"])
+
+        # Xcode themes store normalized RGBA floats, not hex literals.
+        xcode_info2 = self._xcode_color(info2)
+        self.assertIn(xcode_info2, outputs["xcode_dark"])
+
+    def test_light_base_tokens_propagate_across_light_targets(self):
+        data = self._load_colors()
+        modified = copy.deepcopy(data)
+
+        light_bg = "#ECEFF4"
+        light_text = "#1A1E27"
+        modified["Light_Mode"]["General_UI_Colors"]["Background"]["hex"] = light_bg
+        modified["Light_Mode"]["General_UI_Colors"]["Primary_Text"]["hex"] = light_text
+
+        outputs = cc.prepare_templates(modified)
+
+        self.assertIn(f"Background = ColorFromHex(\"{light_bg}\");", outputs["c_sharp_light"])
+        self.assertIn(f"PrimaryText = ColorFromHex(\"{light_text}\");", outputs["c_sharp_light"])
+        self.assertIn(f'"editor.background": "{light_bg}"', outputs["vscode_light"])
+        self.assertIn(f"background = {light_bg}", outputs["ghostty_light"])
+        self.assertIn(f"foreground = {light_text}", outputs["ghostty_light"])
+        self.assertIn(f'light: "{light_bg}"', outputs["swiftui_strata"])
+
+        xcode_bg = self._xcode_color(light_bg)
+        xcode_text = self._xcode_color(light_text)
+        self.assertIn(xcode_bg, outputs["xcode_light"])
+        self.assertIn(xcode_text, outputs["xcode_light"])
 
 
 if __name__ == "__main__":

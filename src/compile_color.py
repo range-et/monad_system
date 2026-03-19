@@ -70,14 +70,32 @@ def _shift_bg(hex_color, amount=30):
     return f"#{r:02X}{g:02X}{b:02X}"
 
 
+def _rgba_alpha(color_value, default=0.5):
+    """Extract alpha from rgba(r,g,b,a) strings; return default for other formats."""
+    if not isinstance(color_value, str):
+        return default
+    value = color_value.strip().lower()
+    if not value.startswith("rgba(") or not value.endswith(")"):
+        return default
+    parts = value[5:-1].split(",")
+    if len(parts) != 4:
+        return default
+    try:
+        alpha = float(parts[3].strip())
+    except ValueError:
+        return default
+    return max(0.0, min(1.0, alpha))
+
+
 def prepare_templates(json_data):
     d = json_data.get("Default_Colors", {})
+    dm = d.get("General_UI_Colors", {})
     lm = json_data.get("Light_Mode", {}).get("General_UI_Colors", {})
 
     # Dark theme values from Default_Colors
-    background_color = d.get("General_UI_Colors", {}).get("Background", {}).get("hex", "#121212")
-    primary_text_color = d.get("General_UI_Colors", {}).get("Primary_Text", {}).get("hex", "#E0E0E0")
-    secondary_text_color = d.get("General_UI_Colors", {}).get("Secondary_Text", {}).get("hex", "#B0B0B0")
+    background_color = dm.get("Background", {}).get("hex", "#121212")
+    primary_text_color = dm.get("Primary_Text", {}).get("hex", "#E0E0E0")
+    secondary_text_color = dm.get("Secondary_Text", {}).get("hex", "#B0B0B0")
     information_1_color = d.get("Information_Indicators", {}).get("Information_1", {}).get("hex", "#00BCD4")
     information_2_color = d.get("Information_Indicators", {}).get("Information_2", {}).get("hex", "#03A9F4")
     information_3_color = d.get("Information_Indicators", {}).get("Information_3", {}).get("hex", "#8BC34A")
@@ -85,6 +103,15 @@ def prepare_templates(json_data):
     alert_color = d.get("Warnings_and_Alerts", {}).get("Alert_1", {}).get("hex", "#F44336")
     highlight_color = d.get("Highlights_and_Disabled", {}).get("Highlight", {}).get("hex", "#FFEB3B")
     disabled_color = d.get("Highlights_and_Disabled", {}).get("Disabled", {}).get("hex", "#757575")
+
+    # Optional explicit dark-mode base layer overrides
+    layer01_dark = dm.get("Layer_01", {}).get("hex", _shift_bg(background_color, 18))
+    layer02_dark = dm.get("Layer_02", {}).get("hex", _shift_bg(background_color, 26))
+    layer03_dark = dm.get("Layer_03", {}).get("hex", _shift_bg(background_color, 33))
+    text_disabled_dark = dm.get("Disabled_Text", {}).get("hex", disabled_color)
+    border_dark = dm.get("Border", {}).get("hex", _shift_bg(background_color, 49))
+    border_subtle_dark = dm.get("Border_Subtle", {}).get("hex", _shift_bg(background_color, 24))
+    overlay_dark = dm.get("Overlay", {}).get("hex", "rgba(0,0,0,0.72)")
     start_color = d.get("Movement_Colors", {}).get("Start", {}).get("hex", "#4CAF50")
     end_color = d.get("Movement_Colors", {}).get("Finish", {}).get("hex", "#9C27B0")
     foot_color = d.get("Movement_Colors", {}).get("Foot", {}).get("hex", "#FFEB3B")
@@ -99,6 +126,10 @@ def prepare_templates(json_data):
     text_secondary_light = lm.get("Secondary_Text", {}).get("hex", "#525252")
     text_disabled_light = lm.get("Disabled_Text", {}).get("hex", "#8d8d8d")
     border_light = lm.get("Border", {}).get("hex", "#c6c6c6")
+    border_subtle_light = lm.get("Border_Subtle", {}).get("hex", _shift_bg(border_light, 26))
+    overlay_light = lm.get("Overlay", {}).get("hex", "rgba(0,0,0,0.5)")
+    overlay_dark_alpha = _rgba_alpha(overlay_dark, default=0.72)
+    overlay_light_alpha = _rgba_alpha(overlay_light, default=0.50)
 
     # ── Derived interactive hover/active shades ───────────────────────────────
     ia_hover  = _darken(information_2_color, 0.85)   # #0288d1 for #03A9F4
@@ -125,9 +156,15 @@ def prepare_templates(json_data):
     # --- Build: Monad System CSS (monad.css) ---
     css_library = create_monad_system(
         bg_dark=background_color,
+        layer01_dark=layer01_dark,
+        layer02_dark=layer02_dark,
+        layer03_dark=layer03_dark,
         text_primary_dark=primary_text_color,
         text_secondary_dark=secondary_text_color,
-        text_disabled_dark=disabled_color,
+        text_disabled_dark=text_disabled_dark,
+        border_dark=border_dark,
+        border_subtle_dark=border_subtle_dark,
+        overlay_dark=overlay_dark,
         bg_light=bg_light,
         layer01_light=layer01_light,
         layer02_light=layer02_light,
@@ -136,6 +173,8 @@ def prepare_templates(json_data):
         text_secondary_light=text_secondary_light,
         text_disabled_light=text_disabled_light,
         border_light=border_light,
+        border_subtle_light=border_subtle_light,
+        overlay_light=overlay_light,
         interactive=information_2_color,
         interactive_hover=ia_hover,
         interactive_active=ia_active,
@@ -193,7 +232,7 @@ def prepare_templates(json_data):
         bg_dark=background_color,
         text_primary_dark=primary_text_color,
         text_secondary_dark=secondary_text_color,
-        text_disabled_dark=disabled_color,
+        text_disabled_dark=text_disabled_dark,
         bg_light=bg_light,
         layer01_light=layer01_light,
         layer02_light=layer02_light,
@@ -201,6 +240,8 @@ def prepare_templates(json_data):
         text_primary_light=text_primary_light,
         text_secondary_light=text_secondary_light,
         text_disabled_light=text_disabled_light,
+        border_light=border_light,
+        border_subtle_light=border_subtle_light,
         interactive=information_2_color,
         support_info=information_1_color,
         support_info_alt=information_2_color,
@@ -217,10 +258,7 @@ def prepare_templates(json_data):
 
     js_code = create_js_template()
 
-    # ── Derived dark surface layers (shifted from bg) ─────────────────────────
-    layer01_dark = _shift_bg(background_color, 18)   # #1e1e1e for #121212
-    layer02_dark = _shift_bg(background_color, 26)   # #262626
-    layer03_dark = _shift_bg(background_color, 33)   # #333333
+    # ── Derived dark surface layers (or explicit overrides) ───────────────────
     activity_bar_dark = _shift_bg(background_color, -5) if background_color != "#121212" \
         else "#0d0d0d"
 
@@ -388,9 +426,9 @@ def prepare_templates(json_data):
         layer03_dark=layer03_dark,
         text_primary_dark=primary_text_color,
         text_secondary_dark=secondary_text_color,
-        text_disabled_dark=disabled_color,
-        border_dark=_shift_bg(background_color, 49),
-        border_subtle_dark=_shift_bg(background_color, 24),
+        text_disabled_dark=text_disabled_dark,
+        border_dark=border_dark,
+        border_subtle_dark=border_subtle_dark,
         bg_light=bg_light,
         layer01_light=layer01_light,
         layer02_light=layer02_light,
@@ -399,7 +437,9 @@ def prepare_templates(json_data):
         text_secondary_light=text_secondary_light,
         text_disabled_light=text_disabled_light,
         border_light=border_light,
-        border_subtle_light=_shift_bg(border_light, 26),
+        border_subtle_light=border_subtle_light,
+        overlay_dark_alpha=overlay_dark_alpha,
+        overlay_light_alpha=overlay_light_alpha,
         interactive=information_2_color,
         interactive_hover=ia_hover,
         interactive_active=ia_active,

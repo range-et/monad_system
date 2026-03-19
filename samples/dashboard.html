@@ -15,7 +15,7 @@
       width: 26px;
       height: 26px;
       background: var(--strata-interactive);
-      color: #fff;
+      color: var(--strata-on-interactive);
       font-size: var(--type-xs);
       font-weight: 700;
       font-family: var(--font-mono);
@@ -210,10 +210,10 @@
       <span class="threshold-toggle__bar"></span>
       <span class="threshold-toggle__bar"></span>
     </button>
-    <div style="width:20px; height:20px; background:var(--strata-interactive); display:flex; align-items:center; justify-content:center; font-size:10px; font-weight:800; font-family:var(--font-mono); color:#fff; letter-spacing:-0.05em; flex-shrink:0;">M</div>
+    <div style="width:20px; height:20px; background:var(--strata-interactive); display:flex; align-items:center; justify-content:center; font-size:10px; font-weight:800; font-family:var(--font-mono); color:var(--strata-on-interactive); letter-spacing:-0.05em; flex-shrink:0;">M</div>
     <span class="monad-header__name mn-hide-sm">Workspace</span>
     <div style="width:1px; height:16px; background:var(--strata-border); margin:0 4px;" class="mn-hide-md"></div>
-    <nav class="threshold-nav mn-hide-md" aria-label="Main navigation">
+    <nav class="threshold-nav mn-hide-md" data-mn-threshold-nav aria-label="Main navigation">
       <a href="#" class="active">Overview</a>
       <a href="#">Analytics</a>
       <a href="#">Deployments</a>
@@ -229,7 +229,7 @@
   <div class="app-body">
 
     <!-- Monad Rail (off-canvas on ≤1056px, toggled by threshold-toggle) -->
-    <nav class="monad-rail" aria-label="Rail navigation" aria-hidden="false">
+    <nav class="monad-rail" data-mn-rail aria-label="Rail navigation" aria-hidden="false">
       <div class="monad-rail__section">Main</div>
       <a class="monad-rail__item active" href="#">⊞ Overview</a>
       <a class="monad-rail__item" href="#">◎ Projects</a>

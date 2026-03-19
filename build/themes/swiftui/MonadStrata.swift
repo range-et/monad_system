@@ -16,71 +16,71 @@ public enum MonadStrata {
     // MARK: - Ground / type / structure (light / dark)
 
     public static let bg = _adaptive(
-        light: "#f4f4f4",
-        dark: "#121212"
+        light: "#F2F4F7",
+        dark: "#0F1113"
     )
     public static let layer01 = _adaptive(
         light: "#ffffff",
-        dark: "#242424"
+        dark: "#171A1E"
     )
     public static let layer02 = _adaptive(
-        light: "#f4f4f4",
-        dark: "#2C2C2C"
+        light: "#EDF1F5",
+        dark: "#1F242B"
     )
     public static let layer03 = _adaptive(
-        light: "#e8e8e8",
-        dark: "#333333"
+        light: "#E3E8EE",
+        dark: "#2A313A"
     )
 
     public static let textPrimary = _adaptive(
-        light: "#161616",
-        dark: "#E0E0E0"
+        light: "#141A22",
+        dark: "#EEF2F6"
     )
     public static let textSecondary = _adaptive(
-        light: "#525252",
-        dark: "#B0B0B0"
+        light: "#4F5A69",
+        dark: "#B6BFCC"
     )
     public static let textDisabled = _adaptive(
-        light: "#8d8d8d",
-        dark: "#757575"
+        light: "#7E8998",
+        dark: "#7D8794"
     )
 
     public static let border = _adaptive(
-        light: "#c6c6c6",
-        dark: "#434343"
+        light: "#BCC6D2",
+        dark: "#3A434F"
     )
     public static let borderSubtle = _adaptive(
-        light: "#E0E0E0",
-        dark: "#2A2A2A"
+        light: "#D8DFE7",
+        dark: "#2B323A"
     )
 
     public static var overlay: Color {
         #if os(macOS)
         Color(nsColor: NSColor(name: nil, dynamicProvider: { appearance in
             let dark = appearance.bestMatch(from: [.darkAqua, .aqua]) == .darkAqua
-            return NSColor.black.withAlphaComponent(dark ? 0.72 : 0.50)
+            return NSColor.black.withAlphaComponent(dark ? 0.65 : 0.24)
         })!)
         #else
         Color(uiColor: UIColor { traits in
             traits.userInterfaceStyle == .dark
-                ? UIColor.black.withAlphaComponent(0.72)
-                : UIColor.black.withAlphaComponent(0.50)
+                ? UIColor.black.withAlphaComponent(0.65)
+                : UIColor.black.withAlphaComponent(0.24)
         })
         #endif
     }
 
     // MARK: - Signal (shared + hover states)
 
-    public static let interactive = Color(hex: "#03A9F4")
-    public static let interactiveHover = Color(hex: "#028FCF")
-    public static let interactiveActive = Color(hex: "#027EB7")
+    public static let interactive = Color(hex: "#1E88C8")
+    public static let interactiveHover = Color(hex: "#1973AA")
+    public static let interactiveActive = Color(hex: "#166696")
 
     // MARK: - Status
 
-    public static let info = Color(hex: "#00BCD4")
-    public static let success = Color(hex: "#8BC34A")
-    public static let warning = Color(hex: "#FFC107")
-    public static let error = Color(hex: "#F44336")
+    public static let info = Color(hex: "#2B9ED1")
+    public static let success = Color(hex: "#6EAD45")
+    public static let warning = Color(hex: "#D7A12A")
+    public static let error = Color(hex: "#D64C45")
 
     public static let infoBg = info.opacity(0.10)
     public static let successBg = success.opacity(0.10)

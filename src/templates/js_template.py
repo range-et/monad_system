@@ -5,7 +5,7 @@ def create_js_template():
  *
  * Handles:
  *   Strata  — theme toggle ([data-mn-theme-toggle]), persists to localStorage
- *   Threshold — hamburger (.threshold-toggle) + rail drawer (.monad-rail)
+ *   Threshold — nav toggle ([data-mn-threshold-toggle]) + rail drawer ([data-mn-rail-toggle])
  *
  * No dependencies. Drop in <script src="monad.js"></script> before </body>.
  */
@@ -20,63 +20,98 @@ def create_js_template():
   function initStrata() {
     var root = document.documentElement;
     var stored = localStorage.getItem('mn-strata');
+
+    function syncThemeToggleState() {
+      var isLight = root.dataset.strata === 'light';
+      document.querySelectorAll('[data-mn-theme-toggle]').forEach(function (btn) {
+        btn.setAttribute('aria-pressed', String(isLight));
+      });
+    }
+
     if (stored) {
       root.dataset.strata = stored;
     } else if (window.matchMedia('(prefers-color-scheme: light)').matches) {
       root.dataset.strata = 'light';
     }
+
+    syncThemeToggleState();
+
     document.querySelectorAll('[data-mn-theme-toggle]').forEach(function (btn) {
       btn.addEventListener('click', function () {
         var next = root.dataset.strata === 'light' ? 'dark' : 'light';
         root.dataset.strata = next;
         localStorage.setItem('mn-strata', next);
+        syncThemeToggleState();
       });
     });
   }
 
   // -----------------------------------------------------------------------
-  // Threshold — hamburger nav
-  // Toggles .threshold-nav.is-open
+  // Threshold — nav toggle
+  // Trigger: [data-mn-threshold-toggle]
+  // Target:  [data-mn-threshold-nav]
   // -----------------------------------------------------------------------
   function initThresholdNav() {
-    var btn = document.querySelector('.threshold-toggle');
-    var nav = document.querySelector('.threshold-nav');
-    if (!btn || !nav) return;
+    var controls = [];
 
-    btn.setAttribute('aria-expanded', 'false');
-    btn.setAttribute('aria-controls', 'mn-threshold-nav');
-    nav.id = 'mn-threshold-nav';
+    document.querySelectorAll('[data-mn-threshold-toggle]').forEach(function (btn, index) {
+      var nav = document.querySelector('[data-mn-threshold-nav]');
+      if (!nav) return;
 
-    btn.addEventListener('click', function () {
-      var isOpen = nav.classList.toggle('is-open');
-      btn.setAttribute('aria-expanded', String(isOpen));
-    });
+      if (!nav.id) {
+        nav.id = 'mn-threshold-nav-' + (index + 1);
+      }
 
-    document.addEventListener('click', function (e) {
-      if (!btn.contains(e.target) && !nav.contains(e.target)) {
+      btn.setAttribute('aria-controls', nav.id);
+      btn.setAttribute('aria-expanded', 'false');
+      nav.setAttribute('aria-hidden', 'true');
+
+      function closeNav() {
         nav.classList.remove('is-open');
+        nav.setAttribute('aria-hidden', 'true');
         btn.setAttribute('aria-expanded', 'false');
       }
+
+      btn.addEventListener('click', function () {
+        var isOpen = nav.classList.toggle('is-open');
+        nav.setAttribute('aria-hidden', String(!isOpen));
+        btn.setAttribute('aria-expanded', String(isOpen));
+      });
+
+      controls.push({ btn: btn, nav: nav, closeNav: closeNav });
+    });
+
+    if (!controls.length) return;
+
+    document.addEventListener('click', function (e) {
+      controls.forEach(function (control) {
+        if (!control.btn.contains(e.target) && !control.nav.contains(e.target)) {
+          control.closeNav();
+        }
+      });
     });
 
     document.addEventListener('keydown', function (e) {
-      if (e.key === 'Escape') {
-        nav.classList.remove('is-open');
-        btn.setAttribute('aria-expanded', 'false');
-      }
+      if (e.key !== 'Escape') return;
+      controls.forEach(function (control) {
+        control.closeNav();
+      });
     });
   }
 
   // -----------------------------------------------------------------------
   // Threshold — rail drawer (off-canvas sidenav)
-  // Toggles .monad-rail.is-open + .threshold-overlay.is-visible
-  // Trigger: any [data-mn-rail-toggle]
+  // Trigger: [data-mn-rail-toggle]
+  // Target:  [data-mn-rail] (or .monad-rail fallback)
   // -----------------------------------------------------------------------
   function initRail() {
-    var rail = document.querySelector('.monad-rail');
+    var rail = document.querySelector('[data-mn-rail]') || document.querySelector('.monad-rail');
     if (!rail) return;
 
-    var overlay = document.querySelector('.threshold-overlay');
+    var railToggles = document.querySelectorAll('[data-mn-rail-toggle]');
+    if (!railToggles.length) return;
+
+    var overlay = document.querySelector('[data-mn-rail-overlay]') || document.querySelector('.threshold-overlay');
     if (!overlay) {
       overlay = document.createElement('div');
       overlay.className = 'threshold-overlay';
@@ -87,18 +122,32 @@ def create_js_template():
     function openRail() {
       rail.classList.add('is-open');
       overlay.classList.add('is-visible');
+      overlay.setAttribute('aria-hidden', 'false');
       document.body.style.overflow = 'hidden';
       rail.setAttribute('aria-hidden', 'false');
+      railToggles.forEach(function (btn) {
+        btn.setAttribute('aria-expanded', 'true');
+      });
     }
 
     function closeRail() {
       rail.classList.remove('is-open');
       overlay.classList.remove('is-visible');
+      overlay.setAttribute('aria-hidden', 'true');
       document.body.style.overflow = '';
       rail.setAttribute('aria-hidden', 'true');
+      railToggles.forEach(function (btn) {
+        btn.setAttribute('aria-expanded', 'false');
+      });
     }
 
-    document.querySelectorAll('[data-mn-rail-toggle]').forEach(function (btn) {
+    if (!rail.id) {
+      rail.id = 'mn-rail';
+    }
+
+    railToggles.forEach(function (btn) {
+      btn.setAttribute('aria-controls', rail.id);
+      btn.setAttribute('aria-expanded', 'false');
       btn.addEventListener('click', function () {
         rail.classList.contains('is-open') ? closeRail() : openRail();
       });

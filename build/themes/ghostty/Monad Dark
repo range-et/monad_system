@@ -7,35 +7,35 @@
 # OS sync:  theme = light:Monad Light,dark:Monad Dark
 
 # ── Canvas ───────────────────────────────────────────────────────────────────
-background = #121212
-foreground = #E0E0E0
+background = #0F1113
+foreground = #EEF2F6
 
 # ── Cursor ───────────────────────────────────────────────────────────────────
-cursor-color       = #03A9F4
-cursor-text        = #121212
+cursor-color       = #1E88C8
+cursor-text        = #0F1113
 cursor-style       = block
 cursor-style-blink = false
 
 # ── Selection ────────────────────────────────────────────────────────────────
-selection-background = #0D3F55
-selection-foreground = #E0E0E0
+selection-background = #133449
+selection-foreground = #EEF2F6
 
 # ── ANSI palette — normal (0-7) ───────────────────────────────────────────────
-palette = 0=#121212
-palette = 1=#F44336
-palette = 2=#8BC34A
-palette = 3=#FFC107
-palette = 4=#03A9F4
+palette = 0=#0F1113
+palette = 1=#D64C45
+palette = 2=#6EAD45
+palette = 3=#D7A12A
+palette = 4=#1E88C8
 palette = 5=#9C27B0
-palette = 6=#00BCD4
-palette = 7=#B0B0B0
+palette = 6=#2B9ED1
+palette = 7=#B6BFCC
 
 # ── ANSI palette — bright (8-15) ──────────────────────────────────────────────
-palette = 8=#333333
-palette = 9=#FF4638
+palette = 8=#2A313A
+palette = 9=#E04F48
 palette = 10=#4CAF50
 palette = 11=#FFEB3B
-palette = 12=#17BDFF
+palette = 12=#329CDC
 palette = 13=#5D1769
-palette = 14=#00707F
-palette = 15=#E0E0E0
+palette = 14=#195E7D
+palette = 15=#EEF2F6

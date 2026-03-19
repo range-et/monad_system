@@ -4,6 +4,22 @@
 
 Source: `colors.json`. Build outputs go to `build/`.
 
+## Sync Contract
+
+`colors.json` is the single source of truth for all generated targets.
+
+- Change tokens only in `colors.json`.
+- Rebuild once.
+- All artifacts regenerate from the same palette input.
+
+This is enforced by pipeline tests:
+
+```bash
+python -m unittest discover -s tests -p 'test_*.py' -q
+```
+
+The tests verify token propagation across CSS, C#, Python, SwiftUI, VS Code, Ghostty, and Xcode outputs.
+
 ## Tiers
 
 | Tier | Scope |

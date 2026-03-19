@@ -20,35 +20,40 @@
    ========================================================================= */
 :root {
   /* Ground */
-  --strata-bg:             #121212;
-  --strata-layer-01:       #1e1e1e;
-  --strata-layer-02:       #262626;
-  --strata-layer-03:       #333333;
+  --strata-bg:             #0F1113;
+  --strata-layer-01:       #171A1E;
+  --strata-layer-02:       #1F242B;
+  --strata-layer-03:       #2A313A;
 
   /* Type */
-  --strata-text-primary:   #E0E0E0;
-  --strata-text-secondary: #B0B0B0;
-  --strata-text-disabled:  #757575;
+  --strata-text-primary:   #EEF2F6;
+  --strata-text-secondary: #B6BFCC;
+  --strata-text-disabled:  #7D8794;
 
   /* Structure */
-  --strata-border:         #3d3d3d;
-  --strata-border-subtle:  #2a2a2a;
-  --strata-overlay:        rgba(0,0,0,0.72);
+  --strata-border:         #3A434F;
+  --strata-border-subtle:  #2B323A;
+  --strata-overlay:        rgba(0,0,0,0.65);
 
   /* Signal */
-  --strata-interactive:        #03A9F4;
-  --strata-interactive-hover:  #028FCF;
-  --strata-interactive-active: #027EB7;
+  --strata-interactive:        #1E88C8;
+  --strata-interactive-hover:  #1973AA;
+  --strata-interactive-active: #166696;
+  --strata-on-interactive:     #0F1113;
 
   /* Status */
-  --strata-info:     #00BCD4;
-  --strata-success:  #8BC34A;
-  --strata-warning:  #FFC107;
-  --strata-error:    #F44336;
-  --strata-info-bg:    #00BCD41a;
-  --strata-success-bg: #8BC34A1a;
-  --strata-warning-bg: #FFC1071a;
-  --strata-error-bg:   #F443361a;
+  --strata-info:     #2B9ED1;
+  --strata-success:  #6EAD45;
+  --strata-warning:  #D7A12A;
+  --strata-error:    #D64C45;
+  --strata-on-info:    #0F1113;
+  --strata-on-success: #0F1113;
+  --strata-on-warning: #0F1113;
+  --strata-on-error:   #0F1113;
+  --strata-info-bg:    #2B9ED11a;
+  --strata-success-bg: #6EAD451a;
+  --strata-warning-bg: #D7A12A1a;
+  --strata-error-bg:   #D64C451a;
 
   /* Domain */
   --strata-move-start:  #4CAF50;
@@ -98,30 +103,30 @@
    AKASHA — LIGHT
    ========================================================================= */
 [data-strata="light"] {
-  --strata-bg:             #f4f4f4;
+  --strata-bg:             #F2F4F7;
   --strata-layer-01:       #ffffff;
-  --strata-layer-02:       #f4f4f4;
-  --strata-layer-03:       #e8e8e8;
-  --strata-text-primary:   #161616;
-  --strata-text-secondary: #525252;
-  --strata-text-disabled:  #8d8d8d;
-  --strata-border:         #c6c6c6;
-  --strata-border-subtle:  #e0e0e0;
-  --strata-overlay:        rgba(0,0,0,0.5);
+  --strata-layer-02:       #EDF1F5;
+  --strata-layer-03:       #E3E8EE;
+  --strata-text-primary:   #141A22;
+  --strata-text-secondary: #4F5A69;
+  --strata-text-disabled:  #7E8998;
+  --strata-border:         #BCC6D2;
+  --strata-border-subtle:  #D8DFE7;
+  --strata-overlay:        rgba(10,14,20,0.24);
 }
 
 @media (prefers-color-scheme: light) {
   :root:not([data-strata="dark"]) {
-    --strata-bg:             #f4f4f4;
+    --strata-bg:             #F2F4F7;
     --strata-layer-01:       #ffffff;
-    --strata-layer-02:       #f4f4f4;
-    --strata-layer-03:       #e8e8e8;
-    --strata-text-primary:   #161616;
-    --strata-text-secondary: #525252;
-    --strata-text-disabled:  #8d8d8d;
-    --strata-border:         #c6c6c6;
-    --strata-border-subtle:  #e0e0e0;
-    --strata-overlay:        rgba(0,0,0,0.5);
+    --strata-layer-02:       #EDF1F5;
+    --strata-layer-03:       #E3E8EE;
+    --strata-text-primary:   #141A22;
+    --strata-text-secondary: #4F5A69;
+    --strata-text-disabled:  #7E8998;
+    --strata-border:         #BCC6D2;
+    --strata-border-subtle:  #D8DFE7;
+    --strata-overlay:        rgba(10,14,20,0.24);
   }
 }
 
@@ -175,8 +180,8 @@ code { padding: 1px 5px; }
 pre  { padding: var(--space-2); overflow-x: auto; border-left: 2px solid var(--strata-interactive); }
 
 ::selection {
-  background: #03A9F4;
-  color: #121212;
+  background: #1E88C8;
+  color: #0F1113;
 }
 
 :focus-visible {
@@ -453,7 +458,7 @@ pre  { padding: var(--space-2); overflow-x: auto; border-left: 2px solid var(--s
 }
 .strata-toggle:hover {
   background: var(--strata-interactive);
-  color: #fff;
+  color: var(--strata-on-interactive);
   border-color: var(--strata-interactive);
 }
 
@@ -486,7 +491,7 @@ pre  { padding: var(--space-2); overflow-x: auto; border-left: 2px solid var(--s
 
 .atomos-btn--primary {
   background: var(--strata-interactive);
-  color: #fff;
+  color: var(--strata-on-interactive);
   border-color: var(--strata-interactive);
 }
 .atomos-btn--primary:hover  { background: var(--strata-interactive-hover);  border-color: var(--strata-interactive-hover); }
@@ -497,12 +502,12 @@ pre  { padding: var(--space-2); overflow-x: auto; border-left: 2px solid var(--s
   color: var(--strata-interactive);
   border-color: var(--strata-interactive);
 }
-.atomos-btn--secondary:hover  { background: var(--strata-interactive); color: #fff; }
-.atomos-btn--secondary:active { background: var(--strata-interactive-active); color: #fff; border-color: var(--strata-interactive-active); }
+.atomos-btn--secondary:hover  { background: var(--strata-interactive); color: var(--strata-on-interactive); }
+.atomos-btn--secondary:active { background: var(--strata-interactive-active); color: var(--strata-on-interactive); border-color: var(--strata-interactive-active); }
 
 .atomos-btn--danger {
   background: var(--strata-error);
-  color: #fff;
+  color: var(--strata-on-error);
   border-color: var(--strata-error);
 }
 .atomos-btn--danger:hover  { background: #d32f2f; border-color: #d32f2f; }
@@ -624,9 +629,9 @@ pre  { padding: var(--space-2); overflow-x: auto; border-left: 2px solid var(--s
   font-weight: 700;
   font-family: var(--font-mono);
   background: var(--strata-interactive);
-  color: #fff;
+  color: var(--strata-on-interactive);
 }
-.atomos-badge--error { background: var(--strata-error); }
+.atomos-badge--error { background: var(--strata-error); color: var(--strata-on-error); }
 
 /* =========================================================================
    ATOMOS — NOTICES  (status communication)
@@ -732,6 +737,10 @@ pre  { padding: var(--space-2); overflow-x: auto; border-left: 2px solid var(--s
 .atomos-switch input:checked + .atomos-switch__track { background: var(--strata-interactive); border-color: var(--strata-interactive); }
 .atomos-switch input:checked + .atomos-switch__track::after { transform: translateX(16px); background: #fff; }
 .atomos-switch input { position: absolute; opacity: 0; width: 0; height: 0; }
+.atomos-switch input:focus-visible + .atomos-switch__track {
+  outline: 2px solid var(--strata-interactive);
+  outline-offset: 2px;
+}
 .atomos-switch__label { font-size: var(--type-sm); color: var(--strata-text-secondary); }
 
 /* =========================================================================

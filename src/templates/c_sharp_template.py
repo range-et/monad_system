@@ -1,18 +1,18 @@
 def create_csharp_template(
-    background_color="#ffffff",
-    primary_text_color="#000000",
-    secondary_text_color="#212529",
-    information_1_color="#80ffdb",
-    information_2_color="#48bfe3",
-    information_3_color="#5390d9",
-    warning_color="#ffba08",
-    alert_color="#d00000",
-    highlight_color="#ffd60a",
-    disabled_color="#6c757d",
-    start_color="#00ff00",
-    end_color="#ff0000",
-    foot_color="#964B00",
-    hand_color="#FFCBA4",
+    background_color="#0F1113",
+    primary_text_color="#EEF2F6",
+    secondary_text_color="#B6BFCC",
+    information_1_color="#2B9ED1",
+    information_2_color="#1E88C8",
+    information_3_color="#6EAD45",
+    warning_color="#D7A12A",
+    alert_color="#D64C45",
+    highlight_color="#FFEB3B",
+    disabled_color="#7D8794",
+    start_color="#4CAF50",
+    end_color="#9C27B0",
+    foot_color="#FFEB3B",
+    hand_color="#1E88C8",
     class_name="ColorPalette",
 ):
     template = f"""
@@ -70,7 +70,7 @@ def create_csharp_template(
                 Foot = ColorFromHex("{foot_color}");
                 Finish = ColorFromHex("{end_color}");
 
-                // set the cpossible opacities
+                // Set the available opacities.
                 LowOpacity = 0.2f;
                 HighOpacity = 0.8f;
             }}
