@@ -866,3 +866,30 @@ pre  { padding: var(--space-2); overflow-x: auto; border-left: 2px solid var(--s
   .mn-hide-md { display: none !important; }
   .mn-show-md { display: revert !important; }
 }
+
+
+/* =========================================================================
+   STRATA — TEXTURE TOKENS
+   ========================================================================= */
+:root {
+  --strata-texture-dot: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' width='12' height='12'><circle cx='6.0' cy='6.0' r='1.5' fill='black' fill-opacity='0.6'/></svg>");
+  --strata-texture-hatch-v: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' width='8' height='8'><line x1='4.0' y1='0' x2='4.0' y2='8' stroke='black' stroke-width='1' stroke-opacity='0.6'/></svg>");
+  --strata-texture-hatch-h: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' width='8' height='8'><line x1='0' y1='4.0' x2='8' y2='4.0' stroke='black' stroke-width='1' stroke-opacity='0.6'/></svg>");
+  --strata-texture-hatch-x: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' width='8' height='8'><line x1='4.0' y1='0' x2='4.0' y2='8' stroke='black' stroke-width='1' stroke-opacity='0.6'/><line x1='0' y1='4.0' x2='8' y2='4.0' stroke='black' stroke-width='1' stroke-opacity='0.6'/></svg>");
+  --strata-texture-hatch-fwd: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' width='10' height='10'><line x1='0' y1='10' x2='10' y2='0' stroke='black' stroke-width='1' stroke-opacity='0.6'/><line x1='-10' y1='10' x2='10' y2='-10' stroke='black' stroke-width='1' stroke-opacity='0.6'/><line x1='0' y1='20' x2='20' y2='0' stroke='black' stroke-width='1' stroke-opacity='0.6'/></svg>");
+  --strata-texture-hatch-bwd: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' width='10' height='10'><line x1='0' y1='0' x2='10' y2='10' stroke='black' stroke-width='1' stroke-opacity='0.6'/><line x1='-10' y1='0' x2='10' y2='20' stroke='black' stroke-width='1' stroke-opacity='0.6'/><line x1='0' y1='-10' x2='20' y2='10' stroke='black' stroke-width='1' stroke-opacity='0.6'/></svg>");
+}
+
+/* =========================================================================
+   ATOMOS — TEXTURE UTILITIES
+   ========================================================================= */
+.atomos-texture {
+  background-repeat: repeat;
+  background-size: auto;
+}
+.atomos-texture--dot { background-image: var(--strata-texture-dot); }
+.atomos-texture--hatch-v { background-image: var(--strata-texture-hatch-v); }
+.atomos-texture--hatch-h { background-image: var(--strata-texture-hatch-h); }
+.atomos-texture--hatch-x { background-image: var(--strata-texture-hatch-x); }
+.atomos-texture--hatch-fwd { background-image: var(--strata-texture-hatch-fwd); }
+.atomos-texture--hatch-bwd { background-image: var(--strata-texture-hatch-bwd); }

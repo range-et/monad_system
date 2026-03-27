@@ -114,6 +114,7 @@
       <a href="#atomos-card">Atomos:Card</a>
       <a href="#atomos-form">Atomos:Form</a>
       <a href="#atomos-table">Atomos:Table</a>
+      <a href="#atomos-texture">Textures</a>
     </nav>
     <div class="monad-header__actions">
       <button class="strata-toggle" data-mn-theme-toggle aria-label="Toggle theme">◑</button>
@@ -505,6 +506,61 @@
         <span class="atomos-hold atomos-hold--finish">Finish</span>
       </div>
       <div class="code-block">&lt;span class="atomos-hold atomos-hold--start"&gt;Start&lt;/span&gt;</div>
+    </section>
+
+    <!-- ATOMOS: TEXTURES -->
+    <section class="section" id="atomos-texture">
+      <div class="section__head">
+        <span class="section__title">Atomos — Textures</span>
+        <span class="section__tier">Tier: Atomos / Pattern</span>
+      </div>
+      <p class="section__desc">Repeating SVG patterns defined as <code>--strata-texture-*</code> tokens. Functional — chart differentiation, state indication, accessibility. Never decorative.</p>
+
+      <div style="display:grid; grid-template-columns:repeat(auto-fill,minmax(160px,1fr)); gap:1px; background:var(--strata-border); margin-bottom:var(--space-3);">
+        <div style="display:flex; flex-direction:column;">
+          <div class="atomos-texture atomos-texture--dot" style="height:80px; background-color:var(--strata-layer-01);"></div>
+          <div style="background:var(--strata-layer-01); padding:6px 8px; border-top:1px solid var(--strata-border-subtle);">
+            <span style="font-size:var(--type-xs); font-weight:600; color:var(--strata-text-primary); display:block;">Dot</span>
+            <span style="font-size:10px; font-family:var(--font-mono); color:var(--strata-text-disabled); display:block;">--strata-texture-dot</span>
+          </div>
+        </div>
+        <div style="display:flex; flex-direction:column;">
+          <div class="atomos-texture atomos-texture--hatch-v" style="height:80px; background-color:var(--strata-layer-01);"></div>
+          <div style="background:var(--strata-layer-01); padding:6px 8px; border-top:1px solid var(--strata-border-subtle);">
+            <span style="font-size:var(--type-xs); font-weight:600; color:var(--strata-text-primary); display:block;">Vertical Hatch</span>
+            <span style="font-size:10px; font-family:var(--font-mono); color:var(--strata-text-disabled); display:block;">--strata-texture-hatch-v</span>
+          </div>
+        </div>
+        <div style="display:flex; flex-direction:column;">
+          <div class="atomos-texture atomos-texture--hatch-h" style="height:80px; background-color:var(--strata-layer-01);"></div>
+          <div style="background:var(--strata-layer-01); padding:6px 8px; border-top:1px solid var(--strata-border-subtle);">
+            <span style="font-size:var(--type-xs); font-weight:600; color:var(--strata-text-primary); display:block;">Horizontal Hatch</span>
+            <span style="font-size:10px; font-family:var(--font-mono); color:var(--strata-text-disabled); display:block;">--strata-texture-hatch-h</span>
+          </div>
+        </div>
+        <div style="display:flex; flex-direction:column;">
+          <div class="atomos-texture atomos-texture--hatch-x" style="height:80px; background-color:var(--strata-layer-01);"></div>
+          <div style="background:var(--strata-layer-01); padding:6px 8px; border-top:1px solid var(--strata-border-subtle);">
+            <span style="font-size:var(--type-xs); font-weight:600; color:var(--strata-text-primary); display:block;">Cross Hatch</span>
+            <span style="font-size:10px; font-family:var(--font-mono); color:var(--strata-text-disabled); display:block;">--strata-texture-hatch-x</span>
+          </div>
+        </div>
+        <div style="display:flex; flex-direction:column;">
+          <div class="atomos-texture atomos-texture--hatch-fwd" style="height:80px; background-color:var(--strata-layer-01);"></div>
+          <div style="background:var(--strata-layer-01); padding:6px 8px; border-top:1px solid var(--strata-border-subtle);">
+            <span style="font-size:var(--type-xs); font-weight:600; color:var(--strata-text-primary); display:block;">Forward Diagonal</span>
+            <span style="font-size:10px; font-family:var(--font-mono); color:var(--strata-text-disabled); display:block;">--strata-texture-hatch-fwd</span>
+          </div>
+        </div>
+        <div style="display:flex; flex-direction:column;">
+          <div class="atomos-texture atomos-texture--hatch-bwd" style="height:80px; background-color:var(--strata-layer-01);"></div>
+          <div style="background:var(--strata-layer-01); padding:6px 8px; border-top:1px solid var(--strata-border-subtle);">
+            <span style="font-size:var(--type-xs); font-weight:600; color:var(--strata-text-primary); display:block;">Backward Diagonal</span>
+            <span style="font-size:10px; font-family:var(--font-mono); color:var(--strata-text-disabled); display:block;">--strata-texture-hatch-bwd</span>
+          </div>
+        </div>
+      </div>
+      <div class="code-block">&lt;div class="atomos-texture atomos-texture--dot"&gt;...&lt;/div&gt;</div>
     </section>
 
     <!-- MONAD: SHELL PREVIEW -->

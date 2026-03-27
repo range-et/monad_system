@@ -195,3 +195,46 @@ def apply_light_theme(fig=None, ax=None):
         fig.patch.set_facecolor(bg)
     if ax is not None:
         ax.set_facecolor(layer)
+
+
+# ── Texture / Pattern Support ────────────────────────────────────────────────
+
+TEXTURE_HATCHES = {
+    "dot": ".",
+    "hatch-v": "|",
+    "hatch-h": "-",
+    "hatch-x": "+",
+    "hatch-fwd": "/",
+    "hatch-bwd": "\\",
+}
+
+TEXTURE_PARAMS = {
+    "dot": {"density": 1, "opacity": 0.6},
+    "hatch-v": {"density": 2, "opacity": 0.6},
+    "hatch-h": {"density": 2, "opacity": 0.6},
+    "hatch-x": {"density": 2, "opacity": 0.6},
+    "hatch-fwd": {"density": 1, "opacity": 0.6},
+    "hatch-bwd": {"density": 1, "opacity": 0.6},
+}
+
+
+def apply_texture(patches, texture_id, color=None):
+    """Apply a Monad texture hatch to matplotlib bar patches.
+
+    Parameters
+    ----------
+    patches : list[matplotlib.patches.Patch]
+        The ``.patches`` attribute of a bar container, or any iterable of Patch objects.
+    texture_id : str
+        One of the TEXTURE_HATCHES keys (e.g. ``"dot"``, ``"hatch-v"``).
+    color : str or None
+        Optional edge color for the hatch lines.  Falls back to patch edge color.
+    """
+    hatch_char = TEXTURE_HATCHES.get(texture_id, "")
+    params = TEXTURE_PARAMS.get(texture_id, {})
+    density = params.get("density", 1)
+    pattern = hatch_char * density
+    for patch in patches:
+        patch.set_hatch(pattern)
+        if color is not None:
+            patch.set_edgecolor(color)

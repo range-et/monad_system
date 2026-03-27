@@ -1,6 +1,8 @@
 import copy
 import json
+import os
 import sys
+import tempfile
 import unittest
 from pathlib import Path
 
@@ -11,6 +13,7 @@ if str(SRC_DIR) not in sys.path:
     sys.path.insert(0, str(SRC_DIR))
 
 import compile_color as cc
+from preview_render import render_palette
 
 
 class CompileColorPipelineTests(unittest.TestCase):
@@ -181,6 +184,133 @@ class CompileColorPipelineTests(unittest.TestCase):
         xcode_text = self._xcode_color(light_text)
         self.assertIn(xcode_bg, outputs["xcode_light"])
         self.assertIn(xcode_text, outputs["xcode_light"])
+
+
+    # ── HTML showcase tests ─────────────────────────────────────────────────
+
+    def test_components_html_references_all_texture_classes(self):
+        html_path = REPO_ROOT / "samples" / "components.html"
+        html = html_path.read_text(encoding="utf-8")
+        for tid in ("dot", "hatch-v", "hatch-h", "hatch-x", "hatch-fwd", "hatch-bwd"):
+            self.assertIn(f"atomos-texture--{tid}", html,
+                          f"components.html missing texture class for {tid}")
+
+    def test_components_html_references_strata_color_tokens(self):
+        html_path = REPO_ROOT / "samples" / "components.html"
+        html = html_path.read_text(encoding="utf-8")
+        for token in ("--strata-bg", "--strata-interactive", "--strata-info",
+                      "--strata-success", "--strata-warning", "--strata-error",
+                      "--strata-text-primary", "--strata-border"):
+            self.assertIn(token, html, f"components.html missing token {token}")
+
+    def test_built_css_contains_colors_from_json(self):
+        data = self._load_colors()
+        outputs = cc.prepare_templates(data)
+        css = outputs["css_library"]
+        d = data["Default_Colors"]
+        # Verify key hex values from colors.json appear in the CSS
+        bg = d["General_UI_Colors"]["Background"]["hex"]
+        interactive = d["Information_Indicators"]["Information_2"]["hex"]
+        error = d["Warnings_and_Alerts"]["Alert_1"]["hex"]
+        self.assertIn(bg, css, "Background hex missing from CSS")
+        self.assertIn(interactive, css, "Interactive hex missing from CSS")
+        self.assertIn(error, css, "Error hex missing from CSS")
+
+    # ── Palette render tests ────────────────────────────────────────────────
+
+    def test_render_palette_produces_valid_png(self):
+        data = self._load_colors()
+        with tempfile.TemporaryDirectory() as tmp:
+            render_palette(data, tmp)
+            png_path = os.path.join(tmp, "rendered_palette.png")
+            self.assertTrue(os.path.isfile(png_path), "rendered_palette.png not created")
+            size = os.path.getsize(png_path)
+            self.assertGreater(size, 10_000, f"PNG too small ({size} bytes)")
+
+    def test_render_palette_without_textures(self):
+        data = self._load_colors()
+        data.pop("Textures", None)
+        with tempfile.TemporaryDirectory() as tmp:
+            render_palette(data, tmp)
+            png_path = os.path.join(tmp, "rendered_palette.png")
+            self.assertTrue(os.path.isfile(png_path), "should render without Textures key")
+
+    # ── Texture tests ──────────────────────────────────────────────────────
+
+    def test_texture_tokens_in_css_library(self):
+        data = self._load_colors()
+        outputs = cc.prepare_templates(data)
+        css = outputs["css_library"]
+
+        for tid in ("dot", "hatch-v", "hatch-h", "hatch-x", "hatch-fwd", "hatch-bwd"):
+            self.assertIn(f"--strata-texture-{tid}:", css)
+            self.assertIn(f".atomos-texture--{tid}", css)
+        self.assertIn("data:image/svg+xml", css)
+        self.assertIn(".atomos-texture {", css)
+
+    def test_texture_python_hatch_mappings(self):
+        data = self._load_colors()
+        outputs = cc.prepare_templates(data)
+        py = outputs["texture_python"]
+
+        self.assertIn("TEXTURE_HATCHES", py)
+        for ch in ('"."', '"|"', '"-"', '"+"', '"/"', '"\\\\"'):
+            self.assertIn(ch, py)
+        self.assertIn("def apply_texture(", py)
+
+    def test_texture_csharp_methods(self):
+        data = self._load_colors()
+        outputs = cc.prepare_templates(data)
+        cs = outputs["texture_csharp"]
+
+        for method in ("CreateDot", "CreateHatchVertical", "CreateHatchHorizontal",
+                       "CreateCrossHatch", "CreateHatchForward", "CreateHatchBackward"):
+            self.assertIn(method, cs)
+        self.assertIn("Texture2D", cs)
+        self.assertIn("namespace Utility", cs)
+
+    def test_texture_swiftui_enum(self):
+        data = self._load_colors()
+        outputs = cc.prepare_templates(data)
+        swift = outputs["texture_swiftui"]
+
+        self.assertIn("enum MonadTexture", swift)
+        for case in ("case dot", "case hatchV", "case hatchH", "case hatchX",
+                     "case hatchFwd", "case hatchBwd"):
+            self.assertIn(case, swift)
+        self.assertIn("func monadTexture(", swift)
+        self.assertIn("TexturePatternView", swift)
+
+    def test_texture_params_propagate_from_json(self):
+        data = self._load_colors()
+        modified = copy.deepcopy(data)
+        modified["Textures"]["dot"]["spacing"] = 20
+        modified["Textures"]["dot"]["radius"] = 2.5
+        outputs = cc.prepare_templates(modified)
+        css = outputs["css_library"]
+
+        self.assertIn("width='20'", css)
+        self.assertIn("r='2.5'", css)
+
+    def test_missing_textures_backward_compat(self):
+        data = self._load_colors()
+        modified = copy.deepcopy(data)
+        modified.pop("Textures", None)
+        outputs = cc.prepare_templates(modified)
+
+        # All original 16 keys still present
+        for key in ("css_tokens", "css_library", "c_sharp_dark", "c_sharp_light",
+                    "python", "js", "vscode_dark", "vscode_light", "vscode_pkg",
+                    "vscode_readme", "vscode_license", "ghostty_dark", "ghostty_light",
+                    "xcode_dark", "xcode_light", "swiftui_strata"):
+            self.assertIn(key, outputs)
+
+        # Texture artifacts should be empty strings
+        for key in ("texture_python", "texture_csharp", "texture_swiftui"):
+            self.assertEqual(outputs[key], "")
+
+        # No texture tokens in CSS
+        self.assertNotIn("--strata-texture-", outputs["css_library"])
 
 
 if __name__ == "__main__":

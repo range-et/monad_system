@@ -24,6 +24,12 @@ from templates.xcode_template import (
     create_xcode_light_theme,
 )
 from templates.swiftui_template import create_swiftui_strata
+from templates.texture_template import (
+    create_texture_css_fragment,
+    create_texture_python,
+    create_texture_csharp,
+    create_texture_swiftui,
+)
 
 
 def load_json(json_path):
@@ -91,6 +97,7 @@ def prepare_templates(json_data):
     d = json_data.get("Default_Colors", {})
     dm = d.get("General_UI_Colors", {})
     lm = json_data.get("Light_Mode", {}).get("General_UI_Colors", {})
+    textures = json_data.get("Textures", {})
 
     # Dark theme values from Default_Colors
     background_color = dm.get("Background", {}).get("hex", "#121212")
@@ -153,6 +160,9 @@ def prepare_templates(json_data):
         hand_color=hand_color,
     )
 
+    # --- Build: Texture CSS fragment (injected into monad.css) ---
+    texture_css = create_texture_css_fragment(textures) if textures else ""
+
     # --- Build: Monad System CSS (monad.css) ---
     css_library = create_monad_system(
         bg_dark=background_color,
@@ -188,6 +198,7 @@ def prepare_templates(json_data):
         move_hand=hand_color,
         move_foot=foot_color,
         move_finish=end_color,
+        texture_css_fragment=texture_css,
     )
 
     # --- Build: C# (dark theme) ---
@@ -496,6 +507,11 @@ def prepare_templates(json_data):
         console_cursor=ia_hover,
     )
 
+    # --- Build: Texture artifacts (Python, C#, SwiftUI) ---
+    texture_python  = create_texture_python(textures)  if textures else ""
+    texture_csharp  = create_texture_csharp(textures)  if textures else ""
+    texture_swiftui = create_texture_swiftui(textures) if textures else ""
+
     return {
         "css_tokens":    css_tokens,
         "css_library":   css_library,
@@ -513,6 +529,9 @@ def prepare_templates(json_data):
         "xcode_dark":    xcode_dark,
         "xcode_light":   xcode_light,
         "swiftui_strata": swiftui_strata,
+        "texture_python":  texture_python,
+        "texture_csharp":  texture_csharp,
+        "texture_swiftui": texture_swiftui,
     }
 
 
@@ -555,7 +574,8 @@ if __name__ == "__main__":
             "monad.js":             code["js"],
             "ColorPalette.cs":      code["c_sharp_dark"],
             "ColorPaletteLight.cs": code["c_sharp_light"],
-            "seaborn_palette.py":   code["python"],
+            "TexturePatterns.cs":   code["texture_csharp"],
+            "seaborn_palette.py":   code["python"] + code["texture_python"],
             # ── VS Code theme extension ───────────────────────────────────────
             "themes/vscode/package.json":                  code["vscode_pkg"],
             "themes/vscode/monad-dark-color-theme.json":   code["vscode_dark"],
@@ -567,7 +587,8 @@ if __name__ == "__main__":
             "themes/ghostty/Monad Light": code["ghostty_light"],
             "themes/xcode/Monad Dark.xccolortheme": code["xcode_dark"],
             "themes/xcode/Monad Light.xccolortheme": code["xcode_light"],
-            "themes/swiftui/MonadStrata.swift": code["swiftui_strata"],
+            "themes/swiftui/MonadStrata.swift":   code["swiftui_strata"],
+            "themes/swiftui/MonadTextures.swift": code["texture_swiftui"],
         }
 
         for filename, content in outputs.items():
@@ -580,7 +601,7 @@ if __name__ == "__main__":
         print("\nDone. Artifacts in build/:")
         groups = [
             ("Core",    ["ColorPalette.css", "monad.css", "monad.js"]),
-            ("C#",      ["ColorPalette.cs", "ColorPaletteLight.cs"]),
+            ("C#",      ["ColorPalette.cs", "ColorPaletteLight.cs", "TexturePatterns.cs"]),
             ("Python",  ["seaborn_palette.py"]),
             ("VS Code", ["themes/vscode/package.json",
                          "themes/vscode/monad-dark-color-theme.json",
@@ -591,7 +612,8 @@ if __name__ == "__main__":
                          "themes/ghostty/Monad Light"]),
             ("Xcode",   ["themes/xcode/Monad Dark.xccolortheme",
                          "themes/xcode/Monad Light.xccolortheme"]),
-            ("SwiftUI", ["themes/swiftui/MonadStrata.swift"]),
+            ("SwiftUI", ["themes/swiftui/MonadStrata.swift",
+                         "themes/swiftui/MonadTextures.swift"]),
         ]
         for group_name, files in groups:
             print(f"\n  [{group_name}]")

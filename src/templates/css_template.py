@@ -72,6 +72,7 @@ def create_monad_system(
     move_hand="#03A9F4",
     move_foot="#FFEB3B",
     move_finish="#9C27B0",
+    texture_css_fragment="",
 ):
     return f"""/*
  * Monad System
@@ -941,4 +942,4 @@ pre  {{ padding: var(--space-2); overflow-x: auto; border-left: 2px solid var(--
   .mn-hide-md {{ display: none !important; }}
   .mn-show-md {{ display: revert !important; }}
 }}
-"""
+{texture_css_fragment}"""

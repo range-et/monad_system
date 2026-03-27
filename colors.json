@@ -253,5 +253,49 @@
         ]
       }
     }
+  },
+  "Textures": {
+    "dot": {
+      "name": "Dot",
+      "id": "dot",
+      "radius": 1.5,
+      "spacing": 12,
+      "opacity": 0.6
+    },
+    "hatch_v": {
+      "name": "Vertical Hatch",
+      "id": "hatch-v",
+      "stroke_width": 1,
+      "spacing": 8,
+      "opacity": 0.6
+    },
+    "hatch_h": {
+      "name": "Horizontal Hatch",
+      "id": "hatch-h",
+      "stroke_width": 1,
+      "spacing": 8,
+      "opacity": 0.6
+    },
+    "hatch_x": {
+      "name": "Cross Hatch",
+      "id": "hatch-x",
+      "stroke_width": 1,
+      "spacing": 8,
+      "opacity": 0.6
+    },
+    "hatch_fwd": {
+      "name": "Forward Diagonal",
+      "id": "hatch-fwd",
+      "stroke_width": 1,
+      "spacing": 10,
+      "opacity": 0.6
+    },
+    "hatch_bwd": {
+      "name": "Backward Diagonal",
+      "id": "hatch-bwd",
+      "stroke_width": 1,
+      "spacing": 10,
+      "opacity": 0.6
+    }
   }
 }

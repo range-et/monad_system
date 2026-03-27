@@ -1,4 +1,5 @@
 from PIL import Image, ImageDraw, ImageFont
+import math
 import os
 
 
@@ -9,7 +10,73 @@ def _rgb(data, fallback=(0, 0, 0)):
     return fallback
 
 
-def render_palette(data: dict, out_path: str, width: int = 2200, height: int = 2000):
+def _draw_texture_pattern(img, x, y, w, h, texture_def, color):
+    """Draw a clipped texture pattern into a rectangular region of *img*."""
+    tid = texture_def["id"]
+    sp = texture_def["spacing"]
+    op = texture_def.get("opacity", 0.6)
+
+    # Blend color with opacity against the chip background
+    chip_bg = (18, 20, 24)
+    r = int(color[0] * op + chip_bg[0] * (1 - op))
+    g = int(color[1] * op + chip_bg[1] * (1 - op))
+    b = int(color[2] * op + chip_bg[2] * (1 - op))
+    fill = (r, g, b)
+
+    # Scale up spacing for visibility in the preview
+    sp = max(sp, 6) * 2
+
+    # Draw into a temporary image, then paste (acts as a clip mask)
+    tile = Image.new("RGB", (w, h), chip_bg)
+    td = ImageDraw.Draw(tile)
+
+    if tid == "dot":
+        radius = max(3, int(texture_def.get("radius", 1.5) * 2.5))
+        for row in range(int(math.ceil(h / sp)) + 1):
+            for col in range(int(math.ceil(w / sp)) + 1):
+                cx = int(col * sp + sp / 2)
+                cy = int(row * sp + sp / 2)
+                td.ellipse((cx - radius, cy - radius, cx + radius, cy + radius), fill=fill)
+
+    elif tid == "hatch-v":
+        sw = max(1, texture_def.get("stroke_width", 1) * 2)
+        for col in range(int(math.ceil(w / sp)) + 1):
+            lx = int(col * sp + sp / 2)
+            td.line((lx, 0, lx, h), fill=fill, width=sw)
+
+    elif tid == "hatch-h":
+        sw = max(1, texture_def.get("stroke_width", 1) * 2)
+        for row in range(int(math.ceil(h / sp)) + 1):
+            ly = int(row * sp + sp / 2)
+            td.line((0, ly, w, ly), fill=fill, width=sw)
+
+    elif tid == "hatch-x":
+        sw = max(1, texture_def.get("stroke_width", 1) * 2)
+        for col in range(int(math.ceil(w / sp)) + 1):
+            lx = int(col * sp + sp / 2)
+            td.line((lx, 0, lx, h), fill=fill, width=sw)
+        for row in range(int(math.ceil(h / sp)) + 1):
+            ly = int(row * sp + sp / 2)
+            td.line((0, ly, w, ly), fill=fill, width=sw)
+
+    elif tid == "hatch-fwd":
+        sw = max(1, texture_def.get("stroke_width", 1) * 2)
+        diag_range = int(math.ceil((w + h) / sp)) + 2
+        for i in range(-diag_range, diag_range):
+            x0 = int(i * sp)
+            td.line((x0, h, x0 + h, 0), fill=fill, width=sw)
+
+    elif tid == "hatch-bwd":
+        sw = max(1, texture_def.get("stroke_width", 1) * 2)
+        diag_range = int(math.ceil((w + h) / sp)) + 2
+        for i in range(-diag_range, diag_range):
+            x0 = int(i * sp)
+            td.line((x0, 0, x0 + h, h), fill=fill, width=sw)
+
+    img.paste(tile, (x, y))
+
+
+def render_palette(data: dict, out_path: str, width: int = 2200, height: int = 2400):
     """Render a high-contrast swatch board for dark/light base layers and semantic tokens."""
 
     d = data["Default_Colors"]
@@ -19,6 +86,7 @@ def render_palette(data: dict, out_path: str, width: int = 2200, height: int = 2
     warn = d["Warnings_and_Alerts"]
     hl = d["Highlights_and_Disabled"]
     move = d["Movement_Colors"]
+    textures = data.get("Textures", {})
 
     canvas_bg = (18, 20, 24)
     card_bg = (27, 31, 38)
@@ -140,5 +208,51 @@ def render_palette(data: dict, out_path: str, width: int = 2200, height: int = 2
         draw_chip(cx, cy, w, h, name, token_name, color, chip_text)
 
     draw.text((86, semantic_bottom - 22), "Tip: compare this board against previous render to verify perceptual shifts.", fill=label_color, font=font_small)
+
+    # ── Textures section ──────────────────────────────────────────────────
+    if textures:
+        texture_top = semantic_bottom + 36
+        texture_title_y = texture_top + 24
+        texture_chips_y = texture_top + 80
+
+        # Ordered display
+        texture_order = ["dot", "hatch_v", "hatch_h", "hatch_x", "hatch_fwd", "hatch_bwd"]
+        texture_list = [(k, textures[k]) for k in texture_order if k in textures]
+
+        tex_w = 310
+        tex_h = 140
+        tex_gap_x = 14
+        tex_gap_y = 20
+        tex_per_row = 6
+
+        tex_rows = (len(texture_list) + tex_per_row - 1) // tex_per_row
+        texture_bottom = texture_chips_y + tex_rows * tex_h + max(0, tex_rows - 1) * tex_gap_y + 48
+
+        # Ensure canvas is tall enough
+        if texture_bottom + 40 > height:
+            new_height = texture_bottom + 60
+            new_img = Image.new("RGB", (width, new_height), canvas_bg)
+            new_img.paste(img, (0, 0))
+            img = new_img
+            draw = ImageDraw.Draw(img)
+
+        draw.rounded_rectangle((60, texture_top, 2060, texture_bottom), radius=14, fill=card_bg)
+        draw.text((86, texture_title_y), "Textures", fill=(245, 248, 252), font=font_head)
+
+        # Use interactive color for the pattern strokes
+        pattern_color = _rgb(info["Information_2"])
+
+        for i, (key, tdef) in enumerate(texture_list):
+            cx = 86 + (i % tex_per_row) * (tex_w + tex_gap_x)
+            cy = texture_chips_y + (i // tex_per_row) * (tex_h + tex_gap_y)
+
+            # Draw chip background
+            draw.rounded_rectangle((cx, cy, cx + tex_w, cy + tex_h), radius=8, fill=canvas_bg)
+
+            # Draw the pattern into the chip (clipped via temp image)
+            _draw_texture_pattern(img, cx + 4, cy + 4, tex_w - 8, tex_h - 36, tdef, pattern_color)
+
+            # Label at bottom of chip
+            draw.text((cx + 14, cy + tex_h - 30), tdef["name"], fill=(200, 208, 220), font=font_small)
 
     img.save(os.path.join(out_path, "rendered_palette.png"), "PNG")
