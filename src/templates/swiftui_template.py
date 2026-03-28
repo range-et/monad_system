@@ -144,9 +144,6 @@ public enum MonadStrata {{
     public static let highlight = Color(hex: "{esc(highlight)}")
     public static let disabled = Color(hex: "{esc(disabled)}")
 
-    /// Matches CSS `var(--threshold-fast)` (80ms linear).
-    public static let thresholdFastSeconds: Double = 0.08
-
     // MARK: - Adaptive helper
 
     fileprivate static func _adaptive(light: String, dark: String) -> Color {{

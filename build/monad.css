@@ -93,10 +93,23 @@
   --space-8:  64px;
   --space-10: 80px;
 
-  /* Threshold timing — linear, predictable */
-  --threshold-fast:   80ms linear;
-  --threshold-base:   160ms linear;
-  --threshold-slow:   280ms linear;
+
+  /* Threshold — durations */
+  --threshold-duration-fast:      80ms;
+  --threshold-duration-base:      160ms;
+  --threshold-duration-slow:      280ms;
+  --threshold-duration-slower:    440ms;
+
+  /* Threshold — easing */
+  --threshold-ease-linear: linear;
+  --threshold-ease-out:    cubic-bezier(0.16, 1, 0.3, 1);
+  --threshold-ease-in:     cubic-bezier(0.7, 0, 0.84, 0);
+  --threshold-ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
+
+  /* Threshold — composed shorthands (backward compat) */
+  --threshold-fast:      var(--threshold-duration-fast)  var(--threshold-ease-linear);
+  --threshold-base:      var(--threshold-duration-base)  var(--threshold-ease-linear);
+  --threshold-slow:      var(--threshold-duration-slow)  var(--threshold-ease-linear);
 }
 
 /* =========================================================================
@@ -893,3 +906,13 @@ pre  { padding: var(--space-2); overflow-x: auto; border-left: 2px solid var(--s
 .atomos-texture--hatch-x { background-image: var(--strata-texture-hatch-x); }
 .atomos-texture--hatch-fwd { background-image: var(--strata-texture-hatch-fwd); }
 .atomos-texture--hatch-bwd { background-image: var(--strata-texture-hatch-bwd); }
+
+
+@media (prefers-reduced-motion: reduce) {
+  :root, [data-strata="light"] {
+    --threshold-duration-fast:   0.01ms;
+    --threshold-duration-base:   0.01ms;
+    --threshold-duration-slow:   0.01ms;
+    --threshold-duration-slower: 0.01ms;
+  }
+}

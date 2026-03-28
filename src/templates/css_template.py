@@ -73,6 +73,8 @@ def create_monad_system(
     move_foot="#FFEB3B",
     move_finish="#9C27B0",
     texture_css_fragment="",
+    motion_css_tokens="",
+    motion_css_reduced="",
 ):
     return f"""/*
  * Monad System
@@ -169,10 +171,7 @@ def create_monad_system(
   --space-8:  64px;
   --space-10: 80px;
 
-  /* Threshold timing — linear, predictable */
-  --threshold-fast:   80ms linear;
-  --threshold-base:   160ms linear;
-  --threshold-slow:   280ms linear;
+{motion_css_tokens}
 }}
 
 /* =========================================================================
@@ -942,4 +941,5 @@ pre  {{ padding: var(--space-2); overflow-x: auto; border-left: 2px solid var(--
   .mn-hide-md {{ display: none !important; }}
   .mn-show-md {{ display: revert !important; }}
 }}
-{texture_css_fragment}"""
+{texture_css_fragment}
+{motion_css_reduced}"""
