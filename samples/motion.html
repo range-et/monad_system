@@ -1,0 +1,754 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Monad System — Motion Tokens</title>
+  <link rel="stylesheet" href="../build/monad.css">
+  <script src="../build/monad.js"></script>
+  <style>
+    .section {
+      margin-bottom: var(--space-8);
+      padding-bottom: var(--space-4);
+      border-bottom: 1px solid var(--strata-border-subtle);
+    }
+    .section:last-child { border-bottom: none; }
+    .section__head {
+      display: flex; align-items: baseline; gap: var(--space-2); margin-bottom: var(--space-1);
+    }
+    .section__title {
+      font-size: var(--type-lg); font-weight: 600; color: var(--strata-text-primary); letter-spacing: -0.01em;
+    }
+    .section__tier {
+      font-size: var(--type-xs); font-family: var(--font-mono); color: var(--strata-text-disabled);
+      text-transform: uppercase; letter-spacing: 0.1em;
+    }
+    .section__desc {
+      font-size: var(--type-sm); color: var(--strata-text-secondary); margin-bottom: var(--space-3); max-width: 640px;
+    }
+    .code-block {
+      background: var(--strata-layer-02);
+      border-left: 2px solid var(--strata-interactive);
+      padding: var(--space-2) var(--space-3);
+      font-family: var(--font-mono); font-size: var(--type-xs); color: var(--strata-text-secondary);
+      margin-top: var(--space-2); overflow-x: auto; white-space: pre;
+    }
+    .row { display: flex; flex-wrap: wrap; align-items: center; gap: var(--space-2); margin-bottom: var(--space-2); }
+
+    /* ── Duration visualizer ── */
+    .dur-grid { display: flex; flex-direction: column; gap: var(--space-2); max-width: 600px; }
+    .dur-row { display: flex; align-items: center; gap: var(--space-2); }
+    .dur-label {
+      width: 110px; flex-shrink: 0; font-size: var(--type-xs); font-family: var(--font-mono);
+      color: var(--strata-text-secondary); text-align: right;
+    }
+    .dur-track {
+      flex: 1; height: 32px; background: var(--strata-layer-01); border: 1px solid var(--strata-border-subtle);
+      position: relative; overflow: hidden;
+    }
+    .dur-fill {
+      position: absolute; top: 0; left: 0; height: 100%; width: 0;
+      background: var(--strata-interactive);
+      /* animation set via JS */
+    }
+    .dur-fill.is-running { width: 100%; }
+    .dur-ms {
+      width: 56px; flex-shrink: 0; font-size: var(--type-xs); font-family: var(--font-mono);
+      color: var(--strata-text-disabled); text-align: left;
+    }
+
+    /* ── Easing curve canvas ── */
+    .ease-grid {
+      display: grid; grid-template-columns: repeat(4, 1fr); gap: var(--space-3);
+      margin-bottom: var(--space-3);
+    }
+    @media (max-width: 720px) { .ease-grid { grid-template-columns: repeat(2, 1fr); } }
+    .ease-cell {
+      display: flex; flex-direction: column; align-items: center; gap: var(--space-1);
+    }
+    .ease-canvas {
+      width: 100%; aspect-ratio: 1; background: var(--strata-layer-01);
+      border: 1px solid var(--strata-border-subtle);
+    }
+    .ease-label {
+      font-size: var(--type-xs); font-family: var(--font-mono); color: var(--strata-text-secondary);
+    }
+    .ease-css {
+      font-size: 10px; font-family: var(--font-mono); color: var(--strata-text-disabled);
+      word-break: break-all; text-align: center;
+    }
+
+    /* ── Live transition demos ── */
+    .demo-stage {
+      display: flex; flex-wrap: wrap; gap: var(--space-3); margin-bottom: var(--space-3);
+    }
+    .demo-box-wrap {
+      display: flex; flex-direction: column; align-items: center; gap: var(--space-1);
+    }
+    .demo-box {
+      width: 64px; height: 64px; background: var(--strata-interactive); opacity: 1;
+      transform: translateY(0);
+    }
+    .demo-box--enter {
+      opacity: 0; transform: translateY(24px);
+      transition: opacity var(--threshold-duration-slow) var(--threshold-ease-out),
+                  transform var(--threshold-duration-slow) var(--threshold-ease-out);
+    }
+    .demo-box--enter.is-visible {
+      opacity: 1; transform: translateY(0);
+    }
+    .demo-box--exit {
+      opacity: 1; transform: translateY(0);
+      transition: opacity var(--threshold-duration-base) var(--threshold-ease-in),
+                  transform var(--threshold-duration-base) var(--threshold-ease-in);
+    }
+    .demo-box--exit.is-hidden {
+      opacity: 0; transform: translateY(-24px);
+    }
+    .demo-box--toggle {
+      transition: transform var(--threshold-duration-base) var(--threshold-ease-in-out);
+    }
+    .demo-box--toggle.is-moved {
+      transform: translateX(120px);
+    }
+    .demo-box--scale {
+      transition: transform var(--threshold-duration-base) var(--threshold-ease-out);
+    }
+    .demo-box--scale.is-scaled {
+      transform: scale(1.3);
+    }
+
+    /* ── Stagger demo ── */
+    .stagger-row { display: flex; gap: 2px; margin-bottom: var(--space-2); }
+    .stagger-bar {
+      width: 32px; height: 48px; background: var(--strata-interactive);
+      opacity: 0; transform: scaleY(0); transform-origin: bottom;
+      transition: opacity var(--threshold-duration-slow) var(--threshold-ease-out),
+                  transform var(--threshold-duration-slow) var(--threshold-ease-out);
+      transition-delay: calc(var(--i, 0) * 50ms);
+    }
+    .stagger-bar.is-visible {
+      opacity: 1; transform: scaleY(1);
+    }
+
+    /* ── Composed transition demos ── */
+    .shorthand-demo {
+      display: flex; gap: var(--space-3); flex-wrap: wrap;
+      margin-bottom: var(--space-3);
+    }
+    .sh-card {
+      flex: 1; min-width: 180px; padding: var(--space-3);
+      background: var(--strata-layer-01); border: 1px solid var(--strata-border-subtle);
+      transition: background var(--threshold-fast), border-color var(--threshold-fast);
+      cursor: pointer;
+    }
+    .sh-card:hover {
+      background: var(--strata-layer-02); border-color: var(--strata-interactive);
+    }
+    .sh-card__title {
+      font-size: var(--type-sm); font-weight: 600; color: var(--strata-text-primary);
+      margin-bottom: 4px;
+    }
+    .sh-card__sub {
+      font-size: var(--type-xs); font-family: var(--font-mono); color: var(--strata-text-disabled);
+    }
+
+    /* ── Token reference table ── */
+    .token-grid {
+      display: grid; grid-template-columns: auto 1fr auto; gap: 0;
+      border: 1px solid var(--strata-border); margin-bottom: var(--space-3);
+    }
+    .token-grid > div {
+      padding: 8px var(--space-2); border-bottom: 1px solid var(--strata-border-subtle);
+      font-size: var(--type-xs); font-family: var(--font-mono);
+    }
+    .token-grid > div:nth-child(-n+3) {
+      background: var(--strata-layer-01); font-weight: 600;
+      color: var(--strata-text-disabled); text-transform: uppercase; letter-spacing: 0.06em;
+    }
+    .token-name { color: var(--strata-interactive); }
+    .token-value { color: var(--strata-text-secondary); }
+    .token-use { color: var(--strata-text-disabled); }
+
+    /* ── Reduced motion indicator ── */
+    .rm-indicator {
+      display: inline-flex; align-items: center; gap: var(--space-1);
+      font-size: var(--type-xs); font-family: var(--font-mono);
+      padding: 4px var(--space-2); background: var(--strata-layer-01);
+      border: 1px solid var(--strata-border-subtle);
+    }
+    .rm-dot {
+      width: 8px; height: 8px;
+      background: var(--strata-success);
+      animation: rm-pulse 1s infinite;
+    }
+    @media (prefers-reduced-motion: reduce) {
+      .rm-dot { animation: none; background: var(--strata-warning); }
+      .rm-indicator::after { content: " (reduced motion active)"; color: var(--strata-warning); }
+    }
+    @keyframes rm-pulse {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.3; }
+    }
+
+    /* ── GIF section ── */
+    .gif-grid {
+      display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-3);
+      margin-bottom: var(--space-3);
+    }
+    @media (max-width: 720px) { .gif-grid { grid-template-columns: 1fr; } }
+    .gif-wrap {
+      background: var(--strata-layer-01); border: 1px solid var(--strata-border-subtle);
+      overflow: hidden;
+    }
+    .gif-wrap img { width: 100%; display: block; }
+    .gif-caption {
+      padding: 6px var(--space-2); font-size: var(--type-xs); font-family: var(--font-mono);
+      color: var(--strata-text-disabled); border-top: 1px solid var(--strata-border-subtle);
+    }
+  </style>
+</head>
+<body>
+
+  <header class="monad-header">
+    <button class="threshold-toggle" data-mn-threshold-toggle aria-label="Toggle navigation" aria-expanded="false">
+      <span class="threshold-toggle__bar"></span>
+      <span class="threshold-toggle__bar"></span>
+      <span class="threshold-toggle__bar"></span>
+    </button>
+    <span class="monad-header__name">Monad System</span>
+    <nav class="threshold-nav" data-mn-threshold-nav aria-label="Sections">
+      <a href="#tokens">Tokens</a>
+      <a href="#durations">Durations</a>
+      <a href="#easings">Easings</a>
+      <a href="#live">Live Demos</a>
+      <a href="#stagger">Stagger</a>
+      <a href="#reduced">Reduced Motion</a>
+      <a href="components.html">Components</a>
+    </nav>
+    <div class="monad-header__actions">
+      <button class="strata-toggle" data-mn-theme-toggle aria-label="Toggle theme">&#9681;</button>
+    </div>
+  </header>
+
+  <main style="max-width:1200px; margin:0 auto; padding:var(--space-6) var(--space-4);">
+
+    <!-- ═══════════════════════════════════════════════════════════
+         INTRO
+         ═══════════════════════════════════════════════════════════ -->
+    <div style="margin-bottom:var(--space-6);">
+      <h1 style="font-size:var(--type-3xl); font-weight:600; letter-spacing:-0.01em; margin-bottom:var(--space-1);">Motion Tokens</h1>
+      <p style="font-size:var(--type-base); color:var(--strata-text-secondary); max-width:640px; margin-bottom:var(--space-2);">
+        Standardized durations and easing curves compiled from <code style="font-family:var(--font-mono); font-size:var(--type-sm);">colors.json</code> to CSS, SwiftUI, C#/Unity, Python, and JS. All transitions compose from these primitives.
+      </p>
+      <div class="rm-indicator">
+        <div class="rm-dot"></div>
+        <span style="color:var(--strata-text-secondary);">motion status</span>
+      </div>
+    </div>
+
+    <!-- ═══════════════════════════════════════════════════════════
+         ANIMATED GIF VISUALIZATIONS
+         ═══════════════════════════════════════════════════════════ -->
+    <section class="section" id="gifs">
+      <div class="section__head">
+        <span class="section__title">Curve Visualizations</span>
+        <span class="section__tier">Threshold / Reference</span>
+      </div>
+      <p class="section__desc">Generated from <code>colors.json</code> Motion tokens. Easing curves plotted as normalized 0-1 progress; duration bars show relative timing.</p>
+      <div class="gif-grid">
+        <div class="gif-wrap">
+          <img src="../build/motion_easing_curves.gif" alt="Easing curves visualization">
+          <div class="gif-caption">motion_easing_curves.gif — cubic-bezier curves with animated progress</div>
+        </div>
+        <div class="gif-wrap">
+          <img src="../build/motion_durations.gif" alt="Duration visualization">
+          <div class="gif-caption">motion_durations.gif — relative duration comparison</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══════════════════════════════════════════════════════════
+         TOKEN REFERENCE
+         ═══════════════════════════════════════════════════════════ -->
+    <section class="section" id="tokens">
+      <div class="section__head">
+        <span class="section__title">Token Reference</span>
+        <span class="section__tier">Threshold / Tokens</span>
+      </div>
+      <p class="section__desc">Duration and easing tokens live in <code>:root</code> alongside Strata color tokens. Composed shorthands preserve backward compatibility with <code>var(--threshold-fast)</code>.</p>
+
+      <p style="font-size:var(--type-xs); font-weight:700; color:var(--strata-text-disabled); text-transform:uppercase; letter-spacing:0.1em; margin-bottom:var(--space-1);">Durations</p>
+      <div class="token-grid">
+        <div>Token</div><div>Value</div><div>Use</div>
+        <div class="token-name">--threshold-duration-fast</div><div class="token-value">80ms</div><div class="token-use">Toggle, hover, color</div>
+        <div class="token-name">--threshold-duration-base</div><div class="token-value">160ms</div><div class="token-use">Menu, tooltip, state</div>
+        <div class="token-name">--threshold-duration-slow</div><div class="token-value">280ms</div><div class="token-use">Accordion, drawer</div>
+        <div class="token-name">--threshold-duration-slower</div><div class="token-value">440ms</div><div class="token-use">Page transitions</div>
+      </div>
+
+      <p style="font-size:var(--type-xs); font-weight:700; color:var(--strata-text-disabled); text-transform:uppercase; letter-spacing:0.1em; margin-bottom:var(--space-1); margin-top:var(--space-3);">Easing Curves</p>
+      <div class="token-grid">
+        <div>Token</div><div>Value</div><div>Use</div>
+        <div class="token-name">--threshold-ease-linear</div><div class="token-value">linear</div><div class="token-use">Data updates, progress</div>
+        <div class="token-name">--threshold-ease-out</div><div class="token-value">cubic-bezier(0.16, 1, 0.3, 1)</div><div class="token-use">Elements entering</div>
+        <div class="token-name">--threshold-ease-in</div><div class="token-value">cubic-bezier(0.7, 0, 0.84, 0)</div><div class="token-use">Elements leaving</div>
+        <div class="token-name">--threshold-ease-in-out</div><div class="token-value">cubic-bezier(0.65, 0, 0.35, 1)</div><div class="token-use">State toggles</div>
+      </div>
+
+      <p style="font-size:var(--type-xs); font-weight:700; color:var(--strata-text-disabled); text-transform:uppercase; letter-spacing:0.1em; margin-bottom:var(--space-1); margin-top:var(--space-3);">Composed Shorthands</p>
+      <div class="token-grid">
+        <div>Token</div><div>Expands To</div><div>Use</div>
+        <div class="token-name">--threshold-fast</div><div class="token-value">var(--threshold-duration-fast) var(--threshold-ease-linear)</div><div class="token-use">Micro-interactions</div>
+        <div class="token-name">--threshold-base</div><div class="token-value">var(--threshold-duration-base) var(--threshold-ease-linear)</div><div class="token-use">State changes</div>
+        <div class="token-name">--threshold-slow</div><div class="token-value">var(--threshold-duration-slow) var(--threshold-ease-linear)</div><div class="token-use">Layout shifts</div>
+      </div>
+    </section>
+
+    <!-- ═══════════════════════════════════════════════════════════
+         DURATION VISUALIZER
+         ═══════════════════════════════════════════════════════════ -->
+    <section class="section" id="durations">
+      <div class="section__head">
+        <span class="section__title">Duration Comparison</span>
+        <span class="section__tier">Threshold / Duration</span>
+      </div>
+      <p class="section__desc">Click "Play" to see all four durations fire simultaneously. Each bar fills at its actual speed.</p>
+      <div style="margin-bottom:var(--space-2);">
+        <button class="atomos-btn atomos-btn--primary atomos-btn--sm" id="dur-play">Play</button>
+        <button class="atomos-btn atomos-btn--ghost atomos-btn--sm" id="dur-reset">Reset</button>
+      </div>
+      <div class="dur-grid">
+        <div class="dur-row">
+          <div class="dur-label">fast</div>
+          <div class="dur-track"><div class="dur-fill" data-dur="fast" style="transition: width var(--threshold-duration-fast) linear;"></div></div>
+          <div class="dur-ms">80ms</div>
+        </div>
+        <div class="dur-row">
+          <div class="dur-label">base</div>
+          <div class="dur-track"><div class="dur-fill" data-dur="base" style="transition: width var(--threshold-duration-base) linear;"></div></div>
+          <div class="dur-ms">160ms</div>
+        </div>
+        <div class="dur-row">
+          <div class="dur-label">slow</div>
+          <div class="dur-track"><div class="dur-fill" data-dur="slow" style="transition: width var(--threshold-duration-slow) linear;"></div></div>
+          <div class="dur-ms">280ms</div>
+        </div>
+        <div class="dur-row">
+          <div class="dur-label">slower</div>
+          <div class="dur-track"><div class="dur-fill" data-dur="slower" style="transition: width var(--threshold-duration-slower) linear;"></div></div>
+          <div class="dur-ms">440ms</div>
+        </div>
+      </div>
+      <div class="code-block">transition: width var(--threshold-duration-base) linear;</div>
+    </section>
+
+    <!-- ═══════════════════════════════════════════════════════════
+         EASING CURVES (live canvas)
+         ═══════════════════════════════════════════════════════════ -->
+    <section class="section" id="easings">
+      <div class="section__head">
+        <span class="section__title">Easing Curves</span>
+        <span class="section__tier">Threshold / Easing</span>
+      </div>
+      <p class="section__desc">Each canvas draws a 0-1 normalized curve and animates a dot along it. Click "Animate" to trigger.</p>
+      <div style="margin-bottom:var(--space-2);">
+        <button class="atomos-btn atomos-btn--primary atomos-btn--sm" id="ease-play">Animate</button>
+      </div>
+      <div class="ease-grid">
+        <div class="ease-cell">
+          <canvas class="ease-canvas" data-ease="linear" width="200" height="200"></canvas>
+          <div class="ease-label">linear</div>
+          <div class="ease-css">y = x</div>
+        </div>
+        <div class="ease-cell">
+          <canvas class="ease-canvas" data-ease="ease-out" width="200" height="200"></canvas>
+          <div class="ease-label">ease-out</div>
+          <div class="ease-css">cubic-bezier(0.16, 1, 0.3, 1)</div>
+        </div>
+        <div class="ease-cell">
+          <canvas class="ease-canvas" data-ease="ease-in" width="200" height="200"></canvas>
+          <div class="ease-label">ease-in</div>
+          <div class="ease-css">cubic-bezier(0.7, 0, 0.84, 0)</div>
+        </div>
+        <div class="ease-cell">
+          <canvas class="ease-canvas" data-ease="ease-in-out" width="200" height="200"></canvas>
+          <div class="ease-label">ease-in-out</div>
+          <div class="ease-css">cubic-bezier(0.65, 0, 0.35, 1)</div>
+        </div>
+      </div>
+      <div class="code-block">transition: transform var(--threshold-duration-slow) var(--threshold-ease-out);</div>
+    </section>
+
+    <!-- ═══════════════════════════════════════════════════════════
+         LIVE TRANSITION DEMOS
+         ═══════════════════════════════════════════════════════════ -->
+    <section class="section" id="live">
+      <div class="section__head">
+        <span class="section__title">Live Transitions</span>
+        <span class="section__tier">Threshold / Interactive</span>
+      </div>
+      <p class="section__desc">Real CSS transitions using the motion tokens. Each demo composes a duration token with an easing token for its specific use case.</p>
+
+      <p style="font-size:var(--type-xs); font-weight:700; color:var(--strata-text-disabled); text-transform:uppercase; letter-spacing:0.1em; margin-bottom:var(--space-2);">Entrance / Exit / Toggle / Scale</p>
+      <div style="margin-bottom:var(--space-2);">
+        <button class="atomos-btn atomos-btn--primary atomos-btn--sm" id="demo-trigger">Trigger All</button>
+        <button class="atomos-btn atomos-btn--ghost atomos-btn--sm" id="demo-reset">Reset</button>
+      </div>
+      <div class="demo-stage">
+        <div class="demo-box-wrap">
+          <div class="demo-box demo-box--enter" id="demo-enter"></div>
+          <span style="font-size:var(--type-xs); font-family:var(--font-mono); color:var(--strata-text-disabled);">enter</span>
+          <span style="font-size:10px; font-family:var(--font-mono); color:var(--strata-text-disabled);">slow + ease-out</span>
+        </div>
+        <div class="demo-box-wrap">
+          <div class="demo-box demo-box--exit" id="demo-exit"></div>
+          <span style="font-size:var(--type-xs); font-family:var(--font-mono); color:var(--strata-text-disabled);">exit</span>
+          <span style="font-size:10px; font-family:var(--font-mono); color:var(--strata-text-disabled);">base + ease-in</span>
+        </div>
+        <div class="demo-box-wrap" style="min-width:200px;">
+          <div class="demo-box demo-box--toggle" id="demo-toggle"></div>
+          <span style="font-size:var(--type-xs); font-family:var(--font-mono); color:var(--strata-text-disabled);">toggle</span>
+          <span style="font-size:10px; font-family:var(--font-mono); color:var(--strata-text-disabled);">base + ease-in-out</span>
+        </div>
+        <div class="demo-box-wrap">
+          <div class="demo-box demo-box--scale" id="demo-scale"></div>
+          <span style="font-size:var(--type-xs); font-family:var(--font-mono); color:var(--strata-text-disabled);">scale</span>
+          <span style="font-size:10px; font-family:var(--font-mono); color:var(--strata-text-disabled);">base + ease-out</span>
+        </div>
+      </div>
+
+      <p style="font-size:var(--type-xs); font-weight:700; color:var(--strata-text-disabled); text-transform:uppercase; letter-spacing:0.1em; margin-bottom:var(--space-2); margin-top:var(--space-3);">Hover — composed shorthands</p>
+      <div class="shorthand-demo">
+        <div class="sh-card">
+          <div class="sh-card__title">--threshold-fast</div>
+          <div class="sh-card__sub">80ms linear — hover me</div>
+        </div>
+        <div class="sh-card" style="transition: background var(--threshold-base), border-color var(--threshold-base);">
+          <div class="sh-card__title">--threshold-base</div>
+          <div class="sh-card__sub">160ms linear — hover me</div>
+        </div>
+        <div class="sh-card" style="transition: background var(--threshold-slow), border-color var(--threshold-slow);">
+          <div class="sh-card__title">--threshold-slow</div>
+          <div class="sh-card__sub">280ms linear — hover me</div>
+        </div>
+      </div>
+      <div class="code-block">/* Entrance — decelerate into position */
+transition: opacity var(--threshold-duration-slow) var(--threshold-ease-out),
+            transform var(--threshold-duration-slow) var(--threshold-ease-out);
+
+/* Exit — accelerate out */
+transition: opacity var(--threshold-duration-base) var(--threshold-ease-in),
+            transform var(--threshold-duration-base) var(--threshold-ease-in);
+
+/* Toggle — symmetric motion */
+transition: transform var(--threshold-duration-base) var(--threshold-ease-in-out);
+
+/* Hover — composed shorthand (backward compat) */
+transition: background var(--threshold-fast), border-color var(--threshold-fast);</div>
+    </section>
+
+    <!-- ═══════════════════════════════════════════════════════════
+         STAGGERED ANIMATIONS
+         ═══════════════════════════════════════════════════════════ -->
+    <section class="section" id="stagger">
+      <div class="section__head">
+        <span class="section__title">Staggered Entrance</span>
+        <span class="section__tier">Threshold / Pattern</span>
+      </div>
+      <p class="section__desc">Each bar delays by <code>50ms * index</code> using CSS custom properties. Cap total stagger time &mdash; 10 items at 50ms = 500ms total. Uses <code>--threshold-duration-slow</code> + <code>--threshold-ease-out</code>.</p>
+      <div style="margin-bottom:var(--space-2);">
+        <button class="atomos-btn atomos-btn--primary atomos-btn--sm" id="stagger-play">Play</button>
+        <button class="atomos-btn atomos-btn--ghost atomos-btn--sm" id="stagger-reset">Reset</button>
+      </div>
+      <div class="stagger-row" id="stagger-row">
+        <div class="stagger-bar" style="--i:0; height:20px;"></div>
+        <div class="stagger-bar" style="--i:1; height:28px;"></div>
+        <div class="stagger-bar" style="--i:2; height:44px;"></div>
+        <div class="stagger-bar" style="--i:3; height:36px;"></div>
+        <div class="stagger-bar" style="--i:4; height:56px;"></div>
+        <div class="stagger-bar" style="--i:5; height:48px;"></div>
+        <div class="stagger-bar" style="--i:6; height:64px;"></div>
+        <div class="stagger-bar" style="--i:7; height:40px;"></div>
+        <div class="stagger-bar" style="--i:8; height:52px;"></div>
+        <div class="stagger-bar" style="--i:9; height:32px;"></div>
+      </div>
+      <div class="code-block">.bar {
+  transition: opacity var(--threshold-duration-slow) var(--threshold-ease-out),
+              transform var(--threshold-duration-slow) var(--threshold-ease-out);
+  transition-delay: calc(var(--i, 0) * 50ms);
+}</div>
+    </section>
+
+    <!-- ═══════════════════════════════════════════════════════════
+         REDUCED MOTION
+         ═══════════════════════════════════════════════════════════ -->
+    <section class="section" id="reduced">
+      <div class="section__head">
+        <span class="section__title">Reduced Motion</span>
+        <span class="section__tier">Threshold / Accessibility</span>
+      </div>
+      <p class="section__desc">When <code>prefers-reduced-motion: reduce</code> is active, all <code>--threshold-duration-*</code> tokens collapse to <code>0.01ms</code>. This cascades through composed shorthands automatically. No per-component overrides needed.</p>
+      <div class="code-block">@media (prefers-reduced-motion: reduce) {
+  :root, [data-strata="light"] {
+    --threshold-duration-fast:   0.01ms;
+    --threshold-duration-base:   0.01ms;
+    --threshold-duration-slow:   0.01ms;
+    --threshold-duration-slower: 0.01ms;
+  }
+}</div>
+      <div class="atomos-notice atomos-notice--info" style="margin-top:var(--space-3); max-width:640px;">
+        <span class="atomos-notice__icon">i</span>
+        <div class="atomos-notice__body">
+          <div class="atomos-notice__title">Test it</div>
+          <div class="atomos-notice__msg">Enable reduced motion in your OS settings, then replay any demo above. All animations complete instantly while preserving final state.</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══════════════════════════════════════════════════════════
+         CROSS-PLATFORM REFERENCE
+         ═══════════════════════════════════════════════════════════ -->
+    <section class="section" id="platforms">
+      <div class="section__head">
+        <span class="section__title">Cross-Platform Output</span>
+        <span class="section__tier">Threshold / Platforms</span>
+      </div>
+      <p class="section__desc">Motion tokens compile from <code>colors.json</code> to 5 platform targets. Same source, same values, consistent motion everywhere.</p>
+
+      <div style="display:grid; grid-template-columns:repeat(auto-fill, minmax(280px, 1fr)); gap:1px; background:var(--strata-border);">
+        <div class="atomos-card">
+          <div class="atomos-card__header">
+            <span class="atomos-card__title">CSS</span>
+            <span class="atomos-tag atomos-tag--info">monad.css</span>
+          </div>
+          <div class="atomos-card__body">
+            <code style="font-size:var(--type-xs); color:var(--strata-text-secondary);">var(--threshold-duration-fast)<br>var(--threshold-ease-out)</code>
+          </div>
+        </div>
+        <div class="atomos-card">
+          <div class="atomos-card__header">
+            <span class="atomos-card__title">SwiftUI</span>
+            <span class="atomos-tag atomos-tag--success">MonadMotion.swift</span>
+          </div>
+          <div class="atomos-card__body">
+            <code style="font-size:var(--type-xs); color:var(--strata-text-secondary);">MonadMotion.durationFast<br>MonadMotion.easeOut</code>
+          </div>
+        </div>
+        <div class="atomos-card">
+          <div class="atomos-card__header">
+            <span class="atomos-card__title">Unity C#</span>
+            <span class="atomos-tag atomos-tag--warning">MotionTokens.cs</span>
+          </div>
+          <div class="atomos-card__body">
+            <code style="font-size:var(--type-xs); color:var(--strata-text-secondary);">MotionTokens.DurationFast<br>MotionTokens.EaseOut</code>
+          </div>
+        </div>
+        <div class="atomos-card">
+          <div class="atomos-card__header">
+            <span class="atomos-card__title">Python</span>
+            <span class="atomos-tag atomos-tag--neutral">seaborn_palette.py</span>
+          </div>
+          <div class="atomos-card__body">
+            <code style="font-size:var(--type-xs); color:var(--strata-text-secondary);">MOTION_DURATIONS["fast"]<br>MOTION_EASINGS["ease_out"]</code>
+          </div>
+        </div>
+        <div class="atomos-card">
+          <div class="atomos-card__header">
+            <span class="atomos-card__title">JavaScript</span>
+            <span class="atomos-tag atomos-tag--info">monad.js</span>
+          </div>
+          <div class="atomos-card__body">
+            <code style="font-size:var(--type-xs); color:var(--strata-text-secondary);">MN.motion.duration.fast<br>MN.motion.easing.easeOut</code>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <script>
+  (function () {
+    'use strict';
+
+    // ── Cubic bezier math ──
+    var CURVES = {
+      'linear':      null,
+      'ease-out':    [0.16, 1, 0.3, 1],
+      'ease-in':     [0.7, 0, 0.84, 0],
+      'ease-in-out': [0.65, 0, 0.35, 1]
+    };
+
+    function cubicBezierY(pts, x) {
+      if (!pts) return x;
+      var x1 = pts[0], y1 = pts[1], x2 = pts[2], y2 = pts[3];
+      // Newton's method to find t for given x
+      var t = x;
+      for (var i = 0; i < 8; i++) {
+        var cx = 3*x1*t*(1-t)*(1-t) + 3*x2*t*t*(1-t) + t*t*t - x;
+        var dx = 3*x1*(1-t)*(1-3*t) + 3*x2*t*(2-3*t) + 3*t*t;
+        if (Math.abs(dx) < 1e-6) break;
+        t -= cx / dx;
+        t = Math.max(0, Math.min(1, t));
+      }
+      return 3*y1*t*(1-t)*(1-t) + 3*y2*t*t*(1-t) + t*t*t;
+    }
+
+    // ── Draw easing curves ──
+    var style = getComputedStyle(document.documentElement);
+    var colors = {
+      'linear':      '#7D8794',
+      'ease-out':    '#2B9ED1',
+      'ease-in':     '#D64C45',
+      'ease-in-out': '#1E88C8'
+    };
+
+    function drawCurve(canvas, name) {
+      var ctx = canvas.getContext('2d');
+      var w = canvas.width, h = canvas.height;
+      var pad = 24;
+      var pts = CURVES[name];
+
+      // bg
+      var isDark = document.documentElement.dataset.strata !== 'light';
+      ctx.fillStyle = isDark ? '#171A1E' : '#ffffff';
+      ctx.fillRect(0, 0, w, h);
+
+      // grid
+      ctx.strokeStyle = isDark ? '#2A313A' : '#E3E8EE';
+      ctx.lineWidth = 1;
+      for (var g = 0; g <= 4; g++) {
+        var gx = pad + (w - 2*pad) * g/4;
+        var gy = pad + (h - 2*pad) * g/4;
+        ctx.beginPath(); ctx.moveTo(gx, pad); ctx.lineTo(gx, h - pad); ctx.stroke();
+        ctx.beginPath(); ctx.moveTo(pad, gy); ctx.lineTo(w - pad, gy); ctx.stroke();
+      }
+
+      // diagonal reference
+      ctx.strokeStyle = isDark ? '#3A434F' : '#BCC6D2';
+      ctx.lineWidth = 1;
+      ctx.setLineDash([4, 4]);
+      ctx.beginPath();
+      ctx.moveTo(pad, h - pad);
+      ctx.lineTo(w - pad, pad);
+      ctx.stroke();
+      ctx.setLineDash([]);
+
+      // curve
+      ctx.strokeStyle = colors[name];
+      ctx.lineWidth = 2.5;
+      ctx.beginPath();
+      for (var i = 0; i <= 100; i++) {
+        var x = i / 100;
+        var y = cubicBezierY(pts, x);
+        var px = pad + (w - 2*pad) * x;
+        var py = (h - pad) - (h - 2*pad) * y;
+        if (i === 0) ctx.moveTo(px, py); else ctx.lineTo(px, py);
+      }
+      ctx.stroke();
+
+      return ctx;
+    }
+
+    function drawDot(canvas, name, progress) {
+      var ctx = canvas.getContext('2d');
+      var w = canvas.width, h = canvas.height;
+      var pad = 24;
+      var pts = CURVES[name];
+      var y = cubicBezierY(pts, progress);
+      var px = pad + (w - 2*pad) * progress;
+      var py = (h - pad) - (h - 2*pad) * y;
+
+      drawCurve(canvas, name);
+      ctx.fillStyle = '#EEF2F6';
+      ctx.fillRect(px - 4, py - 4, 8, 8);
+    }
+
+    document.querySelectorAll('.ease-canvas').forEach(function (c) {
+      drawCurve(c, c.dataset.ease);
+    });
+
+    // Re-draw on theme change
+    var observer = new MutationObserver(function () {
+      document.querySelectorAll('.ease-canvas').forEach(function (c) {
+        drawCurve(c, c.dataset.ease);
+      });
+    });
+    observer.observe(document.documentElement, { attributes: true, attributeFilter: ['data-strata'] });
+
+    // ── Easing animation ──
+    var easeAnimId = null;
+    document.getElementById('ease-play').addEventListener('click', function () {
+      if (easeAnimId) cancelAnimationFrame(easeAnimId);
+      var start = null;
+      var dur = 1500;
+      function frame(ts) {
+        if (!start) start = ts;
+        var p = Math.min((ts - start) / dur, 1);
+        document.querySelectorAll('.ease-canvas').forEach(function (c) {
+          drawDot(c, c.dataset.ease, p);
+        });
+        if (p < 1) easeAnimId = requestAnimationFrame(frame);
+        else {
+          setTimeout(function () {
+            document.querySelectorAll('.ease-canvas').forEach(function (c) {
+              drawCurve(c, c.dataset.ease);
+            });
+          }, 800);
+        }
+      }
+      easeAnimId = requestAnimationFrame(frame);
+    });
+
+    // ── Duration bars ──
+    document.getElementById('dur-play').addEventListener('click', function () {
+      document.querySelectorAll('.dur-fill').forEach(function (el) {
+        el.classList.remove('is-running');
+        el.style.width = '0';
+      });
+      requestAnimationFrame(function () {
+        requestAnimationFrame(function () {
+          document.querySelectorAll('.dur-fill').forEach(function (el) {
+            el.classList.add('is-running');
+            el.style.width = '100%';
+          });
+        });
+      });
+    });
+    document.getElementById('dur-reset').addEventListener('click', function () {
+      document.querySelectorAll('.dur-fill').forEach(function (el) {
+        el.classList.remove('is-running');
+        el.style.width = '0';
+      });
+    });
+
+    // ── Live demo triggers ──
+    document.getElementById('demo-trigger').addEventListener('click', function () {
+      document.getElementById('demo-enter').classList.add('is-visible');
+      document.getElementById('demo-exit').classList.add('is-hidden');
+      document.getElementById('demo-toggle').classList.add('is-moved');
+      document.getElementById('demo-scale').classList.add('is-scaled');
+    });
+    document.getElementById('demo-reset').addEventListener('click', function () {
+      document.getElementById('demo-enter').classList.remove('is-visible');
+      document.getElementById('demo-exit').classList.remove('is-hidden');
+      document.getElementById('demo-toggle').classList.remove('is-moved');
+      document.getElementById('demo-scale').classList.remove('is-scaled');
+    });
+
+    // ── Stagger ──
+    document.getElementById('stagger-play').addEventListener('click', function () {
+      document.querySelectorAll('.stagger-bar').forEach(function (el) {
+        el.classList.add('is-visible');
+      });
+    });
+    document.getElementById('stagger-reset').addEventListener('click', function () {
+      document.querySelectorAll('.stagger-bar').forEach(function (el) {
+        el.classList.remove('is-visible');
+      });
+    });
+  })();
+  </script>
+
+</body>
+</html>

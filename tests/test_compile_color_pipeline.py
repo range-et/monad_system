@@ -313,5 +313,128 @@ class CompileColorPipelineTests(unittest.TestCase):
         self.assertNotIn("--strata-texture-", outputs["css_library"])
 
 
+    # ── Motion token tests ─────────────────────────────────────────────────
+
+    def test_motion_tokens_in_css_library(self):
+        data = self._load_colors()
+        outputs = cc.prepare_templates(data)
+        css = outputs["css_library"]
+
+        # Duration tokens
+        for key in ("fast", "base", "slow", "slower"):
+            self.assertIn(f"--threshold-duration-{key}:", css)
+
+        # Easing tokens
+        self.assertIn("--threshold-ease-linear:", css)
+        self.assertIn("--threshold-ease-out:", css)
+        self.assertIn("--threshold-ease-in:", css)
+        self.assertIn("--threshold-ease-in-out:", css)
+        self.assertIn("cubic-bezier(0.16, 1, 0.3, 1)", css)
+
+        # Composed shorthands (backward compat)
+        self.assertIn("--threshold-fast:", css)
+        self.assertIn("--threshold-base:", css)
+        self.assertIn("--threshold-slow:", css)
+
+        # Reduced motion
+        self.assertIn("prefers-reduced-motion: reduce", css)
+
+    def test_motion_python_durations_and_easings(self):
+        data = self._load_colors()
+        outputs = cc.prepare_templates(data)
+        py = outputs["motion_python"]
+
+        self.assertIn("MOTION_DURATIONS", py)
+        self.assertIn("MOTION_EASINGS", py)
+        self.assertIn('"fast":', py)
+        self.assertIn("0.080", py)
+        self.assertIn('"ease_out":', py)
+        self.assertIn("(0.16, 1.0, 0.3, 1.0)", py)
+
+    def test_motion_csharp_constants(self):
+        data = self._load_colors()
+        outputs = cc.prepare_templates(data)
+        cs = outputs["motion_csharp"]
+
+        self.assertIn("namespace Utility", cs)
+        self.assertIn("MotionTokens", cs)
+        self.assertIn("DurationFast", cs)
+        self.assertIn("DurationBase", cs)
+        self.assertIn("DurationSlow", cs)
+        self.assertIn("DurationSlower", cs)
+        self.assertIn("0.080f", cs)
+        self.assertIn("AnimationCurve", cs)
+
+    def test_motion_swiftui_enum(self):
+        data = self._load_colors()
+        outputs = cc.prepare_templates(data)
+        swift = outputs["motion_swiftui"]
+
+        self.assertIn("enum MonadMotion", swift)
+        self.assertIn("durationFast", swift)
+        self.assertIn("durationBase", swift)
+        self.assertIn("durationSlow", swift)
+        self.assertIn("durationSlower", swift)
+        self.assertIn("0.080", swift)
+        self.assertIn("Animation.timingCurve", swift)
+        self.assertIn("easeOut", swift)
+
+    def test_motion_js_namespace(self):
+        data = self._load_colors()
+        outputs = cc.prepare_templates(data)
+        js = outputs["js"]
+
+        self.assertIn("MN.motion", js)
+        self.assertIn("duration:", js)
+        self.assertIn("easing:", js)
+        self.assertIn("fast: 80", js)
+        self.assertIn("cubic-bezier(0.16, 1, 0.3, 1)", js)
+
+    def test_motion_params_propagate_from_json(self):
+        data = self._load_colors()
+        modified = copy.deepcopy(data)
+        modified["Motion"]["durations"]["fast"]["ms"] = 100
+        modified["Motion"]["easings"]["ease_out"]["css"] = "cubic-bezier(0.2, 1, 0.4, 1)"
+        outputs = cc.prepare_templates(modified)
+
+        # CSS
+        self.assertIn("100ms", outputs["css_library"])
+        self.assertIn("cubic-bezier(0.2, 1, 0.4, 1)", outputs["css_library"])
+
+        # Python
+        full_py = outputs["python"] + outputs["motion_python"]
+        self.assertIn("0.100", full_py)
+
+        # C#
+        self.assertIn("0.100f", outputs["motion_csharp"])
+
+        # SwiftUI
+        self.assertIn("0.100", outputs["motion_swiftui"])
+
+        # JS
+        self.assertIn("fast: 100", outputs["js"])
+
+    def test_missing_motion_backward_compat(self):
+        data = self._load_colors()
+        modified = copy.deepcopy(data)
+        modified.pop("Motion", None)
+        outputs = cc.prepare_templates(modified)
+
+        # All original 16 keys still present
+        for key in ("css_tokens", "css_library", "c_sharp_dark", "c_sharp_light",
+                    "python", "js", "vscode_dark", "vscode_light", "vscode_pkg",
+                    "vscode_readme", "vscode_license", "ghostty_dark", "ghostty_light",
+                    "xcode_dark", "xcode_light", "swiftui_strata"):
+            self.assertIn(key, outputs)
+
+        # Motion artifacts should be empty strings
+        for key in ("motion_python", "motion_csharp", "motion_swiftui"):
+            self.assertEqual(outputs[key], "")
+
+        # Legacy hardcoded values still in CSS
+        self.assertIn("--threshold-fast:", outputs["css_library"])
+        self.assertIn("80ms linear", outputs["css_library"])
+
+
 if __name__ == "__main__":
     unittest.main()

@@ -297,5 +297,19 @@
       "spacing": 10,
       "opacity": 0.6
     }
+  },
+  "Motion": {
+    "durations": {
+      "fast":   { "ms": 80,  "comment": "Micro-interactions: toggle, hover, color" },
+      "base":   { "ms": 160, "comment": "State changes: menu, tooltip" },
+      "slow":   { "ms": 280, "comment": "Layout changes: accordion, drawer" },
+      "slower": { "ms": 440, "comment": "Entrance animations: page transitions" }
+    },
+    "easings": {
+      "linear":      { "css": "linear",                          "comment": "Constant rate" },
+      "ease_out":    { "css": "cubic-bezier(0.16, 1, 0.3, 1)",  "comment": "Decelerate — entrances" },
+      "ease_in":     { "css": "cubic-bezier(0.7, 0, 0.84, 0)",  "comment": "Accelerate — exits" },
+      "ease_in_out": { "css": "cubic-bezier(0.65, 0, 0.35, 1)", "comment": "Symmetric — toggles" }
+    }
   }
 }

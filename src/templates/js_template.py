@@ -1,4 +1,4 @@
-def create_js_template():
+def create_js_template(motion_js=""):
     return """/**
  * Monad System — Runtime
  * Generated from the Monad System build. Do not edit directly.
@@ -163,6 +163,8 @@ def create_js_template():
       if (window.innerWidth > 1056) closeRail();
     });
   }
+
+""" + motion_js + """
 
   // -----------------------------------------------------------------------
   // Init

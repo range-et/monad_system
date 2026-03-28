@@ -238,3 +238,20 @@ def apply_texture(patches, texture_id, color=None):
         patch.set_hatch(pattern)
         if color is not None:
             patch.set_edgecolor(color)
+
+
+# ── Motion tokens ────────────────────────────────────────────────────
+
+MOTION_DURATIONS = {
+    "fast":      0.080,
+    "base":      0.160,
+    "slow":      0.280,
+    "slower":    0.440,
+}
+
+MOTION_EASINGS = {
+    "linear":      None,  # linear
+    "ease_out": (0.16, 1.0, 0.3, 1.0),
+    "ease_in": (0.7, 0.0, 0.84, 0.0),
+    "ease_in_out": (0.65, 0.0, 0.35, 1.0),
+}

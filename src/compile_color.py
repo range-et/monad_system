@@ -30,6 +30,14 @@ from templates.texture_template import (
     create_texture_csharp,
     create_texture_swiftui,
 )
+from templates.motion_template import (
+    create_motion_css_tokens,
+    create_motion_css_reduced,
+    create_motion_python,
+    create_motion_csharp,
+    create_motion_swiftui,
+    create_motion_js,
+)
 
 
 def load_json(json_path):
@@ -98,6 +106,7 @@ def prepare_templates(json_data):
     dm = d.get("General_UI_Colors", {})
     lm = json_data.get("Light_Mode", {}).get("General_UI_Colors", {})
     textures = json_data.get("Textures", {})
+    motion = json_data.get("Motion", None)
 
     # Dark theme values from Default_Colors
     background_color = dm.get("Background", {}).get("hex", "#121212")
@@ -163,6 +172,10 @@ def prepare_templates(json_data):
     # --- Build: Texture CSS fragment (injected into monad.css) ---
     texture_css = create_texture_css_fragment(textures) if textures else ""
 
+    # --- Build: Motion CSS tokens (injected into monad.css :root) ---
+    motion_css = create_motion_css_tokens(motion)
+    motion_reduced = create_motion_css_reduced() if motion else ""
+
     # --- Build: Monad System CSS (monad.css) ---
     css_library = create_monad_system(
         bg_dark=background_color,
@@ -199,6 +212,8 @@ def prepare_templates(json_data):
         move_foot=foot_color,
         move_finish=end_color,
         texture_css_fragment=texture_css,
+        motion_css_tokens=motion_css,
+        motion_css_reduced=motion_reduced,
     )
 
     # --- Build: C# (dark theme) ---
@@ -267,7 +282,8 @@ def prepare_templates(json_data):
         move_finish=end_color,
     )
 
-    js_code = create_js_template()
+    motion_js = create_motion_js(motion)
+    js_code = create_js_template(motion_js=motion_js)
 
     # ── Derived dark surface layers (or explicit overrides) ───────────────────
     activity_bar_dark = _shift_bg(background_color, -5) if background_color != "#121212" \
@@ -512,6 +528,11 @@ def prepare_templates(json_data):
     texture_csharp  = create_texture_csharp(textures)  if textures else ""
     texture_swiftui = create_texture_swiftui(textures) if textures else ""
 
+    # --- Build: Motion artifacts (Python, C#, SwiftUI) ---
+    motion_python  = create_motion_python(motion)
+    motion_csharp  = create_motion_csharp(motion)
+    motion_swiftui = create_motion_swiftui(motion)
+
     return {
         "css_tokens":    css_tokens,
         "css_library":   css_library,
@@ -532,6 +553,9 @@ def prepare_templates(json_data):
         "texture_python":  texture_python,
         "texture_csharp":  texture_csharp,
         "texture_swiftui": texture_swiftui,
+        "motion_python":   motion_python,
+        "motion_csharp":   motion_csharp,
+        "motion_swiftui":  motion_swiftui,
     }
 
 
@@ -575,7 +599,8 @@ if __name__ == "__main__":
             "ColorPalette.cs":      code["c_sharp_dark"],
             "ColorPaletteLight.cs": code["c_sharp_light"],
             "TexturePatterns.cs":   code["texture_csharp"],
-            "seaborn_palette.py":   code["python"] + code["texture_python"],
+            "MotionTokens.cs":      code["motion_csharp"],
+            "seaborn_palette.py":   code["python"] + code["texture_python"] + code["motion_python"],
             # ── VS Code theme extension ───────────────────────────────────────
             "themes/vscode/package.json":                  code["vscode_pkg"],
             "themes/vscode/monad-dark-color-theme.json":   code["vscode_dark"],
@@ -589,6 +614,7 @@ if __name__ == "__main__":
             "themes/xcode/Monad Light.xccolortheme": code["xcode_light"],
             "themes/swiftui/MonadStrata.swift":   code["swiftui_strata"],
             "themes/swiftui/MonadTextures.swift": code["texture_swiftui"],
+            "themes/swiftui/MonadMotion.swift":  code["motion_swiftui"],
         }
 
         for filename, content in outputs.items():
@@ -601,7 +627,7 @@ if __name__ == "__main__":
         print("\nDone. Artifacts in build/:")
         groups = [
             ("Core",    ["ColorPalette.css", "monad.css", "monad.js"]),
-            ("C#",      ["ColorPalette.cs", "ColorPaletteLight.cs", "TexturePatterns.cs"]),
+            ("C#",      ["ColorPalette.cs", "ColorPaletteLight.cs", "TexturePatterns.cs", "MotionTokens.cs"]),
             ("Python",  ["seaborn_palette.py"]),
             ("VS Code", ["themes/vscode/package.json",
                          "themes/vscode/monad-dark-color-theme.json",
@@ -613,7 +639,8 @@ if __name__ == "__main__":
             ("Xcode",   ["themes/xcode/Monad Dark.xccolortheme",
                          "themes/xcode/Monad Light.xccolortheme"]),
             ("SwiftUI", ["themes/swiftui/MonadStrata.swift",
-                         "themes/swiftui/MonadTextures.swift"]),
+                         "themes/swiftui/MonadTextures.swift",
+                         "themes/swiftui/MonadMotion.swift"]),
         ]
         for group_name, files in groups:
             print(f"\n  [{group_name}]")
