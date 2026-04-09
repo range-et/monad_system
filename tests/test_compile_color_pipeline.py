@@ -435,6 +435,143 @@ class CompileColorPipelineTests(unittest.TestCase):
         self.assertIn("--threshold-fast:", outputs["css_library"])
         self.assertIn("80ms linear", outputs["css_library"])
 
+    # ── C++ / Arduino tests ────────────────────────────────────────────────
+
+    def test_cpp_artifacts_emitted(self):
+        outputs = cc.prepare_templates(self._load_colors())
+        for key in ("cpp_palette", "cpp_motion", "cpp_umbrella",
+                    "cpp_library_properties", "cpp_keywords"):
+            self.assertIn(key, outputs)
+            self.assertTrue(outputs[key], f"{key} should be non-empty")
+
+    def test_cpp_palette_structure(self):
+        outputs = cc.prepare_templates(self._load_colors())
+        h = outputs["cpp_palette"]
+
+        # Header guards and stdint dependency
+        self.assertIn("#pragma once", h)
+        self.assertIn("#include <stdint.h>", h)
+
+        # Top-level namespace + theme namespaces + alias
+        self.assertIn("namespace monad {", h)
+        self.assertIn("namespace dark {", h)
+        self.assertIn("namespace light {", h)
+        self.assertIn("namespace theme = light;", h)
+        self.assertIn("namespace theme = dark;", h)
+        self.assertIn("MONAD_LIGHT_THEME", h)
+
+        # Constexpr conversion helpers
+        self.assertIn("constexpr uint16_t rgb565(uint32_t c)", h)
+        self.assertIn("constexpr uint8_t gray8(uint32_t c)", h)
+        self.assertIn("constexpr bool mono(uint32_t c", h)
+
+        # All semantic and surface tokens present in both themes
+        for token in ("BACKGROUND", "LAYER_01", "LAYER_02", "LAYER_03",
+                      "TEXT_PRIMARY", "TEXT_SECONDARY", "TEXT_DISABLED",
+                      "BORDER", "BORDER_SUBTLE", "INTERACTIVE",
+                      "SUPPORT_INFO", "SUPPORT_SUCCESS", "SUPPORT_WARNING",
+                      "SUPPORT_ERROR", "HIGHLIGHT", "DISABLED",
+                      "MOVE_START", "MOVE_HAND", "MOVE_FOOT", "MOVE_FINISH"):
+            self.assertIn(token, h, f"missing token {token} in MonadPalette.h")
+
+    def test_cpp_palette_hex_propagates_from_json(self):
+        data = self._load_colors()
+        modified = copy.deepcopy(data)
+        info2 = "#13579B"
+        modified["Default_Colors"]["Information_Indicators"]["Information_2"]["hex"] = info2
+        outputs = cc.prepare_templates(modified)
+
+        # 0x13579B should appear as the INTERACTIVE constant in both namespaces
+        self.assertIn("INTERACTIVE       = 0x13579B;", outputs["cpp_palette"])
+        # Counts: shared block is emitted in both dark and light → 2 occurrences
+        self.assertEqual(outputs["cpp_palette"].count("0x13579B"), 2)
+
+    def test_cpp_palette_dark_background_propagates(self):
+        data = self._load_colors()
+        modified = copy.deepcopy(data)
+        bg = "#102030"
+        modified["Default_Colors"]["General_UI_Colors"]["Background"]["hex"] = bg
+        outputs = cc.prepare_templates(modified)
+
+        # Dark BACKGROUND constant uses the new hex
+        self.assertIn("BACKGROUND        = 0x102030;", outputs["cpp_palette"])
+        # Light theme background must be unchanged (different value)
+        self.assertNotIn("BACKGROUND        = 0x102030;\n}",
+                         outputs["cpp_palette"].split("namespace light {")[1])
+
+    def test_cpp_motion_durations_and_easings(self):
+        outputs = cc.prepare_templates(self._load_colors())
+        h = outputs["cpp_motion"]
+
+        self.assertIn("namespace monad {", h)
+        self.assertIn("namespace motion {", h)
+        self.assertIn("constexpr uint16_t DURATION_FAST_MS", h)
+        self.assertIn("= 80;", h)
+        self.assertIn("DURATION_BASE_MS", h)
+        self.assertIn("DURATION_SLOW_MS", h)
+        self.assertIn("DURATION_SLOWER_MS", h)
+
+        self.assertIn("struct Bezier", h)
+        self.assertIn("EASE_OUT", h)
+        self.assertIn("EASE_IN", h)
+        self.assertIn("EASE_IN_OUT", h)
+        # Linear has no bezier definition — only a comment
+        self.assertIn("EASE_LINEAR: linear", h)
+
+        self.assertIn("constexpr uint8_t lerp_u8", h)
+        self.assertIn("constexpr uint32_t lerp_rgb", h)
+
+    def test_cpp_motion_params_propagate(self):
+        data = self._load_colors()
+        modified = copy.deepcopy(data)
+        modified["Motion"]["durations"]["fast"]["ms"] = 100
+        modified["Motion"]["easings"]["ease_out"]["css"] = "cubic-bezier(0.2, 1, 0.4, 1)"
+        outputs = cc.prepare_templates(modified)
+
+        h = outputs["cpp_motion"]
+        # Spacing between identifier and "=" is alignment-driven; assert the
+        # identifier and value, not the exact pad width.
+        self.assertRegex(h, r"DURATION_FAST_MS\s+= 100;")
+        self.assertIn("EASE_OUT = { 0.2f, 1.0f, 0.4f, 1.0f };", h)
+        # Sanity: no double-prefixed identifiers.
+        self.assertNotIn("EASE_EASE_", h)
+
+    def test_cpp_motion_missing_falls_back(self):
+        data = self._load_colors()
+        modified = copy.deepcopy(data)
+        modified.pop("Motion", None)
+        outputs = cc.prepare_templates(modified)
+
+        h = outputs["cpp_motion"]
+        self.assertIn("Legacy fallback", h)
+        self.assertIn("DURATION_FAST_MS   = 80;", h)
+        self.assertIn("DURATION_BASE_MS   = 160;", h)
+        self.assertIn("DURATION_SLOW_MS   = 280;", h)
+
+    def test_cpp_umbrella_includes_palette_and_motion(self):
+        outputs = cc.prepare_templates(self._load_colors())
+        h = outputs["cpp_umbrella"]
+        self.assertIn("#pragma once", h)
+        self.assertIn('#include "MonadPalette.h"', h)
+        self.assertIn('#include "MonadMotion.h"', h)
+        self.assertIn("MONAD_LIGHT_THEME", h)
+
+    def test_cpp_library_properties_arduino_fields(self):
+        outputs = cc.prepare_templates(self._load_colors())
+        props = outputs["cpp_library_properties"]
+        for field in ("name=", "version=", "author=", "maintainer=",
+                      "sentence=", "paragraph=", "category=", "url=",
+                      "architectures=", "includes=Monad.h"):
+            self.assertIn(field, props)
+
+    def test_cpp_keywords_uses_tabs(self):
+        outputs = cc.prepare_templates(self._load_colors())
+        kw = outputs["cpp_keywords"]
+        # Arduino IDE requires literal tabs between identifier and class
+        self.assertIn("rgb565\tKEYWORD2", kw)
+        self.assertIn("BACKGROUND\tLITERAL1", kw)
+        self.assertIn("monad\tKEYWORD1", kw)
+
 
 if __name__ == "__main__":
     unittest.main()
