@@ -185,6 +185,53 @@ class CompileColorPipelineTests(unittest.TestCase):
         self.assertIn(xcode_bg, outputs["xcode_light"])
         self.assertIn(xcode_text, outputs["xcode_light"])
 
+    def test_csharp_unity_template_compiles_cleanly(self):
+        """The generated C# must be drop-in compilable in a Unity project:
+        needs `using UnityEngine;` for Color/Mathf, the static constructor name
+        must match the class name, and Layer_01/02/03 must be exposed as fields.
+        """
+        outputs = cc.prepare_templates(self._load_colors())
+
+        dark = outputs["c_sharp_dark"]
+        light = outputs["c_sharp_light"]
+
+        # Both files must import UnityEngine for Color and Mathf to resolve.
+        self.assertIn("using UnityEngine;", dark)
+        self.assertIn("using UnityEngine;", light)
+
+        # Static constructor name must match class name (C# language requirement).
+        self.assertIn("public static class ColorPalette", dark)
+        self.assertIn("static ColorPalette()", dark)
+        self.assertIn("public static class ColorPaletteLight", light)
+        self.assertIn("static ColorPaletteLight()", light)
+        # And the dark file must NOT contain a "ColorPaletteLight()" constructor and vice-versa.
+        self.assertNotIn("static ColorPaletteLight()", dark)
+        self.assertNotIn("static ColorPalette()", light)
+
+        # Layer_01/02/03 fields are exposed and assigned in both themes.
+        for field in ("Layer_01", "Layer_02", "Layer_03"):
+            self.assertIn(f"public static readonly Color {field};", dark,
+                          f"Dark C# missing field {field}")
+            self.assertIn(f"public static readonly Color {field};", light,
+                          f"Light C# missing field {field}")
+            self.assertIn(f"{field} = ColorFromHex(", dark,
+                          f"Dark C# missing assignment for {field}")
+            self.assertIn(f"{field} = ColorFromHex(", light,
+                          f"Light C# missing assignment for {field}")
+
+    def test_csharp_layer_tokens_propagate_from_colors_json(self):
+        """Editing Light_Mode.General_UI_Colors.Layer_01 in colors.json must
+        flow into ColorPaletteLight.cs."""
+        data = self._load_colors()
+        modified = copy.deepcopy(data)
+
+        layer1_light = "#F1F2F3"
+        modified["Light_Mode"]["General_UI_Colors"]["Layer_01"]["hex"] = layer1_light
+
+        outputs = cc.prepare_templates(modified)
+        self.assertIn(f'Layer_01 = ColorFromHex("{layer1_light}");',
+                      outputs["c_sharp_light"])
+
 
     # ── HTML showcase tests ─────────────────────────────────────────────────
 

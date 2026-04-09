@@ -239,6 +239,9 @@ def prepare_templates(json_data):
         end_color=end_color,
         foot_color=foot_color,
         hand_color=hand_color,
+        layer01_color=layer01_dark,
+        layer02_color=layer02_dark,
+        layer03_color=layer03_dark,
     )
 
     # --- Build: C# (light theme) ---
@@ -257,6 +260,9 @@ def prepare_templates(json_data):
         end_color=end_color,
         foot_color=foot_color,
         hand_color=hand_color,
+        layer01_color=layer01_light,
+        layer02_color=layer02_light,
+        layer03_color=layer03_light,
         class_name="ColorPaletteLight",
     )
 
