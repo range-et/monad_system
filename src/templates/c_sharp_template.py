@@ -22,7 +22,7 @@ def create_csharp_template(
 // Source: monad_system/colors.json via src/templates/c_sharp_template.py
 using UnityEngine;
 
-namespace Utility
+namespace Monad
 {{
     public static class {class_name}
     {{

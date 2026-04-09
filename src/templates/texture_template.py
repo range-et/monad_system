@@ -258,7 +258,7 @@ def create_texture_csharp(textures_data):
 
 using UnityEngine;
 
-namespace Utility
+namespace Monad
 {{
     public static class TexturePatterns
     {{

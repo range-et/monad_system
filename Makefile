@@ -1,4 +1,4 @@
-.PHONY: build serve open dev clean install install-vscode install-ghostty install-xcode package-vscode publish-vscode
+.PHONY: build serve open dev clean install install-vscode install-ghostty install-xcode install-unity package-vscode publish-vscode
 
 PYTHON    := python3
 SRC       := src/compile_color.py
@@ -13,6 +13,7 @@ VSCODE_BUILD_DIR  := $(OUT)/themes/vscode
 GHOSTTY_THEME_DIR := $(HOME)/.config/ghostty/themes
 XCODE_THEME_DIR   := $(HOME)/Library/Developer/Xcode/UserData/FontAndColorThemes
 XCODE_BUILD_DIR   := $(OUT)/themes/xcode
+UNITY_GENERATED   := ../beta-bot_unity/Assets/Scripts/Generated/Monad
 
 ## build           — compile colors.json → all artifacts in build/
 build:
@@ -75,6 +76,15 @@ install-xcode:
 	@cp "$(XCODE_BUILD_DIR)/Monad Light.xccolortheme" "$(XCODE_THEME_DIR)/"
 	@echo "Xcode themes installed → $(XCODE_THEME_DIR)"
 	@echo "Restart Xcode, then: Settings → Themes → Monad Dark / Monad Light"
+
+## install-unity   — copy generated C# (palette + motion + textures) into beta-bot_unity
+install-unity: build
+	@mkdir -p $(UNITY_GENERATED)
+	@cp $(OUT)/ColorPalette.cs      $(UNITY_GENERATED)/ColorPalette.cs
+	@cp $(OUT)/ColorPaletteLight.cs $(UNITY_GENERATED)/ColorPaletteLight.cs
+	@cp $(OUT)/MotionTokens.cs      $(UNITY_GENERATED)/MotionTokens.cs
+	@cp $(OUT)/TexturePatterns.cs   $(UNITY_GENERATED)/TexturePatterns.cs
+	@echo "Installed Monad C# artifacts → $(UNITY_GENERATED)"
 
 ## serve           — start a local server at localhost:8000
 serve:

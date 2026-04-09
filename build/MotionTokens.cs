@@ -3,7 +3,7 @@
 
 using UnityEngine;
 
-namespace Utility
+namespace Monad
 {
     public static class MotionTokens
     {

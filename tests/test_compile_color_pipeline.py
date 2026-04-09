@@ -199,6 +199,15 @@ class CompileColorPipelineTests(unittest.TestCase):
         self.assertIn("using UnityEngine;", dark)
         self.assertIn("using UnityEngine;", light)
 
+        # Namespace must be `Monad`, NOT `Utility`. The Beta-Bot Unity project
+        # already has a `Master.Utility` class referenced as `Utility.X`; if
+        # this template emits `namespace Utility`, the C# resolver picks the
+        # namespace first and breaks every existing call site.
+        self.assertIn("namespace Monad", dark)
+        self.assertIn("namespace Monad", light)
+        self.assertNotIn("namespace Utility", dark)
+        self.assertNotIn("namespace Utility", light)
+
         # Static constructor name must match class name (C# language requirement).
         self.assertIn("public static class ColorPalette", dark)
         self.assertIn("static ColorPalette()", dark)
@@ -314,7 +323,7 @@ class CompileColorPipelineTests(unittest.TestCase):
                        "CreateCrossHatch", "CreateHatchForward", "CreateHatchBackward"):
             self.assertIn(method, cs)
         self.assertIn("Texture2D", cs)
-        self.assertIn("namespace Utility", cs)
+        self.assertIn("namespace Monad", cs)
 
     def test_texture_swiftui_enum(self):
         data = self._load_colors()
@@ -403,7 +412,7 @@ class CompileColorPipelineTests(unittest.TestCase):
         outputs = cc.prepare_templates(data)
         cs = outputs["motion_csharp"]
 
-        self.assertIn("namespace Utility", cs)
+        self.assertIn("namespace Monad", cs)
         self.assertIn("MotionTokens", cs)
         self.assertIn("DurationFast", cs)
         self.assertIn("DurationBase", cs)
