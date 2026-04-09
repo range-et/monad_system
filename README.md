@@ -18,7 +18,7 @@ This is enforced by pipeline tests:
 python -m unittest discover -s tests -p 'test_*.py' -q
 ```
 
-The tests verify token propagation across CSS, C#, Python, SwiftUI, VS Code, Ghostty, and Xcode outputs.
+The tests verify token propagation across CSS, C#, Python, SwiftUI, VS Code, Ghostty, Xcode, and C++/Arduino outputs.
 
 ## Tiers
 
@@ -52,6 +52,7 @@ python src/compile_color.py --json_path colors.json --output_path build/
 | `build/themes/vscode/` | VS Code / Cursor |
 | `build/themes/ghostty/` | Ghostty |
 | `build/themes/xcode/` | Xcode editor themes |
+| `build/cpp/Monad/` | C++ / Arduino — header-only library (TFT, OLED, e-ink) |
 
 ```bash
 make serve          # localhost:8000
@@ -90,6 +91,28 @@ Theme: dark default; light = `data-strata="light"`. Toggle: `data-mn-theme-toggl
 ColorPalette.Background
 ColorPaletteLight.Background
 ```
+
+## C++ / Arduino
+
+Drop `build/cpp/Monad/` into `~/Documents/Arduino/libraries/` (or a PlatformIO `lib/` directory). Header-only, no STL, `constexpr` throughout — source is 24-bit RGB888 and the helpers fold to literals at compile time.
+
+```cpp
+#include <Monad.h>
+using namespace monad;
+
+// TFT — Adafruit GFX / TFT_eSPI / LVGL
+tft.fillScreen(rgb565(theme::BACKGROUND));
+tft.setTextColor(rgb565(theme::TEXT_PRIMARY));
+tft.drawRect(0, 0, 100, 20, rgb565(theme::INTERACTIVE));
+
+// SSD1306 OLED — mono() returns true when the colour is closer to white
+if (mono(theme::INTERACTIVE)) display.drawPixel(x, y, SSD1306_WHITE);
+
+// Waveshare / GxEPD2 e-ink — invert to get ink-on-paper semantics
+uint16_t fg = !mono(theme::TEXT_PRIMARY) ? GxEPD_BLACK : GxEPD_WHITE;
+```
+
+Switch theme at compile time: `#define MONAD_LIGHT_THEME` before including `Monad.h`. Motion tokens live in `monad::motion::` (e.g. `DURATION_FAST_MS`, `EASE_OUT`).
 
 ## Python
 
