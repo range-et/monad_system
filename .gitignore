@@ -27,3 +27,6 @@ Thumbs.db
 # Cursor internal
 .cursor/.DS_Store
 .cursor/skills/.DS_Store
+
+# Playwright MCP session data
+.playwright-mcp/

@@ -38,6 +38,13 @@ from templates.motion_template import (
     create_motion_swiftui,
     create_motion_js,
 )
+from templates.cpp_template import (
+    create_cpp_palette_header,
+    create_cpp_motion_header,
+    create_cpp_umbrella_header,
+    create_cpp_library_properties,
+    create_cpp_keywords,
+)
 
 
 def load_json(json_path):
@@ -533,6 +540,43 @@ def prepare_templates(json_data):
     motion_csharp  = create_motion_csharp(motion)
     motion_swiftui = create_motion_swiftui(motion)
 
+    # --- Build: C++ / Arduino headers (palette + motion + lib metadata) ---
+    cpp_palette = create_cpp_palette_header(
+        bg_dark=background_color,
+        layer01_dark=layer01_dark,
+        layer02_dark=layer02_dark,
+        layer03_dark=layer03_dark,
+        text_primary_dark=primary_text_color,
+        text_secondary_dark=secondary_text_color,
+        text_disabled_dark=text_disabled_dark,
+        border_dark=border_dark,
+        border_subtle_dark=border_subtle_dark,
+        bg_light=bg_light,
+        layer01_light=layer01_light,
+        layer02_light=layer02_light,
+        layer03_light=layer03_light,
+        text_primary_light=text_primary_light,
+        text_secondary_light=text_secondary_light,
+        text_disabled_light=text_disabled_light,
+        border_light=border_light,
+        border_subtle_light=border_subtle_light,
+        interactive=information_2_color,
+        support_info=information_1_color,
+        support_success=information_3_color,
+        support_warning=warning_color,
+        support_error=alert_color,
+        highlight=highlight_color,
+        disabled=disabled_color,
+        move_start=start_color,
+        move_hand=hand_color,
+        move_foot=foot_color,
+        move_finish=end_color,
+    )
+    cpp_motion             = create_cpp_motion_header(motion)
+    cpp_umbrella           = create_cpp_umbrella_header()
+    cpp_library_properties = create_cpp_library_properties()
+    cpp_keywords           = create_cpp_keywords()
+
     return {
         "css_tokens":    css_tokens,
         "css_library":   css_library,
@@ -556,6 +600,11 @@ def prepare_templates(json_data):
         "motion_python":   motion_python,
         "motion_csharp":   motion_csharp,
         "motion_swiftui":  motion_swiftui,
+        "cpp_palette":            cpp_palette,
+        "cpp_motion":             cpp_motion,
+        "cpp_umbrella":           cpp_umbrella,
+        "cpp_library_properties": cpp_library_properties,
+        "cpp_keywords":           cpp_keywords,
     }
 
 
@@ -615,6 +664,12 @@ if __name__ == "__main__":
             "themes/swiftui/MonadStrata.swift":   code["swiftui_strata"],
             "themes/swiftui/MonadTextures.swift": code["texture_swiftui"],
             "themes/swiftui/MonadMotion.swift":  code["motion_swiftui"],
+            # ── C++ / Arduino header-only library ─────────────────────────────
+            "cpp/Monad/src/Monad.h":         code["cpp_umbrella"],
+            "cpp/Monad/src/MonadPalette.h":  code["cpp_palette"],
+            "cpp/Monad/src/MonadMotion.h":   code["cpp_motion"],
+            "cpp/Monad/library.properties":  code["cpp_library_properties"],
+            "cpp/Monad/keywords.txt":        code["cpp_keywords"],
         }
 
         for filename, content in outputs.items():
@@ -641,6 +696,11 @@ if __name__ == "__main__":
             ("SwiftUI", ["themes/swiftui/MonadStrata.swift",
                          "themes/swiftui/MonadTextures.swift",
                          "themes/swiftui/MonadMotion.swift"]),
+            ("C++ / Arduino", ["cpp/Monad/src/Monad.h",
+                               "cpp/Monad/src/MonadPalette.h",
+                               "cpp/Monad/src/MonadMotion.h",
+                               "cpp/Monad/library.properties",
+                               "cpp/Monad/keywords.txt"]),
         ]
         for group_name, files in groups:
             print(f"\n  [{group_name}]")

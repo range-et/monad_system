@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Monad System</title>
-  <meta name="description" content="Design tokens and generated outputs for HTML, Unity, Python, SwiftUI, VS Code, Ghostty, and Xcode.">
+  <meta name="description" content="Design tokens and generated outputs for HTML, Unity, Python, SwiftUI, VS Code, Ghostty, Xcode, and embedded C++/Arduino.">
   <link rel="stylesheet" href="build/monad.css">
   <script src="build/monad.js"></script>
   <style>
@@ -260,7 +260,7 @@
   <div class="land-hero">
     <div class="land-eyebrow">Design Tokens</div>
     <h1 class="land-headline">Monad<br><span>System</span></h1>
-    <p class="land-lead">Generated from colors.json. Includes CSS, JS, C#, Python, SwiftUI, VS Code, Ghostty, and Xcode outputs.</p>
+    <p class="land-lead">Generated from colors.json. Includes CSS, JS, Unity C#, Python, SwiftUI, VS Code, Ghostty, Xcode, and C++/Arduino outputs.</p>
     <div class="land-actions">
       <a class="atomos-btn atomos-btn--primary" href="samples/dashboard.html">Dashboard Sample</a>
       <a class="atomos-btn atomos-btn--secondary" href="samples/components.html">Components Sample</a>
@@ -374,6 +374,12 @@
           <div class="demo-card__desc">Reference page for buttons, cards, tags, notices, forms, tables, and progress.</div>
           <div class="demo-card__arrow">→ components.html</div>
         </a>
+        <a class="demo-card" href="samples/motion.html">
+          <div class="demo-card__label">Sample 03</div>
+          <div class="demo-card__title">Motion</div>
+          <div class="demo-card__desc">Duration and easing tokens with live previews — <code>--threshold-*</code> across platforms.</div>
+          <div class="demo-card__arrow">→ motion.html</div>
+        </a>
       </div>
     </section>
 
@@ -416,7 +422,7 @@
 <span class="code-kw">&lt;/style&gt;</span></div>
       </div>
 
-      <div style="display:grid; grid-template-columns:1fr 1fr; gap:1px; background:var(--strata-border); margin-top:1px;">
+      <div style="display:grid; grid-template-columns:repeat(auto-fit,minmax(280px,1fr)); gap:1px; background:var(--strata-border); margin-top:1px;">
         <div class="code-panel" style="border:none;">
           <div class="code-panel__head"><span>Python</span></div>
           <div class="code-panel__body" style="font-size:var(--type-xs);"><span class="code-kw">from</span> build.seaborn_palette <span class="code-kw">import</span> (
@@ -436,6 +442,18 @@ Color sig = ColorPalette.Information2;
 <span class="code-cmt">// Light Strata</span>
 Color bgL = ColorPaletteLight.Background;</div>
         </div>
+        <div class="code-panel" style="border:none;">
+          <div class="code-panel__head"><span>C++ / Arduino</span></div>
+          <div class="code-panel__body" style="font-size:var(--type-xs);"><span class="code-cmt">// TFT (Adafruit GFX, TFT_eSPI, LVGL)</span>
+<span class="code-kw">#include</span> <span class="code-str">&lt;Monad.h&gt;</span>
+<span class="code-kw">using namespace</span> monad;
+
+tft.fillScreen(rgb565(theme::BACKGROUND));
+tft.setTextColor(rgb565(theme::TEXT_PRIMARY));
+
+<span class="code-cmt">// Mono e-ink / OLED — one token, one line</span>
+<span class="code-kw">bool</span> ink = !mono(theme::TEXT_PRIMARY);</div>
+        </div>
       </div>
     </section>
 
@@ -450,7 +468,7 @@ Color bgL = ColorPaletteLight.Background;</div>
         </div>
         <div class="artifact-row">
           <span class="artifact-row__file">build/monad.js</span>
-          <span class="artifact-row__desc">Theme toggle and navigation helpers.</span>
+          <span class="artifact-row__desc">Theme toggle, nav, and motion tokens on <code>window.MN</code>.</span>
           <span class="atomos-tag atomos-tag--info">JS</span>
         </div>
         <div class="artifact-row">
@@ -469,9 +487,44 @@ Color bgL = ColorPaletteLight.Background;</div>
           <span class="atomos-tag atomos-tag--warning">C# · light</span>
         </div>
         <div class="artifact-row">
+          <span class="artifact-row__file">build/TexturePatterns.cs</span>
+          <span class="artifact-row__desc">Unity <code>Texture2D</code> pattern generators.</span>
+          <span class="atomos-tag atomos-tag--neutral">C# · textures</span>
+        </div>
+        <div class="artifact-row">
+          <span class="artifact-row__file">build/MotionTokens.cs</span>
+          <span class="artifact-row__desc">Unity motion constants and easing curves.</span>
+          <span class="atomos-tag atomos-tag--neutral">C# · motion</span>
+        </div>
+        <div class="artifact-row">
           <span class="artifact-row__file">build/seaborn_palette.py</span>
-          <span class="artifact-row__desc">matplotlib and seaborn palette helpers.</span>
+          <span class="artifact-row__desc">matplotlib and seaborn palette, textures, and motion helpers.</span>
           <span class="atomos-tag atomos-tag--info">Python · dual</span>
+        </div>
+        <div class="artifact-row">
+          <span class="artifact-row__file">build/themes/swiftui/</span>
+          <span class="artifact-row__desc">SwiftUI adaptive <code>Color</code>, textures, and motion tokens.</span>
+          <span class="atomos-tag atomos-tag--info">SwiftUI · dual</span>
+        </div>
+        <div class="artifact-row">
+          <span class="artifact-row__file">build/themes/vscode/</span>
+          <span class="artifact-row__desc">VS Code / Cursor theme extension — <code>make install-vscode</code>.</span>
+          <span class="atomos-tag atomos-tag--info">VS Code · dual</span>
+        </div>
+        <div class="artifact-row">
+          <span class="artifact-row__file">build/themes/ghostty/</span>
+          <span class="artifact-row__desc">Ghostty terminal themes — <code>make install-ghostty</code>.</span>
+          <span class="atomos-tag atomos-tag--info">Ghostty · dual</span>
+        </div>
+        <div class="artifact-row">
+          <span class="artifact-row__file">build/themes/xcode/</span>
+          <span class="artifact-row__desc">Xcode font and color themes — <code>make install-xcode</code>.</span>
+          <span class="atomos-tag atomos-tag--info">Xcode · dual</span>
+        </div>
+        <div class="artifact-row">
+          <span class="artifact-row__file">build/cpp/Monad/</span>
+          <span class="artifact-row__desc">Header-only Arduino library — RGB888 source, constexpr RGB565 / gray8 / mono for TFT, OLED, and e-ink.</span>
+          <span class="atomos-tag atomos-tag--info">C++ · Arduino · dual</span>
         </div>
       </div>
     </section>
