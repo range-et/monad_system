@@ -147,6 +147,3 @@ apply_dark_theme()
 git submodule add https://github.com/range-et/monad_system.git design-tokens
 ```
 
-## Cursor skill
-
-`.cursor/skills/monad-system/SKILL.md`

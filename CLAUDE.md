@@ -71,6 +71,3 @@ colors.json → src/compile_color.py → src/templates/*_template.py → build/
 
 Tests (`tests/test_compile_color_pipeline.py`) verify cross-platform color propagation: that tokens from `colors.json` appear correctly in CSS, C#, Python, SwiftUI, VS Code, Ghostty, Xcode, and C++/Arduino output. Tests call `prepare_templates()` and inspect the returned artifact dictionary.
 
-## Detailed Skill Reference
-
-See `.cursor/skills/monad-system/SKILL.md` for comprehensive component API documentation (HTML markup patterns, CSS classes, variants, and platform integration examples).
