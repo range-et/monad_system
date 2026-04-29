@@ -1,5 +1,8 @@
 ---
 tags: [project, monad-system, readme, design-system, modularity]
+status: shipped
+domain: code-tools
+repo: https://github.com/range-et/monad_system
 ---
 
 # Monad System
