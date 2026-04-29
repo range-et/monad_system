@@ -1,0 +1,9 @@
+# Mirrored into Assemblage/_Projects/monad_system/
+include = [
+    "README.md",
+]
+exclude = [
+    "CLAUDE.md",
+    "build/**",
+    "samples/**",
+]
