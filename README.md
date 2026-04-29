@@ -1,3 +1,7 @@
+---
+tags: [project, monad-system, readme, design-system, modularity]
+---
+
 # Monad System
 
 **Site:** [range-et.github.io/monad_system](https://range-et.github.io/monad_system/)
