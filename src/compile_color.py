@@ -45,6 +45,12 @@ from templates.cpp_template import (
     create_cpp_library_properties,
     create_cpp_keywords,
 )
+from templates.streamlit_template import (
+    create_streamlit_config,
+    create_streamlit_config_light,
+    create_streamlit_helper,
+    create_streamlit_readme,
+)
 
 
 def load_json(json_path):
@@ -583,6 +589,63 @@ def prepare_templates(json_data):
     cpp_library_properties = create_cpp_library_properties()
     cpp_keywords           = create_cpp_keywords()
 
+    # --- Build: Streamlit theme (config.toml + helper module) ────────────────
+    streamlit_config = create_streamlit_config(
+        bg_dark=background_color,
+        layer01_dark=layer01_dark,
+        layer02_dark=layer02_dark,
+        text_primary_dark=primary_text_color,
+        border_dark=border_dark,
+        interactive=information_2_color,
+        interactive_hover=ia_hover,
+        support_error=alert_color,
+        bg_light=bg_light,
+        layer01_light=layer01_light,
+        layer02_light=layer02_light,
+        text_primary_light=text_primary_light,
+        border_light=border_light,
+        interactive_light=ia_hover,
+    )
+    streamlit_config_light = create_streamlit_config_light(
+        bg_light=bg_light,
+        layer01_light=layer01_light,
+        layer02_light=layer02_light,
+        text_primary_light=text_primary_light,
+        border_light=border_light,
+        interactive_light=ia_hover,
+    )
+    streamlit_helper = create_streamlit_helper(
+        bg_dark=background_color,
+        layer01_dark=layer01_dark,
+        layer02_dark=layer02_dark,
+        layer03_dark=layer03_dark,
+        text_primary_dark=primary_text_color,
+        text_secondary_dark=secondary_text_color,
+        text_disabled_dark=text_disabled_dark,
+        border_dark=border_dark,
+        border_subtle_dark=border_subtle_dark,
+        bg_light=bg_light,
+        layer01_light=layer01_light,
+        layer02_light=layer02_light,
+        layer03_light=layer03_light,
+        text_primary_light=text_primary_light,
+        text_secondary_light=text_secondary_light,
+        text_disabled_light=text_disabled_light,
+        border_light=border_light,
+        border_subtle_light=border_subtle_light,
+        interactive=information_2_color,
+        interactive_hover=ia_hover,
+        interactive_active=ia_active,
+        interactive_light=ia_hover,
+        support_info=information_1_color,
+        support_success=information_3_color,
+        support_warning=warning_color,
+        support_error=alert_color,
+        highlight=highlight_color,
+        disabled=disabled_color,
+    )
+    streamlit_readme = create_streamlit_readme()
+
     return {
         "css_tokens":    css_tokens,
         "css_library":   css_library,
@@ -611,6 +674,10 @@ def prepare_templates(json_data):
         "cpp_umbrella":           cpp_umbrella,
         "cpp_library_properties": cpp_library_properties,
         "cpp_keywords":           cpp_keywords,
+        "streamlit_config":       streamlit_config,
+        "streamlit_config_light": streamlit_config_light,
+        "streamlit_helper":       streamlit_helper,
+        "streamlit_readme":       streamlit_readme,
     }
 
 
@@ -676,6 +743,11 @@ if __name__ == "__main__":
             "cpp/Monad/src/MonadMotion.h":   code["cpp_motion"],
             "cpp/Monad/library.properties":  code["cpp_library_properties"],
             "cpp/Monad/keywords.txt":        code["cpp_keywords"],
+            # ── Streamlit theme ───────────────────────────────────────────────
+            "themes/streamlit/config.toml":        code["streamlit_config"],
+            "themes/streamlit/config-light.toml":  code["streamlit_config_light"],
+            "themes/streamlit/monad_streamlit.py": code["streamlit_helper"],
+            "themes/streamlit/README.md":          code["streamlit_readme"],
         }
 
         for filename, content in outputs.items():
@@ -707,6 +779,10 @@ if __name__ == "__main__":
                                "cpp/Monad/src/MonadMotion.h",
                                "cpp/Monad/library.properties",
                                "cpp/Monad/keywords.txt"]),
+            ("Streamlit", ["themes/streamlit/config.toml",
+                           "themes/streamlit/config-light.toml",
+                           "themes/streamlit/monad_streamlit.py",
+                           "themes/streamlit/README.md"]),
         ]
         for group_name, files in groups:
             print(f"\n  [{group_name}]")

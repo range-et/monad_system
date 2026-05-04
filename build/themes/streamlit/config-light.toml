@@ -1,0 +1,24 @@
+# Monad System — Streamlit theme (Light)
+# Generated from colors.json on 2026-05-04
+#
+# Drop into your app at: .streamlit/config.toml
+
+[theme]
+base                     = "light"
+primaryColor             = "#1973AA"
+backgroundColor          = "#F2F4F7"
+secondaryBackgroundColor = "#EDF1F5"
+textColor                = "#141A22"
+linkColor                = "#1973AA"
+borderColor              = "#BCC6D2"
+codeBackgroundColor      = "#ffffff"
+font                     = "sans serif"
+codeFont                 = "monospace"
+baseRadius               = "none"
+showWidgetBorder         = true
+
+[theme.sidebar]
+backgroundColor          = "#ffffff"
+secondaryBackgroundColor = "#EDF1F5"
+textColor                = "#141A22"
+borderColor              = "#BCC6D2"

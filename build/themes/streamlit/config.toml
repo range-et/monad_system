@@ -1,0 +1,49 @@
+# Monad System — Streamlit theme
+# Generated from colors.json on 2026-05-04
+#
+# Drop into your app at: .streamlit/config.toml
+# The default [theme] below is the Monad dark theme. To switch to light,
+# either copy config-light.toml over this file, or copy the values from
+# the [theme.light] reference block at the bottom of this file into [theme].
+#
+# For programmatic, per-page styling (Atomos surfaces, borders, focus rings)
+# call ``apply_monad_theme()`` from ``monad_streamlit.py`` in your app.
+
+[theme]
+base                     = "dark"
+primaryColor             = "#1E88C8"
+backgroundColor          = "#0F1113"
+secondaryBackgroundColor = "#1F242B"
+textColor                = "#EEF2F6"
+linkColor                = "#1973AA"
+borderColor              = "#3A434F"
+codeBackgroundColor      = "#171A1E"
+font                     = "sans serif"
+codeFont                 = "monospace"
+baseRadius               = "none"
+showWidgetBorder         = true
+
+[theme.sidebar]
+backgroundColor          = "#171A1E"
+secondaryBackgroundColor = "#1F242B"
+textColor                = "#EEF2F6"
+borderColor              = "#3A434F"
+
+# ── Reference: Monad Light theme ─────────────────────────────────────────────
+# These values mirror Light_Mode in colors.json. To activate, paste them into
+# the [theme] block above (replacing the dark values), or replace this file
+# with config-light.toml.
+#
+# [theme]
+# base                     = "light"
+# primaryColor             = "#1973AA"
+# backgroundColor          = "#F2F4F7"
+# secondaryBackgroundColor = "#EDF1F5"
+# textColor                = "#141A22"
+# linkColor                = "#1973AA"
+# borderColor              = "#BCC6D2"
+# codeBackgroundColor      = "#ffffff"
+# font                     = "sans serif"
+# codeFont                 = "monospace"
+# baseRadius               = "none"
+# showWidgetBorder         = true

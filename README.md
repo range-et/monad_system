@@ -25,7 +25,7 @@ This is enforced by pipeline tests:
 python -m unittest discover -s tests -p 'test_*.py' -q
 ```
 
-The tests verify token propagation across CSS, C#, Python, SwiftUI, VS Code, Ghostty, Xcode, and C++/Arduino outputs.
+The tests verify token propagation across CSS, C#, Python, SwiftUI, VS Code, Ghostty, Xcode, C++/Arduino, and Streamlit outputs.
 
 ## Tiers
 
@@ -60,6 +60,7 @@ python src/compile_color.py --json_path colors.json --output_path build/
 | `build/themes/ghostty/` | Ghostty |
 | `build/themes/xcode/` | Xcode editor themes |
 | `build/cpp/Monad/` | C++ / Arduino — header-only library (TFT, OLED, e-ink) |
+| `build/themes/streamlit/` | Streamlit — `config.toml` + `monad_streamlit.py` helper |
 
 ```bash
 make serve          # localhost:8000
@@ -128,12 +129,31 @@ from build.seaborn_palette import apply_dark_theme, CATEGORICAL
 apply_dark_theme()
 ```
 
+## Streamlit
+
+```bash
+mkdir -p your_app/.streamlit
+cp build/themes/streamlit/config.toml         your_app/.streamlit/config.toml
+cp build/themes/streamlit/monad_streamlit.py  your_app/
+```
+
+```python
+import streamlit as st
+from monad_streamlit import apply_monad_theme
+
+st.set_page_config(layout="wide")
+apply_monad_theme("dark")        # or "light"
+```
+
+`config.toml` configures the native Streamlit `[theme]` block; `apply_monad_theme()` then injects the full `--strata-*` token set plus Atomos surface styles (squared corners, mono labels, focus rings, reduced-motion). `get_tokens(mode)` returns the same colors as a dict for Plotly / Altair / Matplotlib.
+
 ## Samples
 
 | Path |
 |---|
 | `samples/components.html` |
 | `samples/dashboard.html` |
+| `samples/motion.html` |
 
 ## `colors.json`
 

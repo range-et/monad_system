@@ -118,16 +118,27 @@ def create_texture_css_fragment(textures_data):
     ids = [tid for tid in ordered if tid in uris]
 
     # -- Strata tokens --
+    # SVG bodies are encoded with fill='black'/stroke='black' so they paint a
+    # solid alpha mask. Two parallel token sets are emitted:
+    #   --strata-texture-{id}       → background-image (legacy / printable)
+    #   --strata-texture-mask-{id}  → mask-image       (theme-driven color)
+    # The Atomos utility uses the mask form so the texture inherits the
+    # current `--strata-text-*` token and stays visible on both dark and
+    # light surfaces.
     token_lines = []
     for tid in ids:
         token_lines.append(f"  --strata-texture-{tid}: {uris[tid]};")
+        token_lines.append(f"  --strata-texture-mask-{tid}: {uris[tid]};")
     tokens_block = "\n".join(token_lines)
 
     # -- Atomos utility classes --
     class_lines = []
     for tid in ids:
         class_lines.append(
-            f".atomos-texture--{tid} {{ background-image: var(--strata-texture-{tid}); }}"
+            f".atomos-texture--{tid} {{\n"
+            f"  -webkit-mask-image: var(--strata-texture-mask-{tid});\n"
+            f"          mask-image: var(--strata-texture-mask-{tid});\n"
+            f"}}"
         )
     classes_block = "\n".join(class_lines)
 
@@ -142,10 +153,18 @@ def create_texture_css_fragment(textures_data):
 
 /* =========================================================================
    ATOMOS — TEXTURE UTILITIES
+   -------------------------------------------------------------------------
+   Patterns render via ``mask-image`` so the visible color comes from the
+   current theme token (``--strata-text-secondary`` by default). Override
+   on a per-element basis with ``background-color`` or by setting
+   ``--strata-texture-color``. Works on dark and light surfaces.
    ========================================================================= */
 .atomos-texture {{
-  background-repeat: repeat;
-  background-size: auto;
+  background-color: var(--strata-texture-color, var(--strata-text-secondary));
+  -webkit-mask-repeat: repeat;
+          mask-repeat: repeat;
+  -webkit-mask-size: auto;
+          mask-size: auto;
 }}
 {classes_block}
 """
