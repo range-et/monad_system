@@ -174,3 +174,7 @@ apply_monad_theme("dark")        # or "light"
 git submodule add https://github.com/range-et/monad_system.git design-tokens
 ```
 
+## References
+
+- [SCENESCAPES (uispace.org)](https://uispace.org/) — cinematic FUI gallery; reference for HUD, terminal, and dashboard aesthetics.
+

@@ -628,6 +628,300 @@ class CompileColorPipelineTests(unittest.TestCase):
         self.assertIn("BACKGROUND\tLITERAL1", kw)
         self.assertIn("monad\tKEYWORD1", kw)
 
+    # ── Streamlit tests ────────────────────────────────────────────────────
+
+    def test_streamlit_artifacts_emitted(self):
+        outputs = cc.prepare_templates(self._load_colors())
+        for key in ("streamlit_config", "streamlit_config_light",
+                    "streamlit_helper", "streamlit_readme"):
+            self.assertIn(key, outputs)
+            self.assertTrue(outputs[key], f"{key} should be non-empty")
+
+    def test_streamlit_dark_config_uses_dark_tokens(self):
+        data = self._load_colors()
+        outputs = cc.prepare_templates(data)
+        cfg = outputs["streamlit_config"]
+
+        d = data["Default_Colors"]["General_UI_Colors"]
+        bg = d["Background"]["hex"]
+        layer02 = d["Layer_02"]["hex"]
+        text = d["Primary_Text"]["hex"]
+        border = d["Border"]["hex"]
+
+        self.assertIn("[theme]", cfg)
+        self.assertIn('base                     = "dark"', cfg)
+        self.assertIn(f'backgroundColor          = "{bg}"', cfg)
+        self.assertIn(f'secondaryBackgroundColor = "{layer02}"', cfg)
+        self.assertIn(f'textColor                = "{text}"', cfg)
+        self.assertIn(f'borderColor              = "{border}"', cfg)
+        self.assertIn('baseRadius               = "none"', cfg)
+
+    def test_streamlit_light_config_uses_light_tokens(self):
+        data = self._load_colors()
+        outputs = cc.prepare_templates(data)
+        light = outputs["streamlit_config_light"]
+
+        l = data["Light_Mode"]["General_UI_Colors"]
+        self.assertIn('base                     = "light"', light)
+        self.assertIn(f'backgroundColor          = "{l["Background"]["hex"]}"', light)
+        self.assertIn(f'secondaryBackgroundColor = "{l["Layer_02"]["hex"]}"', light)
+        self.assertIn(f'textColor                = "{l["Primary_Text"]["hex"]}"', light)
+        self.assertIn(f'borderColor              = "{l["Border"]["hex"]}"', light)
+        self.assertIn('baseRadius               = "none"', light)
+
+    def test_streamlit_helper_exposes_apply_and_token_tables(self):
+        outputs = cc.prepare_templates(self._load_colors())
+        helper = outputs["streamlit_helper"]
+
+        self.assertIn("def apply_monad_theme(", helper)
+        self.assertIn("DARK_TOKENS", helper)
+        self.assertIn("LIGHT_TOKENS", helper)
+        self.assertIn("import streamlit as st", helper)
+        self.assertIn('"background":', helper)
+        self.assertIn('"layer-01":', helper)
+        self.assertIn('"layer-02":', helper)
+        self.assertIn('"layer-03":', helper)
+        self.assertIn('"text-primary":', helper)
+        self.assertIn('"border":', helper)
+
+    def test_streamlit_dark_token_propagates_from_json(self):
+        data = self._load_colors()
+        modified = copy.deepcopy(data)
+        bg = "#102030"
+        modified["Default_Colors"]["General_UI_Colors"]["Background"]["hex"] = bg
+        outputs = cc.prepare_templates(modified)
+
+        self.assertIn(f'backgroundColor          = "{bg}"',
+                      outputs["streamlit_config"])
+        self.assertIn(f'"background":       "{bg}"',
+                      outputs["streamlit_helper"])
+
+    def test_streamlit_light_token_propagates_from_json(self):
+        data = self._load_colors()
+        modified = copy.deepcopy(data)
+        light_bg = "#ECEFF4"
+        modified["Light_Mode"]["General_UI_Colors"]["Background"]["hex"] = light_bg
+        outputs = cc.prepare_templates(modified)
+
+        self.assertIn(f'backgroundColor          = "{light_bg}"',
+                      outputs["streamlit_config_light"])
+        self.assertIn(f'"background":       "{light_bg}"',
+                      outputs["streamlit_helper"])
+
+    def test_streamlit_readme_documents_artifacts(self):
+        outputs = cc.prepare_templates(self._load_colors())
+        readme = outputs["streamlit_readme"]
+        for token in ("config.toml", "config-light.toml",
+                      "monad_streamlit.py", "apply_monad_theme"):
+            self.assertIn(token, readme,
+                          f"streamlit README missing reference to {token}")
+
+    # ── HTML showcase tests (dashboard + motion) ───────────────────────────
+
+    def test_dashboard_html_references_strata_tokens(self):
+        html_path = REPO_ROOT / "samples" / "dashboard.html"
+        html = html_path.read_text(encoding="utf-8")
+        for token in ("--strata-bg", "--strata-layer-01", "--strata-layer-02",
+                      "--strata-border", "--strata-border-subtle",
+                      "--strata-text-primary", "--strata-text-secondary",
+                      "--strata-text-disabled",
+                      "--strata-interactive", "--strata-on-interactive",
+                      "--strata-info", "--strata-success",
+                      "--strata-warning", "--strata-error",
+                      "--threshold-fast"):
+            self.assertIn(token, html,
+                          f"dashboard.html missing token {token}")
+
+    def test_motion_html_references_threshold_tokens(self):
+        html_path = REPO_ROOT / "samples" / "motion.html"
+        html = html_path.read_text(encoding="utf-8")
+        # Motion page must reference the duration + easing tokens it showcases
+        for token in ("--threshold-duration-fast",
+                      "--threshold-duration-base",
+                      "--threshold-duration-slow",
+                      "--threshold-duration-slower",
+                      "--threshold-ease-linear",
+                      "--threshold-ease-out",
+                      "--threshold-ease-in",
+                      "--threshold-ease-in-out"):
+            self.assertIn(token, html,
+                          f"motion.html missing token {token}")
+        # Plus the strata surface tokens used to render the demos
+        for token in ("--strata-layer-01", "--strata-layer-02",
+                      "--strata-interactive", "--strata-text-primary",
+                      "--strata-border"):
+            self.assertIn(token, html,
+                          f"motion.html missing strata token {token}")
+
+    # ── VS Code package.json metadata ──────────────────────────────────────
+
+    def test_vscode_package_json_is_valid_and_lists_both_themes(self):
+        import json as _json
+        outputs = cc.prepare_templates(self._load_colors())
+        pkg = _json.loads(outputs["vscode_pkg"])
+
+        # Required VS Code extension fields
+        for field in ("name", "displayName", "version", "publisher",
+                      "engines", "categories", "contributes"):
+            self.assertIn(field, pkg, f"package.json missing {field}")
+
+        self.assertIn("Themes", pkg["categories"])
+        self.assertIn("vscode", pkg["engines"])
+
+        themes = pkg["contributes"].get("themes", [])
+        self.assertEqual(len(themes), 2,
+                         "package.json must contribute both dark + light themes")
+
+        labels = {t.get("label") for t in themes}
+        self.assertEqual(labels, {"Monad Dark", "Monad Light"})
+
+        # Each theme entry must declare a uiTheme + path
+        for entry in themes:
+            self.assertIn("uiTheme", entry)
+            self.assertIn("path", entry)
+            self.assertTrue(entry["path"].endswith(".json"))
+
+        # Dark→vs-dark, Light→vs
+        by_label = {t["label"]: t for t in themes}
+        self.assertEqual(by_label["Monad Dark"]["uiTheme"], "vs-dark")
+        self.assertEqual(by_label["Monad Light"]["uiTheme"], "vs")
+
+    def test_vscode_readme_and_license_non_empty(self):
+        outputs = cc.prepare_templates(self._load_colors())
+        # README references both themes by name
+        self.assertIn("Monad Dark", outputs["vscode_readme"])
+        self.assertIn("Monad Light", outputs["vscode_readme"])
+        # LICENSE has a recognizable header
+        license_text = outputs["vscode_license"]
+        self.assertTrue(len(license_text) > 200,
+                        "LICENSE looks suspiciously short")
+
+    # ── draw.io exporter tests ─────────────────────────────────────────────
+
+    def test_drawio_artifacts_emitted(self):
+        outputs = cc.prepare_templates(self._load_colors())
+        for key in ("drawio_styles_json", "drawio_stylesheet",
+                    "drawio_example", "drawio_readme"):
+            self.assertIn(key, outputs)
+            self.assertTrue(outputs[key], f"{key} should be non-empty")
+
+    def test_drawio_styles_json_is_valid_and_themed(self):
+        import json as _json
+        outputs = cc.prepare_templates(self._load_colors())
+        data = _json.loads(outputs["drawio_styles_json"])
+        self.assertIn("dark", data)
+        self.assertIn("light", data)
+
+        expected_tokens = {
+            "monad.surface", "monad.layer-01", "monad.layer-02", "monad.layer-03",
+            "monad.interactive", "monad.info", "monad.success",
+            "monad.warning", "monad.error", "monad.highlight", "monad.disabled",
+            "monad.text-primary", "monad.text-secondary", "monad.text-disabled",
+            "monad.edge", "monad.edge-subtle",
+            "monad.edge-interactive", "monad.edge-dashed",
+            "monad.move-start", "monad.move-hand",
+            "monad.move-foot", "monad.move-finish",
+        }
+        self.assertEqual(set(data["dark"].keys()), expected_tokens)
+        self.assertEqual(set(data["light"].keys()), expected_tokens)
+
+        # Every Monad rule encoded in node styles
+        for token, style in data["dark"].items():
+            if token.startswith("monad.edge") or token.startswith("monad.text"):
+                continue
+            self.assertIn("rounded=0", style, f"{token} must have rounded=0")
+            self.assertIn("shadow=0", style, f"{token} must have shadow=0")
+            self.assertIn("gradient=0", style, f"{token} must have gradient=0")
+
+        # Every edge style is orthogonal and not rounded
+        for token, style in data["dark"].items():
+            if not token.startswith("monad.edge"):
+                continue
+            self.assertIn("edgeStyle=orthogonalEdgeStyle", style)
+            self.assertIn("rounded=0", style)
+
+    def test_drawio_dark_palette_token_propagates(self):
+        import json as _json
+        data = self._load_colors()
+        modified = copy.deepcopy(data)
+        info2 = "#13579B"
+        modified["Default_Colors"]["Information_Indicators"]["Information_2"]["hex"] = info2
+        outputs = cc.prepare_templates(modified)
+        styles = _json.loads(outputs["drawio_styles_json"])
+
+        # interactive node + edge in dark theme use the new hex
+        self.assertIn(f"fillColor={info2}", styles["dark"]["monad.interactive"])
+        self.assertIn(f"strokeColor={info2}", styles["dark"]["monad.interactive"])
+        self.assertIn(f"strokeColor={info2}", styles["dark"]["monad.edge-interactive"])
+        # And in the stylesheet snippet
+        self.assertIn(f'value="{info2}"', outputs["drawio_stylesheet"])
+        # Same token shared across themes — also present in light palette
+        self.assertIn(f"fillColor={info2}", styles["light"]["monad.interactive"])
+
+    def test_drawio_light_layer_token_propagates(self):
+        import json as _json
+        data = self._load_colors()
+        modified = copy.deepcopy(data)
+        layer1_light = "#F1F2F3"
+        modified["Light_Mode"]["General_UI_Colors"]["Layer_01"]["hex"] = layer1_light
+        outputs = cc.prepare_templates(modified)
+        styles = _json.loads(outputs["drawio_styles_json"])
+
+        self.assertIn(f"fillColor={layer1_light}", styles["light"]["monad.layer-01"])
+        # Dark layer-01 unchanged
+        self.assertNotIn(f"fillColor={layer1_light}",
+                         styles["dark"]["monad.layer-01"])
+
+    def test_drawio_stylesheet_is_valid_xml(self):
+        import xml.etree.ElementTree as ET
+        outputs = cc.prepare_templates(self._load_colors())
+        tree = ET.fromstring(outputs["drawio_stylesheet"])
+        self.assertEqual(tree.tag, "mxStylesheet")
+
+        # Each style entry is wrapped in <add as="monad.*">
+        names = {add.get("as") for add in tree.findall("./styles/add")}
+        self.assertIn("monad.layer-01", names)
+        self.assertIn("monad.interactive", names)
+        self.assertIn("monad.edge", names)
+
+    def test_drawio_example_passes_plugin_validation_rules(self):
+        """Mirrors the validation in
+        Desktop/drawio-amp/.amp/plugins/drawio.ts (ensureMxGraphModel +
+        edge geometry rule). The example must be drop-in safe to feed
+        into the drawio_create tool.
+        """
+        import xml.etree.ElementTree as ET
+        outputs = cc.prepare_templates(self._load_colors())
+        xml = outputs["drawio_example"].strip()
+
+        # Rule 1: must start with <mxGraphModel
+        self.assertTrue(xml.startswith("<mxGraphModel"),
+                        f"example must start with <mxGraphModel>, got: {xml[:40]!r}")
+
+        # Rule 2: zero XML comments
+        self.assertNotIn("<!--", xml)
+
+        # Rule 3: parses as well-formed XML
+        root = ET.fromstring(xml)
+        self.assertEqual(root.tag, "mxGraphModel")
+
+        # Rule 4: every mxCell with edge="1" has a child
+        # <mxGeometry relative="1" as="geometry" />
+        edges = [c for c in root.iter("mxCell") if c.get("edge") == "1"]
+        self.assertGreater(len(edges), 0, "example should include edge cells")
+        for edge in edges:
+            geom = edge.find("mxGeometry")
+            self.assertIsNotNone(geom, "edge missing <mxGeometry>")
+            self.assertEqual(geom.get("relative"), "1",
+                             "edge geometry must have relative=\"1\"")
+            self.assertEqual(geom.get("as"), "geometry",
+                             "edge geometry must have as=\"geometry\"")
+
+        # Rule 5: every mxCell id is unique
+        ids = [c.get("id") for c in root.iter("mxCell")]
+        self.assertEqual(len(ids), len(set(ids)),
+                         "duplicate mxCell ids in example")
+
 
 if __name__ == "__main__":
     unittest.main()

@@ -51,6 +51,12 @@ from templates.streamlit_template import (
     create_streamlit_helper,
     create_streamlit_readme,
 )
+from templates.drawio_template import (
+    create_drawio_styles_json,
+    create_drawio_stylesheet,
+    create_drawio_example_diagram,
+    create_drawio_readme,
+)
 
 
 def load_json(json_path):
@@ -646,6 +652,84 @@ def prepare_templates(json_data):
     )
     streamlit_readme = create_streamlit_readme()
 
+    # --- Build: draw.io exporter (styles JSON + stylesheet + example) ────────
+    drawio_styles_json = create_drawio_styles_json(
+        bg_dark=background_color,
+        layer01_dark=layer01_dark,
+        layer02_dark=layer02_dark,
+        layer03_dark=layer03_dark,
+        text_primary_dark=primary_text_color,
+        text_secondary_dark=secondary_text_color,
+        text_disabled_dark=text_disabled_dark,
+        border_dark=border_dark,
+        border_subtle_dark=border_subtle_dark,
+        bg_light=bg_light,
+        layer01_light=layer01_light,
+        layer02_light=layer02_light,
+        layer03_light=layer03_light,
+        text_primary_light=text_primary_light,
+        text_secondary_light=text_secondary_light,
+        text_disabled_light=text_disabled_light,
+        border_light=border_light,
+        border_subtle_light=border_subtle_light,
+        interactive=information_2_color,
+        support_info=information_1_color,
+        support_success=information_3_color,
+        support_warning=warning_color,
+        support_error=alert_color,
+        highlight=highlight_color,
+        disabled=disabled_color,
+        move_start=start_color,
+        move_hand=hand_color,
+        move_foot=foot_color,
+        move_finish=end_color,
+    )
+    drawio_stylesheet = create_drawio_stylesheet(
+        bg_dark=background_color,
+        layer01_dark=layer01_dark,
+        layer02_dark=layer02_dark,
+        layer03_dark=layer03_dark,
+        text_primary_dark=primary_text_color,
+        text_secondary_dark=secondary_text_color,
+        text_disabled_dark=text_disabled_dark,
+        border_dark=border_dark,
+        border_subtle_dark=border_subtle_dark,
+        interactive=information_2_color,
+        support_info=information_1_color,
+        support_success=information_3_color,
+        support_warning=warning_color,
+        support_error=alert_color,
+        highlight=highlight_color,
+        disabled=disabled_color,
+        move_start=start_color,
+        move_hand=hand_color,
+        move_foot=foot_color,
+        move_finish=end_color,
+    )
+    drawio_example = create_drawio_example_diagram(
+        bg_dark=background_color,
+        layer01_dark=layer01_dark,
+        layer02_dark=layer02_dark,
+        layer03_dark=layer03_dark,
+        text_primary_dark=primary_text_color,
+        text_secondary_dark=secondary_text_color,
+        text_disabled_dark=text_disabled_dark,
+        border_dark=border_dark,
+        border_subtle_dark=border_subtle_dark,
+        interactive=information_2_color,
+        support_info=information_1_color,
+        support_success=information_3_color,
+        support_warning=warning_color,
+        support_error=alert_color,
+        highlight=highlight_color,
+        disabled=disabled_color,
+        move_start=start_color,
+        move_hand=hand_color,
+        move_foot=foot_color,
+        move_finish=end_color,
+    )
+    drawio_readme = create_drawio_readme()
+
     return {
         "css_tokens":    css_tokens,
         "css_library":   css_library,
@@ -678,6 +762,10 @@ def prepare_templates(json_data):
         "streamlit_config_light": streamlit_config_light,
         "streamlit_helper":       streamlit_helper,
         "streamlit_readme":       streamlit_readme,
+        "drawio_styles_json": drawio_styles_json,
+        "drawio_stylesheet":  drawio_stylesheet,
+        "drawio_example":     drawio_example,
+        "drawio_readme":      drawio_readme,
     }
 
 
@@ -748,6 +836,11 @@ if __name__ == "__main__":
             "themes/streamlit/config-light.toml":  code["streamlit_config_light"],
             "themes/streamlit/monad_streamlit.py": code["streamlit_helper"],
             "themes/streamlit/README.md":          code["streamlit_readme"],
+            # ── draw.io exporter ──────────────────────────────────────────────
+            "themes/drawio/monad-drawio-styles.json":    code["drawio_styles_json"],
+            "themes/drawio/monad-drawio-stylesheet.xml": code["drawio_stylesheet"],
+            "themes/drawio/monad-drawio-example.drawio": code["drawio_example"],
+            "themes/drawio/README.md":                   code["drawio_readme"],
         }
 
         for filename, content in outputs.items():
@@ -783,6 +876,10 @@ if __name__ == "__main__":
                            "themes/streamlit/config-light.toml",
                            "themes/streamlit/monad_streamlit.py",
                            "themes/streamlit/README.md"]),
+            ("draw.io", ["themes/drawio/monad-drawio-styles.json",
+                         "themes/drawio/monad-drawio-stylesheet.xml",
+                         "themes/drawio/monad-drawio-example.drawio",
+                         "themes/drawio/README.md"]),
         ]
         for group_name, files in groups:
             print(f"\n  [{group_name}]")

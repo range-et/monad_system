@@ -4,7 +4,7 @@ monad_streamlit.py
 
 Apply the Monad System design language to a Streamlit app.
 
-Generated from colors.json on 2026-05-04.
+Generated from colors.json on 2026-05-12.
 
 Usage
 -----

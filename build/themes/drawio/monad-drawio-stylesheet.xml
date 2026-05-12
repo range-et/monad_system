@@ -1,0 +1,238 @@
+<mxStylesheet>
+  <styles>
+    <add as="monad.surface">
+        <add as="rounded" value="0"/>
+        <add as="whiteSpace" value="wrap"/>
+        <add as="html" value="1"/>
+        <add as="shadow" value="0"/>
+        <add as="gradient" value="0"/>
+        <add as="strokeWidth" value="1"/>
+        <add as="fillColor" value="#0F1113"/>
+        <add as="strokeColor" value="#3A434F"/>
+        <add as="fontColor" value="#EEF2F6"/>
+    </add>
+    <add as="monad.layer-01">
+        <add as="rounded" value="0"/>
+        <add as="whiteSpace" value="wrap"/>
+        <add as="html" value="1"/>
+        <add as="shadow" value="0"/>
+        <add as="gradient" value="0"/>
+        <add as="strokeWidth" value="1"/>
+        <add as="fillColor" value="#171A1E"/>
+        <add as="strokeColor" value="#2B323A"/>
+        <add as="fontColor" value="#EEF2F6"/>
+    </add>
+    <add as="monad.layer-02">
+        <add as="rounded" value="0"/>
+        <add as="whiteSpace" value="wrap"/>
+        <add as="html" value="1"/>
+        <add as="shadow" value="0"/>
+        <add as="gradient" value="0"/>
+        <add as="strokeWidth" value="1"/>
+        <add as="fillColor" value="#1F242B"/>
+        <add as="strokeColor" value="#2B323A"/>
+        <add as="fontColor" value="#EEF2F6"/>
+    </add>
+    <add as="monad.layer-03">
+        <add as="rounded" value="0"/>
+        <add as="whiteSpace" value="wrap"/>
+        <add as="html" value="1"/>
+        <add as="shadow" value="0"/>
+        <add as="gradient" value="0"/>
+        <add as="strokeWidth" value="1"/>
+        <add as="fillColor" value="#2A313A"/>
+        <add as="strokeColor" value="#2B323A"/>
+        <add as="fontColor" value="#EEF2F6"/>
+    </add>
+    <add as="monad.interactive">
+        <add as="rounded" value="0"/>
+        <add as="whiteSpace" value="wrap"/>
+        <add as="html" value="1"/>
+        <add as="shadow" value="0"/>
+        <add as="gradient" value="0"/>
+        <add as="strokeWidth" value="1"/>
+        <add as="fillColor" value="#1E88C8"/>
+        <add as="strokeColor" value="#1E88C8"/>
+        <add as="fontColor" value="#0F1113"/>
+    </add>
+    <add as="monad.info">
+        <add as="rounded" value="0"/>
+        <add as="whiteSpace" value="wrap"/>
+        <add as="html" value="1"/>
+        <add as="shadow" value="0"/>
+        <add as="gradient" value="0"/>
+        <add as="strokeWidth" value="1"/>
+        <add as="fillColor" value="#2B9ED1"/>
+        <add as="strokeColor" value="#2B9ED1"/>
+        <add as="fontColor" value="#0F1113"/>
+    </add>
+    <add as="monad.success">
+        <add as="rounded" value="0"/>
+        <add as="whiteSpace" value="wrap"/>
+        <add as="html" value="1"/>
+        <add as="shadow" value="0"/>
+        <add as="gradient" value="0"/>
+        <add as="strokeWidth" value="1"/>
+        <add as="fillColor" value="#6EAD45"/>
+        <add as="strokeColor" value="#6EAD45"/>
+        <add as="fontColor" value="#0F1113"/>
+    </add>
+    <add as="monad.warning">
+        <add as="rounded" value="0"/>
+        <add as="whiteSpace" value="wrap"/>
+        <add as="html" value="1"/>
+        <add as="shadow" value="0"/>
+        <add as="gradient" value="0"/>
+        <add as="strokeWidth" value="1"/>
+        <add as="fillColor" value="#D7A12A"/>
+        <add as="strokeColor" value="#D7A12A"/>
+        <add as="fontColor" value="#0F1113"/>
+    </add>
+    <add as="monad.error">
+        <add as="rounded" value="0"/>
+        <add as="whiteSpace" value="wrap"/>
+        <add as="html" value="1"/>
+        <add as="shadow" value="0"/>
+        <add as="gradient" value="0"/>
+        <add as="strokeWidth" value="1"/>
+        <add as="fillColor" value="#D64C45"/>
+        <add as="strokeColor" value="#D64C45"/>
+        <add as="fontColor" value="#0F1113"/>
+    </add>
+    <add as="monad.highlight">
+        <add as="rounded" value="0"/>
+        <add as="whiteSpace" value="wrap"/>
+        <add as="html" value="1"/>
+        <add as="shadow" value="0"/>
+        <add as="gradient" value="0"/>
+        <add as="strokeWidth" value="1"/>
+        <add as="fillColor" value="#FFEB3B"/>
+        <add as="strokeColor" value="#FFEB3B"/>
+        <add as="fontColor" value="#EEF2F6"/>
+    </add>
+    <add as="monad.disabled">
+        <add as="rounded" value="0"/>
+        <add as="whiteSpace" value="wrap"/>
+        <add as="html" value="1"/>
+        <add as="shadow" value="0"/>
+        <add as="gradient" value="0"/>
+        <add as="strokeWidth" value="1"/>
+        <add as="fillColor" value="#757575"/>
+        <add as="strokeColor" value="#2B323A"/>
+        <add as="fontColor" value="#7D8794"/>
+    </add>
+    <add as="monad.text-primary">
+        <add as="html" value="1"/>
+        <add as="strokeColor" value="none"/>
+        <add as="fillColor" value="none"/>
+        <add as="align" value="left"/>
+        <add as="verticalAlign" value="middle"/>
+        <add as="fontColor" value="#EEF2F6"/>
+    </add>
+    <add as="monad.text-secondary">
+        <add as="html" value="1"/>
+        <add as="strokeColor" value="none"/>
+        <add as="fillColor" value="none"/>
+        <add as="align" value="left"/>
+        <add as="verticalAlign" value="middle"/>
+        <add as="fontColor" value="#B6BFCC"/>
+    </add>
+    <add as="monad.text-disabled">
+        <add as="html" value="1"/>
+        <add as="strokeColor" value="none"/>
+        <add as="fillColor" value="none"/>
+        <add as="align" value="left"/>
+        <add as="verticalAlign" value="middle"/>
+        <add as="fontColor" value="#7D8794"/>
+    </add>
+    <add as="monad.edge">
+        <add as="edgeStyle" value="orthogonalEdgeStyle"/>
+        <add as="rounded" value="0"/>
+        <add as="orthogonalLoop" value="1"/>
+        <add as="jettySize" value="auto"/>
+        <add as="html" value="1"/>
+        <add as="strokeWidth" value="1"/>
+        <add as="endArrow" value="classic"/>
+        <add as="endFill" value="1"/>
+        <add as="strokeColor" value="#3A434F"/>
+    </add>
+    <add as="monad.edge-subtle">
+        <add as="edgeStyle" value="orthogonalEdgeStyle"/>
+        <add as="rounded" value="0"/>
+        <add as="orthogonalLoop" value="1"/>
+        <add as="jettySize" value="auto"/>
+        <add as="html" value="1"/>
+        <add as="strokeWidth" value="1"/>
+        <add as="endArrow" value="classic"/>
+        <add as="endFill" value="1"/>
+        <add as="strokeColor" value="#2B323A"/>
+    </add>
+    <add as="monad.edge-interactive">
+        <add as="edgeStyle" value="orthogonalEdgeStyle"/>
+        <add as="rounded" value="0"/>
+        <add as="orthogonalLoop" value="1"/>
+        <add as="jettySize" value="auto"/>
+        <add as="html" value="1"/>
+        <add as="strokeWidth" value="1"/>
+        <add as="endArrow" value="classic"/>
+        <add as="endFill" value="1"/>
+        <add as="strokeColor" value="#1E88C8"/>
+    </add>
+    <add as="monad.edge-dashed">
+        <add as="edgeStyle" value="orthogonalEdgeStyle"/>
+        <add as="rounded" value="0"/>
+        <add as="orthogonalLoop" value="1"/>
+        <add as="jettySize" value="auto"/>
+        <add as="html" value="1"/>
+        <add as="strokeWidth" value="1"/>
+        <add as="endArrow" value="classic"/>
+        <add as="endFill" value="1"/>
+        <add as="strokeColor" value="#3A434F"/>
+        <add as="dashed" value="1"/>
+    </add>
+    <add as="monad.move-start">
+        <add as="rounded" value="0"/>
+        <add as="whiteSpace" value="wrap"/>
+        <add as="html" value="1"/>
+        <add as="shadow" value="0"/>
+        <add as="gradient" value="0"/>
+        <add as="strokeWidth" value="1"/>
+        <add as="fillColor" value="#4CAF50"/>
+        <add as="strokeColor" value="#4CAF50"/>
+        <add as="fontColor" value="#0F1113"/>
+    </add>
+    <add as="monad.move-hand">
+        <add as="rounded" value="0"/>
+        <add as="whiteSpace" value="wrap"/>
+        <add as="html" value="1"/>
+        <add as="shadow" value="0"/>
+        <add as="gradient" value="0"/>
+        <add as="strokeWidth" value="1"/>
+        <add as="fillColor" value="#03A9F4"/>
+        <add as="strokeColor" value="#03A9F4"/>
+        <add as="fontColor" value="#0F1113"/>
+    </add>
+    <add as="monad.move-foot">
+        <add as="rounded" value="0"/>
+        <add as="whiteSpace" value="wrap"/>
+        <add as="html" value="1"/>
+        <add as="shadow" value="0"/>
+        <add as="gradient" value="0"/>
+        <add as="strokeWidth" value="1"/>
+        <add as="fillColor" value="#FFEB3B"/>
+        <add as="strokeColor" value="#FFEB3B"/>
+        <add as="fontColor" value="#EEF2F6"/>
+    </add>
+    <add as="monad.move-finish">
+        <add as="rounded" value="0"/>
+        <add as="whiteSpace" value="wrap"/>
+        <add as="html" value="1"/>
+        <add as="shadow" value="0"/>
+        <add as="gradient" value="0"/>
+        <add as="strokeWidth" value="1"/>
+        <add as="fillColor" value="#9C27B0"/>
+        <add as="strokeColor" value="#9C27B0"/>
+        <add as="fontColor" value="#0F1113"/>
+    </add>
+  </styles>
+</mxStylesheet>
