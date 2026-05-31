@@ -380,6 +380,106 @@
           <div class="demo-card__desc">Duration and easing tokens with live previews — <code>--threshold-*</code> across platforms.</div>
           <div class="demo-card__arrow">→ motion.html</div>
         </a>
+        <a class="demo-card" href="benchmark/report.md">
+          <div class="demo-card__label">Sample 04</div>
+          <div class="demo-card__title">Perception Benchmark</div>
+          <div class="demo-card__desc">45 renders × 2 saliency models × 2 metrics. Triangulated ranking — Monad #1 (tied).</div>
+          <div class="demo-card__arrow">→ benchmark/report.md</div>
+        </a>
+      </div>
+    </section>
+
+    <!-- Perception benchmark — headline + validated component live demo.
+         Triangulated across UMSI++ (UEyes-trained, dataset-biased toward UIs)
+         and DeepGazeIIE (MIT1003-trained, free-viewing natural images),
+         on both mass-on-target and z-scored NSS. -->
+    <section id="benchmark">
+      <div class="land-section__label">Perception Benchmark</div>
+      <div style="display:grid; grid-template-columns:1fr 1fr; gap:1px; background:var(--strata-border); margin-bottom:var(--space-3);">
+
+        <!-- Headline -->
+        <div style="background:var(--strata-layer-01); padding:var(--space-4) var(--space-4); display:flex; flex-direction:column; gap:var(--space-2);">
+          <div style="display:flex; align-items:baseline; gap:var(--space-2);">
+            <span style="font-family:var(--font-mono); font-size:var(--type-5xl); font-weight:700; color:var(--strata-text-primary); line-height:1; letter-spacing:-0.03em;">#1</span>
+            <span style="font-family:var(--font-mono); font-size:var(--type-xs); color:var(--strata-text-disabled); text-transform:uppercase; letter-spacing:0.14em;">tied with Material 3</span>
+          </div>
+          <p style="font-size:var(--type-sm); color:var(--strata-text-secondary); margin:0; line-height:1.5;">
+            45 layouts (5 systems × 3 form factors × 3 scenarios) scored by 2 independent saliency
+            models (UMSI++, DeepGazeIIE) on 2 complementary metrics (mass-on-target, z-scored NSS).
+            Monad takes 10 of 36 per-cell wins — the most of any system — and wins outright on the
+            cleanest single lens (DeepGazeIIE / NSS) at 1.79 vs Material's 1.54.
+          </p>
+          <div style="margin-top:var(--space-1); display:flex; gap:var(--space-1); flex-wrap:wrap;">
+            <span class="atomos-tag atomos-tag--info">UMSI++</span>
+            <span class="atomos-tag atomos-tag--info">DeepGazeIIE</span>
+            <span class="atomos-tag atomos-tag--neutral">mass</span>
+            <span class="atomos-tag atomos-tag--neutral">NSS</span>
+            <span class="atomos-tag atomos-tag--neutral">5 systems</span>
+            <span class="atomos-tag atomos-tag--neutral">45 renders</span>
+          </div>
+          <a href="benchmark/report.md" style="margin-top:var(--space-2); font-family:var(--font-mono); font-size:var(--type-xs); color:var(--strata-interactive); text-transform:uppercase; letter-spacing:0.14em;">
+            → Read the report
+          </a>
+        </div>
+
+        <!-- Ranking table -->
+        <div style="background:var(--strata-layer-01); padding:var(--space-4); display:flex; flex-direction:column;">
+          <div style="font-size:var(--type-xs); font-family:var(--font-mono); color:var(--strata-text-disabled); text-transform:uppercase; letter-spacing:0.14em; margin-bottom:var(--space-2);">
+            Triangulated ranking
+          </div>
+          <table class="atomos-table" style="width:100%;">
+            <thead>
+              <tr>
+                <th>Rank</th>
+                <th>System</th>
+                <th style="text-align:right;">Avg rank</th>
+                <th style="text-align:right;">Cell wins</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr style="background:var(--strata-warning-bg);"><td><strong>1</strong></td><td><strong>monad</strong></td><td style="text-align:right;">2.25</td><td style="text-align:right;"><strong>10 / 36</strong></td></tr>
+              <tr><td>1</td><td>material</td><td style="text-align:right;">2.25</td><td style="text-align:right;">9 / 36</td></tr>
+              <tr><td>3</td><td>apple</td><td style="text-align:right;">3.00</td><td style="text-align:right;">5 / 36</td></tr>
+              <tr><td>4</td><td>nasa</td><td style="text-align:right;">3.25</td><td style="text-align:right;">8 / 36</td></tr>
+              <tr><td>5</td><td>carbon</td><td style="text-align:right;">4.25</td><td style="text-align:right;">4 / 36</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+      </div>
+
+      <!-- Live demo: the validated component itself.
+           The .atomos-callout--warning class is the codified "fill, not frame"
+           pattern derived from the benchmark — Material's structural emphasis
+           applied in Monad's NASA-discipline form. -->
+      <div style="display:grid; grid-template-columns:1fr 1.5fr; gap:1px; background:var(--strata-border);">
+
+        <div style="background:var(--strata-layer-01); padding:var(--space-3);">
+          <div style="font-size:var(--type-xs); font-family:var(--font-mono); color:var(--strata-text-disabled); text-transform:uppercase; letter-spacing:0.14em; margin-bottom:var(--space-2);">
+            Validated component
+          </div>
+          <p style="font-size:var(--type-sm); color:var(--strata-text-secondary); margin:0 0 var(--space-2) 0; line-height:1.5;">
+            <code>.atomos-callout</code> — filled tonal status field. The colour <em>is</em> the field.
+            Discipline carried from NASA's 1976 Graphics Standards Manual; structural emphasis pattern
+            validated by the benchmark (84.6% mass-on-target on warnings).
+          </p>
+          <a href="samples/components.html#atomos-callout" style="font-family:var(--font-mono); font-size:var(--type-xs); color:var(--strata-interactive); text-transform:uppercase; letter-spacing:0.14em;">
+            → Reference
+          </a>
+        </div>
+
+        <div class="atomos-callout atomos-callout--warning">
+          <div class="atomos-callout__head">
+            <span>HEART-RATE ZONE</span>
+            <span>Z4 · REDLINE</span>
+          </div>
+          <div class="atomos-callout__body">
+            <h3 class="atomos-callout__headline">168 bpm</h3>
+            <p class="atomos-callout__sub">Climbing toward Z5. Ease off a notch.</p>
+            <a href="samples/components.html#atomos-callout" class="atomos-callout__action"><span>Acknowledge</span></a>
+          </div>
+        </div>
+
       </div>
     </section>
 

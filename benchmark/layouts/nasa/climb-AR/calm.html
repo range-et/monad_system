@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>NASA · Climb AR · Calm</title>
+  <link rel="stylesheet" href="../_tokens.css">
+  <style>
+    html, body { width: 1920px; height: 1080px; overflow: hidden; }
+    body {
+      background-image: url("../../../underlay_rockclimbing.png");
+      background-size: cover;
+      background-position: center;
+    }
+    .scene { position: relative; width: 100%; height: 100%; }
+
+    .nasa-bar {
+      position: absolute; top: 0; left: 0; right: 0;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: var(--nasa-s3) var(--nasa-s4);
+      background: var(--nasa-bg-overlay-quiet);
+      border-bottom: 1px solid var(--nasa-black);
+    }
+    .nasa-bar__id { font-size: var(--nasa-type-md); font-weight: 500; letter-spacing: 0.12em; text-transform: uppercase; color: var(--nasa-black); }
+    .nasa-bar__id .nasa-wordmark { font-size: var(--nasa-type-lg); margin-right: var(--nasa-s3); padding-right: var(--nasa-s3); border-right: 1px solid var(--nasa-black); }
+    .nasa-bar__sys { display: flex; gap: var(--nasa-s2); }
+
+    .hud {
+      position: absolute; left: var(--nasa-s4); bottom: var(--nasa-s4);
+      display: grid; grid-template-columns: 320px 220px 220px 220px;
+      border: 1px solid var(--nasa-black);
+      background: var(--nasa-bg-overlay);
+    }
+    .hud > .nasa-tile + .nasa-tile { border-left: 1px solid var(--nasa-warm-gray); }
+
+    #focal-target { padding: var(--nasa-s4); }
+    #focal-target .nasa-tile__value { font-size: var(--nasa-type-4xl); color: var(--nasa-red); }
+    #focal-target .nasa-tile__unit  { font-size: var(--nasa-type-xl); color: var(--nasa-warm-gray); }
+    #focal-target .nasa-tile__eyebrow { color: var(--nasa-black); font-weight: 700; }
+  </style>
+</head>
+<body>
+  <div class="scene">
+
+    <header class="nasa-bar">
+      <div class="nasa-bar__id">
+        <span class="nasa-wordmark">NASA</span>
+        Climbing Telemetry · Pitch 02
+      </div>
+      <div class="nasa-bar__sys">
+        <span class="nasa-chip"><span class="nasa-pip nasa-pip--blue"></span>Belay On</span>
+        <span class="nasa-chip">Bat 78%</span>
+        <span class="nasa-chip">Wx Clear</span>
+        <span class="nasa-chip">T+ 01:23:45</span>
+      </div>
+    </header>
+
+    <div class="hud">
+      <div id="focal-target" class="nasa-tile" data-focal="primary cadence tile">
+        <p class="nasa-tile__eyebrow">Cadence · Primary</p>
+        <p class="nasa-tile__value">132<span class="nasa-tile__unit">bpm</span></p>
+      </div>
+      <div class="nasa-tile">
+        <p class="nasa-tile__eyebrow">Route</p>
+        <p class="nasa-tile__value" style="font-size:var(--nasa-type-2xl);">12 / 22</p>
+      </div>
+      <div class="nasa-tile">
+        <p class="nasa-tile__eyebrow">Pump</p>
+        <p class="nasa-tile__value" style="font-size:var(--nasa-type-2xl);">42<span class="nasa-tile__unit">%</span></p>
+      </div>
+      <div class="nasa-tile">
+        <p class="nasa-tile__eyebrow">On Wall</p>
+        <p class="nasa-tile__value" style="font-size:var(--nasa-type-2xl);">08:14</p>
+      </div>
+    </div>
+
+  </div>
+</body>
+</html>

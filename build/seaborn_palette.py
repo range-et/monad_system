@@ -32,7 +32,7 @@ PALETTE_DARK = {
     "info":           "#2B9ED1",
     "success":        "#6EAD45",
     "warning":        "#D7A12A",
-    "error":          "#D64C45",
+    "error":          "#E4002B",
     "highlight":      "#FFEB3B",
     "disabled":       "#757575",
 }
@@ -49,7 +49,7 @@ PALETTE_LIGHT = {
     "info":           "#2B9ED1",
     "success":        "#6EAD45",
     "warning":        "#D7A12A",
-    "error":          "#D64C45",
+    "error":          "#E4002B",
     "highlight":      "#FFEB3B",
     "disabled":       "#757575",
 }
@@ -59,7 +59,7 @@ STATUS_COLORS = {
     "info_alt": "#1E88C8",
     "success":  "#6EAD45",
     "warning":  "#D7A12A",
-    "error":    "#D64C45",
+    "error":    "#E4002B",
 }
 
 MOVEMENT_COLORS = {
@@ -76,7 +76,7 @@ CATEGORICAL = [
     "#2B9ED1",
     "#6EAD45",
     "#D7A12A",
-    "#D64C45",
+    "#E4002B",
     "#FFEB3B",
     "#9C27B0",
     "#4CAF50",
@@ -111,7 +111,7 @@ def make_diverging_cmap(name: str = "ds_diverging") -> LinearSegmentedColormap:
 
     Useful for correlation matrices, diff views, and gain/loss charts.
     """
-    colors = ["#D64C45", "#757575", "#6EAD45"]
+    colors = ["#E4002B", "#757575", "#6EAD45"]
     return LinearSegmentedColormap.from_list(name, colors)
 
 

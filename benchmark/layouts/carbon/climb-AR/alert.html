@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Carbon · Climb AR · Alert</title>
+  <link rel="stylesheet" href="../_tokens.css">
+  <style>
+    /* Carbon inline-notification--warning, climb context. The other
+       tiles stay neutral; the warning pattern carries the signal. */
+    html, body { width: 1920px; height: 1080px; overflow: hidden; }
+    body {
+      background-image: url("../../../underlay_rockclimbing.png");
+      background-size: cover;
+      background-position: center;
+    }
+    .scene { position: relative; width: 100%; height: 100%; }
+
+    .cds--header { position: absolute; top: 0; left: 0; right: 0; }
+    .header-chips {
+      display: flex; align-items: center; gap: var(--cds-spacing-03);
+      padding: 0 var(--cds-spacing-05); margin-left: auto;
+    }
+    .header-chips .cds--tag {
+      background: transparent; color: #C6C6C6;
+      border: 1px solid #525252; border-radius: 0;
+      font-family: var(--cds-font-mono); letter-spacing: 0.04em;
+    }
+    .header-chips .cds--tag .cds--tag__dot { background: #42BE65; }
+    .header-chips .cds--tag--warn .cds--tag__dot { background: var(--cds-support-warning); }
+
+    #focal-target {
+      position: absolute;
+      top: 50%; right: var(--cds-spacing-09);
+      transform: translateY(-50%);
+      width: 460px;
+      flex-direction: column;
+      align-items: stretch;
+      background: var(--cds-notification-bg-warning);
+    }
+    #focal-target .cds--inline-notification__row { display: flex; align-items: stretch; }
+    #focal-target .cds--inline-notification__icon {
+      font-size: 24px; padding-top: var(--cds-spacing-05);
+    }
+    #focal-target .cds--inline-notification__details {
+      padding-top: var(--cds-spacing-05);
+      padding-bottom: var(--cds-spacing-05);
+    }
+    #focal-target .cds--inline-notification__title {
+      font-size: var(--cds-heading-03-size);
+      line-height: var(--cds-heading-03-line);
+    }
+    #focal-target .metric {
+      display: flex; align-items: baseline; gap: 8px;
+      font-family: var(--cds-font-mono);
+      margin-top: var(--cds-spacing-03);
+    }
+    #focal-target .metric .v {
+      font-size: 64px; line-height: 1; font-weight: 600;
+      color: var(--cds-text-primary); letter-spacing: -0.02em;
+    }
+    #focal-target .metric .u { font-size: 20px; color: var(--cds-text-secondary); }
+    #focal-target .zone {
+      font-family: var(--cds-font-mono);
+      font-size: 12px; font-weight: 600;
+      letter-spacing: 0.08em; text-transform: uppercase;
+      color: #684E00;
+      margin-top: var(--cds-spacing-02);
+    }
+    #focal-target .bar {
+      margin: var(--cds-spacing-04) var(--cds-spacing-05) var(--cds-spacing-05);
+      height: 4px; background: rgba(0,0,0,0.10);
+    }
+    #focal-target .bar > div { height: 100%; width: 84%; background: var(--cds-support-warning); }
+
+    .hud {
+      position: absolute;
+      left: var(--cds-spacing-06);
+      bottom: var(--cds-spacing-06);
+      display: grid;
+      grid-template-columns: repeat(5, 200px);
+      background: var(--cds-border-subtle-01);
+      gap: 1px;
+      border: 1px solid var(--cds-border-strong-01);
+    }
+    .hud > .cds--tile { background: rgba(255, 255, 255, 0.94); }
+  </style>
+</head>
+<body>
+  <div class="scene">
+
+    <header class="cds--header">
+      <div class="cds--header__name">
+        <span class="cds--header__prefix">IBM</span>
+        <span class="cds--header__title">Climbing telemetry · Pitch 03</span>
+      </div>
+      <nav class="cds--header__nav">
+        <a class="is-active">Live</a>
+        <a>Route</a>
+        <a>Belay</a>
+      </nav>
+      <div class="cds--header__global">
+        <div class="header-chips">
+          <span class="cds--tag"><span class="cds--tag__dot"></span>BELAY ON</span>
+          <span class="cds--tag">BAT 64%</span>
+          <span class="cds--tag cds--tag--warn"><span class="cds--tag__dot"></span>WX CLOUD</span>
+          <span class="cds--tag">T+ 12:47</span>
+        </div>
+        <div class="cds--header__action">◉</div>
+      </div>
+    </header>
+
+    <div id="focal-target"
+         class="cds--inline-notification cds--inline-notification--warning"
+         role="alert" data-focal="HR-zone amber flag">
+      <div class="cds--inline-notification__row">
+        <div class="cds--inline-notification__icon">⚠</div>
+        <div class="cds--inline-notification__details">
+          <p class="cds--inline-notification__title">Heart rate · Zone 4</p>
+          <p class="cds--inline-notification__subtitle">
+            Climbing toward Z5 redline. Pace down before the next move.
+          </p>
+          <div class="metric">
+            <span class="v">168</span>
+            <span class="u">bpm</span>
+          </div>
+          <div class="zone">Threshold · Z4 / Z5 · Action recommended</div>
+        </div>
+      </div>
+      <div class="bar"><div></div></div>
+    </div>
+
+    <div class="hud">
+      <div class="cds--tile">
+        <p class="cds--tile__eyebrow">Route</p>
+        <p class="cds--tile__value" style="font-size:32px;">14 / 22</p>
+      </div>
+      <div class="cds--tile">
+        <p class="cds--tile__eyebrow">Pump</p>
+        <p class="cds--tile__value" style="font-size:32px;">78<span class="cds--tile__unit">%</span></p>
+      </div>
+      <div class="cds--tile">
+        <p class="cds--tile__eyebrow">Grip</p>
+        <p class="cds--tile__value" style="font-size:32px;">00:34</p>
+      </div>
+      <div class="cds--tile">
+        <p class="cds--tile__eyebrow">On wall</p>
+        <p class="cds--tile__value" style="font-size:32px;">12:47</p>
+      </div>
+      <div class="cds--tile">
+        <p class="cds--tile__eyebrow">Partner</p>
+        <p class="cds--tile__value" style="font-size:18px;color:var(--cds-text-secondary);">On belay</p>
+      </div>
+    </div>
+
+  </div>
+</body>
+</html>

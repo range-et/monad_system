@@ -1,6 +1,6 @@
 # Monad Light
 # Derived from the Monad System design language — colors.json
-# Generated 2026-05-12
+# Generated 2026-05-31
 #
 # Install:  cp "Monad Light" ~/.config/ghostty/themes/
 # Activate: theme = Monad Light
@@ -22,7 +22,7 @@ selection-foreground = #141A22
 
 # ── ANSI palette — normal (0-7) ───────────────────────────────────────────────
 palette = 0=#141A22
-palette = 1=#953530
+palette = 1=#9F001E
 palette = 2=#47702C
 palette = 3=#C19025
 palette = 4=#1973AA
@@ -32,7 +32,7 @@ palette = 7=#4F5A69
 
 # ── ANSI palette — bright (8-15) ──────────────────────────────────────────────
 palette = 8=#7E8998
-palette = 9=#D64C45
+palette = 9=#E4002B
 palette = 10=#6EAD45
 palette = 11=#D7A12A
 palette = 12=#1E88C8

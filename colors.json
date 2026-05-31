@@ -186,13 +186,14 @@
         ]
       },
       "Alert_1": {
-        "name": "Alert 1",
-        "hex": "#D64C45",
+        "name": "Alert 1 (NASA Red)",
+        "hex": "#E4002B",
         "rgb": [
-          214,
-          76,
-          69
-        ]
+          228,
+          0,
+          43
+        ],
+        "note": "NASA Red, PMS 179. Saturated and uncompromising — reserved for stop-now states. Sourced from the 1976 NASA Graphics Standards Manual; pairs with near-white (--strata-on-error) for high-impact white-on-red warning chrome. Use sparingly; if everything is red, nothing is."
       }
     },
     "Highlights_and_Disabled": {

@@ -1,3 +1,6 @@
+# env files 
+*.env
+
 # Python
 __pycache__/
 *.py[cod]
@@ -29,3 +32,25 @@ Thumbs.db
 
 # Playwright MCP session data
 .playwright-mcp/
+
+# UEyes (third-party, do not vendor)
+benchmark/ueyes/
+
+# UEyes smoke-test scratch (model weights, generated outputs — 800+ MB)
+benchmark/ueyes_smoketest/
+
+# Benchmark — external clones (not vendored, just for local reference)
+benchmark/refs/
+
+# Benchmark — regenerable outputs (PNGs + scoring artefacts, 290+ MB total).
+# Reproduce with:
+#   .venv/bin/python benchmark/render_layouts.py
+#   .venv/bin/python -m benchmark.score.run_batch
+#   .venv/bin/python -m benchmark.score.aggregate --write
+benchmark/renders/
+benchmark/scores/
+
+# Local convenience PNGs in workspace root (preview captures, not source)
+motion-gifs-section.png
+motion-page-dark.png
+motion-page-full.png

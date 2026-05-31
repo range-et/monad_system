@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Carbon · Device · Calm</title>
+  <link rel="stylesheet" href="../_tokens.css">
+  <style>
+    /* Classic Carbon enterprise dashboard at phone size: dark UI Shell
+       header with IBM lockup, padded content, square tiles, IBM Plex Mono
+       numerics. Focal target is the primary speed tile with a 4px blue
+       left bar (`interactive`). */
+    html, body { width: 390px; height: 844px; overflow: hidden; }
+    body { background: var(--cds-layer-01); }
+
+    .scene { position: relative; width: 100%; height: 100%; }
+
+    .cds--header {
+      height: 48px;
+      display: flex; align-items: stretch;
+    }
+    .cds--header__name {
+      flex: 1 1 auto;
+      border-right: 0;
+    }
+    .cds--header__title { font-size: 13px; }
+    .cds--header__action { width: 48px; border-left: 1px solid #525252; }
+
+    .content {
+      padding: var(--cds-spacing-05);
+      display: flex; flex-direction: column;
+      gap: var(--cds-spacing-04);
+    }
+    .crumb {
+      font-size: 12px;
+      letter-spacing: 0.04em;
+      color: var(--cds-text-secondary);
+      text-transform: uppercase;
+    }
+    h1.page {
+      margin: 0;
+      font-size: var(--cds-heading-04-size);
+      line-height: var(--cds-heading-04-line);
+      font-weight: 400;
+      color: var(--cds-text-primary);
+    }
+
+    /* Focal target — primary speed tile */
+    #focal-target {
+      background: var(--cds-layer-02);
+      border-left: 4px solid var(--cds-interactive);
+      padding: var(--cds-spacing-05) var(--cds-spacing-06);
+      border-top: 1px solid var(--cds-border-subtle-01);
+      border-right: 1px solid var(--cds-border-subtle-01);
+      border-bottom: 1px solid var(--cds-border-subtle-01);
+    }
+    #focal-target .cds--tile__eyebrow { color: var(--cds-text-primary); font-weight: 600; }
+    #focal-target .cds--tile__value {
+      font-size: 72px; line-height: 1;
+      letter-spacing: -0.02em;
+      color: var(--cds-text-primary);
+    }
+    #focal-target .cds--tile__unit { font-size: 20px; color: var(--cds-text-secondary); }
+    #focal-target .cds--tile__sub {
+      margin-top: var(--cds-spacing-03);
+      font-family: var(--cds-font-mono);
+      font-size: 11px;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--cds-text-helper);
+    }
+
+    /* Secondary grid */
+    .grid {
+      display: grid; grid-template-columns: 1fr 1fr;
+      background: var(--cds-border-subtle-01);
+      gap: 1px;
+      border: 1px solid var(--cds-border-subtle-01);
+    }
+    .grid > .cds--tile {
+      background: var(--cds-layer-02);
+      padding: var(--cds-spacing-04) var(--cds-spacing-05);
+    }
+    .grid .cds--tile__value { font-size: 22px; }
+
+    .status-row {
+      display: flex; gap: 6px; flex-wrap: wrap;
+    }
+    .status-row .cds--tag { font-family: var(--cds-font-mono); letter-spacing: 0.04em; }
+
+    .footnote {
+      position: absolute; left: var(--cds-spacing-05); right: var(--cds-spacing-05);
+      bottom: var(--cds-spacing-05);
+      padding-top: var(--cds-spacing-03);
+      border-top: 1px solid var(--cds-border-subtle-01);
+      font-size: 11px;
+      color: var(--cds-text-helper);
+      letter-spacing: 0.04em;
+    }
+  </style>
+</head>
+<body>
+  <div class="scene">
+
+    <header class="cds--header">
+      <div class="cds--header__name">
+        <span class="cds--header__prefix">IBM</span>
+        <span class="cds--header__title">Telemetry · Run 05</span>
+      </div>
+      <div class="cds--header__action">≡</div>
+    </header>
+
+    <div class="content">
+      <p class="crumb">Whistler Peak / Live</p>
+      <h1 class="page">System nominal</h1>
+
+      <div id="focal-target" class="cds--tile" data-focal="primary speed tile">
+        <p class="cds--tile__eyebrow">Speed · Primary</p>
+        <p class="cds--tile__value">38<span class="cds--tile__unit">km/h</span></p>
+        <p class="cds--tile__sub">Cruise · Zone 2</p>
+      </div>
+
+      <div class="grid">
+        <div class="cds--tile">
+          <p class="cds--tile__eyebrow">Heart rate</p>
+          <p class="cds--tile__value">132<span class="cds--tile__unit">bpm</span></p>
+        </div>
+        <div class="cds--tile">
+          <p class="cds--tile__eyebrow">Elev</p>
+          <p class="cds--tile__value">2,140<span class="cds--tile__unit">m</span></p>
+        </div>
+        <div class="cds--tile">
+          <p class="cds--tile__eyebrow">Distance</p>
+          <p class="cds--tile__value">14.2<span class="cds--tile__unit">km</span></p>
+        </div>
+        <div class="cds--tile">
+          <p class="cds--tile__eyebrow">Elapsed</p>
+          <p class="cds--tile__value">01:23</p>
+        </div>
+      </div>
+
+      <div class="status-row">
+        <span class="cds--tag cds--tag--green"><span class="cds--tag__dot"></span>GPS lock</span>
+        <span class="cds--tag cds--tag--cool-gray">Bat 78%</span>
+        <span class="cds--tag cds--tag--cool-gray">Wx clear</span>
+      </div>
+    </div>
+
+    <p class="footnote">Whistler Peak Telemetry · v11 · build 0531</p>
+
+  </div>
+</body>
+</html>

@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>NASA · Device · Warning</title>
+  <link rel="stylesheet" href="../_tokens.css">
+  <style>
+    html, body { width: 390px; height: 844px; overflow: hidden; }
+    body { background: var(--nasa-white); }
+    .scene { position: relative; width: 100%; height: 100%; padding: 16px; }
+
+    .nasa-bar {
+      display: flex; align-items: center; justify-content: space-between;
+      padding-bottom: 12px; border-bottom: 1px solid var(--nasa-black);
+    }
+    .nasa-bar__id { font-size: 14px; font-weight: 500; letter-spacing: 0.10em; text-transform: uppercase; }
+    .nasa-bar__id .nasa-wordmark { font-size: 18px; margin-right: 12px; padding-right: 12px; border-right: 1px solid var(--nasa-black); }
+    .nasa-bar__sys { display: flex; gap: 4px; }
+
+    /* Warning owns the canvas */
+    #focal-target {
+      margin-top: 16px;
+      padding: 24px 20px;
+    }
+    #focal-target .nasa-warning__eyebrow  { font-size: 13px; letter-spacing: 0.14em; }
+    #focal-target .nasa-warning__headline { font-size: 42px; line-height: 1.05; }
+    #focal-target .nasa-warning__sub      { font-size: 13px; margin-top: 12px; }
+    #focal-target .nasa-warning__action   { margin-top: 16px; padding: 10px 14px; font-size: 13px; display: block; text-align: center; }
+
+    .quiet-strip {
+      position: absolute; left: 16px; right: 16px; bottom: 16px;
+      display: grid; grid-template-columns: repeat(3, 1fr);
+      gap: 1px;
+      background: var(--nasa-warm-gray);
+      border: 1px solid var(--nasa-warm-gray);
+    }
+    .quiet-strip > div { background: var(--nasa-white); padding: 8px 10px; }
+    .quiet-strip .k { font-size: 9px; font-weight: 500; letter-spacing: 0.10em; text-transform: uppercase; color: var(--nasa-warm-gray); }
+    .quiet-strip .v { font-size: 12px; color: var(--nasa-warm-gray); margin-top: 2px; }
+  </style>
+</head>
+<body>
+  <div class="scene">
+
+    <header class="nasa-bar">
+      <div class="nasa-bar__id"><span class="nasa-wordmark">NASA</span>Critical</div>
+      <div class="nasa-bar__sys">
+        <span class="nasa-chip"><span class="nasa-pip nasa-pip--red"></span>Alarm</span>
+      </div>
+    </header>
+
+    <div id="focal-target" class="nasa-warning" data-focal="warning callout headline">
+      <p class="nasa-warning__eyebrow">⚠ Warning · Master Alarm</p>
+      <h1 class="nasa-warning__headline">Fall Risk Detected</h1>
+      <p class="nasa-warning__sub">Anchor load spike 3 s ago. Last secure hold: move 14.</p>
+      <span class="nasa-warning__action">Stabilize → Confirm Anchor</span>
+    </div>
+
+    <div class="quiet-strip">
+      <div><div class="k">HR</div><div class="v">192 bpm</div></div>
+      <div><div class="k">Move</div><div class="v">17 / 22</div></div>
+      <div><div class="k">Partner</div><div class="v">Notified</div></div>
+    </div>
+
+  </div>
+</body>
+</html>

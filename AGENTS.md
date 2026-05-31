@@ -1,6 +1,6 @@
-# CLAUDE.md
+# AGENTS.md
 
-This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+This file provides guidance to coding agents (Claude Code, Amp, Cursor, etc.) when working with code in this repository.
 
 ## Project Overview
 
@@ -66,6 +66,7 @@ colors.json → src/compile_color.py → src/templates/*_template.py → build/
 - Mono font (`--font-mono`) for data, labels, overlines, numeric values
 - Movement hold colors (`atomos-hold--*`) are domain-specific — never repurpose for UI status
 - `ds-*` classes are retired — do not use
+- **Status colors follow NASA-discipline restraint.** `--strata-error` is **NASA Red (`#E4002B`, PMS 179)** — saturated and uncompromising, reserved for stop-now signaling. It pairs with `--strata-on-error` (near-white) for high-impact white-on-red warning chrome. Other on-* tokens (on-info, on-success, on-warning) stay near-black because their bases pair better with dark foregrounds. The warning IS the red field — don't dress it up with trims or icons; let the colour and the type do the work.
 
 ### Testing
 

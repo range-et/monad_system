@@ -31,7 +31,7 @@ SwiftUI, Ghostty, and Xcode outputs.
 | Info (cyan) | <img src="https://placehold.co/14x14/2B9ED1/2B9ED1.png" width="14" height="14" alt="info" title="info #2B9ED1"> `#2B9ED1` |
 | Success (green) | <img src="https://placehold.co/14x14/6EAD45/6EAD45.png" width="14" height="14" alt="success" title="success #6EAD45"> `#6EAD45` |
 | Warning (amber) | <img src="https://placehold.co/14x14/D7A12A/D7A12A.png" width="14" height="14" alt="warning" title="warning #D7A12A"> `#D7A12A` |
-| Error (red) | <img src="https://placehold.co/14x14/D64C45/D64C45.png" width="14" height="14" alt="error" title="error #D64C45"> `#D64C45` |
+| Error (red) | <img src="https://placehold.co/14x14/E4002B/E4002B.png" width="14" height="14" alt="error" title="error #E4002B"> `#E4002B` |
 | Highlight (yellow) | <img src="https://placehold.co/14x14/FFEB3B/FFEB3B.png" width="14" height="14" alt="highlight" title="highlight #FFEB3B"> `#FFEB3B` |
 
 ### Domain Colors (Movement)

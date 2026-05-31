@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Carbon · Climb AR · Calm</title>
+  <link rel="stylesheet" href="../_tokens.css">
+  <style>
+    /* Climbing variant — primary focal is the cadence/HR tile, since
+       at the wall the user wants their pulse at-a-glance. Same Carbon
+       UI shell + tile grid idiom as ski-AR calm. */
+    html, body { width: 1920px; height: 1080px; overflow: hidden; }
+    body {
+      background-image: url("../../../underlay_rockclimbing.png");
+      background-size: cover;
+      background-position: center;
+    }
+    .scene { position: relative; width: 100%; height: 100%; }
+
+    .cds--header { position: absolute; top: 0; left: 0; right: 0; }
+    .header-chips {
+      display: flex; align-items: center; gap: var(--cds-spacing-03);
+      padding: 0 var(--cds-spacing-05); margin-left: auto;
+    }
+    .header-chips .cds--tag {
+      background: transparent; color: #C6C6C6;
+      border: 1px solid #525252; border-radius: 0;
+      font-family: var(--cds-font-mono); letter-spacing: 0.04em;
+    }
+    .header-chips .cds--tag .cds--tag__dot { background: #42BE65; }
+
+    .hud {
+      position: absolute;
+      left: var(--cds-spacing-06);
+      bottom: var(--cds-spacing-06);
+      display: grid;
+      grid-template-columns: 360px 200px 200px 200px;
+      background: var(--cds-border-subtle-01);
+      gap: 1px;
+      border: 1px solid var(--cds-border-strong-01);
+    }
+    .hud > .cds--tile {
+      background: rgba(255, 255, 255, 0.94);
+      padding: var(--cds-spacing-05) var(--cds-spacing-06);
+    }
+
+    #focal-target {
+      background: #FFFFFF !important;
+      border-left: 4px solid var(--cds-interactive);
+      padding: var(--cds-spacing-05) var(--cds-spacing-06) var(--cds-spacing-06) var(--cds-spacing-06);
+    }
+    #focal-target .cds--tile__eyebrow { color: var(--cds-text-primary); font-weight: 600; }
+    #focal-target .cds--tile__value {
+      font-size: 84px; line-height: 1;
+      letter-spacing: -0.02em;
+      color: var(--cds-text-primary);
+    }
+    #focal-target .cds--tile__unit { font-size: 24px; color: var(--cds-text-secondary); }
+    #focal-target .cds--tile__sub {
+      margin-top: var(--cds-spacing-04);
+      font-family: var(--cds-font-mono);
+      font-size: 12px; color: var(--cds-text-helper);
+      letter-spacing: 0.04em; text-transform: uppercase;
+    }
+  </style>
+</head>
+<body>
+  <div class="scene">
+
+    <header class="cds--header">
+      <div class="cds--header__name">
+        <span class="cds--header__prefix">IBM</span>
+        <span class="cds--header__title">Climbing telemetry · Pitch 02</span>
+      </div>
+      <nav class="cds--header__nav">
+        <a class="is-active">Live</a>
+        <a>Route</a>
+        <a>Belay</a>
+      </nav>
+      <div class="cds--header__global">
+        <div class="header-chips">
+          <span class="cds--tag"><span class="cds--tag__dot"></span>BELAY ON</span>
+          <span class="cds--tag">BAT 78%</span>
+          <span class="cds--tag">WX CLEAR</span>
+          <span class="cds--tag">T+ 01:23:45</span>
+        </div>
+        <div class="cds--header__action">◉</div>
+      </div>
+    </header>
+
+    <div class="hud">
+      <div id="focal-target" class="cds--tile" data-focal="primary cadence tile (HR at-a-glance)">
+        <p class="cds--tile__eyebrow">Heart rate · Primary</p>
+        <p class="cds--tile__value">132<span class="cds--tile__unit">bpm</span></p>
+        <p class="cds--tile__sub">Zone 2 · Sustainable</p>
+      </div>
+      <div class="cds--tile">
+        <p class="cds--tile__eyebrow">Route</p>
+        <p class="cds--tile__value">12 / 22</p>
+      </div>
+      <div class="cds--tile">
+        <p class="cds--tile__eyebrow">Pump</p>
+        <p class="cds--tile__value">42<span class="cds--tile__unit">%</span></p>
+      </div>
+      <div class="cds--tile">
+        <p class="cds--tile__eyebrow">On wall</p>
+        <p class="cds--tile__value">08:14</p>
+      </div>
+    </div>
+
+  </div>
+</body>
+</html>

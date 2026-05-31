@@ -252,7 +252,7 @@
     <!-- App Main -->
     <main class="app-main">
 
-      <!-- Notice -->
+      <!-- Notice (ambient — peripheral status) -->
       <div class="atomos-notice atomos-notice--info">
         <span class="atomos-notice__icon">i</span>
         <div class="atomos-notice__body">
@@ -260,6 +260,25 @@
           <div class="atomos-notice__msg">Strata tokens · Monad shell · Atomos components · Threshold navigation. See <a href="components.html">Atomos showcase</a> for the full reference.</div>
         </div>
         <button class="atomos-btn atomos-btn--ghost atomos-btn--sm" style="flex-shrink:0;">Dismiss</button>
+      </div>
+
+      <!-- Callout (attention-claiming — fill, not frame).
+           Validated component: warning callouts average 84.6% saliency
+           mass-on-target in the perception benchmark.
+           See benchmark/report.md for the triangulated ranking. -->
+      <div class="atomos-callout atomos-callout--warning" style="margin-top:var(--space-3);">
+        <div class="atomos-callout__head">
+          <span>STRATA TOKEN DELTA</span>
+          <span>12 MIN AGO</span>
+        </div>
+        <div class="atomos-callout__body">
+          <h3 class="atomos-callout__headline">Rebuild required</h3>
+          <p class="atomos-callout__sub">
+            <code style="background:transparent;">colors.json</code> changed since the last build —
+            <code style="background:transparent;">build/</code> is now stale across 8 platform targets.
+          </p>
+          <a href="#" class="atomos-callout__action"><span>Run make build</span></a>
+        </div>
       </div>
 
       <!-- Titlebar -->
@@ -467,6 +486,48 @@
               <span class="atomos-hold atomos-hold--hand">Hand Hold</span>
               <span class="atomos-hold atomos-hold--foot">Foot Hold</span>
               <span class="atomos-hold atomos-hold--finish">Finish Hold</span>
+            </div>
+          </div>
+
+          <!-- Perception benchmark — triangulated across 2 saliency models × 2 metrics.
+               UMSI++ (UEyes-trained) and DeepGazeIIE (MIT1003-trained) scored on both
+               mass-on-target and z-scored NSS. See benchmark/report.md. -->
+          <div class="panel">
+            <div class="panel__head">Perception Benchmark</div>
+            <div class="panel__body">
+              <div style="display:flex; align-items:baseline; gap:var(--space-2); margin-bottom:var(--space-2);">
+                <span style="font-family:var(--font-mono); font-size:var(--type-3xl); font-weight:700; color:var(--strata-text-primary); line-height:1; letter-spacing:-0.02em;">#1</span>
+                <span style="font-family:var(--font-mono); font-size:var(--type-xs); color:var(--strata-text-disabled); text-transform:uppercase; letter-spacing:0.14em;">tied · 10 / 36 cell wins</span>
+              </div>
+              <p style="font-size:var(--type-xs); color:var(--strata-text-secondary); margin-bottom:var(--space-2); line-height:1.5;">
+                Across 45 renders, 2 saliency models, 2 metrics — Monad ties Material at rank #1
+                and wins outright on the cleanest single lens (DeepGazeIIE / NSS).
+              </p>
+              <table class="atomos-table atomos-table--compact" style="width:100%;">
+                <thead>
+                  <tr>
+                    <th>System</th>
+                    <th style="text-align:right;">Avg rank</th>
+                    <th style="text-align:right;">Wins</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr><td><strong>monad</strong></td><td style="text-align:right;">2.25</td><td style="text-align:right;">10</td></tr>
+                  <tr><td>material</td><td style="text-align:right;">2.25</td><td style="text-align:right;">9</td></tr>
+                  <tr><td>apple</td><td style="text-align:right;">3.00</td><td style="text-align:right;">5</td></tr>
+                  <tr><td>nasa</td><td style="text-align:right;">3.25</td><td style="text-align:right;">8</td></tr>
+                  <tr><td>carbon</td><td style="text-align:right;">4.25</td><td style="text-align:right;">4</td></tr>
+                </tbody>
+              </table>
+              <div style="margin-top:var(--space-2); display:flex; gap:var(--space-1); flex-wrap:wrap;">
+                <span class="atomos-tag atomos-tag--info">UMSI++</span>
+                <span class="atomos-tag atomos-tag--info">DeepGazeIIE</span>
+                <span class="atomos-tag atomos-tag--neutral">mass</span>
+                <span class="atomos-tag atomos-tag--neutral">NSS</span>
+              </div>
+              <a href="../benchmark/report.md" style="display:inline-block; margin-top:var(--space-2); font-family:var(--font-mono); font-size:var(--type-xs); color:var(--strata-interactive); text-transform:uppercase; letter-spacing:0.14em;">
+                → benchmark/report.md
+              </a>
             </div>
           </div>
 

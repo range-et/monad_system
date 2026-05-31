@@ -80,7 +80,7 @@ public enum MonadStrata {
     public static let info = Color(hex: "#2B9ED1")
     public static let success = Color(hex: "#6EAD45")
     public static let warning = Color(hex: "#D7A12A")
-    public static let error = Color(hex: "#D64C45")
+    public static let error = Color(hex: "#E4002B")
 
     public static let infoBg = info.opacity(0.10)
     public static let successBg = success.opacity(0.10)

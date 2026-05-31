@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Material 3 · Ski AR · Alert</title>
+  <link rel="stylesheet" href="../_tokens.css">
+  <style>
+    /* M3 alert: HR-zone flag uses the secondary-container "tonal" pattern
+       with a leading icon — M3's standard alert/banner treatment for
+       non-error caution. Tonal warmth (orange/amber) is conveyed via a
+       tertiary-tinted leading chip; the card itself stays in secondary
+       container for friendly emphasis without error semantics. */
+    html, body { width: 1920px; height: 1080px; overflow: hidden; }
+    body {
+      background-image: url("../../../underlay_skiing.png");
+      background-size: cover;
+      background-position: center;
+    }
+    .scene { position: relative; width: 100%; height: 100%; }
+
+    .topbar {
+      position: absolute; top: var(--md-sys-spacing-4); left: var(--md-sys-spacing-4); right: var(--md-sys-spacing-4);
+      display: flex; align-items: center; justify-content: space-between;
+      height: 64px; padding: 0 var(--md-sys-spacing-5);
+      background: color-mix(in srgb, var(--md-sys-color-surface) 88%, transparent);
+      border-radius: var(--md-sys-shape-corner-full);
+      box-shadow: var(--md-sys-elevation-level2);
+    }
+    .topbar__title {
+      font-size: var(--md-sys-typescale-title-large-size);
+      font-weight: 500;
+      color: var(--md-sys-color-on-surface);
+    }
+    .topbar__chips { display: flex; gap: var(--md-sys-spacing-2); align-items: center; }
+    .md-chip { background: color-mix(in srgb, var(--md-sys-color-surface-container-low) 90%, transparent); }
+
+    /* HR-zone flag (focal target): tonal card, secondary-container.
+       Leading circular icon chip in tertiary-container for the "amber"
+       caution accent. Headline + display-medium value. */
+    #focal-target {
+      position: absolute;
+      top: 50%; right: var(--md-sys-spacing-7);
+      transform: translateY(-50%);
+      width: 460px;
+      padding: var(--md-sys-spacing-5);
+      background: color-mix(in srgb, var(--md-sys-color-secondary-container) 96%, transparent);
+      color: var(--md-sys-color-on-secondary-container);
+      border-radius: var(--md-sys-shape-corner-extra-large);
+      box-shadow: var(--md-sys-elevation-level3);
+      display: flex; flex-direction: column; gap: var(--md-sys-spacing-3);
+    }
+    #focal-target .head {
+      display: flex; align-items: center; gap: var(--md-sys-spacing-3);
+    }
+    #focal-target .icon {
+      width: 48px; height: 48px;
+      border-radius: var(--md-sys-shape-corner-full);
+      background: var(--md-sys-color-tertiary-container);
+      color: var(--md-sys-color-on-tertiary-container);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 24px; font-weight: 700;
+      flex: 0 0 auto;
+    }
+    #focal-target .title {
+      font-size: var(--md-sys-typescale-title-large-size);
+      line-height: var(--md-sys-typescale-title-large-line);
+      font-weight: 500;
+      color: var(--md-sys-color-on-secondary-container);
+    }
+    #focal-target .zone-tag {
+      display: inline-flex; align-items: center;
+      align-self: flex-start;
+      height: 24px; padding: 0 var(--md-sys-spacing-3);
+      border-radius: var(--md-sys-shape-corner-full);
+      background: var(--md-sys-color-tertiary-container);
+      color: var(--md-sys-color-on-tertiary-container);
+      font-size: var(--md-sys-typescale-label-medium-size);
+      font-weight: 500; letter-spacing: 0.5px;
+    }
+    #focal-target .metric {
+      display: flex; align-items: baseline; gap: var(--md-sys-spacing-3);
+    }
+    #focal-target .value {
+      font-size: 72px; line-height: 1; font-weight: 400;
+      letter-spacing: -1px;
+      color: var(--md-sys-color-on-secondary-container);
+    }
+    #focal-target .unit {
+      font-size: var(--md-sys-typescale-title-medium-size);
+      color: var(--md-sys-color-on-secondary-container);
+      opacity: 0.7;
+    }
+    #focal-target .sub {
+      font-size: var(--md-sys-typescale-body-medium-size);
+      color: var(--md-sys-color-on-secondary-container);
+      opacity: 0.85;
+    }
+    #focal-target .progress {
+      height: 8px; background: color-mix(in srgb, var(--md-sys-color-on-secondary-container) 14%, transparent);
+      border-radius: var(--md-sys-shape-corner-full); overflow: hidden;
+    }
+    #focal-target .progress > div {
+      height: 100%; width: 86%;
+      background: var(--md-sys-color-tertiary);
+      border-radius: inherit;
+    }
+
+    /* Bottom HUD strip of neutral filled cards */
+    .hud {
+      position: absolute; left: 50%; bottom: var(--md-sys-spacing-6);
+      transform: translateX(-50%);
+      display: flex; gap: var(--md-sys-spacing-3);
+    }
+    .tile {
+      min-width: 160px;
+      padding: var(--md-sys-spacing-4) var(--md-sys-spacing-5);
+      background: color-mix(in srgb, var(--md-sys-color-surface-container) 90%, transparent);
+      border-radius: var(--md-sys-shape-corner-large);
+      box-shadow: var(--md-sys-elevation-level1);
+    }
+    .tile__label {
+      font-size: var(--md-sys-typescale-label-medium-size);
+      font-weight: 500; letter-spacing: 0.5px;
+      color: var(--md-sys-color-on-surface-variant);
+    }
+    .tile__value {
+      margin-top: 4px;
+      font-size: var(--md-sys-typescale-headline-small-size);
+      font-weight: 500;
+      color: var(--md-sys-color-on-surface);
+    }
+    .tile__value small {
+      font-size: var(--md-sys-typescale-body-medium-size);
+      color: var(--md-sys-color-on-surface-variant);
+      font-weight: 400; margin-left: 4px;
+    }
+  </style>
+</head>
+<body>
+  <div class="scene">
+
+    <div class="topbar">
+      <span class="topbar__title">Whistler Peak · Run 05</span>
+      <div class="topbar__chips">
+        <span class="md-chip"><span class="md-chip__dot md-chip__dot--ok"></span>GPS</span>
+        <span class="md-chip">Battery 64%</span>
+        <span class="md-chip"><span class="md-chip__dot md-chip__dot--warn"></span>Weather: cloud</span>
+      </div>
+    </div>
+
+    <div id="focal-target" data-focal="HR-zone amber flag">
+      <div class="head">
+        <div class="icon">▲</div>
+        <div class="title">Heart-rate climbing</div>
+      </div>
+      <span class="zone-tag">Zone 4 · approaching redline</span>
+      <div class="metric">
+        <span class="value">168</span>
+        <span class="unit">bpm</span>
+      </div>
+      <div class="sub">You're trending toward Zone 5. Ease off a notch.</div>
+      <div class="progress"><div></div></div>
+    </div>
+
+    <div class="hud">
+      <div class="tile">
+        <div class="tile__label">Speed</div>
+        <div class="tile__value">28<small>km/h</small></div>
+      </div>
+      <div class="tile">
+        <div class="tile__label">Elevation</div>
+        <div class="tile__value">2,210<small>m</small></div>
+      </div>
+      <div class="tile">
+        <div class="tile__label">Distance</div>
+        <div class="tile__value">18.6<small>km</small></div>
+      </div>
+      <div class="tile">
+        <div class="tile__label">Elapsed</div>
+        <div class="tile__value">02:04<small>:18</small></div>
+      </div>
+      <div class="tile">
+        <div class="tile__label">Run pace</div>
+        <div class="tile__value">04:12<small>/km</small></div>
+      </div>
+    </div>
+
+  </div>
+</body>
+</html>

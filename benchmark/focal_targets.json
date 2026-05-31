@@ -1,0 +1,447 @@
+{
+  "monad": {
+    "ski-AR": {
+      "calm": {
+        "bbox": [
+          398,
+          866,
+          320,
+          166
+        ],
+        "intent": "primary speed tile"
+      },
+      "alert": {
+        "bbox": [
+          1512,
+          432.5,
+          360,
+          215
+        ],
+        "intent": "HR-zone amber flag"
+      },
+      "warning": {
+        "bbox": [
+          500,
+          292,
+          920,
+          496
+        ],
+        "intent": "warning callout headline"
+      }
+    },
+    "climb-AR": {
+      "calm": {
+        "bbox": [
+          398,
+          866,
+          320,
+          166
+        ],
+        "intent": "primary cadence tile (HR at-a-glance)"
+      },
+      "alert": {
+        "bbox": [
+          1492,
+          418.5,
+          380,
+          243
+        ],
+        "intent": "HR-zone amber flag"
+      },
+      "warning": {
+        "bbox": [
+          470,
+          332,
+          980,
+          416
+        ],
+        "intent": "warning callout headline"
+      }
+    },
+    "device-only": {
+      "calm": {
+        "bbox": [
+          24,
+          161,
+          342,
+          212
+        ],
+        "intent": "primary speed tile"
+      },
+      "alert": {
+        "bbox": [
+          24,
+          155,
+          342,
+          235
+        ],
+        "intent": "HR-zone amber flag"
+      },
+      "warning": {
+        "bbox": [
+          24,
+          64,
+          342,
+          400
+        ],
+        "intent": "warning callout headline"
+      }
+    }
+  },
+  "nasa": {
+    "ski-AR": {
+      "calm": {
+        "bbox": [
+          25,
+          888,
+          320,
+          167
+        ],
+        "intent": "primary speed tile"
+      },
+      "alert": {
+        "bbox": [
+          1492,
+          454,
+          380,
+          172
+        ],
+        "intent": "HR-zone amber flag"
+      },
+      "warning": {
+        "bbox": [
+          500,
+          328.2,
+          920,
+          423.59
+        ],
+        "intent": "warning callout headline"
+      }
+    },
+    "climb-AR": {
+      "calm": {
+        "bbox": [
+          25,
+          888,
+          320,
+          167
+        ],
+        "intent": "primary cadence tile (HR at-a-glance)"
+      },
+      "alert": {
+        "bbox": [
+          1472,
+          454,
+          400,
+          172
+        ],
+        "intent": "HR-zone amber flag"
+      },
+      "warning": {
+        "bbox": [
+          470,
+          328.2,
+          980,
+          423.59
+        ],
+        "intent": "warning callout headline"
+      }
+    },
+    "device-only": {
+      "calm": {
+        "bbox": [
+          16,
+          70,
+          358,
+          160
+        ],
+        "intent": "primary speed tile"
+      },
+      "alert": {
+        "bbox": [
+          16,
+          70,
+          358,
+          171
+        ],
+        "intent": "HR-zone amber flag"
+      },
+      "warning": {
+        "bbox": [
+          16,
+          70,
+          358,
+          240.19
+        ],
+        "intent": "warning callout headline"
+      }
+    }
+  },
+  "carbon": {
+    "ski-AR": {
+      "calm": {
+        "bbox": [
+          25,
+          873,
+          360,
+          182
+        ],
+        "intent": "primary speed tile"
+      },
+      "alert": {
+        "bbox": [
+          1412,
+          431,
+          460,
+          218
+        ],
+        "intent": "HR-zone amber flag"
+      },
+      "warning": {
+        "bbox": [
+          440,
+          388.41,
+          1040,
+          303.19
+        ],
+        "intent": "warning callout headline"
+      }
+    },
+    "climb-AR": {
+      "calm": {
+        "bbox": [
+          25,
+          873,
+          360,
+          182
+        ],
+        "intent": "primary cadence tile (HR at-a-glance)"
+      },
+      "alert": {
+        "bbox": [
+          1412,
+          422,
+          460,
+          236
+        ],
+        "intent": "HR-zone amber flag"
+      },
+      "warning": {
+        "bbox": [
+          440,
+          388.41,
+          1040,
+          303.19
+        ],
+        "intent": "warning callout headline"
+      }
+    },
+    "device-only": {
+      "calm": {
+        "bbox": [
+          16,
+          166,
+          358,
+          160
+        ],
+        "intent": "primary speed tile"
+      },
+      "alert": {
+        "bbox": [
+          16,
+          166,
+          358,
+          194
+        ],
+        "intent": "HR-zone amber flag"
+      },
+      "warning": {
+        "bbox": [
+          16,
+          118,
+          358,
+          243.19
+        ],
+        "intent": "warning callout headline"
+      }
+    }
+  },
+  "material": {
+    "ski-AR": {
+      "calm": {
+        "bbox": [
+          700,
+          807,
+          520,
+          225
+        ],
+        "intent": "primary speed tile"
+      },
+      "alert": {
+        "bbox": [
+          1412,
+          408,
+          460,
+          264
+        ],
+        "intent": "HR-zone amber flag"
+      },
+      "warning": {
+        "bbox": [
+          500,
+          337,
+          920,
+          406
+        ],
+        "intent": "warning callout headline"
+      }
+    },
+    "climb-AR": {
+      "calm": {
+        "bbox": [
+          48,
+          427.5,
+          480,
+          225
+        ],
+        "intent": "primary cadence tile (HR at-a-glance)"
+      },
+      "alert": {
+        "bbox": [
+          1412,
+          408,
+          460,
+          264
+        ],
+        "intent": "HR-zone amber flag"
+      },
+      "warning": {
+        "bbox": [
+          500,
+          337,
+          920,
+          406
+        ],
+        "intent": "warning callout headline"
+      }
+    },
+    "device-only": {
+      "calm": {
+        "bbox": [
+          16,
+          97,
+          358,
+          185
+        ],
+        "intent": "primary speed tile"
+      },
+      "alert": {
+        "bbox": [
+          16,
+          97,
+          358,
+          264
+        ],
+        "intent": "HR-zone amber flag"
+      },
+      "warning": {
+        "bbox": [
+          12,
+          45,
+          366,
+          349
+        ],
+        "intent": "warning callout headline"
+      }
+    }
+  },
+  "apple": {
+    "ski-AR": {
+      "calm": {
+        "bbox": [
+          48,
+          844.11,
+          460,
+          187.89
+        ],
+        "intent": "primary speed tile"
+      },
+      "alert": {
+        "bbox": [
+          1412,
+          403.05,
+          460,
+          273.89
+        ],
+        "intent": "HR-zone amber flag"
+      },
+      "warning": {
+        "bbox": [
+          410,
+          341.41,
+          1100,
+          397.19
+        ],
+        "intent": "warning callout headline"
+      }
+    },
+    "climb-AR": {
+      "calm": {
+        "bbox": [
+          48,
+          804.11,
+          480,
+          227.89
+        ],
+        "intent": "primary cadence tile (HR at-a-glance)"
+      },
+      "alert": {
+        "bbox": [
+          1392,
+          403.05,
+          480,
+          273.89
+        ],
+        "intent": "HR-zone amber flag"
+      },
+      "warning": {
+        "bbox": [
+          410,
+          341.41,
+          1100,
+          397.19
+        ],
+        "intent": "warning callout headline"
+      }
+    },
+    "device-only": {
+      "calm": {
+        "bbox": [
+          16,
+          119,
+          358,
+          164.41
+        ],
+        "intent": "primary speed tile"
+      },
+      "alert": {
+        "bbox": [
+          16,
+          119,
+          358,
+          201.06
+        ],
+        "intent": "HR-zone amber flag"
+      },
+      "warning": {
+        "bbox": [
+          16,
+          52,
+          358,
+          184
+        ],
+        "intent": "warning callout headline"
+      }
+    }
+  }
+}

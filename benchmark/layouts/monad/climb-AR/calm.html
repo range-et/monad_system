@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Monad · Climb AR · Calm</title>
+  <link rel="stylesheet" href="../../../../build/monad.css">
+  <style>
+    /* Underlay is the climbing scene; UI panels use a color-mixed
+       Monad surface for outdoor legibility without introducing tokens. */
+    html, body { width: 1920px; height: 1080px; overflow: hidden; }
+    body {
+      background-image: url("../../../underlay_rockclimbing.png");
+      background-size: cover;
+      background-position: center;
+      font-family: var(--font-sans);
+      color: var(--strata-text-primary);
+    }
+    .scene { position: relative; width: 100%; height: 100%; }
+
+    .panel {
+      background: color-mix(in srgb, var(--strata-bg) 92%, transparent);
+      border: 1px solid var(--strata-border);
+      padding: var(--space-3);
+    }
+    .panel--quiet {
+      background: color-mix(in srgb, var(--strata-bg) 78%, transparent);
+      border-color: var(--strata-border-subtle);
+    }
+
+    .route-id {
+      position: absolute; top: var(--space-3); left: var(--space-3);
+      padding: var(--space-1) var(--space-2);
+      font-family: var(--font-mono); font-size: var(--type-xs);
+      color: var(--strata-text-secondary);
+      letter-spacing: 0.12em; text-transform: uppercase;
+    }
+    .route-id strong { color: var(--strata-text-primary); font-weight: 600; }
+
+    .sysbar {
+      position: absolute; top: var(--space-3); right: var(--space-3);
+      display: flex; gap: var(--space-1);
+    }
+    .sysbar .chip {
+      padding: var(--space-1) var(--space-2);
+      font-family: var(--font-mono); font-size: var(--type-xs);
+      color: var(--strata-text-secondary);
+      display: flex; align-items: center; gap: 6px;
+    }
+    .pip { width: 6px; height: 6px; background: var(--strata-success); }
+
+    .hud {
+      position: absolute; left: 50%; bottom: var(--space-6);
+      transform: translateX(-50%);
+      display: flex; gap: 1px;
+      background: var(--strata-border-subtle);
+    }
+    .hud > .tile { padding: var(--space-3) var(--space-4); min-width: 200px; }
+
+    .tile__eyebrow {
+      font-family: var(--font-mono); font-size: var(--type-xs);
+      color: var(--strata-text-disabled); text-transform: uppercase;
+      letter-spacing: 0.14em;
+    }
+    .tile__value {
+      font-family: var(--font-mono);
+      color: var(--strata-text-primary);
+      font-weight: 600; line-height: 1; margin-top: 10px;
+    }
+    .tile__unit {
+      font-family: var(--font-mono); font-size: var(--type-sm);
+      color: var(--strata-text-secondary); margin-left: 6px;
+    }
+
+    /* Focal: primary cadence — heart-rate is the at-a-glance datum
+       for the climbing-calm context. First among equals. */
+    #focal-target { padding: var(--space-3) var(--space-6); min-width: 320px; }
+    #focal-target .tile__value { font-size: 5.5rem; letter-spacing: -0.02em; }
+
+    .tile--sec .tile__value { font-size: var(--type-3xl); }
+  </style>
+</head>
+<body>
+  <div class="scene">
+
+    <div class="route-id">ROUTE&nbsp;<strong>YOSEMITE&nbsp;V4</strong> · CRUISE</div>
+
+    <div class="sysbar">
+      <div class="panel panel--quiet chip"><span class="pip"></span>GPS&nbsp;LOCK</div>
+      <div class="panel panel--quiet chip">BAT&nbsp;78%</div>
+    </div>
+
+    <div class="hud">
+      <div id="focal-target" class="panel tile" data-focal="primary cadence tile (HR at-a-glance)">
+        <div class="tile__eyebrow">Heart</div>
+        <div class="tile__value">132<span class="tile__unit">bpm</span></div>
+      </div>
+      <div class="panel tile tile--sec">
+        <div class="tile__eyebrow">Moves</div>
+        <div class="tile__value">8<span class="tile__unit">/22</span></div>
+      </div>
+      <div class="panel tile tile--sec">
+        <div class="tile__eyebrow">Elev</div>
+        <div class="tile__value">2,140<span class="tile__unit">m</span></div>
+      </div>
+      <div class="panel tile tile--sec">
+        <div class="tile__eyebrow">Pump</div>
+        <div class="tile__value">24<span class="tile__unit">%</span></div>
+      </div>
+      <div class="panel tile tile--sec">
+        <div class="tile__eyebrow">On wall</div>
+        <div class="tile__value">04:18<span class="tile__unit"></span></div>
+      </div>
+    </div>
+
+  </div>
+</body>
+</html>

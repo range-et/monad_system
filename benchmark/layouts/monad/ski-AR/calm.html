@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Monad · Ski AR · Calm</title>
+  <link rel="stylesheet" href="../../../../build/monad.css">
+  <style>
+    /* Underlay is the background image; UI panels sit on a semi-opaque
+       Monad surface built with color-mix so they remain legible against
+       a bright outdoor scene without introducing new tokens. */
+    html, body { width: 1920px; height: 1080px; overflow: hidden; }
+    body {
+      background-image: url("../../../underlay_skiing.png");
+      background-size: cover;
+      background-position: center;
+      font-family: var(--font-sans);
+      color: var(--strata-text-primary);
+    }
+    .scene { position: relative; width: 100%; height: 100%; }
+
+    .panel {
+      background: color-mix(in srgb, var(--strata-bg) 92%, transparent);
+      border: 1px solid var(--strata-border);
+      padding: var(--space-3);
+    }
+    .panel--quiet {
+      background: color-mix(in srgb, var(--strata-bg) 78%, transparent);
+      border-color: var(--strata-border-subtle);
+    }
+
+    /* Top-left run identifier — small, peripheral */
+    .run-id {
+      position: absolute; top: var(--space-3); left: var(--space-3);
+      padding: var(--space-1) var(--space-2);
+      font-family: var(--font-mono); font-size: var(--type-xs);
+      color: var(--strata-text-secondary);
+      letter-spacing: 0.12em; text-transform: uppercase;
+    }
+    .run-id strong { color: var(--strata-text-primary); font-weight: 600; }
+
+    /* Top-right peripheral chips: battery / GPS */
+    .sysbar {
+      position: absolute; top: var(--space-3); right: var(--space-3);
+      display: flex; gap: var(--space-1);
+    }
+    .sysbar .chip {
+      padding: var(--space-1) var(--space-2);
+      font-family: var(--font-mono); font-size: var(--type-xs);
+      color: var(--strata-text-secondary);
+      display: flex; align-items: center; gap: 6px;
+    }
+    .pip { width: 6px; height: 6px; background: var(--strata-success); }
+
+    /* Bottom HUD — primary speed tile + secondaries */
+    .hud {
+      position: absolute; left: 50%; bottom: var(--space-6);
+      transform: translateX(-50%);
+      display: flex; gap: 1px;
+      background: var(--strata-border-subtle);
+    }
+    .hud > .tile { padding: var(--space-3) var(--space-4); min-width: 200px; }
+
+    .tile__eyebrow {
+      font-family: var(--font-mono); font-size: var(--type-xs);
+      color: var(--strata-text-disabled); text-transform: uppercase;
+      letter-spacing: 0.14em;
+    }
+    .tile__value {
+      font-family: var(--font-mono);
+      color: var(--strata-text-primary);
+      font-weight: 600;
+      line-height: 1;
+      margin-top: 10px;
+    }
+    .tile__unit {
+      font-family: var(--font-mono); font-size: var(--type-sm);
+      color: var(--strata-text-secondary); margin-left: 6px;
+    }
+
+    /* Focal: primary speed — first among equals, larger numeric, not screaming */
+    #focal-target { padding: var(--space-3) var(--space-6); min-width: 320px; }
+    #focal-target .tile__value { font-size: 5.5rem; letter-spacing: -0.02em; }
+
+    /* Secondary tiles */
+    .tile--sec .tile__value { font-size: var(--type-3xl); }
+  </style>
+</head>
+<body>
+  <div class="scene">
+
+    <div class="run-id">RUN&nbsp;<strong>03</strong> · CHAIR&nbsp;4 · BLACKCOMB</div>
+
+    <div class="sysbar">
+      <div class="panel panel--quiet chip"><span class="pip"></span>GPS&nbsp;LOCK</div>
+      <div class="panel panel--quiet chip">BAT&nbsp;78%</div>
+    </div>
+
+    <div class="hud">
+      <div id="focal-target" class="panel tile" data-focal="primary speed tile">
+        <div class="tile__eyebrow">Speed</div>
+        <div class="tile__value">38<span class="tile__unit">km/h</span></div>
+      </div>
+      <div class="panel tile tile--sec">
+        <div class="tile__eyebrow">Heart</div>
+        <div class="tile__value">132<span class="tile__unit">bpm</span></div>
+      </div>
+      <div class="panel tile tile--sec">
+        <div class="tile__eyebrow">Elev</div>
+        <div class="tile__value">2,140<span class="tile__unit">m</span></div>
+      </div>
+      <div class="panel tile tile--sec">
+        <div class="tile__eyebrow">Distance</div>
+        <div class="tile__value">14.2<span class="tile__unit">km</span></div>
+      </div>
+      <div class="panel tile tile--sec">
+        <div class="tile__eyebrow">Elapsed</div>
+        <div class="tile__value">01:23<span class="tile__unit">:45</span></div>
+      </div>
+    </div>
+
+  </div>
+</body>
+</html>

@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Material 3 · Climb AR · Calm</title>
+  <link rel="stylesheet" href="../_tokens.css">
+  <style>
+    /* M3 calm on rock face: hero card for primary heart-rate / cadence metric
+       (the at-a-glance datum for steady climbing). Other stats peripheral. */
+    html, body { width: 1920px; height: 1080px; overflow: hidden; }
+    body {
+      background-image: url("../../../underlay_rockclimbing.png");
+      background-size: cover;
+      background-position: center;
+    }
+    .scene { position: relative; width: 100%; height: 100%; }
+
+    .topbar {
+      position: absolute; top: var(--md-sys-spacing-4); left: var(--md-sys-spacing-4); right: var(--md-sys-spacing-4);
+      display: flex; align-items: center; justify-content: space-between;
+      height: 64px; padding: 0 var(--md-sys-spacing-5);
+      background: color-mix(in srgb, var(--md-sys-color-surface) 88%, transparent);
+      border-radius: var(--md-sys-shape-corner-full);
+      box-shadow: var(--md-sys-elevation-level2);
+    }
+    .topbar__title {
+      font-size: var(--md-sys-typescale-title-large-size);
+      font-weight: 500;
+      color: var(--md-sys-color-on-surface);
+    }
+    .topbar__eyebrow {
+      font-size: var(--md-sys-typescale-label-medium-size);
+      font-weight: 500; letter-spacing: 0.5px;
+      color: var(--md-sys-color-on-surface-variant);
+      margin-right: var(--md-sys-spacing-3);
+    }
+    .topbar__chips { display: flex; gap: var(--md-sys-spacing-2); align-items: center; }
+    .md-chip { background: color-mix(in srgb, var(--md-sys-color-surface-container-low) 90%, transparent); }
+
+    /* Hero card on the left side, leaving the rock face visible */
+    #focal-target {
+      position: absolute;
+      left: var(--md-sys-spacing-7); top: 50%;
+      transform: translateY(-50%);
+      width: 480px;
+      padding: var(--md-sys-spacing-6) var(--md-sys-spacing-7);
+      background: color-mix(in srgb, var(--md-sys-color-surface-container-low) 94%, transparent);
+      color: var(--md-sys-color-on-surface);
+      border-radius: var(--md-sys-shape-corner-extra-large);
+      box-shadow: var(--md-sys-elevation-level3);
+      display: flex; flex-direction: column; gap: var(--md-sys-spacing-2);
+    }
+    #focal-target .eyebrow {
+      font-size: var(--md-sys-typescale-label-large-size);
+      font-weight: 500; letter-spacing: 0.1px;
+      color: var(--md-sys-color-primary);
+    }
+    #focal-target .metric {
+      display: flex; align-items: baseline; gap: var(--md-sys-spacing-3);
+    }
+    #focal-target .value {
+      font-size: 112px; line-height: 1; font-weight: 400;
+      letter-spacing: -2px;
+      color: var(--md-sys-color-on-surface);
+    }
+    #focal-target .unit {
+      font-size: var(--md-sys-typescale-title-large-size);
+      font-weight: 400; color: var(--md-sys-color-on-surface-variant);
+    }
+    #focal-target .sub {
+      font-size: var(--md-sys-typescale-body-medium-size);
+      color: var(--md-sys-color-on-surface-variant);
+    }
+
+    .stats {
+      position: absolute; right: var(--md-sys-spacing-5); top: 50%;
+      transform: translateY(-50%);
+      display: flex; flex-direction: column; gap: var(--md-sys-spacing-3);
+      width: 220px;
+    }
+    .stat {
+      background: color-mix(in srgb, var(--md-sys-color-surface-container) 90%, transparent);
+      border-radius: var(--md-sys-shape-corner-large);
+      padding: var(--md-sys-spacing-4) var(--md-sys-spacing-5);
+      box-shadow: var(--md-sys-elevation-level1);
+    }
+    .stat__label {
+      font-size: var(--md-sys-typescale-label-medium-size);
+      font-weight: 500; letter-spacing: 0.5px;
+      color: var(--md-sys-color-on-surface-variant);
+    }
+    .stat__value {
+      margin-top: 4px;
+      font-size: var(--md-sys-typescale-headline-small-size);
+      font-weight: 500;
+      color: var(--md-sys-color-on-surface);
+    }
+    .stat__value small {
+      font-size: var(--md-sys-typescale-body-medium-size);
+      color: var(--md-sys-color-on-surface-variant);
+      font-weight: 400; margin-left: 4px;
+    }
+  </style>
+</head>
+<body>
+  <div class="scene">
+
+    <div class="topbar">
+      <div style="display:flex; align-items:center; gap: var(--md-sys-spacing-3);">
+        <span class="topbar__eyebrow">El Capitan · The Nose</span>
+        <span class="topbar__title">Pitch 3</span>
+      </div>
+      <div class="topbar__chips">
+        <span class="md-chip"><span class="md-chip__dot md-chip__dot--ok"></span>On belay</span>
+        <span class="md-chip">Battery 78%</span>
+      </div>
+    </div>
+
+    <div id="focal-target" data-focal="primary cadence tile (HR at-a-glance)">
+      <span class="eyebrow">Heart rate</span>
+      <div class="metric">
+        <span class="value">132</span>
+        <span class="unit">bpm</span>
+      </div>
+      <span class="sub">Zone 2 · steady cadence</span>
+    </div>
+
+    <div class="stats">
+      <div class="stat">
+        <div class="stat__label">Elevation</div>
+        <div class="stat__value">2,140<small>m</small></div>
+      </div>
+      <div class="stat">
+        <div class="stat__label">Route progress</div>
+        <div class="stat__value">8 / 22</div>
+      </div>
+      <div class="stat">
+        <div class="stat__label">On wall</div>
+        <div class="stat__value">01:23<small>:45</small></div>
+      </div>
+      <div class="stat">
+        <div class="stat__label">Pump</div>
+        <div class="stat__value">22<small>%</small></div>
+      </div>
+    </div>
+
+  </div>
+</body>
+</html>

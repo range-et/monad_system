@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>NASA · Climb AR · Alert</title>
+  <link rel="stylesheet" href="../_tokens.css">
+  <style>
+    html, body { width: 1920px; height: 1080px; overflow: hidden; }
+    body {
+      background-image: url("../../../underlay_rockclimbing.png");
+      background-size: cover;
+      background-position: center;
+    }
+    .scene { position: relative; width: 100%; height: 100%; }
+
+    .nasa-bar {
+      position: absolute; top: 0; left: 0; right: 0;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: var(--nasa-s3) var(--nasa-s4);
+      background: var(--nasa-bg-overlay-quiet);
+      border-bottom: 1px solid var(--nasa-black);
+    }
+    .nasa-bar__id { font-size: var(--nasa-type-md); font-weight: 500; letter-spacing: 0.12em; text-transform: uppercase; color: var(--nasa-black); }
+    .nasa-bar__id .nasa-wordmark { font-size: var(--nasa-type-lg); margin-right: var(--nasa-s3); padding-right: var(--nasa-s3); border-right: 1px solid var(--nasa-black); }
+    .nasa-bar__sys { display: flex; gap: var(--nasa-s2); }
+
+    #focal-target {
+      position: absolute;
+      top: 50%; right: var(--nasa-s6);
+      transform: translateY(-50%);
+      width: 400px;
+    }
+
+    .hud {
+      position: absolute; left: var(--nasa-s4); bottom: var(--nasa-s4);
+      display: grid; grid-template-columns: repeat(4, 200px);
+      border: 1px solid var(--nasa-warm-gray);
+      background: var(--nasa-bg-overlay-quiet);
+    }
+    .hud > .nasa-tile + .nasa-tile { border-left: 1px solid var(--nasa-warm-gray); }
+    .hud .nasa-tile__value { font-size: var(--nasa-type-xl); }
+  </style>
+</head>
+<body>
+  <div class="scene">
+
+    <header class="nasa-bar">
+      <div class="nasa-bar__id">
+        <span class="nasa-wordmark">NASA</span>
+        Climbing Telemetry · Pitch 03
+      </div>
+      <div class="nasa-bar__sys">
+        <span class="nasa-chip"><span class="nasa-pip nasa-pip--blue"></span>Belay On</span>
+        <span class="nasa-chip">Bat 64%</span>
+        <span class="nasa-chip"><span class="nasa-pip nasa-pip--red"></span>Wx Cloud</span>
+        <span class="nasa-chip">T+ 12:47</span>
+      </div>
+    </header>
+
+    <div id="focal-target" class="nasa-flag" data-focal="HR-zone amber flag">
+      <div class="nasa-flag__head">
+        <span class="nasa-flag__label">Caution · HR Zone</span>
+        <span class="nasa-flag__sub">Z4 · Redline</span>
+      </div>
+      <div class="nasa-flag__body">
+        <p class="nasa-flag__metric">
+          <span class="nasa-flag__value">168</span>
+          <span class="nasa-flag__unit">bpm</span>
+        </p>
+        <p class="nasa-flag__note">Climbing toward Z5. Reduce pace one notch before next move.</p>
+      </div>
+    </div>
+
+    <div class="hud">
+      <div class="nasa-tile">
+        <p class="nasa-tile__eyebrow">Route</p>
+        <p class="nasa-tile__value">14 / 22</p>
+      </div>
+      <div class="nasa-tile">
+        <p class="nasa-tile__eyebrow">Grip</p>
+        <p class="nasa-tile__value">00:34</p>
+      </div>
+      <div class="nasa-tile">
+        <p class="nasa-tile__eyebrow">Pump</p>
+        <p class="nasa-tile__value">78<span class="nasa-tile__unit">%</span></p>
+      </div>
+      <div class="nasa-tile">
+        <p class="nasa-tile__eyebrow">On Wall</p>
+        <p class="nasa-tile__value">12:47</p>
+      </div>
+    </div>
+
+  </div>
+</body>
+</html>

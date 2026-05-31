@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Monad · Ski AR · Warning</title>
+  <link rel="stylesheet" href="../../../../build/monad.css">
+  <style>
+    /* Underlay remains for context but is dimmed by an error-tinted scrim
+       so the warning callout owns the canvas. Panels still use the
+       color-mix bg pattern; the callout itself uses --strata-error
+       chrome to dominate the saliency field. */
+    html, body { width: 1920px; height: 1080px; overflow: hidden; }
+    body {
+      background-image: url("../../../underlay_skiing.png");
+      background-size: cover;
+      background-position: center;
+      font-family: var(--font-sans);
+      color: var(--strata-text-primary);
+    }
+    .scene { position: relative; width: 100%; height: 100%; }
+    .scrim {
+      position: absolute; inset: 0;
+      background: color-mix(in srgb, var(--strata-error) 22%, transparent);
+    }
+
+    .panel {
+      background: color-mix(in srgb, var(--strata-bg) 92%, transparent);
+      border: 1px solid var(--strata-border);
+      padding: var(--space-3);
+    }
+    .panel--quiet {
+      background: color-mix(in srgb, var(--strata-bg) 78%, transparent);
+      border-color: var(--strata-border-subtle);
+    }
+
+    .sysbar {
+      position: absolute; top: var(--space-3); right: var(--space-3);
+      display: flex; gap: var(--space-1);
+    }
+    .sysbar .chip {
+      padding: var(--space-1) var(--space-2);
+      font-family: var(--font-mono); font-size: var(--type-xs);
+      color: var(--strata-text-secondary);
+    }
+
+    /* Suppressed secondary strip — present but quiet */
+    .quiet-strip {
+      position: absolute; left: var(--space-3); bottom: var(--space-3);
+      display: flex; gap: 1px; background: var(--strata-border-subtle);
+    }
+    .quiet-strip .tile {
+      padding: var(--space-1) var(--space-2);
+      font-family: var(--font-mono); font-size: var(--type-xs);
+      color: var(--strata-text-disabled);
+      background: color-mix(in srgb, var(--strata-bg) 78%, transparent);
+    }
+    .quiet-strip .tile strong {
+      color: var(--strata-text-secondary); font-weight: 600; margin-left: 4px;
+    }
+
+    /* Warning callout — NASA-1976 sensibility: the warning IS the red field.
+       Solid --strata-error (NASA Red) with --strata-on-error (off-white)
+       type, flush-left, no decorative icon, inline white-field action
+       button. Both tokens are system-level now — see colors.json + css_template.py. */
+    #focal-target {
+      position: absolute;
+      top: 50%; left: 50%;
+      transform: translate(-50%, -50%);
+      width: 920px;
+      padding: 0;
+      background: var(--strata-error);
+      color: var(--strata-on-error);
+      border: 0;
+    }
+    #focal-target .warn__bar {
+      padding: var(--space-2) var(--space-4);
+      display: flex; justify-content: space-between; align-items: center;
+      font-family: var(--font-mono); font-weight: 600;
+      letter-spacing: 0.18em; text-transform: uppercase;
+      font-size: var(--type-sm);
+      color: var(--strata-on-error);
+      border-bottom: 1px solid color-mix(in srgb, var(--strata-on-error) 30%, transparent);
+    }
+    #focal-target .warn__body {
+      padding: var(--space-6) var(--space-6) var(--space-4);
+      text-align: left;
+    }
+    #focal-target .warn__headline {
+      font-family: var(--font-mono);
+      font-size: 5rem; font-weight: 700; line-height: 1.0;
+      color: var(--strata-on-error);
+      letter-spacing: -0.01em;
+      text-transform: uppercase;
+      margin: 0;
+    }
+    #focal-target .warn__sub {
+      margin-top: var(--space-3);
+      font-family: var(--font-sans); font-size: var(--type-xl);
+      color: var(--strata-on-error);
+      opacity: 0.92;
+      font-weight: 400;
+    }
+    #focal-target .warn__action {
+      display: inline-block;
+      margin-top: var(--space-4);
+      padding: var(--space-2) var(--space-4);
+      background: var(--strata-on-error);
+      color: var(--strata-error);
+      font-family: var(--font-mono); font-size: var(--type-md);
+      font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase;
+    }
+    #focal-target .warn__meta {
+      padding: var(--space-2) var(--space-4);
+      display: flex; justify-content: space-between;
+      font-family: var(--font-mono); font-size: var(--type-xs);
+      color: var(--strata-on-error);
+      opacity: 0.85;
+      border-top: 1px solid color-mix(in srgb, var(--strata-on-error) 30%, transparent);
+    }
+    #focal-target .warn__meta strong { color: var(--strata-on-error); font-weight: 700; opacity: 1; }
+  </style>
+</head>
+<body>
+  <div class="scene">
+    <div class="scrim"></div>
+
+    <div class="sysbar">
+      <div class="panel panel--quiet chip">BAT&nbsp;58%</div>
+    </div>
+
+    <div id="focal-target" data-focal="warning callout headline">
+      <div class="warn__bar">
+        <span>◆ Master Alarm</span>
+        <span>T+00:03</span>
+      </div>
+      <div class="warn__body">
+        <div class="warn__headline">Fall Risk Detected</div>
+        <div class="warn__sub">Anchor load spike with accelerometer event 3 s ago.</div>
+        <span class="warn__action">Stabilize → Confirm Anchor</span>
+      </div>
+      <div class="warn__meta">
+        <span>Last secure hold <strong>move 14</strong></span>
+        <span>Partner notified <strong>YES</strong></span>
+        <span>HR <strong>192 bpm</strong></span>
+      </div>
+    </div>
+
+    <div class="quiet-strip">
+      <div class="tile">SPD<strong>0</strong></div>
+      <div class="tile">ELEV<strong>2,318 m</strong></div>
+      <div class="tile">GPS<strong>LOCK</strong></div>
+    </div>
+
+  </div>
+</body>
+</html>

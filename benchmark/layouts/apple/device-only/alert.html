@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Apple · Device · Alert</title>
+  <link rel="stylesheet" href="../_tokens.css">
+  <style>
+    /* iOS Watch / Fitness elevated-HR notification: a filled systemOrange
+       card at the top of the inset list with a subdued grouped list of
+       nominal metrics below. */
+    html { background: #000; }
+    body {
+      width: 390px; height: 844px; margin: 0 auto;
+      background: var(--apple-bg-grouped);
+      color: var(--apple-label);
+      display: flex; flex-direction: column;
+      overflow: hidden;
+    }
+
+    .titlebar { padding: 8px 20px 6px; }
+    .titlebar .eyebrow {
+      font: var(--apple-weight-semibold) var(--apple-text-footnote) / 1 var(--apple-font-system);
+      color: var(--apple-label-secondary);
+    }
+    .titlebar h1 {
+      margin: 4px 0 0 0;
+      font-family: var(--apple-font-display);
+      font-weight: var(--apple-weight-bold);
+      font-size: var(--apple-text-large-title);
+      line-height: 1;
+      letter-spacing: -0.03em;
+      color: var(--apple-label);
+    }
+
+    /* Focal: filled orange HR card */
+    #focal-target {
+      margin: 16px 16px 12px;
+      padding: 18px 20px 20px;
+      background: var(--apple-orange);
+      color: #FFFFFF;
+      border-radius: var(--apple-radius-card-l);
+      box-shadow: 0 6px 18px rgba(255, 149, 0, 0.35),
+                  0 1px 3px rgba(0, 0, 0, 0.10);
+    }
+    #focal-target .badge {
+      display: inline-flex; align-items: center; gap: 6px;
+      padding: 4px 10px;
+      border-radius: var(--apple-radius-pill);
+      background: rgba(255, 255, 255, 0.22);
+      font: var(--apple-weight-semibold) var(--apple-text-caption-1) / 1 var(--apple-font-system);
+      color: #FFFFFF;
+      letter-spacing: -0.01em;
+    }
+    #focal-target .title {
+      margin-top: 12px;
+      font: var(--apple-weight-semibold) var(--apple-text-headline) / 1.1 var(--apple-font-system);
+      color: #FFFFFF;
+      letter-spacing: -0.02em;
+    }
+    #focal-target .value-row {
+      display: flex; align-items: baseline; gap: 4px;
+      margin-top: 10px;
+    }
+    #focal-target .hero {
+      font-family: var(--apple-font-display);
+      font-weight: var(--apple-weight-bold);
+      font-size: 64px;
+      line-height: 0.92;
+      letter-spacing: -0.05em;
+      color: #FFFFFF;
+      font-variant-numeric: tabular-nums;
+    }
+    #focal-target .unit {
+      font-weight: var(--apple-weight-semibold);
+      font-size: var(--apple-text-title-3);
+      color: rgba(255, 255, 255, 0.92);
+      margin-left: 6px;
+    }
+    #focal-target .caption {
+      margin-top: 6px;
+      font: var(--apple-weight-medium) var(--apple-text-subhead) / 1.3 var(--apple-font-system);
+      color: rgba(255, 255, 255, 0.92);
+    }
+    #focal-target .zone-bar {
+      margin-top: 12px;
+      height: 5px; border-radius: 3px;
+      background: rgba(255, 255, 255, 0.30);
+      overflow: hidden;
+    }
+    #focal-target .zone-bar > span {
+      display: block; height: 100%; width: 86%;
+      background: #FFFFFF; border-radius: 3px;
+    }
+
+    .group-header {
+      padding: 0 20px 8px;
+      font: var(--apple-weight-semibold) var(--apple-text-footnote) / 1 var(--apple-font-system);
+      color: var(--apple-label-secondary);
+      margin-top: 8px;
+    }
+    .grouped {
+      margin: 0 16px;
+      background: var(--apple-bg-system);
+      border-radius: var(--apple-radius-card-l);
+      box-shadow: var(--apple-shadow-card);
+      overflow: hidden;
+    }
+    .row {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 12px 18px;
+    }
+    .row + .row { border-top: 0.5px solid var(--apple-separator); }
+    .row .label {
+      display: flex; align-items: center; gap: 10px;
+      font: var(--apple-weight-medium) var(--apple-text-body) / 1 var(--apple-font-system);
+      color: var(--apple-label);
+      letter-spacing: -0.02em;
+    }
+    .row .icon {
+      width: 28px; height: 28px;
+      display: inline-flex; align-items: center; justify-content: center;
+      border-radius: 8px;
+      font-size: 13px;
+      color: #FFFFFF;
+    }
+    .row .icon--blue   { background: var(--apple-blue); }
+    .row .icon--green  { background: var(--apple-green); }
+    .row .icon--indigo { background: var(--apple-indigo); }
+    .row .icon--gray   { background: var(--apple-gray); }
+    .row .value {
+      font-family: var(--apple-font-system);
+      font-weight: var(--apple-weight-semibold);
+      font-size: var(--apple-text-body);
+      color: var(--apple-label-secondary);
+      letter-spacing: -0.02em;
+      font-variant-numeric: tabular-nums;
+    }
+  </style>
+</head>
+<body>
+  <div class="apple-statusbar">
+    <span>12:47</span>
+    <span class="right">●●●● 5G&nbsp;&nbsp;64%</span>
+  </div>
+
+  <div class="titlebar">
+    <div class="eyebrow">Index Town Walls · Pitch 3</div>
+    <h1>Climb session</h1>
+  </div>
+
+  <div id="focal-target" data-focal="HR-zone amber flag">
+    <span class="badge">▲ Zone 4 · Redline</span>
+    <div class="title">Heart rate elevated</div>
+    <div class="value-row">
+      <span class="hero">168</span><span class="unit">bpm</span>
+    </div>
+    <div class="caption">Climbing toward Zone 5 — rest at next jug.</div>
+    <div class="zone-bar"><span></span></div>
+  </div>
+
+  <div class="group-header">Route</div>
+  <div class="grouped">
+    <div class="row">
+      <span class="label"><span class="icon icon--indigo">◉</span>Route progress</span>
+      <span class="value">14 / 22</span>
+    </div>
+    <div class="row">
+      <span class="label"><span class="icon icon--gray">◷</span>Grip time</span>
+      <span class="value">00:34</span>
+    </div>
+    <div class="row">
+      <span class="label"><span class="icon icon--green">◐</span>Pump</span>
+      <span class="value">78%</span>
+    </div>
+    <div class="row">
+      <span class="label"><span class="icon icon--blue">●</span>Partner</span>
+      <span class="value">On belay</span>
+    </div>
+    <div class="row">
+      <span class="label"><span class="icon icon--gray">◷</span>On wall</span>
+      <span class="value">12:47</span>
+    </div>
+  </div>
+</body>
+</html>

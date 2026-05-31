@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Material 3 · Device · Warning</title>
+  <link rel="stylesheet" href="../_tokens.css">
+  <style>
+    /* M3 destructive: full-screen error-container surface with a single
+       large error-filled action. Other data suppressed to a small meta
+       row at the bottom. Display-small headline, extra-large radius. */
+    html { background: #000; }
+    body {
+      width: 390px; height: 844px; margin: 0 auto;
+      background: var(--md-sys-color-error-container);
+      display: flex; flex-direction: column;
+      overflow: hidden;
+      position: relative;
+    }
+
+    .statusbar {
+      display: flex; justify-content: space-between; align-items: center;
+      padding: 14px var(--md-sys-spacing-4) 0;
+      font-size: var(--md-sys-typescale-label-medium-size);
+      font-weight: 500;
+      color: var(--md-sys-color-on-error-container);
+    }
+
+    /* Focal target — large error card */
+    #focal-target {
+      margin: var(--md-sys-spacing-4) var(--md-sys-spacing-3);
+      padding: var(--md-sys-spacing-5);
+      background: var(--md-sys-color-surface);
+      color: var(--md-sys-color-on-error-container);
+      border-radius: var(--md-sys-shape-corner-extra-large);
+      box-shadow: var(--md-sys-elevation-level3);
+      display: flex; flex-direction: column; gap: var(--md-sys-spacing-3);
+    }
+    #focal-target .head {
+      display: flex; align-items: center; gap: var(--md-sys-spacing-3);
+    }
+    #focal-target .icon {
+      width: 56px; height: 56px;
+      border-radius: var(--md-sys-shape-corner-full);
+      background: var(--md-sys-color-error);
+      color: var(--md-sys-color-on-error);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 28px; font-weight: 700;
+      flex: 0 0 auto;
+    }
+    #focal-target .label {
+      font-size: var(--md-sys-typescale-label-large-size);
+      font-weight: 500; letter-spacing: 0.1px;
+      text-transform: uppercase;
+      color: var(--md-sys-color-error);
+    }
+    #focal-target .timestamp {
+      margin-left: auto;
+      font-family: var(--md-sys-typescale-font-mono);
+      font-size: var(--md-sys-typescale-body-medium-size);
+      color: var(--md-sys-color-on-error-container);
+      opacity: 0.7;
+    }
+    #focal-target .headline {
+      font-size: var(--md-sys-typescale-display-small-size);
+      line-height: var(--md-sys-typescale-display-small-line);
+      font-weight: 500;
+      letter-spacing: -0.5px;
+      color: var(--md-sys-color-on-error-container);
+      margin: 0;
+    }
+    #focal-target .sub {
+      font-size: var(--md-sys-typescale-body-large-size);
+      line-height: var(--md-sys-typescale-body-large-line);
+      color: var(--md-sys-color-on-error-container);
+      opacity: 0.85;
+      margin: 0;
+    }
+    #focal-target .action {
+      margin-top: var(--md-sys-spacing-2);
+      width: 100%;
+      height: 56px;
+      background: var(--md-sys-color-error);
+      color: var(--md-sys-color-on-error);
+      border: 0;
+      border-radius: var(--md-sys-shape-corner-full);
+      font-family: var(--md-sys-typescale-font-sans);
+      font-size: var(--md-sys-typescale-title-medium-size);
+      font-weight: 500; letter-spacing: 0.1px;
+    }
+    #focal-target .dismiss {
+      width: 100%;
+      padding: var(--md-sys-spacing-3);
+      background: transparent;
+      color: var(--md-sys-color-on-error-container);
+      border: 0;
+      font-family: var(--md-sys-typescale-font-sans);
+      font-size: var(--md-sys-typescale-label-large-size);
+      font-weight: 500;
+    }
+
+    .meta {
+      margin: 0 var(--md-sys-spacing-4);
+      padding: var(--md-sys-spacing-3) var(--md-sys-spacing-4);
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 6px var(--md-sys-spacing-3);
+      font-size: var(--md-sys-typescale-body-small-size);
+      color: var(--md-sys-color-on-error-container);
+      opacity: 0.85;
+    }
+    .meta strong { font-weight: 500; opacity: 1; }
+
+    .footer {
+      margin-top: auto;
+      padding: var(--md-sys-spacing-4);
+      text-align: center;
+      font-size: var(--md-sys-typescale-label-medium-size);
+      color: var(--md-sys-color-on-error-container);
+      opacity: 0.7;
+    }
+  </style>
+</head>
+<body>
+  <div class="statusbar">
+    <span>13:18</span>
+    <span>▲ 58%</span>
+  </div>
+
+  <div id="focal-target" data-focal="warning callout headline">
+    <div class="head">
+      <div class="icon">!</div>
+      <div>
+        <div class="label">Critical alert</div>
+      </div>
+      <div class="timestamp">T+00:03</div>
+    </div>
+    <h1 class="headline">Fall risk detected</h1>
+    <p class="sub">Anchor load spike with accelerometer event 3 s ago.</p>
+    <button class="action">Stabilize → Confirm anchor</button>
+    <button class="dismiss">Dismiss</button>
+  </div>
+
+  <div class="meta">
+    <span>Last hold <strong>move 14</strong></span>
+    <span>Partner <strong>Notified</strong></span>
+    <span>Heart rate <strong>192 bpm</strong></span>
+    <span>Pump <strong>96%</strong></span>
+  </div>
+
+  <div class="footer">Hold the action button to acknowledge</div>
+</body>
+</html>

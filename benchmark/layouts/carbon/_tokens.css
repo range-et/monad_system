@@ -1,0 +1,314 @@
+/* IBM Carbon Design System v11 — "white" theme tokens.
+ *
+ * Carbon is the IBM enterprise design system: dense, technical, blue-heavy,
+ * square-cornered, 8px grid, IBM Plex typography. Notifications use a 4px
+ * colored left bar on a tinted background field. Cards have borders, not
+ * shadows.
+ *
+ * Token names mirror @carbon/styles v11 (`--cds-*`) where practical so that
+ * any reader familiar with Carbon recognizes the source-of-truth mapping.
+ * Values are taken verbatim from the Carbon v11 White theme.
+ */
+
+:root {
+  /* ── Typography (IBM Plex) ─────────────────────────────────────────── */
+  --cds-font-sans:  "IBM Plex Sans", "Helvetica Neue", Arial, sans-serif;
+  --cds-font-serif: "IBM Plex Serif", Georgia, serif;
+  --cds-font-mono:  "IBM Plex Mono", "JetBrains Mono", ui-monospace,
+                    SFMono-Regular, Menlo, Consolas, monospace;
+
+  /* ── Surface / layer (Carbon White theme) ──────────────────────────── */
+  --cds-background:          #FFFFFF;
+  --cds-layer-01:            #F4F4F4;
+  --cds-layer-02:            #FFFFFF;
+  --cds-layer-03:            #F4F4F4;
+  --cds-layer-hover-01:      #E8E8E8;
+  --cds-background-inverse:  #393939;
+  --cds-field-01:            #F4F4F4;
+
+  /* ── Text ──────────────────────────────────────────────────────────── */
+  --cds-text-primary:     #161616;
+  --cds-text-secondary:   #525252;
+  --cds-text-placeholder: #A8A8A8;
+  --cds-text-helper:      #6F6F6F;
+  --cds-text-on-color:    #FFFFFF;
+  --cds-text-inverse:     #FFFFFF;
+
+  /* ── Borders ───────────────────────────────────────────────────────── */
+  --cds-border-subtle-01: #E0E0E0;
+  --cds-border-strong-01: #8D8D8D;
+  --cds-border-tile-01:   #C6C6C6;
+
+  /* ── Interactive / link ────────────────────────────────────────────── */
+  --cds-link-primary:     #0F62FE;
+  --cds-interactive:      #0F62FE; /* Carbon Blue 60 — the "IBM blue" */
+
+  /* ── Status / support colors ───────────────────────────────────────── */
+  --cds-support-error:           #DA1E28; /* Red 60 */
+  --cds-support-error-inverse:   #FA4D56;
+  --cds-support-success:         #198038; /* Green 60 */
+  --cds-support-warning:         #F1C21B; /* Yellow 30 */
+  --cds-support-info:            #0043CE; /* Blue 70 */
+
+  /* Notification background tints */
+  --cds-notification-bg-error:   #FFF1F1;
+  --cds-notification-bg-warning: #FDF6DD;
+  --cds-notification-bg-info:    #EDF5FF;
+  --cds-notification-bg-success: #DEFBE6;
+
+  /* ── Spacing (Carbon 8px-grid scale) ───────────────────────────────── */
+  --cds-spacing-01: 2px;
+  --cds-spacing-02: 4px;
+  --cds-spacing-03: 8px;
+  --cds-spacing-04: 12px;
+  --cds-spacing-05: 16px;
+  --cds-spacing-06: 24px;
+  --cds-spacing-07: 32px;
+  --cds-spacing-08: 40px;
+  --cds-spacing-09: 48px;
+  --cds-spacing-10: 64px;
+  --cds-spacing-11: 80px;
+  --cds-spacing-12: 96px;
+
+  /* ── Productive type scale (IBM Plex Sans) ─────────────────────────── *
+   * Carbon "productive" tokens: dense data UIs. Sizes are size/line-height.
+   * Tracking left at the font default. */
+  --cds-body-compact-01-size:    14px;  --cds-body-compact-01-line:    18px;
+  --cds-body-compact-02-size:    16px;  --cds-body-compact-02-line:    22px;
+  --cds-heading-compact-01-size: 14px;  --cds-heading-compact-01-line: 18px;
+  --cds-heading-compact-02-size: 16px;  --cds-heading-compact-02-line: 22px;
+  --cds-heading-01-size:         14px;  --cds-heading-01-line:         20px;
+  --cds-heading-02-size:         16px;  --cds-heading-02-line:         22px;
+  --cds-heading-03-size:         20px;  --cds-heading-03-line:         28px;
+  --cds-heading-04-size:         28px;  --cds-heading-04-line:         36px;
+  --cds-heading-05-size:         32px;  --cds-heading-05-line:         40px;
+  --cds-heading-06-size:         42px;  --cds-heading-06-line:         50px;
+  --cds-heading-07-size:         54px;  --cds-heading-07-line:         64px;
+  --cds-display-01-size:         42px;  --cds-display-01-line:         50px;
+  --cds-display-04-size:         84px;  --cds-display-04-line:         88px;
+}
+
+/* ── Reset ──────────────────────────────────────────────────────────── */
+* { box-sizing: border-box; }
+html, body { margin: 0; padding: 0; }
+body {
+  font-family: var(--cds-font-sans);
+  color: var(--cds-text-primary);
+  background: var(--cds-background);
+  font-size: var(--cds-body-compact-01-size);
+  line-height: var(--cds-body-compact-01-line);
+  font-weight: 400;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* ── Carbon UI Shell — top app bar (`cds--header`) ─────────────────── */
+.cds--header {
+  display: flex; align-items: stretch;
+  height: 48px;
+  background: var(--cds-background-inverse);
+  color: var(--cds-text-on-color);
+  border-bottom: 1px solid #161616;
+}
+.cds--header__name {
+  display: flex; align-items: center; gap: 6px;
+  padding: 0 var(--cds-spacing-05);
+  font-size: var(--cds-heading-compact-01-size);
+  font-weight: 600;
+  letter-spacing: 0;
+  color: var(--cds-text-on-color);
+  border-right: 1px solid #525252;
+}
+.cds--header__name .cds--header__prefix {
+  font-weight: 700;
+  letter-spacing: 0.02em;
+}
+.cds--header__name .cds--header__title {
+  font-weight: 400;
+  color: #C6C6C6;
+}
+.cds--header__nav {
+  display: flex; align-items: center; gap: 0;
+}
+.cds--header__nav a {
+  display: flex; align-items: center;
+  padding: 0 var(--cds-spacing-05);
+  height: 100%;
+  color: #C6C6C6;
+  font-size: var(--cds-body-compact-01-size);
+  text-decoration: none;
+}
+.cds--header__nav a.is-active { color: var(--cds-text-on-color); border-bottom: 2px solid var(--cds-interactive); }
+.cds--header__global {
+  margin-left: auto;
+  display: flex; align-items: center;
+}
+.cds--header__action {
+  width: 48px; height: 48px;
+  display: flex; align-items: center; justify-content: center;
+  color: var(--cds-text-on-color);
+  font-size: 16px;
+  border-left: 1px solid #525252;
+}
+
+/* ── Tile (`cds--tile`) — square card with optional border ─────────── */
+.cds--tile {
+  background: var(--cds-layer-01);
+  padding: var(--cds-spacing-05);
+  border: 0;
+}
+.cds--tile--bordered { border: 1px solid var(--cds-border-subtle-01); }
+
+/* Tile content: eyebrow / value / unit / sub */
+.cds--tile__eyebrow {
+  font-size: 12px; line-height: 16px;
+  font-weight: 400;
+  letter-spacing: 0.32px;
+  text-transform: uppercase;
+  color: var(--cds-text-secondary);
+  margin: 0 0 var(--cds-spacing-04) 0;
+}
+.cds--tile__value {
+  font-family: var(--cds-font-mono);
+  font-size: var(--cds-heading-05-size);
+  line-height: 1;
+  font-weight: 400;
+  color: var(--cds-text-primary);
+  margin: 0;
+  letter-spacing: -0.01em;
+}
+.cds--tile__unit {
+  font-family: var(--cds-font-mono);
+  font-size: var(--cds-body-compact-02-size);
+  color: var(--cds-text-secondary);
+  margin-left: 6px;
+  font-weight: 400;
+}
+.cds--tile__sub {
+  margin: var(--cds-spacing-03) 0 0 0;
+  font-size: var(--cds-body-compact-01-size);
+  color: var(--cds-text-helper);
+}
+
+/* ── Inline notification (`cds--inline-notification`) ───────────────── *
+ * Carbon's signature alert pattern: 4px colored left bar, status icon,
+ * title + subtitle on a tinted background field. Square corners. */
+.cds--inline-notification {
+  display: flex;
+  align-items: stretch;
+  background: var(--cds-layer-02);
+  border: 1px solid var(--cds-border-subtle-01);
+  border-left: 4px solid var(--cds-border-strong-01);
+  min-height: 48px;
+}
+.cds--inline-notification__icon {
+  flex: 0 0 auto;
+  padding: var(--cds-spacing-04) var(--cds-spacing-04) var(--cds-spacing-04) var(--cds-spacing-05);
+  font-size: 20px;
+  line-height: 1;
+  display: flex; align-items: flex-start;
+}
+.cds--inline-notification__details {
+  flex: 1 1 auto;
+  padding: var(--cds-spacing-04) var(--cds-spacing-05) var(--cds-spacing-04) 0;
+  display: flex; flex-direction: column; gap: var(--cds-spacing-02);
+}
+.cds--inline-notification__title {
+  font-size: var(--cds-heading-compact-01-size);
+  line-height: var(--cds-heading-compact-01-line);
+  font-weight: 600;
+  color: var(--cds-text-primary);
+  margin: 0;
+}
+.cds--inline-notification__subtitle {
+  font-size: var(--cds-body-compact-01-size);
+  line-height: var(--cds-body-compact-01-line);
+  font-weight: 400;
+  color: var(--cds-text-primary);
+  margin: 0;
+}
+.cds--inline-notification__action {
+  flex: 0 0 auto;
+  align-self: stretch;
+  padding: 0 var(--cds-spacing-05);
+  display: flex; align-items: center;
+  font-size: var(--cds-body-compact-01-size);
+  font-weight: 400;
+  color: var(--cds-link-primary);
+  background: transparent;
+  border: 0;
+  border-left: 1px solid var(--cds-border-subtle-01);
+  cursor: pointer;
+}
+
+/* Status variants */
+.cds--inline-notification--error {
+  background: var(--cds-notification-bg-error);
+  border-color: var(--cds-support-error);
+  border-left-color: var(--cds-support-error);
+}
+.cds--inline-notification--error .cds--inline-notification__icon { color: var(--cds-support-error); }
+
+.cds--inline-notification--warning {
+  background: var(--cds-notification-bg-warning);
+  border-color: #B28600; /* tinted edge */
+  border-left-color: var(--cds-support-warning);
+}
+.cds--inline-notification--warning .cds--inline-notification__icon { color: #B28600; }
+
+.cds--inline-notification--info {
+  background: var(--cds-notification-bg-info);
+  border-color: var(--cds-support-info);
+  border-left-color: var(--cds-support-info);
+}
+.cds--inline-notification--info .cds--inline-notification__icon { color: var(--cds-support-info); }
+
+/* ── Tag / chip (`cds--tag`) — small rounded-rect status pill ──────── */
+.cds--tag {
+  display: inline-flex; align-items: center; gap: 6px;
+  height: 24px;
+  padding: 0 var(--cds-spacing-03);
+  font-size: 12px; line-height: 18px;
+  font-weight: 400;
+  color: var(--cds-text-primary);
+  background: #E0E0E0; /* gray cool */
+  border-radius: 14px; /* Carbon tags are pill-shaped */
+}
+.cds--tag--blue    { background: #D0E2FF; color: #002D9C; }
+.cds--tag--green   { background: #A7F0BA; color: #044317; }
+.cds--tag--red     { background: #FFD7D9; color: #750E13; }
+.cds--tag--yellow  { background: #FDDC69; color: #684E00; }
+.cds--tag--gray    { background: #E0E0E0; color: #393939; }
+.cds--tag--cool-gray { background: #DDE1E6; color: #343A3F; }
+
+.cds--tag__dot {
+  width: 6px; height: 6px;
+  background: currentColor; opacity: 0.85;
+}
+
+/* ── Button (`cds--btn`) ────────────────────────────────────────────── */
+.cds--btn {
+  display: inline-flex; align-items: center; justify-content: space-between;
+  gap: var(--cds-spacing-04);
+  min-width: 100px;
+  height: 48px;
+  padding: 0 var(--cds-spacing-09) 0 var(--cds-spacing-05);
+  font-family: inherit;
+  font-size: var(--cds-body-compact-01-size);
+  font-weight: 400;
+  text-align: left;
+  border: 0;
+  cursor: pointer;
+}
+.cds--btn--primary { background: var(--cds-interactive); color: var(--cds-text-on-color); }
+.cds--btn--danger  { background: var(--cds-support-error); color: var(--cds-text-on-color); }
+.cds--btn--ghost   { background: transparent; color: var(--cds-link-primary); }
+
+/* ── AR overlay panel — opaque white tile against photo underlay ──── *
+ * Carbon doesn't ship an AR pattern, so we use a high-opacity layer-02
+ * panel with a hairline border. Per Carbon, no shadow. */
+.cds--panel {
+  background: rgba(255, 255, 255, 0.94);
+  border: 1px solid var(--cds-border-subtle-01);
+}
+.cds--panel--strong { background: #FFFFFF; border-color: var(--cds-border-strong-01); }

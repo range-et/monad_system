@@ -1,0 +1,208 @@
+{
+  "colors": [
+    {
+      "name": "NASA Red",
+      "role": "primary_accent",
+      "hex": "#E4002B",
+      "rgb": [
+        228,
+        0,
+        43
+      ],
+      "process": "Solid Red plus Solid Yellow",
+      "pantone": "179"
+    },
+    {
+      "name": "NASA Warm Gray",
+      "role": "neutral_secondary",
+      "hex": "#5A5A5A",
+      "rgb": [
+        90,
+        90,
+        90
+      ],
+      "federal_standard": "16165"
+    },
+    {
+      "name": "Black",
+      "role": "text_primary",
+      "hex": "#000000",
+      "rgb": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "name": "White",
+      "role": "background_primary",
+      "hex": "#FFFFFF",
+      "rgb": [
+        255,
+        255,
+        255
+      ]
+    },
+    {
+      "name": "Vehicle Blue",
+      "role": "vehicle_accent",
+      "hex": "#0047AB",
+      "rgb": [
+        0,
+        71,
+        171
+      ],
+      "federal_standard": "15102"
+    }
+  ],
+  "typography": {
+    "primary_sans_serif": {
+      "family": "Helvetica",
+      "weights": {
+        "Light": "Used for agency identification text and body copy.",
+        "Medium": "Used for center identification text and headlines.",
+        "Bold": "Alternative for headlines in certain situations."
+      },
+      "styles": {
+        "agency_identification": {
+          "font": "Helvetica Light",
+          "case": "Upper and Lower Case"
+        },
+        "center_identification": {
+          "font": "Helvetica Medium",
+          "case": "Upper and Lower Case"
+        },
+        "headlines": {
+          "font": "Helvetica Medium",
+          "case": "Upper and Lower Case"
+        },
+        "body_copy": {
+          "font": "Helvetica Light"
+        },
+        "stationery_large": {
+          "font": "Helvetica Light",
+          "size": "10pt",
+          "line_height": "11pt"
+        },
+        "stationery_small": {
+          "font": "Helvetica Light",
+          "size": "7pt",
+          "line_height": "8pt"
+        }
+      }
+    },
+    "secondary_sans_serif": {
+      "family": "Futura",
+      "weights": {
+        "Light": "Used for body copy.",
+        "Demibold": "Used for headlines."
+      },
+      "notes": "Recommended for its technological character. Requires special attention to size due to small x-height (11pt Futura is comparable to 10pt Helvetica)."
+    },
+    "primary_serif": {
+      "family": "Garamond",
+      "weights": {
+        "Regular": "Used for body copy.",
+        "Bold": "Used for headlines."
+      },
+      "notes": "Ideal for high quality publications or those of a more permanent nature. Functions well in large volume settings."
+    },
+    "secondary_serif": {
+      "family": "Times Roman",
+      "weights": {
+        "Regular": "Used for body copy.",
+        "Bold": "Used for headlines."
+      },
+      "notes": "Recommended for newsletters, house organs, and other news-oriented publications."
+    },
+    "general_rules": {
+      "alignment": "Flush left, ragged right",
+      "line_spacing": "Minimum one-point leading (e.g., 10/11pt)."
+    }
+  },
+  "grid": {
+    "principle": "A predetermined understructure to give a publication cohesive style and character. The grid determines all margins, gutters, and folio placement.",
+    "columns": [
+      {
+        "count": 1,
+        "use_case": "Small brochures and folders; some educational publications."
+      },
+      {
+        "count": 2,
+        "use_case": "Journals, technical publications, news publications."
+      },
+      {
+        "count": 3,
+        "use_case": "News publications, quality publications (to create more movement and flexibility)."
+      }
+    ]
+  },
+  "spacing": {
+    "logo_clear_space": "A minimum clearance on all sides of three vertical stroke-widths of the logotype is recommended for decals.",
+    "element_separation": [
+      "The NASA Seal and the NASA Logotype should never be used alongside each other.",
+      "Mission patches should occupy their own visual space, separated from official NASA identification."
+    ]
+  },
+  "layout_principles": [
+    "Strive for simplicity, appropriateness, and strength of composition.",
+    "Employ a flush left, ragged right format for typography.",
+    "The logotype should be shown free-standing horizontally against a solid neutral background.",
+    "Language on signage should be clear and concise."
+  ],
+  "logo": {
+    "name": "The NASA Logotype (The 'Worm')",
+    "construction": "Letterforms are reduced to their most simplified form with strokes of a single, uniform width. The two 'A' letters lack cross-strokes. For large applications, a grid is provided where 3 grid units equal the vertical stroke width.",
+    "reproduction": "Must be reproduced photographically from official artwork, not redrawn. Must never be altered or distorted.",
+    "color_rules": [
+      {
+        "background": "White or very light neutral",
+        "logo_color": [
+          "NASA Red",
+          "Black",
+          "NASA Warm Gray"
+        ]
+      },
+      {
+        "background": "Black or very dark",
+        "logo_color": [
+          "White"
+        ]
+      },
+      {
+        "background": "NASA Red",
+        "logo_color": [
+          "White"
+        ]
+      },
+      {
+        "background": "Medium-value",
+        "logo_color": [
+          "Black",
+          "White"
+        ],
+        "forbidden": "NASA Red"
+      }
+    ],
+    "forbidden_modifications": [
+      "Breaking letterforms with a superimposed pattern.",
+      "Placing inside a solid or outline shape (e.g., circle, box).",
+      "Showing as outlined letterforms.",
+      "Adding shadows or partial outlines.",
+      "Photographically distorting (stretching, compressing).",
+      "Screening (e.g., benday screen) against a light background.",
+      "Displaying on a vertical axis."
+    ]
+  },
+  "applications": [
+    "Logotype",
+    "Stationery",
+    "Forms",
+    "Publications",
+    "Signage",
+    "Vehicles",
+    "Certificates & Awards",
+    "Decals",
+    "Uniform Patches"
+  ]
+}

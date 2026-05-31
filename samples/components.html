@@ -111,6 +111,7 @@
       <a href="#strata">Strata</a>
       <a href="#type">Type</a>
       <a href="#atomos-btn">Atomos:Btn</a>
+      <a href="#atomos-callout">Atomos:Callout</a>
       <a href="#atomos-card">Atomos:Card</a>
       <a href="#atomos-form">Atomos:Form</a>
       <a href="#atomos-table">Atomos:Table</a>
@@ -299,6 +300,82 @@
           </div>
         </div>
       </div>
+    </section>
+
+    <!-- ATOMOS: CALLOUTS -->
+    <section class="section" id="atomos-callout">
+      <div class="section__head">
+        <span class="section__title">Atomos — Callouts</span>
+        <span class="section__tier">Tier: Atomos / Indivisible</span>
+      </div>
+      <p class="section__desc">
+        <strong>Notice</strong> = ambient status (outlined, peripheral). <strong>Callout</strong> = attention-claiming
+        state (the colour <em>is</em> the field). NASA-discipline "fill, not frame". Use callouts when the user
+        <em>must</em> look at this element first; use notices for background status.
+        <span style="display:block; margin-top:6px; font-family:var(--font-mono); font-size:var(--type-xs); color:var(--strata-text-disabled);">
+          Validated: warning callout averages 84.6% saliency mass-on-target in the perception benchmark
+          (vs ~30% for outlined notices on the same content). See <a href="../benchmark/report.md">benchmark/report.md</a>.
+        </span>
+      </p>
+      <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(320px, 1fr)); gap:var(--space-3);">
+
+        <div class="atomos-callout atomos-callout--error">
+          <div class="atomos-callout__head">
+            <span>SYSTEM FAULT</span>
+            <span>0xE4 · IMMEDIATE</span>
+          </div>
+          <div class="atomos-callout__body">
+            <h3 class="atomos-callout__headline">Overpressure</h3>
+            <p class="atomos-callout__sub">Vessel P3 has exceeded the safe operating envelope. Vent now.</p>
+            <a href="#" class="atomos-callout__action"><span>Vent now</span></a>
+          </div>
+        </div>
+
+        <div class="atomos-callout atomos-callout--warning">
+          <div class="atomos-callout__head">
+            <span>HEART-RATE ZONE</span>
+            <span>Z4 · REDLINE</span>
+          </div>
+          <div class="atomos-callout__body">
+            <h3 class="atomos-callout__headline">168 bpm</h3>
+            <p class="atomos-callout__sub">Climbing toward Z5. Ease off a notch.</p>
+            <a href="#" class="atomos-callout__action"><span>Acknowledge</span></a>
+          </div>
+        </div>
+
+        <div class="atomos-callout atomos-callout--info">
+          <div class="atomos-callout__head">
+            <span>SCHEDULED MAINTENANCE</span>
+            <span>02:00 UTC</span>
+          </div>
+          <div class="atomos-callout__body">
+            <h3 class="atomos-callout__headline">30 min</h3>
+            <p class="atomos-callout__sub">Pipeline runs are paused for the maintenance window.</p>
+            <a href="#" class="atomos-callout__action"><span>Details</span></a>
+          </div>
+        </div>
+
+        <div class="atomos-callout atomos-callout--success">
+          <div class="atomos-callout__head">
+            <span>BUILD PASSED</span>
+            <span>17 ARTIFACTS</span>
+          </div>
+          <div class="atomos-callout__body">
+            <h3 class="atomos-callout__headline">All green</h3>
+            <p class="atomos-callout__sub">Compiled colors.json across 8 platforms. 54 tests OK.</p>
+            <a href="#" class="atomos-callout__action"><span>Open build</span></a>
+          </div>
+        </div>
+
+      </div>
+      <div class="code-block">&lt;div class="atomos-callout atomos-callout--warning"&gt;
+  &lt;div class="atomos-callout__head"&gt;&lt;span&gt;LABEL&lt;/span&gt;&lt;span&gt;META&lt;/span&gt;&lt;/div&gt;
+  &lt;div class="atomos-callout__body"&gt;
+    &lt;h3 class="atomos-callout__headline"&gt;Headline&lt;/h3&gt;
+    &lt;p class="atomos-callout__sub"&gt;Supporting line.&lt;/p&gt;
+    &lt;a href="#" class="atomos-callout__action"&gt;&lt;span&gt;Action&lt;/span&gt;&lt;/a&gt;
+  &lt;/div&gt;
+&lt;/div&gt;</div>
     </section>
 
     <!-- ATOMOS: CARDS -->

@@ -1,0 +1,281 @@
+/* Material 3 (Material You) design tokens — light theme, neutral seed.
+ *
+ * Sourced from https://m3.material.io/ with the default deep-purple seed
+ * (#6750A4). Approximations of the M3 baseline color scheme, shape system,
+ * elevation, and typography scale.
+ *
+ * Material 3 personality: expressive, friendly, generous shape + color,
+ * elevated tonal surfaces. Opposite of NASA austerity. We use:
+ *   - rounded "extra-large" corners on hero cards (28 px)
+ *   - tonal containers (primary-container / secondary-container /
+ *     error-container) for emphasis without shouting
+ *   - elevation tint + soft drop shadows for layering
+ *   - sentence-case headings (M3 retired all-caps)
+ *   - Roboto Flex with Roboto fallback
+ */
+
+:root {
+  /* ── Color: M3 baseline (light, deep-purple seed) ─────────────────────── */
+  --md-sys-color-primary:                    #6750A4;
+  --md-sys-color-on-primary:                 #FFFFFF;
+  --md-sys-color-primary-container:          #EADDFF;
+  --md-sys-color-on-primary-container:       #21005D;
+
+  --md-sys-color-secondary:                  #625B71;
+  --md-sys-color-on-secondary:               #FFFFFF;
+  --md-sys-color-secondary-container:        #E8DEF8;
+  --md-sys-color-on-secondary-container:     #1D192B;
+
+  --md-sys-color-tertiary:                   #7D5260;
+  --md-sys-color-on-tertiary:                #FFFFFF;
+  --md-sys-color-tertiary-container:         #FFD8E4;
+  --md-sys-color-on-tertiary-container:      #31111D;
+
+  --md-sys-color-error:                      #B3261E;
+  --md-sys-color-on-error:                   #FFFFFF;
+  --md-sys-color-error-container:            #F9DEDC;
+  --md-sys-color-on-error-container:         #410E0B;
+
+  --md-sys-color-background:                 #FFFBFE;
+  --md-sys-color-on-background:              #1C1B1F;
+  --md-sys-color-surface:                    #FFFBFE;
+  --md-sys-color-on-surface:                 #1C1B1F;
+
+  --md-sys-color-surface-variant:            #E7E0EC;
+  --md-sys-color-on-surface-variant:         #49454F;
+  --md-sys-color-outline:                    #79747E;
+  --md-sys-color-outline-variant:            #CAC4D0;
+
+  /* Surface tint = primary, used to subtly color higher-elevation surfaces */
+  --md-sys-color-surface-tint:               #6750A4;
+
+  /* Tonal surface containers (precomputed with surface-tint at elevation) */
+  --md-sys-color-surface-container-lowest:   #FFFFFF;
+  --md-sys-color-surface-container-low:      #F7F2FA;
+  --md-sys-color-surface-container:          #F3EDF7;
+  --md-sys-color-surface-container-high:     #ECE6F0;
+  --md-sys-color-surface-container-highest:  #E6E0E9;
+
+  /* ── Typography (M3 type scale) ───────────────────────────────────────── */
+  --md-sys-typescale-font-sans:  "Roboto Flex", "Roboto", "Helvetica Neue", Arial, sans-serif;
+  --md-sys-typescale-font-serif: "Roboto Serif", Georgia, serif;
+  --md-sys-typescale-font-mono:  "Roboto Mono", "JetBrains Mono", ui-monospace, monospace;
+
+  /* size / line-height pairs (M3 spec) */
+  --md-sys-typescale-display-large-size:     57px;  --md-sys-typescale-display-large-line:     64px;
+  --md-sys-typescale-display-medium-size:    45px;  --md-sys-typescale-display-medium-line:    52px;
+  --md-sys-typescale-display-small-size:     36px;  --md-sys-typescale-display-small-line:     44px;
+  --md-sys-typescale-headline-large-size:    32px;  --md-sys-typescale-headline-large-line:    40px;
+  --md-sys-typescale-headline-medium-size:   28px;  --md-sys-typescale-headline-medium-line:   36px;
+  --md-sys-typescale-headline-small-size:    24px;  --md-sys-typescale-headline-small-line:    32px;
+  --md-sys-typescale-title-large-size:       22px;  --md-sys-typescale-title-large-line:       28px;
+  --md-sys-typescale-title-medium-size:      16px;  --md-sys-typescale-title-medium-line:      24px;
+  --md-sys-typescale-title-small-size:       14px;  --md-sys-typescale-title-small-line:       20px;
+  --md-sys-typescale-body-large-size:        16px;  --md-sys-typescale-body-large-line:        24px;
+  --md-sys-typescale-body-medium-size:       14px;  --md-sys-typescale-body-medium-line:       20px;
+  --md-sys-typescale-body-small-size:        12px;  --md-sys-typescale-body-small-line:        16px;
+  --md-sys-typescale-label-large-size:       14px;  --md-sys-typescale-label-large-line:       20px;
+  --md-sys-typescale-label-medium-size:      12px;  --md-sys-typescale-label-medium-line:      16px;
+  --md-sys-typescale-label-small-size:       11px;  --md-sys-typescale-label-small-line:       16px;
+
+  /* ── Shape (corner radius scale) ──────────────────────────────────────── */
+  --md-sys-shape-corner-none:        0;
+  --md-sys-shape-corner-extra-small: 4px;
+  --md-sys-shape-corner-small:       8px;
+  --md-sys-shape-corner-medium:      12px;
+  --md-sys-shape-corner-large:       16px;
+  --md-sys-shape-corner-extra-large: 28px;
+  --md-sys-shape-corner-full:        9999px;
+
+  /* ── Elevation (drop shadows; surface tint applied separately) ────────── */
+  --md-sys-elevation-level0: none;
+  --md-sys-elevation-level1:
+    0 1px 2px 0 rgba(0,0,0,0.30),
+    0 1px 3px 1px rgba(0,0,0,0.15);
+  --md-sys-elevation-level2:
+    0 1px 2px 0 rgba(0,0,0,0.30),
+    0 2px 6px 2px rgba(0,0,0,0.15);
+  --md-sys-elevation-level3:
+    0 4px 8px 3px rgba(0,0,0,0.15),
+    0 1px 3px 0 rgba(0,0,0,0.30);
+  --md-sys-elevation-level4:
+    0 6px 10px 4px rgba(0,0,0,0.15),
+    0 2px 3px 0 rgba(0,0,0,0.30);
+  --md-sys-elevation-level5:
+    0 8px 12px 6px rgba(0,0,0,0.15),
+    0 4px 4px 0 rgba(0,0,0,0.30);
+
+  /* ── Spacing (M3 uses 4 px base) ──────────────────────────────────────── */
+  --md-sys-spacing-1:  4px;
+  --md-sys-spacing-2:  8px;
+  --md-sys-spacing-3:  12px;
+  --md-sys-spacing-4:  16px;
+  --md-sys-spacing-5:  24px;
+  --md-sys-spacing-6:  32px;
+  --md-sys-spacing-7:  48px;
+  --md-sys-spacing-8:  64px;
+
+  /* Motion (durations) — M3 standard */
+  --md-sys-motion-duration-short:  150ms;
+  --md-sys-motion-duration-medium: 300ms;
+  --md-sys-motion-easing-standard: cubic-bezier(0.2, 0, 0, 1);
+}
+
+* { box-sizing: border-box; }
+html, body { margin: 0; padding: 0; }
+body {
+  font-family: var(--md-sys-typescale-font-sans);
+  color: var(--md-sys-color-on-background);
+  background: var(--md-sys-color-background);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  font-feature-settings: "kern", "liga";
+}
+
+/* ── Typography utility classes (M3 names) ─────────────────────────────── */
+.md-display-large    { font-size: var(--md-sys-typescale-display-large-size);    line-height: var(--md-sys-typescale-display-large-line);    font-weight: 400; letter-spacing: -0.25px; }
+.md-display-medium   { font-size: var(--md-sys-typescale-display-medium-size);   line-height: var(--md-sys-typescale-display-medium-line);   font-weight: 400; }
+.md-display-small    { font-size: var(--md-sys-typescale-display-small-size);    line-height: var(--md-sys-typescale-display-small-line);    font-weight: 400; }
+.md-headline-large   { font-size: var(--md-sys-typescale-headline-large-size);   line-height: var(--md-sys-typescale-headline-large-line);   font-weight: 400; }
+.md-headline-medium  { font-size: var(--md-sys-typescale-headline-medium-size);  line-height: var(--md-sys-typescale-headline-medium-line);  font-weight: 400; }
+.md-headline-small   { font-size: var(--md-sys-typescale-headline-small-size);   line-height: var(--md-sys-typescale-headline-small-line);   font-weight: 400; }
+.md-title-large      { font-size: var(--md-sys-typescale-title-large-size);      line-height: var(--md-sys-typescale-title-large-line);      font-weight: 400; }
+.md-title-medium     { font-size: var(--md-sys-typescale-title-medium-size);     line-height: var(--md-sys-typescale-title-medium-line);     font-weight: 500; letter-spacing: 0.15px; }
+.md-title-small      { font-size: var(--md-sys-typescale-title-small-size);      line-height: var(--md-sys-typescale-title-small-line);      font-weight: 500; letter-spacing: 0.1px; }
+.md-body-large       { font-size: var(--md-sys-typescale-body-large-size);       line-height: var(--md-sys-typescale-body-large-line);       font-weight: 400; letter-spacing: 0.5px; }
+.md-body-medium      { font-size: var(--md-sys-typescale-body-medium-size);      line-height: var(--md-sys-typescale-body-medium-line);      font-weight: 400; letter-spacing: 0.25px; }
+.md-body-small       { font-size: var(--md-sys-typescale-body-small-size);       line-height: var(--md-sys-typescale-body-small-line);       font-weight: 400; letter-spacing: 0.4px; }
+.md-label-large      { font-size: var(--md-sys-typescale-label-large-size);      line-height: var(--md-sys-typescale-label-large-line);      font-weight: 500; letter-spacing: 0.1px; }
+.md-label-medium     { font-size: var(--md-sys-typescale-label-medium-size);     line-height: var(--md-sys-typescale-label-medium-line);     font-weight: 500; letter-spacing: 0.5px; }
+.md-label-small      { font-size: var(--md-sys-typescale-label-small-size);      line-height: var(--md-sys-typescale-label-small-line);      font-weight: 500; letter-spacing: 0.5px; }
+
+/* ── Card surfaces ─────────────────────────────────────────────────────── */
+.md-card {
+  background: var(--md-sys-color-surface-container-low);
+  color: var(--md-sys-color-on-surface);
+  border-radius: var(--md-sys-shape-corner-medium);
+  box-shadow: var(--md-sys-elevation-level1);
+}
+.md-card--filled {
+  background: var(--md-sys-color-surface-container-highest);
+  box-shadow: none;
+}
+.md-card--outlined {
+  background: var(--md-sys-color-surface);
+  box-shadow: none;
+  border: 1px solid var(--md-sys-color-outline-variant);
+}
+.md-card--elevated-3 { box-shadow: var(--md-sys-elevation-level3); }
+
+/* ── Buttons (filled / tonal / text) ───────────────────────────────────── */
+.md-button {
+  display: inline-flex; align-items: center; justify-content: center;
+  gap: var(--md-sys-spacing-2);
+  height: 40px; padding: 0 24px;
+  border: 0; border-radius: var(--md-sys-shape-corner-full);
+  font-family: var(--md-sys-typescale-font-sans);
+  font-size: var(--md-sys-typescale-label-large-size);
+  font-weight: 500; letter-spacing: 0.1px;
+  cursor: pointer;
+  transition: box-shadow var(--md-sys-motion-duration-short) var(--md-sys-motion-easing-standard);
+}
+.md-button--filled    { background: var(--md-sys-color-primary);          color: var(--md-sys-color-on-primary); }
+.md-button--tonal     { background: var(--md-sys-color-secondary-container); color: var(--md-sys-color-on-secondary-container); }
+.md-button--error     { background: var(--md-sys-color-error);            color: var(--md-sys-color-on-error); }
+.md-button--text      { background: transparent;                          color: var(--md-sys-color-primary); padding: 0 12px; }
+.md-button--large     { height: 56px; padding: 0 32px; font-size: var(--md-sys-typescale-title-medium-size); }
+
+/* ── Floating Action Button ────────────────────────────────────────────── */
+.md-fab {
+  display: inline-flex; align-items: center; justify-content: center;
+  width: 56px; height: 56px;
+  border: 0; border-radius: var(--md-sys-shape-corner-large);
+  background: var(--md-sys-color-primary-container);
+  color: var(--md-sys-color-on-primary-container);
+  box-shadow: var(--md-sys-elevation-level3);
+  font-size: 24px;
+  cursor: pointer;
+}
+.md-fab--extended {
+  width: auto; padding: 0 20px;
+  gap: var(--md-sys-spacing-3);
+  font-family: var(--md-sys-typescale-font-sans);
+  font-size: var(--md-sys-typescale-label-large-size);
+  font-weight: 500; letter-spacing: 0.1px;
+}
+
+/* ── Chips ─────────────────────────────────────────────────────────────── */
+.md-chip {
+  display: inline-flex; align-items: center; gap: var(--md-sys-spacing-2);
+  height: 32px; padding: 0 var(--md-sys-spacing-3);
+  border-radius: var(--md-sys-shape-corner-small);
+  background: var(--md-sys-color-surface-container-low);
+  color: var(--md-sys-color-on-surface-variant);
+  border: 1px solid var(--md-sys-color-outline-variant);
+  font-family: var(--md-sys-typescale-font-sans);
+  font-size: var(--md-sys-typescale-label-large-size);
+  font-weight: 500; letter-spacing: 0.1px;
+}
+.md-chip__dot { width: 8px; height: 8px; border-radius: 50%; background: var(--md-sys-color-primary); }
+.md-chip__dot--ok    { background: #2E7D32; }
+.md-chip__dot--warn  { background: #B26A00; }
+.md-chip__dot--error { background: var(--md-sys-color-error); }
+
+/* ── Top App Bar (small) ───────────────────────────────────────────────── */
+.md-top-app-bar {
+  display: flex; align-items: center;
+  height: 64px; padding: 0 var(--md-sys-spacing-4);
+  background: var(--md-sys-color-surface);
+  color: var(--md-sys-color-on-surface);
+  gap: var(--md-sys-spacing-3);
+}
+.md-top-app-bar__title {
+  font-size: var(--md-sys-typescale-title-large-size);
+  line-height: var(--md-sys-typescale-title-large-line);
+  font-weight: 400;
+}
+
+/* ── Navigation Bar (bottom, mobile) ───────────────────────────────────── */
+.md-nav-bar {
+  display: flex; align-items: stretch; justify-content: space-around;
+  height: 80px;
+  background: var(--md-sys-color-surface-container);
+  padding: var(--md-sys-spacing-3) 0;
+}
+.md-nav-bar__item {
+  flex: 1; display: flex; flex-direction: column; align-items: center;
+  gap: 4px;
+  color: var(--md-sys-color-on-surface-variant);
+  font-family: var(--md-sys-typescale-font-sans);
+  font-size: var(--md-sys-typescale-label-medium-size);
+  font-weight: 500; letter-spacing: 0.5px;
+}
+.md-nav-bar__item--active { color: var(--md-sys-color-on-surface); }
+.md-nav-bar__icon {
+  width: 64px; height: 32px;
+  display: flex; align-items: center; justify-content: center;
+  border-radius: var(--md-sys-shape-corner-large);
+  font-size: 22px;
+}
+.md-nav-bar__item--active .md-nav-bar__icon {
+  background: var(--md-sys-color-secondary-container);
+  color: var(--md-sys-color-on-secondary-container);
+}
+
+/* ── Banner (M3 alert pattern) ─────────────────────────────────────────── */
+.md-banner {
+  display: flex; gap: var(--md-sys-spacing-4);
+  padding: var(--md-sys-spacing-4) var(--md-sys-spacing-5);
+  background: var(--md-sys-color-secondary-container);
+  color: var(--md-sys-color-on-secondary-container);
+  border-radius: var(--md-sys-shape-corner-large);
+}
+.md-banner--error {
+  background: var(--md-sys-color-error-container);
+  color: var(--md-sys-color-on-error-container);
+}
+.md-banner__icon {
+  flex: 0 0 auto;
+  font-size: 24px; line-height: 1;
+}
+.md-banner__body { flex: 1; }

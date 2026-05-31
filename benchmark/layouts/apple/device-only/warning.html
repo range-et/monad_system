@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Apple · Device · Warning</title>
+  <link rel="stylesheet" href="../_tokens.css">
+  <style>
+    /* iOS critical alert / Emergency-SOS screen idiom — full-bleed
+       systemRed sheet with large SF Pro Display headline and a single
+       prominent destructive confirmation action. Other data is suppressed
+       to a small ticker at the bottom. */
+    html { background: #000; }
+    body {
+      width: 390px; height: 844px; margin: 0 auto;
+      background: var(--apple-bg-grouped);
+      color: var(--apple-label);
+      display: flex; flex-direction: column;
+      overflow: hidden;
+    }
+
+    .apple-statusbar { color: var(--apple-label); }
+
+    #focal-target {
+      margin: 14px 16px 16px;
+      padding: 22px 22px 24px;
+      background: var(--apple-red);
+      color: #FFFFFF;
+      border-radius: var(--apple-radius-card-l);
+      box-shadow: 0 10px 28px rgba(255, 59, 48, 0.40),
+                  0 1px 3px rgba(0, 0, 0, 0.10);
+    }
+    #focal-target .meta {
+      display: flex; align-items: center; justify-content: space-between;
+      font: var(--apple-weight-semibold) var(--apple-text-footnote) / 1 var(--apple-font-system);
+      color: rgba(255, 255, 255, 0.92);
+      letter-spacing: -0.01em;
+    }
+    #focal-target .meta .left {
+      display: inline-flex; align-items: center; gap: 6px;
+    }
+    #focal-target .meta .icon { font-size: 16px; }
+    #focal-target .headline {
+      margin: 16px 0 0 0;
+      font-family: var(--apple-font-display);
+      font-weight: var(--apple-weight-bold);
+      font-size: 42px;
+      line-height: 1;
+      letter-spacing: -0.04em;
+      color: #FFFFFF;
+    }
+    #focal-target .sub {
+      margin-top: 10px;
+      font: var(--apple-weight-medium) var(--apple-text-subhead) / 1.3 var(--apple-font-system);
+      color: rgba(255, 255, 255, 0.92);
+    }
+
+    .actions {
+      margin: 0 16px 12px;
+      display: flex; flex-direction: column; gap: 10px;
+    }
+    .btn {
+      display: flex; align-items: center; justify-content: center;
+      padding: 14px;
+      border-radius: var(--apple-radius-pill);
+      font: var(--apple-weight-semibold) var(--apple-text-headline) / 1 var(--apple-font-system);
+      letter-spacing: -0.02em;
+      text-decoration: none;
+    }
+    .btn--primary {
+      background: var(--apple-red);
+      color: #FFFFFF;
+      box-shadow: 0 4px 12px rgba(255, 59, 48, 0.30);
+    }
+    .btn--secondary {
+      background: var(--apple-bg-system);
+      color: var(--apple-blue);
+      box-shadow: var(--apple-shadow-card);
+    }
+
+    .ticker {
+      margin: 0 16px;
+      padding: 12px 18px;
+      background: var(--apple-bg-system);
+      border-radius: var(--apple-radius-card-l);
+      box-shadow: var(--apple-shadow-card);
+      display: grid; grid-template-columns: repeat(3, 1fr);
+      gap: 4px;
+    }
+    .ticker .k {
+      font: var(--apple-weight-semibold) var(--apple-text-caption-2) / 1 var(--apple-font-system);
+      color: var(--apple-label-tertiary);
+      letter-spacing: -0.01em;
+    }
+    .ticker .v {
+      margin-top: 4px;
+      font: var(--apple-weight-semibold) var(--apple-text-subhead) / 1 var(--apple-font-system);
+      color: var(--apple-label-secondary);
+      letter-spacing: -0.02em;
+      font-variant-numeric: tabular-nums;
+    }
+  </style>
+</head>
+<body>
+  <div class="apple-statusbar">
+    <span>14:22</span>
+    <span class="right">●●● 5G&nbsp;&nbsp;58%</span>
+  </div>
+
+  <div id="focal-target" data-focal="warning callout headline">
+    <div class="meta">
+      <span class="left"><span class="icon">⚠</span>Critical · Master Alarm</span>
+      <span>T+00:03</span>
+    </div>
+    <h1 class="headline">Fall risk detected</h1>
+    <p class="sub">Anchor load spike with accelerometer event. Stabilize before the next move.</p>
+  </div>
+
+  <div class="actions">
+    <a class="btn btn--primary" href="#">Confirm anchor</a>
+    <a class="btn btn--secondary" href="#">Notify partner</a>
+  </div>
+
+  <div class="ticker">
+    <div><div class="k">HR</div><div class="v">192 bpm</div></div>
+    <div><div class="k">LAST HOLD</div><div class="v">Move 14</div></div>
+    <div><div class="k">PARTNER</div><div class="v">Notified</div></div>
+  </div>
+</body>
+</html>

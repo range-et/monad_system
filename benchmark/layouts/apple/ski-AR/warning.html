@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Apple · Ski AR · Warning</title>
+  <link rel="stylesheet" href="../_tokens.css">
+  <style>
+    /* Apple HIG warning: full-width systemRed alert sheet, white SF Pro
+       Display headline with a prominent destructive button — the iOS
+       confirmation-action idiom scaled up for AR. Other telemetry is
+       suppressed to small quiet pills. */
+    html, body { width: 1920px; height: 1080px; overflow: hidden; }
+    body {
+      background-image: url("../../../underlay_skiing.png");
+      background-size: cover;
+      background-position: center;
+    }
+    .scene { position: relative; width: 100%; height: 100%; }
+    .scrim {
+      position: absolute; inset: 0;
+      background: rgba(0, 0, 0, 0.18);
+    }
+
+    .sysbar {
+      position: absolute; top: var(--apple-s6); right: var(--apple-s6);
+      display: flex; gap: var(--apple-s2);
+    }
+
+    /* Master warning card — owns the canvas */
+    #focal-target {
+      position: absolute;
+      top: 50%; left: 50%;
+      transform: translate(-50%, -50%);
+      width: 1100px;
+      padding: var(--apple-s8) var(--apple-s8) var(--apple-s7);
+      background: var(--apple-red);
+      color: var(--apple-label-on-tint);
+      border-radius: var(--apple-radius-card-xl);
+      box-shadow: var(--apple-shadow-warning);
+    }
+    #focal-target .meta {
+      display: flex; align-items: center; justify-content: space-between;
+      font: var(--apple-weight-semibold) var(--apple-text-headline) / 1 var(--apple-font-system);
+      color: rgba(255, 255, 255, 0.92);
+      letter-spacing: -0.02em;
+    }
+    #focal-target .meta .left {
+      display: inline-flex; align-items: center; gap: 10px;
+    }
+    #focal-target .meta .icon {
+      font-size: 22px;
+    }
+    #focal-target .headline {
+      margin: var(--apple-s5) 0 0 0;
+      font-family: var(--apple-font-display);
+      font-weight: var(--apple-weight-bold);
+      font-size: 96px;
+      line-height: 0.95;
+      letter-spacing: -0.04em;
+      color: #FFFFFF;
+    }
+    #focal-target .sub {
+      margin-top: var(--apple-s4);
+      font: var(--apple-weight-medium) var(--apple-text-title-3) / 1.3 var(--apple-font-system);
+      color: rgba(255, 255, 255, 0.92);
+      max-width: 880px;
+    }
+    #focal-target .actions {
+      margin-top: var(--apple-s7);
+      display: flex; gap: var(--apple-s3); align-items: center;
+    }
+    #focal-target .btn {
+      display: inline-flex; align-items: center; gap: 10px;
+      padding: 18px 32px;
+      border-radius: var(--apple-radius-pill);
+      font: var(--apple-weight-semibold) var(--apple-text-title-3) / 1 var(--apple-font-system);
+      letter-spacing: -0.02em;
+    }
+    #focal-target .btn--primary {
+      background: #FFFFFF;
+      color: var(--apple-red);
+    }
+    #focal-target .btn--ghost {
+      background: rgba(255, 255, 255, 0.18);
+      color: #FFFFFF;
+    }
+    #focal-target .ticker {
+      margin-top: var(--apple-s5);
+      padding-top: var(--apple-s4);
+      border-top: 1px solid rgba(255, 255, 255, 0.28);
+      display: flex; gap: var(--apple-s7);
+      font: var(--apple-weight-medium) var(--apple-text-footnote) / 1 var(--apple-font-system);
+      color: rgba(255, 255, 255, 0.85);
+    }
+    #focal-target .ticker strong {
+      color: #FFFFFF; font-weight: var(--apple-weight-semibold);
+      margin-left: 6px;
+    }
+
+    /* Quiet peripheral pills */
+    .quiet {
+      position: absolute; left: var(--apple-s6); bottom: var(--apple-s6);
+      display: flex; gap: var(--apple-s2);
+    }
+  </style>
+</head>
+<body>
+  <div class="scene">
+    <div class="scrim"></div>
+
+    <div class="sysbar">
+      <span class="apple-pill"><span class="dot dot--red"></span>Alarm</span>
+      <span class="apple-pill">Battery 58%</span>
+    </div>
+
+    <div id="focal-target" data-focal="warning callout headline">
+      <div class="meta">
+        <span class="left"><span class="icon">⚠</span>Critical · Master Alarm</span>
+        <span>T+00:03</span>
+      </div>
+      <h1 class="headline">Fall risk detected</h1>
+      <p class="sub">Anchor load spike with accelerometer event. Stabilize before next move.</p>
+      <div class="actions">
+        <button class="btn btn--primary">Confirm anchor</button>
+        <button class="btn btn--ghost">Notify partner</button>
+      </div>
+      <div class="ticker">
+        <span>HR<strong>192 bpm</strong></span>
+        <span>Last secure hold<strong>move 14</strong></span>
+        <span>Partner<strong>notified</strong></span>
+      </div>
+    </div>
+
+    <div class="quiet">
+      <span class="apple-pill"><span class="dot dot--gray"></span>Speed 6 km/h</span>
+      <span class="apple-pill">Pump 96%</span>
+    </div>
+
+  </div>
+</body>
+</html>

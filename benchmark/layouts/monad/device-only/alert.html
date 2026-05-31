@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Monad · Device · Alert</title>
+  <link rel="stylesheet" href="../../../../build/monad.css">
+  <style>
+    html { background: #000; }
+    body {
+      width: 390px; height: 844px; margin: 0 auto;
+      background: var(--strata-bg);
+      color: var(--strata-text-primary);
+      font-family: var(--font-sans);
+      display: flex; flex-direction: column;
+      overflow: hidden;
+    }
+
+    .statusbar {
+      display: flex; justify-content: space-between; align-items: center;
+      padding: 14px var(--space-3) 0;
+      font-family: var(--font-mono); font-size: var(--type-xs);
+      color: var(--strata-text-secondary);
+    }
+    .statusbar .right { display: flex; gap: 10px; align-items: center; }
+    .pip { width: 6px; height: 6px; display:inline-block; margin-right:6px; vertical-align:middle; }
+    .pip--ok { background: var(--strata-success); }
+    .pip--warn { background: var(--strata-warning); }
+
+    .head {
+      padding: var(--space-3) var(--space-3) var(--space-2);
+      border-bottom: 1px solid var(--strata-border-subtle);
+    }
+    .head__eyebrow {
+      font-family: var(--font-mono); font-size: var(--type-xs);
+      color: var(--strata-text-disabled);
+      letter-spacing: 0.16em; text-transform: uppercase;
+    }
+    .head__title {
+      margin-top: 4px;
+      font-size: var(--type-xl); font-weight: 300; letter-spacing: -0.02em;
+      color: var(--strata-text-primary);
+    }
+
+    /* Focal target — HR-zone flag callout. Filled tonal via
+       .atomos-callout--warning (system-level). Margin/sizing only. */
+    #focal-target { margin: var(--space-3); }
+    #focal-target .metric {
+      display: flex; align-items: baseline; gap: 8px;
+      font-family: var(--font-mono);
+    }
+    #focal-target .value {
+      font-size: 4.25rem; font-weight: 700; line-height: 1; letter-spacing: -0.02em;
+    }
+    #focal-target .unit { font-size: var(--type-md); opacity: 0.7; }
+    #focal-target .bar { height: 4px; background: color-mix(in srgb, currentColor 22%, transparent); margin-top: var(--space-2); }
+    #focal-target .bar > div { height: 100%; width: 86%; background: currentColor; }
+
+    /* Secondary metric grid — neutral */
+    .grid {
+      margin: 0 var(--space-3);
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 1px; background: var(--strata-border-subtle);
+      border: 1px solid var(--strata-border-subtle);
+    }
+    .grid .cell { background: var(--strata-layer-01); padding: var(--space-2) var(--space-3); }
+    .grid .cell .k {
+      font-family: var(--font-mono); font-size: var(--type-xs);
+      color: var(--strata-text-disabled);
+      letter-spacing: 0.14em; text-transform: uppercase;
+    }
+    .grid .cell .v {
+      font-family: var(--font-mono); font-size: var(--type-lg);
+      font-weight: 600; line-height: 1; margin-top: 6px;
+      color: var(--strata-text-primary);
+    }
+    .grid .cell .v small {
+      font-family: var(--font-mono); font-size: var(--type-xs);
+      color: var(--strata-text-secondary); margin-left: 4px; font-weight: 400;
+    }
+
+    /* Route progress */
+    .progress {
+      margin: var(--space-3);
+      padding: var(--space-2) var(--space-3);
+      background: var(--strata-layer-01);
+      border: 1px solid var(--strata-border-subtle);
+    }
+    .progress .row {
+      display: flex; justify-content: space-between;
+      font-family: var(--font-mono); font-size: var(--type-xs);
+      color: var(--strata-text-secondary);
+      letter-spacing: 0.12em; text-transform: uppercase;
+      margin-bottom: 6px;
+    }
+    .progress .bar { height: 4px; background: var(--strata-layer-02); }
+    .progress .bar > div { height: 100%; width: 63.6%; background: var(--strata-text-secondary); }
+
+    .footer {
+      margin-top: auto;
+      padding: var(--space-3);
+      border-top: 1px solid var(--strata-border-subtle);
+      display: flex; justify-content: space-between;
+      font-family: var(--font-mono); font-size: var(--type-xs);
+      color: var(--strata-text-disabled);
+    }
+  </style>
+</head>
+<body>
+  <div class="statusbar">
+    <span>13:14</span>
+    <span class="right"><span><span class="pip pip--ok"></span>BELAY</span><span><span class="pip pip--warn"></span>WX</span><span>BAT 64%</span></span>
+  </div>
+
+  <div class="head">
+    <div class="head__eyebrow">ROUTE · EL CAP · NOSE</div>
+    <div class="head__title">Pitch 6 · move 14</div>
+  </div>
+
+  <div id="focal-target" data-focal="HR zone amber flag" class="atomos-callout atomos-callout--warning">
+    <div class="atomos-callout__head">
+      <span>HEART-RATE ZONE</span>
+      <span>Z4 · REDLINE</span>
+    </div>
+    <div class="atomos-callout__body">
+      <div class="metric">
+        <span class="value">168</span>
+        <span class="unit">bpm</span>
+      </div>
+      <div class="atomos-callout__sub">Climbing toward Z5 · rest 30s before next move</div>
+      <div class="bar"><div></div></div>
+    </div>
+  </div>
+
+  <div class="grid">
+    <div class="cell"><div class="k">Grip</div><div class="v">00:34</div></div>
+    <div class="cell"><div class="k">On wall</div><div class="v">12:47</div></div>
+    <div class="cell"><div class="k">Pump</div><div class="v">78<small>%</small></div></div>
+    <div class="cell"><div class="k">Partner</div><div class="v">ON<small>BELAY</small></div></div>
+  </div>
+
+  <div class="progress">
+    <div class="row"><span>Route progress</span><span>14 / 22</span></div>
+    <div class="bar"><div></div></div>
+  </div>
+
+  <div class="footer">
+    <span>WX · CLOUD BUILD</span>
+    <span>SYNCED</span>
+  </div>
+</body>
+</html>

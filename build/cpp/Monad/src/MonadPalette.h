@@ -59,7 +59,7 @@ namespace dark {
     constexpr uint32_t SUPPORT_INFO      = 0x2B9ED1;
     constexpr uint32_t SUPPORT_SUCCESS   = 0x6EAD45;
     constexpr uint32_t SUPPORT_WARNING   = 0xD7A12A;
-    constexpr uint32_t SUPPORT_ERROR     = 0xD64C45;
+    constexpr uint32_t SUPPORT_ERROR     = 0xE4002B;
     constexpr uint32_t HIGHLIGHT         = 0xFFEB3B;
     constexpr uint32_t DISABLED          = 0x757575;
     constexpr uint32_t MOVE_START        = 0x4CAF50;
@@ -85,7 +85,7 @@ namespace light {
     constexpr uint32_t SUPPORT_INFO      = 0x2B9ED1;
     constexpr uint32_t SUPPORT_SUCCESS   = 0x6EAD45;
     constexpr uint32_t SUPPORT_WARNING   = 0xD7A12A;
-    constexpr uint32_t SUPPORT_ERROR     = 0xD64C45;
+    constexpr uint32_t SUPPORT_ERROR     = 0xE4002B;
     constexpr uint32_t HIGHLIGHT         = 0xFFEB3B;
     constexpr uint32_t DISABLED          = 0x757575;
     constexpr uint32_t MOVE_START        = 0x4CAF50;

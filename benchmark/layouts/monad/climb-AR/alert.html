@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Monad · Climb AR · Alert</title>
+  <link rel="stylesheet" href="../../../../build/monad.css">
+  <style>
+    /* Panels use color-mix Monad-bg surfaces for outdoor legibility.
+       The HR-zone flag uses --strata-warning sparingly so it pops
+       against neutral neighbors without dominating the climbing scene. */
+    html, body { width: 1920px; height: 1080px; overflow: hidden; }
+    body {
+      background-image: url("../../../underlay_rockclimbing.png");
+      background-size: cover;
+      background-position: center;
+      font-family: var(--font-sans);
+      color: var(--strata-text-primary);
+    }
+    .scene { position: relative; width: 100%; height: 100%; }
+
+    .panel {
+      background: color-mix(in srgb, var(--strata-bg) 92%, transparent);
+      border: 1px solid var(--strata-border);
+      padding: var(--space-3);
+    }
+    .panel--quiet {
+      background: color-mix(in srgb, var(--strata-bg) 78%, transparent);
+      border-color: var(--strata-border-subtle);
+    }
+
+    .route-id {
+      position: absolute; top: var(--space-3); left: var(--space-3);
+      padding: var(--space-1) var(--space-2);
+      font-family: var(--font-mono); font-size: var(--type-xs);
+      color: var(--strata-text-secondary);
+      letter-spacing: 0.12em; text-transform: uppercase;
+    }
+    .route-id strong { color: var(--strata-text-primary); font-weight: 600; }
+
+    .sysbar {
+      position: absolute; top: var(--space-3); right: var(--space-3);
+      display: flex; gap: var(--space-1);
+    }
+    .sysbar .chip {
+      padding: var(--space-1) var(--space-2);
+      font-family: var(--font-mono); font-size: var(--type-xs);
+      color: var(--strata-text-secondary);
+      display: flex; align-items: center; gap: 6px;
+    }
+    .pip { width: 6px; height: 6px; background: var(--strata-success); }
+    .pip--warn { background: var(--strata-warning); }
+
+    /* Left rail — neutral secondary climbing metrics */
+    .side {
+      position: absolute; left: var(--space-3); top: 50%;
+      transform: translateY(-50%);
+      width: 240px;
+      display: flex; flex-direction: column; gap: 1px;
+      background: var(--strata-border-subtle);
+    }
+    .side .row { padding: var(--space-2) var(--space-3); background: color-mix(in srgb, var(--strata-bg) 92%, transparent); }
+    .side .row .k {
+      font-family: var(--font-mono); font-size: var(--type-xs);
+      color: var(--strata-text-disabled); text-transform: uppercase;
+      letter-spacing: 0.14em;
+    }
+    .side .row .v {
+      margin-top: 4px;
+      font-family: var(--font-mono); font-size: var(--type-lg);
+      color: var(--strata-text-primary); font-weight: 600;
+    }
+    .side .row .v small { font-size: var(--type-sm); color: var(--strata-text-secondary); margin-left: 4px; font-weight: 400; }
+
+    /* Bottom progress strip */
+    .progress-strip {
+      position: absolute; left: 50%; bottom: var(--space-3);
+      transform: translateX(-50%);
+      width: 720px;
+    }
+    .progress-strip .label {
+      display: flex; justify-content: space-between;
+      font-family: var(--font-mono); font-size: var(--type-xs);
+      color: var(--strata-text-secondary);
+      letter-spacing: 0.12em; text-transform: uppercase;
+      margin-bottom: 6px;
+    }
+    .progress-strip .bar {
+      height: 6px; background: color-mix(in srgb, var(--strata-bg) 78%, transparent);
+      border: 1px solid var(--strata-border);
+    }
+    .progress-strip .bar > div { height: 100%; width: 63.6%; background: var(--strata-text-secondary); }
+
+    /* HR-zone flag callout — focal target. System-level filled tonal
+       callout (.atomos-callout--warning). Position + width only. */
+    #focal-target {
+      position: absolute;
+      top: 50%; right: var(--space-6);
+      transform: translateY(-50%);
+      width: 380px;
+    }
+    #focal-target .flag__metric {
+      display: flex; align-items: baseline; gap: 8px;
+      font-family: var(--font-mono);
+    }
+    #focal-target .flag__value {
+      font-size: 4.75rem; font-weight: 700; line-height: 1; letter-spacing: -0.02em;
+    }
+    #focal-target .flag__unit { font-size: var(--type-md); opacity: 0.7; }
+    #focal-target .flag__bar { height: 4px; background: color-mix(in srgb, currentColor 22%, transparent); margin-top: var(--space-2); }
+    #focal-target .flag__bar > div { height: 100%; width: 86%; background: currentColor; }
+  </style>
+</head>
+<body>
+  <div class="scene">
+
+    <div class="route-id">ROUTE&nbsp;<strong>EL CAP · NOSE</strong> · PITCH&nbsp;6</div>
+
+    <div class="sysbar">
+      <div class="panel panel--quiet chip"><span class="pip"></span>BELAY&nbsp;ON</div>
+      <div class="panel panel--quiet chip"><span class="pip pip--warn"></span>WX&nbsp;CLOUD</div>
+      <div class="panel panel--quiet chip">BAT&nbsp;64%</div>
+    </div>
+
+    <div class="side">
+      <div class="row">
+        <div class="k">Moves</div>
+        <div class="v">14<small>/22</small></div>
+      </div>
+      <div class="row">
+        <div class="k">Grip · current hold</div>
+        <div class="v">00:34</div>
+      </div>
+      <div class="row">
+        <div class="k">On wall</div>
+        <div class="v">12:47</div>
+      </div>
+      <div class="row">
+        <div class="k">Pump</div>
+        <div class="v">78<small>%</small></div>
+      </div>
+    </div>
+
+    <div id="focal-target" data-focal="HR zone amber flag" class="atomos-callout atomos-callout--warning">
+      <div class="atomos-callout__head">
+        <span>HEART-RATE ZONE</span>
+        <span>Z4 · REDLINE</span>
+      </div>
+      <div class="atomos-callout__body">
+        <div class="flag__metric">
+          <span class="flag__value">168</span>
+          <span class="flag__unit">bpm</span>
+        </div>
+        <div class="atomos-callout__sub">Climbing toward Z5 · rest 30s before next move</div>
+        <div class="flag__bar"><div></div></div>
+      </div>
+    </div>
+
+    <div class="progress-strip">
+      <div class="label"><span>Route progress</span><span>14 / 22</span></div>
+      <div class="bar"><div></div></div>
+    </div>
+
+  </div>
+</body>
+</html>

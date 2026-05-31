@@ -3,7 +3,7 @@ include = [
     "README.md",
 ]
 exclude = [
-    "CLAUDE.md",
+    "AGENTS.md",
     "build/**",
     "samples/**",
 ]

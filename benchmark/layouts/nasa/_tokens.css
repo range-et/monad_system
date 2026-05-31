@@ -1,0 +1,244 @@
+/* NASA-pure design tokens (1976 Graphics Standards Manual).
+ *
+ * Sourced from benchmark/nasa_system.json and cross-validated against:
+ *   - github.com/nasa-jpl/explorer-1  (red #E4002B confirmed as JPL red.500)
+ *   - github.com/bruffridge/nasawds   (Helvetica for headings; USWDS alert pattern)
+ *
+ * Austere by design: 5 colors, 1 typeface family, hard rules, flush-left
+ * ragged-right text, 1/2/3-column grid. No rounded corners, no shadows,
+ * no decorative anything. Red is reserved for identification and the highest-
+ * priority warning; Vehicle Blue for cool-status accents. Everything else is
+ * black / warm gray / white.
+ */
+
+:root {
+  /* Palette — verbatim from the 1976 manual */
+  --nasa-red:        #E4002B;  /* PMS 179, primary accent + warning */
+  --nasa-warm-gray:  #5A5A5A;  /* Fed Std 16165, secondary text + rules */
+  --nasa-black:      #000000;
+  --nasa-white:      #FFFFFF;
+  --nasa-vehicle-blue: #0047AB; /* Fed Std 15102, vehicle/status accent */
+
+  /* Derived neutrals (rule weights only, no decorative use) */
+  --nasa-rule:       #000000;
+  --nasa-rule-thin:  #5A5A5A;
+  --nasa-bg-overlay: rgba(255, 255, 255, 0.94); /* For AR underlays only */
+  --nasa-bg-overlay-quiet: rgba(255, 255, 255, 0.80);
+
+  /* Typography — Helvetica primary per the manual.
+   * Use system Helvetica with Inter/Arial fallbacks for environments without it. */
+  --nasa-sans: "Helvetica Neue", "Helvetica", "Arial", system-ui, sans-serif;
+  --nasa-serif: "Times New Roman", "Times", serif;
+
+  /* Type scale — derived from the manual's 7/8 → 10/11 stationery sizes,
+   * extrapolated for screen. Flush left, ragged right. */
+  --nasa-type-xxs: 10px;  /* small captions */
+  --nasa-type-xs:  12px;  /* eyebrow labels */
+  --nasa-type-sm:  14px;
+  --nasa-type-md:  16px;  /* body */
+  --nasa-type-lg:  20px;
+  --nasa-type-xl:  28px;
+  --nasa-type-2xl: 40px;
+  --nasa-type-3xl: 64px;
+  --nasa-type-4xl: 96px;  /* headline metric */
+
+  /* Spacing — 8px base, strict */
+  --nasa-s1: 4px;
+  --nasa-s2: 8px;
+  --nasa-s3: 16px;
+  --nasa-s4: 24px;
+  --nasa-s5: 32px;
+  --nasa-s6: 48px;
+  --nasa-s7: 64px;
+}
+
+* { box-sizing: border-box; }
+html, body { margin: 0; padding: 0; }
+body {
+  font-family: var(--nasa-sans);
+  color: var(--nasa-black);
+  /* Manual: "Flush left, ragged right" */
+  text-align: left;
+  font-weight: 300; /* Helvetica Light per body-copy spec */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Identification — uppercase Helvetica Medium, agency/center labels */
+.nasa-id {
+  font-weight: 500; /* Medium */
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+/* The wordmark — plain text "NASA" in Helvetica.
+ * The 1976 manual reserves the worm logotype for photographically reproduced
+ * official artwork. For this benchmark we render NASA as plain text in the
+ * same typeface (allowed for in-text identification). */
+.nasa-wordmark {
+  font-family: var(--nasa-sans);
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  color: var(--nasa-red);
+  text-transform: uppercase;
+}
+
+/* Hard rule — black hairline, full bleed where used */
+.nasa-rule {
+  border: 0;
+  border-top: 1px solid var(--nasa-black);
+  margin: 0;
+}
+.nasa-rule--thin {
+  border-top: 1px solid var(--nasa-warm-gray);
+}
+
+/* Panel — surface for AR overlays. Solid white (or near-white) with a hard
+ * black rule. No rounded corners, no shadow. */
+.nasa-panel {
+  background: var(--nasa-bg-overlay);
+  border: 1px solid var(--nasa-black);
+}
+.nasa-panel--quiet {
+  background: var(--nasa-bg-overlay-quiet);
+  border-color: var(--nasa-warm-gray);
+}
+.nasa-panel--solid {
+  background: var(--nasa-white);
+  border: 1px solid var(--nasa-black);
+}
+
+/* Tile — metric cell, flush left */
+.nasa-tile {
+  padding: var(--nasa-s3);
+}
+.nasa-tile__eyebrow {
+  font-size: var(--nasa-type-xs);
+  font-weight: 500;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--nasa-warm-gray);
+  margin: 0 0 var(--nasa-s2) 0;
+}
+.nasa-tile__value {
+  font-size: var(--nasa-type-3xl);
+  font-weight: 500;
+  line-height: 1;
+  color: var(--nasa-black);
+  letter-spacing: -0.02em;
+  margin: 0;
+}
+.nasa-tile__unit {
+  font-size: var(--nasa-type-md);
+  font-weight: 300;
+  color: var(--nasa-warm-gray);
+  margin-left: 6px;
+}
+
+/* Caution flag (amber-equivalent in the NASA palette is WARM GRAY + RED rule —
+ * the 1976 manual reserves red for the highest-signal use, so an alert uses a
+ * red left-rule on a white panel; not a red field. This preserves the brand
+ * rule that red owns "stop / urgent" semantics). */
+.nasa-flag {
+  background: var(--nasa-white);
+  border: 1px solid var(--nasa-black);
+  border-left: 6px solid var(--nasa-red);
+}
+.nasa-flag__head {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: var(--nasa-s2) var(--nasa-s3);
+  border-bottom: 1px solid var(--nasa-black);
+}
+.nasa-flag__label {
+  font-size: var(--nasa-type-xs);
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--nasa-red);
+}
+.nasa-flag__sub {
+  font-size: var(--nasa-type-xs);
+  font-weight: 500;
+  color: var(--nasa-warm-gray);
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+}
+.nasa-flag__body { padding: var(--nasa-s3); }
+.nasa-flag__metric {
+  display: flex; align-items: baseline; gap: 8px;
+  margin: 0;
+}
+.nasa-flag__value {
+  font-size: var(--nasa-type-3xl);
+  font-weight: 500; line-height: 1;
+  color: var(--nasa-red);
+  letter-spacing: -0.02em;
+}
+.nasa-flag__unit {
+  font-size: var(--nasa-type-md);
+  color: var(--nasa-warm-gray);
+}
+.nasa-flag__note {
+  margin: var(--nasa-s2) 0 0 0;
+  font-size: var(--nasa-type-sm);
+  color: var(--nasa-warm-gray);
+}
+
+/* Warning callout — for the warning scenario. Red field, white type.
+ * The manual explicitly allows the NASA Red background with white-only logo;
+ * we apply the same rule to type. */
+.nasa-warning {
+  background: var(--nasa-red);
+  color: var(--nasa-white);
+  border: 0;
+}
+.nasa-warning__eyebrow {
+  font-size: var(--nasa-type-md);
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--nasa-white);
+  margin: 0;
+}
+.nasa-warning__headline {
+  font-size: var(--nasa-type-3xl);
+  font-weight: 700;
+  line-height: 1.05;
+  letter-spacing: -0.01em;
+  text-transform: uppercase;
+  color: var(--nasa-white);
+  margin: var(--nasa-s2) 0 0 0;
+}
+.nasa-warning__action {
+  margin-top: var(--nasa-s4);
+  padding: var(--nasa-s2) var(--nasa-s3);
+  background: var(--nasa-white);
+  color: var(--nasa-red);
+  font-weight: 700;
+  font-size: var(--nasa-type-md);
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  display: inline-block;
+}
+.nasa-warning__sub {
+  margin-top: var(--nasa-s2);
+  font-size: var(--nasa-type-sm);
+  color: var(--nasa-white);
+  opacity: 0.85;
+}
+
+/* Chip — small peripheral status */
+.nasa-chip {
+  display: inline-flex; align-items: center; gap: 8px;
+  padding: var(--nasa-s1) var(--nasa-s2);
+  font-size: var(--nasa-type-xs);
+  font-weight: 500;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--nasa-warm-gray);
+  background: var(--nasa-bg-overlay-quiet);
+  border: 1px solid var(--nasa-warm-gray);
+}
+.nasa-pip { width: 6px; height: 6px; background: var(--nasa-black); border-radius: 0; }
+.nasa-pip--blue { background: var(--nasa-vehicle-blue); }
+.nasa-pip--red  { background: var(--nasa-red); }

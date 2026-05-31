@@ -95,8 +95,8 @@
         <add as="shadow" value="0"/>
         <add as="gradient" value="0"/>
         <add as="strokeWidth" value="1"/>
-        <add as="fillColor" value="#D64C45"/>
-        <add as="strokeColor" value="#D64C45"/>
+        <add as="fillColor" value="#E4002B"/>
+        <add as="strokeColor" value="#E4002B"/>
         <add as="fontColor" value="#0F1113"/>
     </add>
     <add as="monad.highlight">

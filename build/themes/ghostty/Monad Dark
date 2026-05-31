@@ -1,6 +1,6 @@
 # Monad Dark
 # Generated from Monad System colors.json
-# Generated 2026-05-12
+# Generated 2026-05-31
 #
 # Install:  cp "Monad Dark" ~/.config/ghostty/themes/
 # Activate: theme = Monad Dark
@@ -22,7 +22,7 @@ selection-foreground = #EEF2F6
 
 # ── ANSI palette — normal (0-7) ───────────────────────────────────────────────
 palette = 0=#0F1113
-palette = 1=#D64C45
+palette = 1=#E4002B
 palette = 2=#6EAD45
 palette = 3=#D7A12A
 palette = 4=#1E88C8
@@ -32,7 +32,7 @@ palette = 7=#B6BFCC
 
 # ── ANSI palette — bright (8-15) ──────────────────────────────────────────────
 palette = 8=#2A313A
-palette = 9=#E04F48
+palette = 9=#EF002D
 palette = 10=#4CAF50
 palette = 11=#FFEB3B
 palette = 12=#329CDC

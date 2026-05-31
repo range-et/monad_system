@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Monad · Ski AR · Alert</title>
+  <link rel="stylesheet" href="../../../../build/monad.css">
+  <style>
+    /* Same panel strategy as calm.html — color-mix semi-opaque Monad bg
+       for legibility against the bright outdoor underlay. The HR-zone
+       flag uses the warning token, sparingly, to preserve signal. */
+    html, body { width: 1920px; height: 1080px; overflow: hidden; }
+    body {
+      background-image: url("../../../underlay_skiing.png");
+      background-size: cover;
+      background-position: center;
+      font-family: var(--font-sans);
+      color: var(--strata-text-primary);
+    }
+    .scene { position: relative; width: 100%; height: 100%; }
+
+    .panel {
+      background: color-mix(in srgb, var(--strata-bg) 92%, transparent);
+      border: 1px solid var(--strata-border);
+      padding: var(--space-3);
+    }
+    .panel--quiet {
+      background: color-mix(in srgb, var(--strata-bg) 78%, transparent);
+      border-color: var(--strata-border-subtle);
+    }
+
+    .run-id {
+      position: absolute; top: var(--space-3); left: var(--space-3);
+      padding: var(--space-1) var(--space-2);
+      font-family: var(--font-mono); font-size: var(--type-xs);
+      color: var(--strata-text-secondary);
+      letter-spacing: 0.12em; text-transform: uppercase;
+    }
+    .run-id strong { color: var(--strata-text-primary); font-weight: 600; }
+
+    .sysbar {
+      position: absolute; top: var(--space-3); right: var(--space-3);
+      display: flex; gap: var(--space-1);
+    }
+    .sysbar .chip {
+      padding: var(--space-1) var(--space-2);
+      font-family: var(--font-mono); font-size: var(--type-xs);
+      color: var(--strata-text-secondary);
+      display: flex; align-items: center; gap: 6px;
+    }
+    .pip { width: 6px; height: 6px; background: var(--strata-success); }
+    .pip--warn { background: var(--strata-warning); }
+
+    /* Bottom HUD strip — neutral tiles */
+    .hud {
+      position: absolute; left: 50%; bottom: var(--space-6);
+      transform: translateX(-50%);
+      display: flex; gap: 1px;
+      background: var(--strata-border-subtle);
+    }
+    .hud > .tile { padding: var(--space-2) var(--space-3); min-width: 150px; }
+    .tile__eyebrow {
+      font-family: var(--font-mono); font-size: var(--type-xs);
+      color: var(--strata-text-disabled); text-transform: uppercase;
+      letter-spacing: 0.14em;
+    }
+    .tile__value {
+      font-family: var(--font-mono); font-size: var(--type-2xl);
+      color: var(--strata-text-primary); font-weight: 600;
+      line-height: 1; margin-top: 8px;
+    }
+    .tile__unit { font-size: var(--type-sm); color: var(--strata-text-secondary); margin-left: 4px; }
+
+    /* HR-zone flag callout — the focal target. Uses the system-level
+       .atomos-callout--warning (filled tonal) per the Material-validated
+       "fill, not frame" principle. Position + width only here. */
+    #focal-target {
+      position: absolute;
+      top: 50%; right: var(--space-6);
+      transform: translateY(-50%);
+      width: 360px;
+    }
+    #focal-target .flag__metric {
+      display: flex; align-items: baseline; gap: 8px;
+      font-family: var(--font-mono);
+    }
+    #focal-target .flag__value {
+      font-size: 4.5rem; font-weight: 700; line-height: 1;
+      letter-spacing: -0.02em;
+    }
+    #focal-target .flag__unit { font-size: var(--type-md); opacity: 0.7; }
+    #focal-target .flag__bar { height: 4px; background: color-mix(in srgb, currentColor 22%, transparent); margin-top: var(--space-2); }
+    #focal-target .flag__bar > div { height: 100%; width: 86%; background: currentColor; }
+  </style>
+</head>
+<body>
+  <div class="scene">
+
+    <div class="run-id">RUN&nbsp;<strong>05</strong> · WHISTLER&nbsp;PEAK · 12:47</div>
+
+    <div class="sysbar">
+      <div class="panel panel--quiet chip"><span class="pip"></span>GPS&nbsp;LOCK</div>
+      <div class="panel panel--quiet chip">BAT&nbsp;64%</div>
+      <div class="panel panel--quiet chip"><span class="pip pip--warn"></span>WX&nbsp;CLOUD</div>
+    </div>
+
+    <div id="focal-target" data-focal="HR zone amber flag" class="atomos-callout atomos-callout--warning">
+      <div class="atomos-callout__head">
+        <span>HEART-RATE ZONE</span>
+        <span>Z4 · REDLINE</span>
+      </div>
+      <div class="atomos-callout__body">
+        <div class="flag__metric">
+          <span class="flag__value">168</span>
+          <span class="flag__unit">bpm</span>
+        </div>
+        <div class="atomos-callout__sub">Climbing toward Z5 · pace down 1 notch</div>
+        <div class="flag__bar"><div></div></div>
+      </div>
+    </div>
+
+    <div class="hud">
+      <div class="panel tile">
+        <div class="tile__eyebrow">Speed</div>
+        <div class="tile__value">28<span class="tile__unit">km/h</span></div>
+      </div>
+      <div class="panel tile">
+        <div class="tile__eyebrow">Elev</div>
+        <div class="tile__value">2,210<span class="tile__unit">m</span></div>
+      </div>
+      <div class="panel tile">
+        <div class="tile__eyebrow">Distance</div>
+        <div class="tile__value">18.6<span class="tile__unit">km</span></div>
+      </div>
+      <div class="panel tile">
+        <div class="tile__eyebrow">Elapsed</div>
+        <div class="tile__value">02:04<span class="tile__unit">:18</span></div>
+      </div>
+      <div class="panel tile">
+        <div class="tile__eyebrow">Run pace</div>
+        <div class="tile__value">04:12<span class="tile__unit">/km</span></div>
+      </div>
+    </div>
+
+  </div>
+</body>
+</html>

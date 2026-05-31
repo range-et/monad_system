@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Material 3 · Ski AR · Calm</title>
+  <link rel="stylesheet" href="../_tokens.css">
+  <style>
+    /* M3 calm: hero card containing the speed metric in display-large type,
+       sits as a 28 px-radius surface-container-low tonal panel. Secondary
+       chips and tiles use surface-container with elevation level 1. */
+    html, body { width: 1920px; height: 1080px; overflow: hidden; }
+    body {
+      background-image: url("../../../underlay_skiing.png");
+      background-size: cover;
+      background-position: center;
+    }
+    .scene { position: relative; width: 100%; height: 100%; }
+
+    /* Top app bar — translucent surface tinted with primary */
+    .topbar {
+      position: absolute; top: var(--md-sys-spacing-4); left: var(--md-sys-spacing-4); right: var(--md-sys-spacing-4);
+      display: flex; align-items: center; justify-content: space-between;
+      height: 64px; padding: 0 var(--md-sys-spacing-5);
+      background: color-mix(in srgb, var(--md-sys-color-surface) 88%, transparent);
+      border-radius: var(--md-sys-shape-corner-full);
+      box-shadow: var(--md-sys-elevation-level2);
+      color: var(--md-sys-color-on-surface);
+    }
+    .topbar__title {
+      font-size: var(--md-sys-typescale-title-large-size);
+      font-weight: 500;
+      color: var(--md-sys-color-on-surface);
+    }
+    .topbar__eyebrow {
+      font-size: var(--md-sys-typescale-label-medium-size);
+      font-weight: 500; letter-spacing: 0.5px;
+      color: var(--md-sys-color-on-surface-variant);
+      margin-right: var(--md-sys-spacing-3);
+    }
+    .topbar__chips { display: flex; gap: var(--md-sys-spacing-2); align-items: center; }
+
+    /* Hero card (focal target): primary speed metric.
+       Surface-container-low with primary tint, extra-large corner radius,
+       elevation 1. Display-large numeric, label-medium eyebrow. */
+    #focal-target {
+      position: absolute;
+      left: 50%; bottom: var(--md-sys-spacing-7);
+      transform: translateX(-50%);
+      width: 520px;
+      padding: var(--md-sys-spacing-6) var(--md-sys-spacing-7);
+      background: color-mix(in srgb, var(--md-sys-color-surface-container-low) 94%, transparent);
+      color: var(--md-sys-color-on-surface);
+      border-radius: var(--md-sys-shape-corner-extra-large);
+      box-shadow: var(--md-sys-elevation-level3);
+      display: flex; flex-direction: column; gap: var(--md-sys-spacing-2);
+    }
+    #focal-target .eyebrow {
+      font-size: var(--md-sys-typescale-label-large-size);
+      font-weight: 500; letter-spacing: 0.1px;
+      color: var(--md-sys-color-primary);
+      text-transform: none;
+    }
+    #focal-target .metric {
+      display: flex; align-items: baseline; gap: var(--md-sys-spacing-3);
+    }
+    #focal-target .value {
+      font-size: 112px; line-height: 1; font-weight: 400;
+      letter-spacing: -2px;
+      color: var(--md-sys-color-on-surface);
+    }
+    #focal-target .unit {
+      font-size: var(--md-sys-typescale-title-large-size);
+      font-weight: 400; color: var(--md-sys-color-on-surface-variant);
+    }
+    #focal-target .sub {
+      font-size: var(--md-sys-typescale-body-medium-size);
+      color: var(--md-sys-color-on-surface-variant);
+    }
+
+    /* Secondary stat row — small filled cards along the right */
+    .stats {
+      position: absolute; right: var(--md-sys-spacing-5); top: 50%;
+      transform: translateY(-50%);
+      display: flex; flex-direction: column; gap: var(--md-sys-spacing-3);
+      width: 220px;
+    }
+    .stat {
+      background: color-mix(in srgb, var(--md-sys-color-surface-container) 90%, transparent);
+      border-radius: var(--md-sys-shape-corner-large);
+      padding: var(--md-sys-spacing-4) var(--md-sys-spacing-5);
+      box-shadow: var(--md-sys-elevation-level1);
+    }
+    .stat__label {
+      font-size: var(--md-sys-typescale-label-medium-size);
+      font-weight: 500; letter-spacing: 0.5px;
+      color: var(--md-sys-color-on-surface-variant);
+    }
+    .stat__value {
+      margin-top: 4px;
+      font-size: var(--md-sys-typescale-headline-small-size);
+      font-weight: 500;
+      color: var(--md-sys-color-on-surface);
+    }
+    .stat__value small {
+      font-size: var(--md-sys-typescale-body-medium-size);
+      color: var(--md-sys-color-on-surface-variant);
+      font-weight: 400; margin-left: 4px;
+    }
+
+    .md-chip { background: color-mix(in srgb, var(--md-sys-color-surface-container-low) 90%, transparent); }
+  </style>
+</head>
+<body>
+  <div class="scene">
+
+    <div class="topbar">
+      <div style="display:flex; align-items:center; gap: var(--md-sys-spacing-3);">
+        <span class="topbar__eyebrow">Whistler Peak · Chair 4</span>
+        <span class="topbar__title">Run 03</span>
+      </div>
+      <div class="topbar__chips">
+        <span class="md-chip"><span class="md-chip__dot md-chip__dot--ok"></span>GPS locked</span>
+        <span class="md-chip">Battery 78%</span>
+      </div>
+    </div>
+
+    <div id="focal-target" data-focal="primary speed tile">
+      <span class="eyebrow">Current speed</span>
+      <div class="metric">
+        <span class="value">38</span>
+        <span class="unit">km/h</span>
+      </div>
+      <span class="sub">Cruise pace · Zone 2 effort</span>
+    </div>
+
+    <div class="stats">
+      <div class="stat">
+        <div class="stat__label">Heart rate</div>
+        <div class="stat__value">132<small>bpm</small></div>
+      </div>
+      <div class="stat">
+        <div class="stat__label">Elevation</div>
+        <div class="stat__value">2,140<small>m</small></div>
+      </div>
+      <div class="stat">
+        <div class="stat__label">Distance</div>
+        <div class="stat__value">14.2<small>km</small></div>
+      </div>
+      <div class="stat">
+        <div class="stat__label">Elapsed</div>
+        <div class="stat__value">01:23<small>:45</small></div>
+      </div>
+    </div>
+
+  </div>
+</body>
+</html>

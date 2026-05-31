@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>NASA · Climb AR · Warning</title>
+  <link rel="stylesheet" href="../_tokens.css">
+  <style>
+    html, body { width: 1920px; height: 1080px; overflow: hidden; }
+    body {
+      background-image: url("../../../underlay_rockclimbing.png");
+      background-size: cover;
+      background-position: center;
+    }
+    .scene { position: relative; width: 100%; height: 100%; }
+
+    .nasa-bar {
+      position: absolute; top: 0; left: 0; right: 0;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: var(--nasa-s3) var(--nasa-s4);
+      background: var(--nasa-bg-overlay-quiet);
+      border-bottom: 1px solid var(--nasa-black);
+    }
+    .nasa-bar__id { font-size: var(--nasa-type-md); font-weight: 500; letter-spacing: 0.12em; text-transform: uppercase; color: var(--nasa-black); }
+    .nasa-bar__id .nasa-wordmark { font-size: var(--nasa-type-lg); margin-right: var(--nasa-s3); padding-right: var(--nasa-s3); border-right: 1px solid var(--nasa-black); }
+    .nasa-bar__sys { display: flex; gap: var(--nasa-s2); }
+
+    #focal-target {
+      position: absolute;
+      left: 50%; top: 50%;
+      transform: translate(-50%, -50%);
+      width: 980px;
+      padding: var(--nasa-s6) var(--nasa-s6);
+    }
+    #focal-target .nasa-warning__headline { font-size: var(--nasa-type-4xl); }
+
+    .quiet-strip {
+      position: absolute; left: var(--nasa-s4); right: var(--nasa-s4);
+      bottom: var(--nasa-s4);
+      display: grid; grid-template-columns: repeat(5, 1fr);
+      gap: 1px;
+      background: var(--nasa-warm-gray);
+      border: 1px solid var(--nasa-warm-gray);
+    }
+    .quiet-strip > div {
+      background: var(--nasa-bg-overlay-quiet);
+      padding: var(--nasa-s2) var(--nasa-s3);
+    }
+    .quiet-strip .k { font-size: var(--nasa-type-xxs); font-weight: 500; letter-spacing: 0.12em; text-transform: uppercase; color: var(--nasa-warm-gray); }
+    .quiet-strip .v { font-size: var(--nasa-type-sm); color: var(--nasa-warm-gray); margin-top: 4px; }
+  </style>
+</head>
+<body>
+  <div class="scene">
+
+    <header class="nasa-bar">
+      <div class="nasa-bar__id">
+        <span class="nasa-wordmark">NASA</span>
+        Climbing Telemetry · Critical
+      </div>
+      <div class="nasa-bar__sys">
+        <span class="nasa-chip"><span class="nasa-pip nasa-pip--red"></span>Alarm Active</span>
+        <span class="nasa-chip">Bat 64%</span>
+        <span class="nasa-chip">T+ 00:03</span>
+      </div>
+    </header>
+
+    <div id="focal-target" class="nasa-warning" data-focal="warning callout headline">
+      <p class="nasa-warning__eyebrow">⚠ Warning · Master Alarm</p>
+      <h1 class="nasa-warning__headline">Fall Risk Detected</h1>
+      <p class="nasa-warning__sub">Anchor load spike with accelerometer event 3 s ago. Last secure hold: move 14.</p>
+      <span class="nasa-warning__action">Stabilize → Confirm Anchor</span>
+    </div>
+
+    <div class="quiet-strip">
+      <div><div class="k">HR</div><div class="v">192 bpm</div></div>
+      <div><div class="k">Move</div><div class="v">17 / 22</div></div>
+      <div><div class="k">Pump</div><div class="v">91%</div></div>
+      <div><div class="k">Partner</div><div class="v">Notified</div></div>
+      <div><div class="k">Trigger</div><div class="v">+00:03</div></div>
+    </div>
+
+  </div>
+</body>
+</html>

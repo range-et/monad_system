@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Carbon · Ski AR · Warning</title>
+  <link rel="stylesheet" href="../_tokens.css">
+  <style>
+    /* `cds--inline-notification--error` scaled to dominate the canvas.
+       Red 4px left bar, error icon, bold title, subtitle, primary action.
+       Square corners. Carbon white theme keeps the tinted background field
+       (`notification-background-error` = #FFF1F1). */
+    html, body { width: 1920px; height: 1080px; overflow: hidden; }
+    body {
+      background-image: url("../../../underlay_skiing.png");
+      background-size: cover;
+      background-position: center;
+    }
+    .scene { position: relative; width: 100%; height: 100%; }
+
+    .cds--header { position: absolute; top: 0; left: 0; right: 0; }
+    .header-chips {
+      display: flex; align-items: center; gap: var(--cds-spacing-03);
+      padding: 0 var(--cds-spacing-05); margin-left: auto;
+    }
+    .header-chips .cds--tag {
+      background: transparent; color: #C6C6C6;
+      border: 1px solid #525252; border-radius: 0;
+      font-family: var(--cds-font-mono); letter-spacing: 0.04em;
+    }
+    .header-chips .cds--tag--alarm { color: #FFFFFF; border-color: var(--cds-support-error-inverse); }
+    .header-chips .cds--tag--alarm .cds--tag__dot { background: var(--cds-support-error-inverse); }
+
+    /* Warning dominates */
+    #focal-target {
+      position: absolute;
+      left: 50%; top: 50%;
+      transform: translate(-50%, -50%);
+      width: 1040px;
+      border-left-width: 8px;
+      background: #FFFFFF;
+    }
+    #focal-target .cds--inline-notification__icon {
+      font-size: 48px;
+      padding: var(--cds-spacing-07) var(--cds-spacing-06) 0 var(--cds-spacing-07);
+      color: var(--cds-support-error);
+    }
+    #focal-target .cds--inline-notification__details {
+      padding: var(--cds-spacing-07) var(--cds-spacing-07) var(--cds-spacing-07) 0;
+      gap: var(--cds-spacing-04);
+    }
+    #focal-target .eyebrow {
+      font-family: var(--cds-font-mono);
+      font-size: 14px;
+      font-weight: 600;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--cds-support-error);
+      margin: 0;
+    }
+    #focal-target .cds--inline-notification__title {
+      font-size: 64px;
+      line-height: 1.05;
+      font-weight: 600;
+      letter-spacing: -0.01em;
+      color: var(--cds-text-primary);
+      text-transform: uppercase;
+    }
+    #focal-target .cds--inline-notification__subtitle {
+      font-size: 18px;
+      line-height: 24px;
+      color: var(--cds-text-secondary);
+      max-width: 640px;
+    }
+    #focal-target .actions { display: flex; gap: var(--cds-spacing-03); margin-top: var(--cds-spacing-04); }
+    #focal-target .cds--btn { height: 56px; }
+
+    /* Suppressed peripheral data */
+    .quiet-strip {
+      position: absolute; left: var(--cds-spacing-06); right: var(--cds-spacing-06);
+      bottom: var(--cds-spacing-06);
+      display: grid; grid-template-columns: repeat(5, 1fr);
+      gap: 1px;
+      background: var(--cds-border-strong-01);
+      border: 1px solid var(--cds-border-strong-01);
+    }
+    .quiet-strip > div {
+      background: rgba(255, 255, 255, 0.85);
+      padding: var(--cds-spacing-03) var(--cds-spacing-05);
+    }
+    .quiet-strip .k {
+      font-size: 11px; font-weight: 400;
+      letter-spacing: 0.08em; text-transform: uppercase;
+      color: var(--cds-text-helper);
+    }
+    .quiet-strip .v {
+      font-family: var(--cds-font-mono);
+      font-size: 14px; color: var(--cds-text-secondary);
+      margin-top: 4px;
+    }
+  </style>
+</head>
+<body>
+  <div class="scene">
+
+    <header class="cds--header">
+      <div class="cds--header__name">
+        <span class="cds--header__prefix">IBM</span>
+        <span class="cds--header__title">Telemetry / Critical</span>
+      </div>
+      <nav class="cds--header__nav">
+        <a class="is-active">Live</a>
+      </nav>
+      <div class="cds--header__global">
+        <div class="header-chips">
+          <span class="cds--tag cds--tag--alarm"><span class="cds--tag__dot"></span>ALARM ACTIVE</span>
+          <span class="cds--tag">BAT 64%</span>
+          <span class="cds--tag">T+ 00:03</span>
+        </div>
+        <div class="cds--header__action">◉</div>
+      </div>
+    </header>
+
+    <div id="focal-target"
+         class="cds--inline-notification cds--inline-notification--error"
+         role="alert" data-focal="warning callout headline">
+      <div class="cds--inline-notification__icon">▲</div>
+      <div class="cds--inline-notification__details">
+        <p class="eyebrow">Master alarm · Fall risk</p>
+        <p class="cds--inline-notification__title">Fall risk detected</p>
+        <p class="cds--inline-notification__subtitle">
+          Anchor load spike with accelerometer event 3 s ago.
+          Last secure hold: move 14. Stabilize before next move.
+        </p>
+        <div class="actions">
+          <button class="cds--btn cds--btn--danger">Stabilize — confirm anchor</button>
+          <button class="cds--btn cds--btn--ghost">Snooze 5 s</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="quiet-strip">
+      <div><div class="k">Heart rate</div><div class="v">192 bpm</div></div>
+      <div><div class="k">Move</div><div class="v">17 / 22</div></div>
+      <div><div class="k">Pump</div><div class="v">91 %</div></div>
+      <div><div class="k">Partner</div><div class="v">Notified</div></div>
+      <div><div class="k">Trigger</div><div class="v">+00:03</div></div>
+    </div>
+
+  </div>
+</body>
+</html>

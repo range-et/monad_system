@@ -1,0 +1,228 @@
+/* Apple HIG design tokens — light mode, v1.
+ *
+ * Approximated from Apple's published Human Interface Guidelines:
+ *   https://developer.apple.com/design/human-interface-guidelines/
+ *
+ * Idiom this file encodes:
+ *   - System fonts (-apple-system / SF Pro Text / SF Pro Display, SF Mono for data)
+ *   - Apple system color palette (light) — systemRed/Orange/Yellow/Green/Blue/Indigo
+ *   - Label hierarchy with rgba alpha (label / secondaryLabel / tertiaryLabel)
+ *   - Background hierarchy (systemBackground / secondary / tertiary)
+ *   - Translucent "materials" (blurred chrome over photo passthrough — Maps, Vision Pro, Watch faces)
+ *   - Generous continuous-feel corner radii (10-22 px on cards, fully rounded pill controls)
+ *   - Subtle drop shadow on elevated cards
+ *   - SF Pro size scale (large title 34, title 1/2/3 28/22/20, headline 17, body 17, callout 16, footnote 13, caption 12/11)
+ *   - Sentence case headers, never all caps
+ */
+
+:root {
+  /* ------- System colors (light mode) ------- */
+  --apple-red:     #FF3B30;
+  --apple-orange:  #FF9500;
+  --apple-yellow:  #FFCC00;
+  --apple-green:   #34C759;
+  --apple-blue:    #007AFF;
+  --apple-indigo:  #5856D6;
+  --apple-purple:  #AF52DE;
+  --apple-pink:    #FF2D55;
+  --apple-teal:    #30B0C7;
+  --apple-mint:    #00C7BE;
+
+  /* Grayscale ramp (systemGray .. systemGray6) */
+  --apple-gray:    #8E8E93;
+  --apple-gray-2:  #AEAEB2;
+  --apple-gray-3:  #C7C7CC;
+  --apple-gray-4:  #D1D1D6;
+  --apple-gray-5:  #E5E5EA;
+  --apple-gray-6:  #F2F2F7;
+
+  /* ------- Labels (text) ------- */
+  --apple-label:           #000000;
+  --apple-label-secondary: rgba(60, 60, 67, 0.60);
+  --apple-label-tertiary:  rgba(60, 60, 67, 0.30);
+  --apple-label-quaternary: rgba(60, 60, 67, 0.18);
+  --apple-label-on-tint:   #FFFFFF;            /* text on filled colored chrome */
+
+  /* ------- Backgrounds ------- */
+  --apple-bg-system:           #FFFFFF;
+  --apple-bg-system-secondary: #F2F2F7;
+  --apple-bg-system-tertiary:  #FFFFFF;
+  --apple-bg-grouped:          #F2F2F7;
+  --apple-bg-grouped-secondary: #FFFFFF;
+
+  /* ------- Separator / fill (with alpha for overlays) ------- */
+  --apple-separator:           rgba(60, 60, 67, 0.29);
+  --apple-separator-opaque:    #C6C6C8;
+  --apple-fill:                rgba(120, 120, 128, 0.20);
+  --apple-fill-secondary:      rgba(120, 120, 128, 0.16);
+  --apple-fill-tertiary:       rgba(118, 118, 128, 0.12);
+  --apple-fill-quaternary:     rgba(116, 116, 128, 0.08);
+
+  /* ------- Materials (translucent chrome for AR / overlays) ------- */
+  --apple-material-thick:   rgba(255, 255, 255, 0.82);
+  --apple-material-regular: rgba(255, 255, 255, 0.72);
+  --apple-material-thin:    rgba(255, 255, 255, 0.55);
+  --apple-material-ultra:   rgba(255, 255, 255, 0.40);
+  --apple-material-blur:    saturate(180%) blur(20px);
+
+  /* ------- Typography ------- */
+  --apple-font-system: -apple-system, BlinkMacSystemFont, "SF Pro Text",
+                       "SF Pro Display", "Helvetica Neue", "Helvetica",
+                       "Arial", sans-serif;
+  --apple-font-display: -apple-system, BlinkMacSystemFont, "SF Pro Display",
+                        "SF Pro Text", "Helvetica Neue", sans-serif;
+  --apple-font-mono:   "SF Mono", ui-monospace, Menlo, Monaco,
+                       "Cascadia Mono", Consolas, monospace;
+  --apple-font-rounded: -apple-system-system-ui-rounded, "SF Pro Rounded",
+                        "SF Pro Display", -apple-system, sans-serif;
+
+  /* SF Pro size scale (HIG: Large Title 34 / Title 1 28 / Title 2 22 / Title 3 20
+                          Headline 17 / Body 17 / Callout 16 / Subhead 15 / Footnote 13
+                          Caption 1 12 / Caption 2 11) */
+  --apple-text-large-title: 34px;
+  --apple-text-title-1:     28px;
+  --apple-text-title-2:     22px;
+  --apple-text-title-3:     20px;
+  --apple-text-headline:    17px;
+  --apple-text-body:        17px;
+  --apple-text-callout:     16px;
+  --apple-text-subhead:     15px;
+  --apple-text-footnote:    13px;
+  --apple-text-caption-1:   12px;
+  --apple-text-caption-2:   11px;
+
+  /* Hero numerics — Activity-rings / Workout Summary scale */
+  --apple-text-hero-l: 96px;
+  --apple-text-hero-m: 72px;
+  --apple-text-hero-s: 56px;
+
+  --apple-weight-regular:  400;
+  --apple-weight-medium:   500;
+  --apple-weight-semibold: 600;
+  --apple-weight-bold:     700;
+  --apple-weight-heavy:    800;
+
+  /* ------- Radii (continuous corner feel) ------- */
+  --apple-radius-card:    14px;
+  --apple-radius-card-l:  18px;
+  --apple-radius-card-xl: 22px;
+  --apple-radius-control: 10px;
+  --apple-radius-pill:    999px;
+
+  /* ------- Spacing (8 pt scale) ------- */
+  --apple-s1: 4px;
+  --apple-s2: 8px;
+  --apple-s3: 12px;
+  --apple-s4: 16px;
+  --apple-s5: 20px;
+  --apple-s6: 24px;
+  --apple-s7: 32px;
+  --apple-s8: 48px;
+
+  /* ------- Elevation ------- */
+  --apple-shadow-card:     0 1px 3px rgba(0, 0, 0, 0.08),
+                           0 0 0 0.5px rgba(0, 0, 0, 0.04);
+  --apple-shadow-elevated: 0 8px 28px rgba(0, 0, 0, 0.18),
+                           0 1px 3px rgba(0, 0, 0, 0.10);
+  --apple-shadow-warning:  0 12px 32px rgba(255, 59, 48, 0.35),
+                           0 1px 3px rgba(0, 0, 0, 0.10);
+}
+
+* { box-sizing: border-box; }
+html, body { margin: 0; padding: 0; }
+body {
+  font-family: var(--apple-font-system);
+  color: var(--apple-label);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  letter-spacing: -0.01em;
+}
+
+/* -------------------------------------------------------------------------
+ * Reusable component primitives
+ * ------------------------------------------------------------------------- */
+
+/* Material panel — translucent blurred chrome over AR passthrough */
+.apple-material {
+  background: var(--apple-material-regular);
+  -webkit-backdrop-filter: var(--apple-material-blur);
+          backdrop-filter: var(--apple-material-blur);
+  border-radius: var(--apple-radius-card);
+  box-shadow: var(--apple-shadow-card);
+}
+.apple-material--thick {
+  background: var(--apple-material-thick);
+}
+.apple-material--thin {
+  background: var(--apple-material-thin);
+}
+
+/* Card — opaque elevated surface */
+.apple-card {
+  background: var(--apple-bg-system);
+  border-radius: var(--apple-radius-card-l);
+  box-shadow: var(--apple-shadow-card);
+}
+
+/* Pill control — capsule, used for buttons, status chips */
+.apple-pill {
+  display: inline-flex; align-items: center; gap: 6px;
+  padding: 6px 12px;
+  border-radius: var(--apple-radius-pill);
+  background: var(--apple-material-thick);
+  -webkit-backdrop-filter: var(--apple-material-blur);
+          backdrop-filter: var(--apple-material-blur);
+  font: var(--apple-weight-semibold) var(--apple-text-footnote) / 1 var(--apple-font-system);
+  color: var(--apple-label-secondary);
+  letter-spacing: -0.01em;
+}
+.apple-pill .dot {
+  width: 6px; height: 6px; border-radius: 50%;
+  background: var(--apple-green);
+}
+.apple-pill .dot--warn   { background: var(--apple-orange); }
+.apple-pill .dot--red    { background: var(--apple-red); }
+.apple-pill .dot--blue   { background: var(--apple-blue); }
+.apple-pill .dot--gray   { background: var(--apple-gray); }
+
+/* Eyebrow label — small uppercase metadata above a value, mono for data */
+.apple-eyebrow {
+  font: var(--apple-weight-semibold) var(--apple-text-footnote) / 1 var(--apple-font-system);
+  color: var(--apple-label-secondary);
+  letter-spacing: -0.01em;
+}
+.apple-eyebrow--mono {
+  font-family: var(--apple-font-mono);
+  font-size: var(--apple-text-caption-1);
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+/* Hero numeric — for the calm "Activity-rings-feel" focal metric */
+.apple-hero-value {
+  font-family: var(--apple-font-system);
+  font-weight: var(--apple-weight-bold);
+  font-size: var(--apple-text-hero-m);
+  line-height: 0.95;
+  letter-spacing: -0.04em;
+  color: var(--apple-label);
+  font-variant-numeric: tabular-nums;
+}
+.apple-hero-unit {
+  font-family: var(--apple-font-system);
+  font-weight: var(--apple-weight-semibold);
+  font-size: var(--apple-text-title-3);
+  color: var(--apple-label-secondary);
+  margin-left: 6px;
+  letter-spacing: -0.01em;
+}
+
+/* iOS-style status bar (device-only) */
+.apple-statusbar {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 14px 22px 8px;
+  font: var(--apple-weight-semibold) var(--apple-text-callout) / 1 var(--apple-font-system);
+  color: var(--apple-label);
+  letter-spacing: -0.02em;
+}
+.apple-statusbar .right { display: flex; gap: 6px; align-items: center; }

@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Material 3 · Climb AR · Warning</title>
+  <link rel="stylesheet" href="../_tokens.css">
+  <style>
+    /* M3 warning: large error-container card centered. Destructive filled
+       button + dismiss text button. Error-container scrim suppresses the
+       rest of the canvas. */
+    html, body { width: 1920px; height: 1080px; overflow: hidden; }
+    body {
+      background-image: url("../../../underlay_rockclimbing.png");
+      background-size: cover;
+      background-position: center;
+    }
+    .scene { position: relative; width: 100%; height: 100%; }
+    .scrim {
+      position: absolute; inset: 0;
+      background: color-mix(in srgb, var(--md-sys-color-error-container) 55%, transparent);
+    }
+
+    .topbar {
+      position: absolute; top: var(--md-sys-spacing-4); right: var(--md-sys-spacing-4);
+      display: flex; gap: var(--md-sys-spacing-2);
+    }
+    .md-chip { background: color-mix(in srgb, var(--md-sys-color-surface) 92%, transparent); }
+
+    #focal-target {
+      position: absolute;
+      top: 50%; left: 50%;
+      transform: translate(-50%, -50%);
+      width: 920px;
+      padding: var(--md-sys-spacing-7);
+      background: var(--md-sys-color-error-container);
+      color: var(--md-sys-color-on-error-container);
+      border-radius: var(--md-sys-shape-corner-extra-large);
+      box-shadow: var(--md-sys-elevation-level5);
+      display: flex; flex-direction: column; gap: var(--md-sys-spacing-4);
+    }
+    #focal-target .head {
+      display: flex; align-items: center; gap: var(--md-sys-spacing-4);
+    }
+    #focal-target .icon {
+      width: 64px; height: 64px;
+      border-radius: var(--md-sys-shape-corner-full);
+      background: var(--md-sys-color-error);
+      color: var(--md-sys-color-on-error);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 32px; font-weight: 700;
+      flex: 0 0 auto;
+    }
+    #focal-target .label {
+      font-size: var(--md-sys-typescale-label-large-size);
+      font-weight: 500; letter-spacing: 0.1px;
+      text-transform: uppercase;
+      color: var(--md-sys-color-error);
+    }
+    #focal-target .timestamp {
+      margin-left: auto;
+      font-size: var(--md-sys-typescale-title-medium-size);
+      font-family: var(--md-sys-typescale-font-mono);
+      color: var(--md-sys-color-on-error-container);
+      opacity: 0.7;
+    }
+    #focal-target .headline {
+      font-size: var(--md-sys-typescale-display-medium-size);
+      line-height: var(--md-sys-typescale-display-medium-line);
+      font-weight: 500;
+      letter-spacing: -0.5px;
+      color: var(--md-sys-color-on-error-container);
+      margin: 0;
+    }
+    #focal-target .sub {
+      font-size: var(--md-sys-typescale-title-medium-size);
+      line-height: var(--md-sys-typescale-title-large-line);
+      color: var(--md-sys-color-on-error-container);
+      opacity: 0.85;
+      margin: 0;
+    }
+    #focal-target .actions {
+      display: flex; gap: var(--md-sys-spacing-3); align-items: center;
+      margin-top: var(--md-sys-spacing-3);
+    }
+    #focal-target .meta {
+      display: flex; gap: var(--md-sys-spacing-6);
+      padding-top: var(--md-sys-spacing-4);
+      border-top: 1px solid color-mix(in srgb, var(--md-sys-color-on-error-container) 18%, transparent);
+      font-size: var(--md-sys-typescale-body-medium-size);
+      color: var(--md-sys-color-on-error-container);
+      opacity: 0.85;
+    }
+    #focal-target .meta strong { font-weight: 500; opacity: 1; }
+  </style>
+</head>
+<body>
+  <div class="scene">
+    <div class="scrim"></div>
+
+    <div class="topbar">
+      <span class="md-chip">Battery 58%</span>
+    </div>
+
+    <div id="focal-target" data-focal="warning callout headline">
+      <div class="head">
+        <div class="icon">!</div>
+        <div>
+          <div class="label">Critical alert</div>
+        </div>
+        <div class="timestamp">T+00:03</div>
+      </div>
+      <h1 class="headline">Fall risk detected</h1>
+      <p class="sub">Anchor load spike with accelerometer event 3 s ago. Stabilize and confirm your anchor before the next move.</p>
+      <div class="actions">
+        <button class="md-button md-button--error md-button--large">Stabilize → Confirm anchor</button>
+        <button class="md-button md-button--text">Dismiss</button>
+      </div>
+      <div class="meta">
+        <span>Last secure hold <strong>move 14</strong></span>
+        <span>Partner notified <strong>Yes</strong></span>
+        <span>Heart rate <strong>192 bpm</strong></span>
+      </div>
+    </div>
+
+  </div>
+</body>
+</html>

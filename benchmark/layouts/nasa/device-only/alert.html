@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>NASA · Device · Alert</title>
+  <link rel="stylesheet" href="../_tokens.css">
+  <style>
+    html, body { width: 390px; height: 844px; overflow: hidden; }
+    body { background: var(--nasa-white); }
+    .scene { position: relative; width: 100%; height: 100%; padding: 16px; }
+
+    .nasa-bar {
+      display: flex; align-items: center; justify-content: space-between;
+      padding-bottom: 12px; border-bottom: 1px solid var(--nasa-black);
+    }
+    .nasa-bar__id { font-size: 14px; font-weight: 500; letter-spacing: 0.10em; text-transform: uppercase; }
+    .nasa-bar__id .nasa-wordmark { font-size: 18px; margin-right: 12px; padding-right: 12px; border-right: 1px solid var(--nasa-black); }
+    .nasa-bar__sys { display: flex; gap: 4px; }
+
+    #focal-target { margin-top: 16px; }
+    #focal-target .nasa-flag__head { padding: 12px 16px; }
+    #focal-target .nasa-flag__body { padding: 20px 16px; }
+    #focal-target .nasa-flag__value { font-size: 64px; }
+    #focal-target .nasa-flag__unit  { font-size: 20px; }
+
+    .grid {
+      margin-top: 16px;
+      display: grid; grid-template-columns: 1fr 1fr;
+      border: 1px solid var(--nasa-warm-gray);
+    }
+    .grid > .nasa-tile { padding: 12px 16px; }
+    .grid > .nasa-tile:nth-child(even) { border-left: 1px solid var(--nasa-warm-gray); }
+    .grid > .nasa-tile:nth-child(n+3)  { border-top: 1px solid var(--nasa-warm-gray); }
+    .grid .nasa-tile__value { font-size: 20px; }
+
+    .footnote {
+      position: absolute; left: 16px; right: 16px; bottom: 16px;
+      padding-top: 8px;
+      border-top: 1px solid var(--nasa-warm-gray);
+      font-family: var(--nasa-serif);
+      font-size: 11px; color: var(--nasa-warm-gray);
+    }
+  </style>
+</head>
+<body>
+  <div class="scene">
+
+    <header class="nasa-bar">
+      <div class="nasa-bar__id"><span class="nasa-wordmark">NASA</span>Pitch 03</div>
+      <div class="nasa-bar__sys">
+        <span class="nasa-chip"><span class="nasa-pip nasa-pip--red"></span>Cloud</span>
+        <span class="nasa-chip">Bat 64%</span>
+      </div>
+    </header>
+
+    <div id="focal-target" class="nasa-flag" data-focal="HR-zone amber flag">
+      <div class="nasa-flag__head">
+        <span class="nasa-flag__label">Caution · HR Zone</span>
+        <span class="nasa-flag__sub">Z4 · Redline</span>
+      </div>
+      <div class="nasa-flag__body">
+        <p class="nasa-flag__metric">
+          <span class="nasa-flag__value">168</span>
+          <span class="nasa-flag__unit">bpm</span>
+        </p>
+        <p class="nasa-flag__note">Climbing toward Z5. Reduce pace one notch.</p>
+      </div>
+    </div>
+
+    <div class="grid">
+      <div class="nasa-tile">
+        <p class="nasa-tile__eyebrow">Route</p>
+        <p class="nasa-tile__value">14 / 22</p>
+      </div>
+      <div class="nasa-tile">
+        <p class="nasa-tile__eyebrow">Pump</p>
+        <p class="nasa-tile__value">78<span class="nasa-tile__unit">%</span></p>
+      </div>
+      <div class="nasa-tile">
+        <p class="nasa-tile__eyebrow">Grip</p>
+        <p class="nasa-tile__value">00:34</p>
+      </div>
+      <div class="nasa-tile">
+        <p class="nasa-tile__eyebrow">On Wall</p>
+        <p class="nasa-tile__value">12:47</p>
+      </div>
+    </div>
+
+    <p class="footnote">Climbing Telemetry · Belay on · Action required</p>
+
+  </div>
+</body>
+</html>

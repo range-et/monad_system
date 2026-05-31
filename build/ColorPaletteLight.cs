@@ -56,7 +56,7 @@ namespace Monad
             Information3 = ColorFromHex("#6EAD45");
 
             Warning1 = ColorFromHex("#D7A12A");
-            Alert = ColorFromHex("#D64C45");
+            Alert = ColorFromHex("#E4002B");
 
             Highlight = ColorFromHex("#FFEB3B");
             Disabled = ColorFromHex("#7E8998");

@@ -4,7 +4,7 @@ monad_streamlit.py
 
 Apply the Monad System design language to a Streamlit app.
 
-Generated from colors.json on 2026-05-12.
+Generated from colors.json on 2026-05-31.
 
 Usage
 -----
@@ -54,7 +54,7 @@ SIGNAL_TOKENS = {
     "support-info":        "#2B9ED1",
     "support-success":     "#6EAD45",
     "support-warning":     "#D7A12A",
-    "support-error":       "#D64C45",
+    "support-error":       "#E4002B",
     "highlight":           "#FFEB3B",
     "disabled":            "#757575",
 }
