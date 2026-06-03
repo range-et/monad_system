@@ -19,6 +19,7 @@ UNITY_GENERATED   := ../beta-bot_unity/Assets/Scripts/Generated/Monad
 build:
 	$(PYTHON) src/gen_icon.py
 	$(PYTHON) $(SRC) --json_path $(JSON) --output_path $(OUT)/
+	$(PYTHON) src/gen_motion_gifs.py
 	@sips -z 128 128 assets/icon.png --out $(VSCODE_BUILD_DIR)/icon.png > /dev/null 2>&1 || true
 
 ## install         — build, then install VS Code + Ghostty + Xcode themes
