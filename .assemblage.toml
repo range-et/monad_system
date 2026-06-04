@@ -1,6 +1,9 @@
 # Mirrored into Assemblage/_Projects/monad_system/
 include = [
     "README.md",
+    "benchmark.md",
+    "benchmark/report.md",
+    "docs/nasa_design_manual.md",
 ]
 exclude = [
     "AGENTS.md",
