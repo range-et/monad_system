@@ -57,6 +57,13 @@ from templates.drawio_template import (
     create_drawio_example_diagram,
     create_drawio_readme,
 )
+from templates.sublime_template import (
+    build_sublime_palette,
+    create_sublime_color_scheme,
+    create_sublime_ui_theme,
+    create_sublime_texture_png,
+    create_sublime_readme,
+)
 
 
 def load_json(json_path):
@@ -730,6 +737,76 @@ def prepare_templates(json_data):
     )
     drawio_readme = create_drawio_readme()
 
+    # --- Build: Sublime Text color schemes + UI theme + textures ────────────
+    sublime_dark_pal = build_sublime_palette(
+        bg=background_color,
+        layer01=layer01_dark,
+        layer02=layer02_dark,
+        layer03=layer03_dark,
+        text_primary=primary_text_color,
+        text_secondary=secondary_text_color,
+        text_disabled=text_disabled_dark,
+        border=border_dark,
+        border_subtle=border_subtle_dark,
+        interactive=information_2_color,
+        interactive_hover=ia_hover,
+        interactive_active=ia_active,
+        info=information_1_color,
+        success=information_3_color,
+        warning=warning_color,
+        error=alert_color,
+        highlight=highlight_color,
+        move_start=start_color,
+        move_hand=hand_color,
+        move_foot=foot_color,
+        move_finish=end_color,
+    )
+    sublime_light_pal = build_sublime_palette(
+        bg=bg_light,
+        layer01=layer01_light,
+        layer02=layer02_light,
+        layer03=layer03_light,
+        text_primary=text_primary_light,
+        text_secondary=text_secondary_light,
+        text_disabled=text_disabled_light,
+        border=border_light,
+        border_subtle=border_subtle_light,
+        interactive=ia_hover,
+        interactive_hover=ia_active,
+        interactive_active=_darken(information_2_color, 0.65),
+        info=_darken(information_1_color, 0.65),
+        success=_darken(information_3_color, 0.65),
+        warning=_darken(warning_color, 0.90),
+        error=_darken(alert_color, 0.70),
+        highlight=_darken(highlight_color, 0.85),
+        move_start=_darken(start_color, 0.65),
+        move_hand=_darken(hand_color, 0.75),
+        move_foot=_darken(foot_color, 0.85),
+        move_finish=_darken(end_color, 0.70),
+    )
+    sublime_dark_scheme  = create_sublime_color_scheme(
+        "Monad Dark",  "dark",  sublime_dark_pal,
+    )
+    sublime_light_scheme = create_sublime_color_scheme(
+        "Monad Light", "light", sublime_light_pal,
+    )
+    sublime_dark_theme   = create_sublime_ui_theme(
+        "Monad",       sublime_dark_pal,  variant="dark",  texture_id="dot",
+    )
+    sublime_light_theme  = create_sublime_ui_theme(
+        "Monad Light", sublime_light_pal, variant="light", texture_id="dot",
+    )
+    sublime_readme = create_sublime_readme()
+
+    # Render one PNG per texture defined in colors.json
+    sublime_texture_pngs = {}
+    for tdef in (textures or {}).values():
+        tid = tdef["id"]
+        try:
+            sublime_texture_pngs[tid] = create_sublime_texture_png(tdef)
+        except Exception as exc:
+            print(f"Warning: Sublime texture '{tid}' skipped — {exc}")
+
     return {
         "css_tokens":    css_tokens,
         "css_library":   css_library,
@@ -766,6 +843,12 @@ def prepare_templates(json_data):
         "drawio_stylesheet":  drawio_stylesheet,
         "drawio_example":     drawio_example,
         "drawio_readme":      drawio_readme,
+        "sublime_dark_scheme":  sublime_dark_scheme,
+        "sublime_light_scheme": sublime_light_scheme,
+        "sublime_dark_theme":   sublime_dark_theme,
+        "sublime_light_theme":  sublime_light_theme,
+        "sublime_readme":       sublime_readme,
+        "sublime_texture_pngs": sublime_texture_pngs,   # dict[id -> bytes]
     }
 
 
@@ -841,13 +924,27 @@ if __name__ == "__main__":
             "themes/drawio/monad-drawio-stylesheet.xml": code["drawio_stylesheet"],
             "themes/drawio/monad-drawio-example.drawio": code["drawio_example"],
             "themes/drawio/README.md":                   code["drawio_readme"],
+            # ── Sublime Text package ──────────────────────────────────────────
+            "themes/sublime/Monad Dark.sublime-color-scheme":  code["sublime_dark_scheme"],
+            "themes/sublime/Monad Light.sublime-color-scheme": code["sublime_light_scheme"],
+            "themes/sublime/Monad.sublime-theme":              code["sublime_dark_theme"],
+            "themes/sublime/Monad Light.sublime-theme":        code["sublime_light_theme"],
+            "themes/sublime/README.md":                        code["sublime_readme"],
         }
+
+        # Sublime texture PNGs (binary) — generated only when Pillow renders them
+        for tex_id, png_bytes in code["sublime_texture_pngs"].items():
+            outputs[f"themes/sublime/textures/{tex_id}.png"] = png_bytes
 
         for filename, content in outputs.items():
             path = os.path.join(args.output_path, filename)
             os.makedirs(os.path.dirname(path), exist_ok=True)
-            with open(path, "w") as f:
-                f.write(content)
+            if isinstance(content, (bytes, bytearray)):
+                with open(path, "wb") as f:
+                    f.write(content)
+            else:
+                with open(path, "w") as f:
+                    f.write(content)
             print(f"Saved → {os.path.join(args.output_path, filename)}")
 
         print("\nDone. Artifacts in build/:")
@@ -880,6 +977,12 @@ if __name__ == "__main__":
                          "themes/drawio/monad-drawio-stylesheet.xml",
                          "themes/drawio/monad-drawio-example.drawio",
                          "themes/drawio/README.md"]),
+            ("Sublime Text", ["themes/sublime/Monad Dark.sublime-color-scheme",
+                              "themes/sublime/Monad Light.sublime-color-scheme",
+                              "themes/sublime/Monad.sublime-theme",
+                              "themes/sublime/Monad Light.sublime-theme",
+                              "themes/sublime/textures/<dot|hatch-*>.png",
+                              "themes/sublime/README.md"]),
         ]
         for group_name, files in groups:
             print(f"\n  [{group_name}]")

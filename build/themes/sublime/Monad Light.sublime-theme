@@ -1,0 +1,407 @@
+{
+  "extends": "Adaptive.sublime-theme",
+  "variables": {
+    "bg": "#F2F4F7",
+    "layer01": "#ffffff",
+    "layer02": "#EDF1F5",
+    "layer03": "#E3E8EE",
+    "text_primary": "#141A22",
+    "text_secondary": "#4F5A69",
+    "text_disabled": "#7E8998",
+    "border": "#BCC6D2",
+    "border_subtle": "#D8DFE7",
+    "interactive": "#1973AA",
+    "success": "#47702C",
+    "warning": "#C19025",
+    "error": "#9F001E"
+  },
+  "rules": [
+    {
+      "class": "sidebar_container",
+      "layer0.tint": "var(layer01)",
+      "layer0.opacity": 1.0,
+      "layer1.texture": "Monad/textures/dot.png",
+      "layer1.tint": "var(text_disabled)",
+      "layer1.opacity": 0.08,
+      "content_margin": [
+        0,
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "class": "sidebar_tree",
+      "row_padding": [
+        8,
+        4
+      ],
+      "indent": 12,
+      "spacer_rows": true,
+      "dark_content": false
+    },
+    {
+      "class": "tree_row",
+      "layer0.opacity": 0.0
+    },
+    {
+      "class": "tree_row",
+      "attributes": [
+        "hover"
+      ],
+      "layer0.tint": "var(layer02)",
+      "layer0.opacity": 1.0
+    },
+    {
+      "class": "tree_row",
+      "attributes": [
+        "selected"
+      ],
+      "layer0.tint": "var(layer03)",
+      "layer0.opacity": 1.0
+    },
+    {
+      "class": "sidebar_label",
+      "color": "var(text_secondary)",
+      "font.size": 12
+    },
+    {
+      "class": "sidebar_label",
+      "parents": [
+        {
+          "class": "tree_row",
+          "attributes": [
+            "selected"
+          ]
+        }
+      ],
+      "color": "var(text_primary)"
+    },
+    {
+      "class": "sidebar_heading",
+      "color": "var(text_disabled)",
+      "font.size": 11,
+      "font.bold": false,
+      "case": "upper"
+    },
+    {
+      "class": "tabset_control",
+      "layer0.tint": "var(layer01)",
+      "layer0.opacity": 1.0,
+      "tab_height": 30,
+      "tab_overlap": 0,
+      "tab_min_width": 120
+    },
+    {
+      "class": "tab_control",
+      "layer0.tint": "var(layer01)",
+      "layer0.opacity": 1.0,
+      "content_margin": [
+        12,
+        6,
+        12,
+        6
+      ]
+    },
+    {
+      "class": "tab_control",
+      "attributes": [
+        "selected"
+      ],
+      "layer0.tint": "var(bg)",
+      "layer0.opacity": 1.0
+    },
+    {
+      "class": "tab_control",
+      "attributes": [
+        "hover"
+      ],
+      "layer0.tint": "var(layer02)",
+      "layer0.opacity": 1.0
+    },
+    {
+      "class": "tab_label",
+      "color": "var(text_disabled)",
+      "font.size": 12
+    },
+    {
+      "class": "tab_label",
+      "parents": [
+        {
+          "class": "tab_control",
+          "attributes": [
+            "selected"
+          ]
+        }
+      ],
+      "color": "var(text_primary)"
+    },
+    {
+      "class": "status_bar",
+      "layer0.tint": "var(interactive)",
+      "layer0.opacity": 1.0,
+      "content_margin": [
+        8,
+        4,
+        8,
+        4
+      ]
+    },
+    {
+      "class": "label_control",
+      "parents": [
+        {
+          "class": "status_bar"
+        }
+      ],
+      "color": "var(bg)",
+      "font.size": 11
+    },
+    {
+      "class": "title_bar",
+      "fg": "var(text_primary)",
+      "bg": "var(bg)"
+    },
+    {
+      "class": "overlay_control",
+      "layer0.tint": "var(layer01)",
+      "layer0.opacity": 1.0,
+      "content_margin": [
+        0,
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "class": "quick_panel",
+      "row_padding": [
+        8,
+        6
+      ]
+    },
+    {
+      "class": "quick_panel_row",
+      "layer0.opacity": 0.0
+    },
+    {
+      "class": "quick_panel_row",
+      "attributes": [
+        "selected"
+      ],
+      "layer0.tint": "var(layer03)",
+      "layer0.opacity": 1.0
+    },
+    {
+      "class": "quick_panel_label",
+      "color": "var(text_secondary)",
+      "fg_blend": false,
+      "match_fg": "var(interactive)",
+      "selected_fg": "var(text_primary)",
+      "selected_match_fg": "var(interactive)"
+    },
+    {
+      "class": "console",
+      "layer0.tint": "var(bg)",
+      "layer0.opacity": 1.0
+    },
+    {
+      "class": "scroll_bar_control",
+      "layer0.tint": "var(bg)",
+      "layer0.opacity": 1.0
+    },
+    {
+      "class": "puck_control",
+      "layer0.tint": "var(border)",
+      "layer0.opacity": 1.0
+    },
+    {
+      "class": "puck_control",
+      "attributes": [
+        "hover"
+      ],
+      "layer0.tint": "var(text_disabled)",
+      "layer0.opacity": 1.0
+    },
+    {
+      "class": "panel_control",
+      "layer0.tint": "var(layer01)",
+      "layer0.opacity": 1.0,
+      "content_margin": [
+        8,
+        8,
+        8,
+        8
+      ]
+    },
+    {
+      "class": "text_line_control",
+      "layer0.tint": "var(layer02)",
+      "layer0.opacity": 1.0,
+      "content_margin": [
+        6,
+        4,
+        6,
+        4
+      ]
+    },
+    {
+      "class": "icon_button_control",
+      "layer0.tint": "var(layer02)",
+      "layer0.opacity": 1.0,
+      "content_margin": [
+        6,
+        4
+      ]
+    },
+    {
+      "class": "icon_button_control",
+      "attributes": [
+        "hover"
+      ],
+      "layer0.tint": "var(layer03)"
+    },
+    {
+      "class": "icon_button_control",
+      "attributes": [
+        "pressed"
+      ],
+      "layer0.tint": "var(interactive)"
+    },
+    {
+      "class": "sheet_container_control",
+      "layer0.tint": "var(bg)",
+      "layer0.opacity": 1.0
+    },
+    {
+      "class": "mini_map_control",
+      "viewport_color": "color(var(interactive) alpha(0.30))",
+      "viewport_outline_color": "color(var(interactive) alpha(0.50))"
+    },
+    {
+      "class": "auto_complete",
+      "layer0.tint": "var(layer01)",
+      "layer0.opacity": 1.0,
+      "row_padding": [
+        10,
+        6
+      ],
+      "tint_index": 0,
+      "dark_content": false
+    },
+    {
+      "class": "auto_complete_label",
+      "fg": "var(text_secondary)",
+      "match_fg": "var(interactive)",
+      "selected_fg": "var(text_primary)",
+      "selected_match_fg": "var(interactive)"
+    },
+    {
+      "class": "auto_complete_detail_pane",
+      "layer0.tint": "var(layer02)",
+      "layer0.opacity": 1.0
+    },
+    {
+      "class": "auto_complete_info_label",
+      "fg": "var(text_disabled)"
+    },
+    {
+      "class": "auto_complete_info_key",
+      "fg": "var(text_disabled)"
+    },
+    {
+      "class": "auto_complete_info_value",
+      "fg": "var(text_secondary)"
+    },
+    {
+      "class": "auto_complete_hint",
+      "color": "var(text_disabled)",
+      "font.italic": true
+    },
+    {
+      "class": "kind_container_control",
+      "layer0.opacity": 1.0,
+      "content_margin": [
+        3,
+        0,
+        3,
+        0
+      ]
+    },
+    {
+      "class": "kind_label_control",
+      "color": "var(bg)",
+      "font.bold": true
+    },
+    {
+      "class": "kind_function_control",
+      "layer0.tint": "var(interactive)",
+      "layer0.opacity": 1.0
+    },
+    {
+      "class": "kind_keyword_control",
+      "layer0.tint": "var(interactive)",
+      "layer0.opacity": 1.0
+    },
+    {
+      "class": "kind_namespace_control",
+      "layer0.tint": "var(info)",
+      "layer0.opacity": 1.0
+    },
+    {
+      "class": "kind_navigation_control",
+      "layer0.tint": "var(info)",
+      "layer0.opacity": 1.0
+    },
+    {
+      "class": "kind_markup_control",
+      "layer0.tint": "var(success)",
+      "layer0.opacity": 1.0
+    },
+    {
+      "class": "kind_snippet_control",
+      "layer0.tint": "var(success)",
+      "layer0.opacity": 1.0
+    },
+    {
+      "class": "kind_type_control",
+      "layer0.tint": "var(warning)",
+      "layer0.opacity": 1.0
+    },
+    {
+      "class": "kind_variable_control",
+      "layer0.tint": "var(text_secondary)",
+      "layer0.opacity": 1.0
+    },
+    {
+      "class": "kind_ambiguous_control",
+      "layer0.tint": "var(text_disabled)",
+      "layer0.opacity": 1.0
+    },
+    {
+      "class": "popup_control",
+      "layer0.tint": "var(layer01)",
+      "layer0.opacity": 1.0,
+      "content_margin": [
+        1,
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "class": "menu",
+      "layer0.tint": "var(layer01)",
+      "layer0.opacity": 1.0
+    },
+    {
+      "class": "label_control",
+      "parents": [
+        {
+          "class": "menu"
+        }
+      ],
+      "color": "var(text_primary)"
+    }
+  ]
+}

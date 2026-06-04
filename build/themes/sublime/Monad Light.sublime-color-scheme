@@ -1,0 +1,298 @@
+{
+  "name": "Monad Light",
+  "author": "Monad System",
+  "variant": "light",
+  "popup_css": "html { background-color: #ffffff; color: #141A22; padding: 0; margin: 0; }body { font-family: system; font-size: 0.95rem; padding: 8px 10px; }a { color: #1973AA; text-decoration: none; }h1, h2, h3 { color: #141A22; font-weight: 600; margin: 0 0 4px 0; }code { background-color: #EDF1F5; color: #141A22; padding: 1px 4px; border-radius: 0; font-family: monospace; }p, ul, ol { color: #4F5A69; margin: 4px 0; }.error   { color: #9F001E; }.warning { color: #C19025; }.success { color: #47702C; }.comment { color: #7E8998; font-style: italic; }",
+  "variables": {
+    "bg": "#F2F4F7",
+    "layer01": "#ffffff",
+    "layer02": "#EDF1F5",
+    "layer03": "#E3E8EE",
+    "text_primary": "#141A22",
+    "text_secondary": "#4F5A69",
+    "text_disabled": "#7E8998",
+    "border": "#BCC6D2",
+    "border_subtle": "#D8DFE7",
+    "interactive": "#1973AA",
+    "interactive_hover": "#166696",
+    "interactive_active": "#135882",
+    "info": "#1B6687",
+    "success": "#47702C",
+    "warning": "#C19025",
+    "error": "#9F001E",
+    "highlight": "#D8C732",
+    "move_start": "#317134",
+    "move_hand": "#027EB7",
+    "move_foot": "#D8C732",
+    "move_finish": "#6D1B7B"
+  },
+  "globals": {
+    "background": "var(bg)",
+    "foreground": "var(text_primary)",
+    "invisibles": "color(var(text_disabled) alpha(0.4))",
+    "caret": "var(interactive)",
+    "block_caret": "var(interactive)",
+    "line_highlight": "var(layer01)",
+    "misspelling": "var(error)",
+    "fold_marker": "var(highlight)",
+    "minimap_border": "var(border)",
+    "accent": "var(interactive)",
+    "gutter": "var(bg)",
+    "gutter_foreground": "var(text_disabled)",
+    "gutter_foreground_highlight": "var(text_primary)",
+    "line_diff_added": "var(success)",
+    "line_diff_modified": "var(interactive)",
+    "line_diff_deleted": "var(error)",
+    "selection": "color(var(interactive) alpha(0.25))",
+    "selection_foreground": "var(text_primary)",
+    "selection_border": "var(interactive)",
+    "selection_border_width": "0",
+    "inactive_selection": "color(var(interactive) alpha(0.15))",
+    "inactive_selection_foreground": "var(text_secondary)",
+    "highlight": "var(warning)",
+    "find_highlight": "color(var(warning) alpha(0.35))",
+    "find_highlight_foreground": "var(text_primary)",
+    "guide": "var(border_subtle)",
+    "active_guide": "var(interactive)",
+    "stack_guide": "var(border)",
+    "shadow": "color(black alpha(0.4))",
+    "brackets_options": "underline",
+    "brackets_foreground": "var(interactive)",
+    "bracket_contents_options": "underline",
+    "bracket_contents_foreground": "var(interactive)",
+    "tags_options": "stippled_underline",
+    "tags_foreground": "var(interactive)"
+  },
+  "rules": [
+    {
+      "name": "Comment",
+      "scope": "comment, punctuation.definition.comment",
+      "foreground": "var(text_disabled)",
+      "font_style": "italic"
+    },
+    {
+      "name": "String",
+      "scope": "string - string.unquoted.heredoc",
+      "foreground": "var(success)"
+    },
+    {
+      "name": "String \u2014 regexp",
+      "scope": "string.regexp",
+      "foreground": "var(success)"
+    },
+    {
+      "name": "String \u2014 escape",
+      "scope": "constant.character.escape",
+      "foreground": "var(info)"
+    },
+    {
+      "name": "String \u2014 interpolation",
+      "scope": "punctuation.section.interpolation, meta.interpolation",
+      "foreground": "var(info)"
+    },
+    {
+      "name": "Number / boolean / constant",
+      "scope": "constant.numeric, constant.language",
+      "foreground": "var(warning)"
+    },
+    {
+      "name": "Constant \u2014 user",
+      "scope": "constant.other, variable.other.constant",
+      "foreground": "var(highlight)"
+    },
+    {
+      "name": "Keyword",
+      "scope": "keyword, keyword.control, storage, storage.type, storage.modifier",
+      "foreground": "var(interactive)"
+    },
+    {
+      "name": "Keyword \u2014 control flow",
+      "scope": "keyword.control.flow, keyword.control.return, keyword.control.trycatch",
+      "foreground": "var(interactive)",
+      "font_style": "italic"
+    },
+    {
+      "name": "Operator",
+      "scope": "keyword.operator",
+      "foreground": "var(text_secondary)"
+    },
+    {
+      "name": "Logical operator",
+      "scope": "keyword.operator.logical, keyword.operator.comparison",
+      "foreground": "var(interactive)"
+    },
+    {
+      "name": "Function definition",
+      "scope": "entity.name.function",
+      "foreground": "var(info)"
+    },
+    {
+      "name": "Function call",
+      "scope": "variable.function, meta.function-call",
+      "foreground": "var(info)"
+    },
+    {
+      "name": "Function parameter",
+      "scope": "variable.parameter",
+      "foreground": "var(text_secondary)",
+      "font_style": "italic"
+    },
+    {
+      "name": "Type / class",
+      "scope": "entity.name.type, entity.name.class, entity.name.struct, entity.name.enum, entity.name.interface, entity.name.trait, support.type, support.class",
+      "foreground": "var(interactive_hover)"
+    },
+    {
+      "name": "Inherited class",
+      "scope": "entity.other.inherited-class",
+      "foreground": "var(interactive_hover)",
+      "font_style": "italic"
+    },
+    {
+      "name": "Variable",
+      "scope": "variable, variable.other",
+      "foreground": "var(text_primary)"
+    },
+    {
+      "name": "Self / this",
+      "scope": "variable.language",
+      "foreground": "var(interactive)",
+      "font_style": "italic"
+    },
+    {
+      "name": "Property",
+      "scope": "variable.other.property, support.variable.property",
+      "foreground": "var(text_secondary)"
+    },
+    {
+      "name": "Attribute / object key",
+      "scope": "entity.other.attribute-name, meta.object-literal.key, support.type.property-name",
+      "foreground": "var(info)"
+    },
+    {
+      "name": "Punctuation",
+      "scope": "punctuation.separator, punctuation.terminator, punctuation.accessor",
+      "foreground": "var(text_disabled)"
+    },
+    {
+      "name": "Brackets",
+      "scope": "punctuation.definition.brackets, punctuation.section, meta.brace",
+      "foreground": "var(text_secondary)"
+    },
+    {
+      "name": "Decorator / annotation",
+      "scope": "meta.annotation, punctuation.definition.annotation, entity.name.function.decorator",
+      "foreground": "var(move_finish)"
+    },
+    {
+      "name": "Module / namespace",
+      "scope": "entity.name.namespace, entity.name.module, support.module",
+      "foreground": "var(info)"
+    },
+    {
+      "name": "Import path",
+      "scope": "meta.import string, meta.require string",
+      "foreground": "var(success)"
+    },
+    {
+      "name": "HTML tag",
+      "scope": "entity.name.tag",
+      "foreground": "var(interactive)"
+    },
+    {
+      "name": "HTML attribute",
+      "scope": "entity.other.attribute-name.html",
+      "foreground": "var(info)"
+    },
+    {
+      "name": "HTML/XML tag punctuation",
+      "scope": "punctuation.definition.tag",
+      "foreground": "var(border)"
+    },
+    {
+      "name": "CSS selector",
+      "scope": "entity.name.tag.css, entity.other.attribute-name.class.css, entity.other.attribute-name.id.css",
+      "foreground": "var(interactive)"
+    },
+    {
+      "name": "CSS property",
+      "scope": "support.type.property-name.css",
+      "foreground": "var(info)"
+    },
+    {
+      "name": "CSS unit / color",
+      "scope": "constant.other.color.rgb-value.css, keyword.other.unit.css, constant.numeric.css",
+      "foreground": "var(warning)"
+    },
+    {
+      "name": "CSS custom property",
+      "scope": "variable.css, variable.scss",
+      "foreground": "var(highlight)"
+    },
+    {
+      "name": "CSS at-rule",
+      "scope": "keyword.control.at-rule",
+      "foreground": "var(move_finish)"
+    },
+    {
+      "name": "Markdown heading",
+      "scope": "markup.heading, punctuation.definition.heading",
+      "foreground": "var(interactive)",
+      "font_style": "bold"
+    },
+    {
+      "name": "Markdown bold",
+      "scope": "markup.bold",
+      "foreground": "var(text_primary)",
+      "font_style": "bold"
+    },
+    {
+      "name": "Markdown italic",
+      "scope": "markup.italic",
+      "foreground": "var(text_primary)",
+      "font_style": "italic"
+    },
+    {
+      "name": "Markdown code",
+      "scope": "markup.raw.inline, markup.raw.block",
+      "foreground": "var(success)"
+    },
+    {
+      "name": "Markdown link text",
+      "scope": "markup.underline.link, string.other.link.title",
+      "foreground": "var(info)"
+    },
+    {
+      "name": "Markdown blockquote",
+      "scope": "markup.quote",
+      "foreground": "var(text_disabled)",
+      "font_style": "italic"
+    },
+    {
+      "name": "Diff added",
+      "scope": "markup.inserted",
+      "foreground": "var(success)"
+    },
+    {
+      "name": "Diff removed",
+      "scope": "markup.deleted",
+      "foreground": "var(error)"
+    },
+    {
+      "name": "Diff changed",
+      "scope": "markup.changed",
+      "foreground": "var(interactive)"
+    },
+    {
+      "name": "Invalid",
+      "scope": "invalid, invalid.illegal",
+      "foreground": "var(error)"
+    },
+    {
+      "name": "Deprecated",
+      "scope": "invalid.deprecated",
+      "foreground": "var(warning)",
+      "font_style": "italic"
+    }
+  ]
+}
