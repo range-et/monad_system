@@ -178,3 +178,7 @@ git submodule add https://github.com/range-et/monad_system.git design-tokens
 
 - [SCENESCAPES (uispace.org)](https://uispace.org/) — cinematic FUI gallery; reference for HUD, terminal, and dashboard aesthetics.
 
+---
+
+*Related: [[../icarus/northstar|icarus]] (vendors this repo as `vendor/monad_system` and compiles the Monad palette into TX16S radio themes — the first hardware target) · [[../../Threads/Modularity and codegen]] (monad_system is the canonical example) · [[../../Polaris]] · [[../../MOC]]*
+
