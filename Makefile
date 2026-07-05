@@ -1,4 +1,4 @@
-.PHONY: build serve open dev clean install install-vscode install-ghostty install-xcode install-unity package-vscode publish-vscode
+.PHONY: build serve open dev clean install install-vscode install-ghostty install-xcode install-unity install-zsh package-vscode publish-vscode
 
 PYTHON    := python3
 SRC       := src/compile_color.py
@@ -14,6 +14,7 @@ GHOSTTY_THEME_DIR := $(HOME)/.config/ghostty/themes
 XCODE_THEME_DIR   := $(HOME)/Library/Developer/Xcode/UserData/FontAndColorThemes
 XCODE_BUILD_DIR   := $(OUT)/themes/xcode
 UNITY_GENERATED   := ../beta-bot_unity/Assets/Scripts/Generated/Monad
+ZSH_PROFILE_DIR   := terminal/zsh
 
 ## build           — compile colors.json → all artifacts in build/
 build:
@@ -86,6 +87,18 @@ install-unity: build
 	@cp $(OUT)/MotionTokens.cs      $(UNITY_GENERATED)/MotionTokens.cs
 	@cp $(OUT)/TexturePatterns.cs   $(UNITY_GENERATED)/TexturePatterns.cs
 	@echo "Installed Monad C# artifacts → $(UNITY_GENERATED)"
+
+## install-zsh     — install the shared Zsh / Powerlevel10k profile into $HOME
+install-zsh:
+	@for f in .zshrc .p10k.zsh .zprofile; do \
+		if [ -f "$(HOME)/$$f" ] && [ ! -L "$(HOME)/$$f" ]; then \
+			cp "$(HOME)/$$f" "$(HOME)/$$f.bak"; \
+			echo "Backed up $(HOME)/$$f → $(HOME)/$$f.bak"; \
+		fi; \
+		cp "$(ZSH_PROFILE_DIR)/$$f" "$(HOME)/$$f"; \
+		echo "Installed $$f → $(HOME)/$$f"; \
+	done
+	@echo "Done. Requires Oh My Zsh + Powerlevel10k + a Nerd Font. Then run: exec zsh"
 
 ## serve           — start a local server at localhost:8000
 serve:

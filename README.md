@@ -61,6 +61,7 @@ python src/compile_color.py --json_path colors.json --output_path build/
 | `build/themes/xcode/` | Xcode editor themes |
 | `build/cpp/Monad/` | C++ / Arduino — header-only library (TFT, OLED, e-ink) |
 | `build/themes/streamlit/` | Streamlit — `config.toml` + `monad_streamlit.py` helper |
+| `terminal/zsh/` | Zsh / Oh My Zsh + Powerlevel10k profile (checked-in dotfiles, not compiled) |
 
 ```bash
 make serve          # localhost:8000
@@ -70,6 +71,7 @@ make install        # VS Code + Ghostty + Xcode themes
 make install-vscode
 make install-ghostty
 make install-xcode
+make install-zsh    # shared Zsh / Powerlevel10k profile → $HOME (backs up existing)
 make package-vscode
 ```
 
