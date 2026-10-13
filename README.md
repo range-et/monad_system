@@ -1,10 +1,3 @@
----
-tags: [project, monad-system, readme, design-system, modularity]
-status: shipped
-domain: code-tools
-repo: https://github.com/range-et/monad_system
----
-
 # Monad System
 
 **Site:** [range-et.github.io/monad_system](https://range-et.github.io/monad_system/)
@@ -180,7 +173,6 @@ git submodule add https://github.com/range-et/monad_system.git design-tokens
 
 - [SCENESCAPES (uispace.org)](https://uispace.org/) — cinematic FUI gallery; reference for HUD, terminal, and dashboard aesthetics.
 
----
+## Used by
 
-*Related: [[../icarus/northstar|icarus]] (vendors this repo as `vendor/monad_system` and compiles the Monad palette into TX16S radio themes — the first hardware target) · [[../../Threads/Modularity and codegen]] (monad_system is the canonical example) · [[../../Polaris]] · [[../../MOC]]*
-
+- icarus vendors this repository as `vendor/monad_system`. It compiles the Monad palette into TX16S radio themes. This is the first hardware target.
