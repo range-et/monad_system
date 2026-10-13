@@ -37,8 +37,7 @@
     #focal-target .bar {
       padding: var(--space-2) var(--space-3);
       display: flex; justify-content: space-between; align-items: center;
-      font-family: var(--font-mono); font-weight: 600;
-      letter-spacing: 0.18em; text-transform: uppercase;
+      font-family: var(--font-sans); font-weight: 500;
       font-size: var(--type-xs);
       color: var(--strata-on-error);
       border-bottom: 1px solid color-mix(in srgb, var(--strata-on-error) 30%, transparent);
@@ -48,11 +47,10 @@
       text-align: left;
     }
     #focal-target .headline {
-      font-family: var(--font-mono);
-      font-size: 2.5rem; font-weight: 700; line-height: 1.0;
+      font-family: var(--font-sans);
+      font-size: 2.5rem; font-weight: 700; line-height: 1.0; letter-spacing: -0.02em;
       color: var(--strata-on-error);
       letter-spacing: -0.01em;
-      text-transform: uppercase;
       margin: 0;
     }
     #focal-target .sub {
@@ -70,8 +68,8 @@
       padding: var(--space-2) var(--space-3);
       background: var(--strata-on-error);
       color: var(--strata-error);
-      font-family: var(--font-mono); font-size: var(--type-sm);
-      font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase;
+      font-family: var(--font-sans); font-size: var(--type-sm);
+      font-weight: 500;
       text-align: center;
     }
     #focal-target .meta {
@@ -85,13 +83,12 @@
     }
     #focal-target .meta strong { color: var(--strata-on-error); font-weight: 700; opacity: 1; }
 
-    .footer {
+    .footer { font-weight: 500;
       margin-top: auto;
       padding: var(--space-3);
       display: flex; justify-content: center;
-      font-family: var(--font-mono); font-size: var(--type-xs);
+      font-family: var(--font-sans); font-size: var(--type-xs);
       color: var(--strata-text-disabled);
-      letter-spacing: 0.16em; text-transform: uppercase;
     }
   </style>
 </head>
@@ -103,19 +100,19 @@
 
   <div id="focal-target" data-focal="warning callout headline">
     <div class="bar">
-      <span>◆ Master Alarm</span>
+      <span>◆ Master alarm</span>
       <span>T+00:03</span>
     </div>
     <div class="body">
-      <div class="headline">Fall Risk<br>Detected</div>
+      <div class="headline">Fall risk<br>detected</div>
       <div class="sub">Anchor load spike with accelerometer event 3 s ago.</div>
     </div>
     <div class="action">
-      <span>Stabilize → Confirm Anchor</span>
+      <span>Stabilize → Confirm anchor</span>
     </div>
     <div class="meta">
       <span>Last hold <strong>move 14</strong></span>
-      <span>Partner <strong>NOTIFIED</strong></span>
+      <span>Partner <strong>notified</strong></span>
       <span>HR <strong>192 bpm</strong></span>
       <span>Pump <strong>96%</strong></span>
     </div>

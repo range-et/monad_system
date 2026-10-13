@@ -1,119 +1,194 @@
-# Monad System — Perception Benchmark Results
+# Monad System — Perception benchmark
 
-**Test:** does each design system's idiomatic styling direct first-second visual attention to the designer-declared focal target?
+This report answers one question. Does the styling of each design system send the first second of visual attention to the element that the designer marked as the focal target?
 
-**Method:** for each (system × form factor × scenario) cell, render a layout to PNG, score with two CHI-2023 perception models — UMSI++ (saliency mass) and DeepGaze++ (predicted scanpath). Designer-declared focal target was specified per-layout via the `#focal-target` element; its bounding box is the reference area for both metrics.
+**Last run:** 13 October 2026. This run uses the current Monad type: Helvetica, sentence case and Medium-weight labels. The previous run (May 2026) used Inter and uppercase mono labels. The section "Change from the previous run" compares the two runs.
 
-**Coverage:** 5 systems × 3 form factors × 3 scenarios = **45 renders**, all scored in 60 s.
+## Method
 
----
+1. A script renders each layout to PNG (`benchmark/render_layouts.py`). Each layout marks one element as `#focal-target`. The script records the bounding box of that element.
+2. Two saliency models score each render:
+   - **UMSI++**, trained on UEyes user-interface data.
+   - **DeepGazeIIE**, trained on MIT1003 free-viewing data of natural images.
+3. Two metrics read each saliency map inside the focal bounding box:
+   - **Mass-on-target** is the share of all predicted saliency that falls inside the box. The range is 0 to 1.
+   - **NSS-on-target** is the mean z-scored saliency inside the box. This metric corrects for the size of the box.
+4. The two models and the two metrics give four lenses. For each lens, the script ranks the five systems by their mean over 9 cells. The overall rank is the mean of the four lens ranks.
+5. DeepGaze++ predicts a 6-fixation scanpath for each render. This gives the secondary metric.
 
-## Primary metric — mass-on-target
+**Coverage:** 5 systems × 3 form factors × 3 scenarios = **45 renders**.
 
-`mass_on_target = Σ saliency_inside_bbox / Σ saliency_total`, range [0, 1]. Higher = the predicted attention concentrates on the intended element. Bold * marks the per-cell winner.
+## Result — overall ranking
 
-| form        | scenario | monad      | nasa | apple    | material   | carbon |
+| Rank | System | Mean rank (4 lenses) | Cell wins (of 36) |
+|---|---|---:|---:|
+| 1 | **Monad** | **2.00** | **11** |
+| 2 | Material 3 | 2.25 | 8 |
+| 3 | Apple HIG | 3.00 | 6 |
+| 4 | NASA (1976 manual) | 3.25 | 8 |
+| 5 | Carbon | 4.50 | 3 |
+
+| Lens | 1st | 2nd | 3rd | 4th | 5th |
+|---|---|---|---|---|---|
+| UMSI++ / mass | Material 47.3% | Monad 45.0% | Apple 43.8% | NASA 39.6% | Carbon 36.4% |
+| UMSI++ / NSS | NASA 1.540 | Apple 1.437 | Monad 1.406 | Carbon 1.381 | Material 1.308 |
+| DeepGazeIIE / mass | Material 61.0% | Monad 55.9% | Apple 54.0% | Carbon 50.3% | NASA 48.8% |
+| DeepGazeIIE / NSS | Monad 1.792 | Material 1.544 | NASA 1.516 | Apple 1.441 | Carbon 1.422 |
+
+Monad ranks first on mean rank and on cell wins. Monad is first on one lens and in the top three on all four lenses. Material 3 is first on both mass-on-target lenses.
+
+## Change from the previous run
+
+| Value | May 2026 | October 2026 |
+|---|---:|---:|
+| Monad overall rank | 1, tied with Material (2.25) | **1 (2.00)** |
+| Monad cell wins | 10 / 36 | 11 / 36 |
+| Material cell wins | 9 / 36 | 8 / 36 |
+| Monad UMSI++ mass, mean | 44.2% | 45.0% |
+| Monad UMSI++ mass, warning | 84.6% | 86.2% |
+| Monad UMSI++ mass, alert | 29.6% | 30.4% |
+| Monad UMSI++ NSS, mean | 1.376 (rank 4) | 1.406 (rank 3) |
+| Monad DeepGazeIIE mass, mean | 56.1% | 55.9% |
+| Monad DeepGazeIIE NSS, mean | 1.790 | 1.792 |
+
+The rank changed because Monad moved above Carbon on UMSI++ / NSS.
+
+**Render noise.** The layouts of the other four systems did not change between the runs. Their scores still moved by up to 1.1 percentage points (Apple, device-only warning: 65.6% → 66.7%), because of browser and font rendering. Treat a difference of 1 point or less as noise. Most Monad changes in the table are at or near this limit. The warning mean (+1.6 points) is the largest change.
+
+## Per-cell results
+
+Bold marks the highest value in each row.
+
+### UMSI++ mass-on-target (%)
+
+| Form factor | Scenario | Monad | NASA | Apple | Material | Carbon |
 |---|---|---:|---:|---:|---:|---:|
-| ski-AR      | calm     |   9.9 |  11.0 |  16.6 | **19.7** ★ |  11.8 |
-| ski-AR      | alert    |  27.5 |  23.9 | **35.4** ★ |  28.8 |  31.5 |
-| ski-AR      | warning  |  83.6 |  77.6 |  79.1 | **87.5** ★ |  67.1 |
-| climb-AR    | calm     |   5.8 |   4.8 |  13.2 | **16.7** ★ |   7.8 |
-| climb-AR    | alert    |  13.3 |  11.3 | **24.3** ★ |  16.5 |  16.8 |
-| climb-AR    | warning  |  85.7 |  72.0 |  81.9 | **89.4** ★ |  59.0 |
-| device-only | calm     | **39.8** ★ |  37.8 |  30.6 |  33.2 |  30.7 |
-| device-only | alert    |  48.0 |  44.3 |  44.9 | **51.7** ★ |  33.8 |
-| device-only | warning  | **84.6** ★ |  74.2 |  65.6 |  82.5 |  68.7 |
+| ski-AR | calm | 9.9 | 11.0 | 16.6 | **19.7** | 11.9 |
+| ski-AR | alert | 25.0 | 23.9 | **35.5** | 28.8 | 31.6 |
+| ski-AR | warning | 86.0 | 77.6 | 79.0 | **87.5** | 67.1 |
+| climb-AR | calm | 5.9 | 4.8 | 13.3 | **16.7** | 7.8 |
+| climb-AR | alert | 15.2 | 11.3 | **24.5** | 16.5 | 16.8 |
+| climb-AR | warning | 87.1 | 71.9 | 82.0 | **89.4** | 58.9 |
+| device-only | calm | **39.5** | 37.8 | 31.1 | 33.2 | 30.6 |
+| device-only | alert | 50.9 | 44.3 | 45.5 | **51.7** | 33.8 |
+| device-only | warning | **85.6** | 74.2 | 66.7 | 82.5 | 68.7 |
+| **Mean** | | 45.0 | 39.6 | 43.8 | 47.3 | 36.4 |
 
-### Per-scenario averages (across 3 form factors)
+### UMSI++ NSS-on-target
 
-| system    | calm  | alert | warning | overall |
+| Form factor | Scenario | Monad | NASA | Apple | Material | Carbon |
+|---|---|---:|---:|---:|---:|---:|
+| ski-AR | calm | 1.790 | **2.293** | 2.039 | 1.497 | 1.816 |
+| ski-AR | alert | 3.146 | **3.887** | 2.536 | 2.264 | 3.082 |
+| ski-AR | warning | **1.344** | 1.170 | 1.158 | 1.338 | 1.343 |
+| climb-AR | calm | 1.007 | 0.680 | 1.257 | **1.771** | 1.139 |
+| climb-AR | alert | 1.762 | **1.992** | 1.974 | 1.446 | 1.587 |
+| climb-AR | warning | 1.245 | 1.074 | 1.259 | 1.389 | **1.487** |
+| device-only | calm | 0.635 | **0.710** | 0.496 | 0.551 | 0.527 |
+| device-only | alert | 0.868 | **0.956** | 0.789 | 0.688 | 0.423 |
+| device-only | warning | 0.859 | 1.102 | **1.431** | 0.829 | 1.027 |
+| **Mean** | | 1.406 | 1.540 | 1.437 | 1.308 | 1.381 |
+
+### DeepGazeIIE mass-on-target (%)
+
+| Form factor | Scenario | Monad | NASA | Apple | Material | Carbon |
+|---|---|---:|---:|---:|---:|---:|
+| ski-AR | calm | 10.9 | 7.4 | 16.2 | **37.2** | 7.3 |
+| ski-AR | alert | 39.9 | 43.7 | **69.1** | 58.1 | 58.9 |
+| ski-AR | warning | **96.2** | 96.1 | 95.8 | 94.2 | 90.8 |
+| climb-AR | calm | 13.5 | 6.3 | 18.9 | **37.9** | 6.7 |
+| climb-AR | alert | 43.4 | 36.3 | **60.5** | 45.4 | 47.2 |
+| climb-AR | warning | 94.8 | 94.8 | **94.8** | 91.2 | 89.4 |
+| device-only | calm | **43.2** | 34.3 | 32.5 | 34.8 | 33.6 |
+| device-only | alert | **68.9** | 40.9 | 52.2 | 65.8 | 47.3 |
+| device-only | warning | **92.2** | 79.3 | 45.5 | 84.6 | 71.9 |
+| **Mean** | | 55.9 | 48.8 | 54.0 | 61.0 | 50.3 |
+
+### DeepGazeIIE NSS-on-target
+
+| Form factor | Scenario | Monad | NASA | Apple | Material | Carbon |
+|---|---|---:|---:|---:|---:|---:|
+| ski-AR | calm | **2.192** | 1.217 | 1.796 | 2.188 | 0.897 |
+| ski-AR | alert | 3.470 | **3.770** | 2.520 | 2.531 | 3.018 |
+| ski-AR | warning | 1.287 | 1.146 | 1.153 | 1.262 | **1.614** |
+| climb-AR | calm | **2.629** | 0.870 | 1.747 | 2.445 | 0.636 |
+| climb-AR | alert | 3.053 | **3.267** | 2.282 | 2.345 | 2.680 |
+| climb-AR | warning | 1.201 | 1.051 | 1.216 | 1.229 | **1.580** |
+| device-only | calm | **0.599** | 0.567 | 0.579 | 0.470 | 0.580 |
+| device-only | alert | **0.984** | 0.699 | 0.868 | 0.753 | 0.824 |
+| device-only | warning | 0.717 | **1.058** | 0.811 | 0.671 | 0.967 |
+| **Mean** | | 1.792 | 1.516 | 1.441 | 1.544 | 1.422 |
+
+### UMSI++ mass-on-target by scenario (%)
+
+| System | Calm | Alert | Warning | Mean |
 |---|---:|---:|---:|---:|
-| monad     | 18.5% | 29.6% | 84.6%   | 44.2%   |
-| nasa      | 17.9% | 26.5% | 74.6%   | 39.6%   |
-| apple     | 20.1% | 34.9% | 75.5%   | 43.5%   |
-| material  | **23.2%** | 32.3% | **86.5%**   | **47.3%**   |
-| carbon    | 16.8% | 27.4% | 64.9%   | 36.4%   |
+| Monad | 18.4 | 30.4 | 86.2 | 45.0 |
+| NASA | 17.9 | 26.5 | 74.6 | 39.6 |
+| Apple | 20.3 | 35.2 | 75.9 | 43.8 |
+| Material | 23.2 | 32.3 | 86.4 | 47.3 |
+| Carbon | 16.8 | 27.4 | 64.9 | 36.4 |
 
-> **Update — `.atomos-callout` codified at system level.** Monad alert layouts
-> previously used an outlined card with a tinted header (`border + border-left:
-> warning`, body in `--strata-bg`). Comparing them to Material's filled tonal
-> alert card revealed the actionable lesson: *fill, don't frame*. The
-> design-system response was a new `.atomos-callout--{warning,error,info,
-> success}` component (filled status field, on-* token text, mono headline,
-> no decorative icon). The three Monad alert layouts now consume it, and the
-> AR-alert lift is visible in the table (`ski-AR alert` 19.7 → 27.5, +7.8 pp;
-> `climb-AR alert` 12.7 → 13.3). Monad alert average rose from 27.1% → 29.6%
-> and overall from 43.4% → 44.2%, edging past Apple. The callout is now the
-> canonical Monad pattern for any state that must claim attention — the same
-> structural emphasis Material wins with, in NASA-discipline form.
+## Secondary metric — first fixation in the box
 
-### Win count
+The table shows which fixation in the 6-fixation DeepGaze++ scanpath is the first to land inside the focal box. "Never" means that no fixation lands inside the box.
 
-| system    | cells won |
-|---|---:|
-| material  | 5 / 9 |
-| monad     | 2 / 9 |
-| apple     | 2 / 9 |
-| nasa      | 0 / 9 |
-| carbon    | 0 / 9 |
-
----
-
-## Secondary metric — first-fixation-in-bbox
-
-Which fixation # in the predicted 6-fixation scanpath lands inside the focal target (`#1` = the seeded center fixation, often inside warning callouts which sit at center). `never` = none of 6 fixations land inside.
-
-| form        | scenario | monad | nasa  | apple | material | carbon |
+| Form factor | Scenario | Monad | NASA | Apple | Material | Carbon |
 |---|---|---|---|---|---|---|
-| ski-AR      | calm     | #3    | never | #3    | #2       | never  |
-| ski-AR      | alert    | #3    | #3    | #2    | #3       | #3     |
-| ski-AR      | warning  | #1    | #1    | #1    | #1       | #1     |
-| climb-AR    | calm     | #3    | never | #3    | #3       | #6     |
-| climb-AR    | alert    | #3    | #3    | #3    | #3       | #3     |
-| climb-AR    | warning  | #1    | #1    | #1    | #1       | #1     |
-| device-only | calm     | #2    | #3    | #2    | #2       | #2     |
-| device-only | alert    | #2    | #2    | #2    | #2       | #2     |
-| device-only | warning  | #1    | #2    | #2    | #2       | #2     |
+| ski-AR | calm | #3 | never | #3 | #2 | never |
+| ski-AR | alert | #3 | #3 | #2 | #3 | #3 |
+| ski-AR | warning | #1 | #1 | #1 | #1 | #1 |
+| climb-AR | calm | #3 | never | #3 | #3 | #6 |
+| climb-AR | alert | #3 | #3 | #3 | #3 | #3 |
+| climb-AR | warning | #1 | #1 | #1 | #1 | #1 |
+| device-only | calm | #2 | #3 | #2 | #2 | #2 |
+| device-only | alert | #2 | #2 | #2 | #2 | #2 |
+| device-only | warning | #1 | #2 | #2 | #2 | #2 |
 
-All systems hit the warning bbox on the first fixation in AR form factors — because the warning sits centered and DeepGaze++ seeds fixation #1 at image center. The meaningful divergence shows up in `calm` and `alert`, where the focal element is *not* at center.
-
----
+DeepGaze++ puts fixation #1 at the image centre. In the AR form factors, the warning is at the centre, so every system gets #1 there. The calm and alert rows are more useful, because their focal targets are away from the centre.
 
 ## Findings
 
-### 1. The thesis is partially falsified
-The pre-registered claim was: *"Monad, when extended with principles extracted from NASA's 1976 Graphics Standards Manual, directs attention to the intended focal target more reliably than Apple HIG, Material 3, Carbon, or NASA-pure, across all three scenarios."*
+### 1. Monad ranks first, by a small margin
 
-Material 3 outperforms Monad on 5 of 9 cells and has the highest overall average (47.3% vs Monad's 43.4%). The thesis as stated is **not supported** by the data. Material's expressive rounded shapes with strong color contrast (error-container pink, tonal pastels) capture saliency models effectively.
+Monad has the best mean rank (2.00) and the most cell wins (11 of 36). Material 3 is 0.25 behind on mean rank. Material has higher mass-on-target on both models: 47.3% against 45.0% on UMSI++, and 61.0% against 55.9% on DeepGazeIIE.
 
-### 2. Monad is still competitive — and wins where it matters most for safety
-On the **warning** scenario — the single most safety-critical case in the benchmark — Monad averages 84.6% mass-on-target, second only to Material's 86.5%, and decisively wins `device-only` warning (84.6 vs Material's 82.5). The NASA-discipline token shift (`Alert_1` → NASA Red `#E4002B`, `--strata-on-error` → off-white) is doing the work it was meant to do.
+### 2. The original thesis is still not fully supported
 
-### 3. Austerity has a measurable cost
-Both Carbon (36.4% overall) and NASA-pure (39.6% overall) trail the field. Their visual restraint — square corners, single-typeface, hard rules, sparing color — produces lower predicted saliency. **This is honest data**: restraint is a value judgment, not a saliency-maximizing strategy. The question is whether peak saliency is the right thing to optimize for in a UI, which the report deliberately does not answer (see §5).
+The pre-registered claim was: "Monad, when extended with principles from NASA's 1976 Graphics Standards Manual, directs attention to the intended focal target more reliably than Apple HIG, Material 3, Carbon or NASA-pure, across all three scenarios."
 
-### 4. Calm and alert are noisy
-Mass-on-target ranges from ~5% to ~50% across systems for calm/alert. The bbox-only metric is dominated by the surrounding visual noise (especially in AR layouts where the underlay photo competes). Future work should triangulate with a per-pixel NSS-on-bbox score (z-scored saliency averaged inside the bbox) to control for that.
+The data does not support "across all three scenarios". Material 3 has the highest mean UMSI++ mass in the calm scenario (23.2%). Apple has the highest mean UMSI++ mass in the alert scenario (35.2%). Monad is first in neither scenario.
 
-### 5. What this benchmark does NOT measure
-- **Long-form attention or decision time.** UMSI++ predicts the first ~1 second only.
-- **Comprehension or action correctness.** "Eye went there" ≠ "user understood and acted correctly".
-- **Aesthetic quality, brand fit, ergonomics, accessibility.** Pure perception.
-- **Real eyes.** Both models are trained on aggregate human fixation data but are not a substitute for an eye-tracking study with real participants.
-- The test is intentionally falsifiable. The data above can be wrong about Monad and right about Material — that's the point.
+### 3. The warning callout performs at the level of Material 3
 
----
+In the warning scenario, Monad's mean UMSI++ mass is 86.2%. Material's mean is 86.4%. The difference is 0.2 points, which is less than the render noise. On device-only, Monad has the highest warning score on both models: 85.6% against Material's 82.5% on UMSI++, and 92.2% against 84.6% on DeepGazeIIE.
+
+### 4. Visual restraint costs mass-on-target
+
+NASA-pure and Carbon have the lowest mass-on-target means on both models. Their square corners, single typeface and limited colour give less predicted saliency. NASA-pure ranks first on UMSI++ / NSS, so the cost depends on the metric. This report does not decide whether maximum saliency is the correct goal for an interface.
+
+### 5. Calm and alert results vary a lot
+
+Mass-on-target in calm and alert cells is between 6% and 69%. In the AR layouts, the photo underlay competes with the interface. The NSS lenses correct for box size but not for the underlay.
+
+### 6. Limits of this benchmark
+
+- The models predict approximately the first second of attention. They do not measure decision time.
+- The benchmark does not measure comprehension or correct action.
+- The benchmark does not measure aesthetics, brand fit, ergonomics or accessibility.
+- The models learned from human fixation data. They do not replace an eye-tracking study with real participants.
 
 ## Reproducibility
 
+Run these commands from the repository root. The benchmark needs Python 3.13, because TensorFlow 2.21 has no wheels for later versions. `make bench-venv` creates `.venv-benchmark` on uv-managed Python 3.13 and installs [benchmark/requirements.txt](requirements.txt).
+
 ```bash
-# Re-render all systems
-.venv/bin/python benchmark/render_layouts.py
+# 1. Create the benchmark environment (one time)
+make bench-venv
 
-# Re-score all renders (~60 s on M-series CPU, models load once)
-.venv/bin/python -m benchmark.score.run_batch
-
-# Per-cell results table — adapt the snippet at the top of this report
+# 2. Build the CSS, render all 45 layouts, score them (approximately 140 s on an M-series CPU)
+#    and write scores/aggregate.json
+make bench
 ```
 
-Inputs: [colors.json](../colors.json) (Monad source of truth), [benchmark/nasa_system.json](nasa_system.json) (NASA 1976 manual extraction), [benchmark/content_spec/](content_spec/) (scenario specs), [benchmark/focal_targets.json](focal_targets.json) (per-render bboxes captured at render-time). Outputs: [benchmark/renders/](renders/) (45 PNGs), [benchmark/scores/](scores/) (45 heatmaps + 45 scanpath overlays + 45 scanpath JSONs).
+Inputs: [colors.json](../colors.json), [benchmark/nasa_system.json](nasa_system.json), [benchmark/content_spec/](content_spec/) and [benchmark/focal_targets.json](focal_targets.json). Outputs: `benchmark/renders/` (45 PNGs) and `benchmark/scores/` (heatmaps, scanpaths and `aggregate.json`). Git ignores both output folders.

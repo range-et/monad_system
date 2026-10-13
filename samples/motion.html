@@ -17,11 +17,10 @@
       display: flex; align-items: baseline; gap: var(--space-2); margin-bottom: var(--space-1);
     }
     .section__title {
-      font-size: var(--type-lg); font-weight: 600; color: var(--strata-text-primary); letter-spacing: -0.01em;
+      font-size: var(--type-lg); font-weight: 500; color: var(--strata-text-primary);
     }
     .section__tier {
-      font-size: var(--type-xs); font-family: var(--font-mono); color: var(--strata-text-disabled);
-      text-transform: uppercase; letter-spacing: 0.1em;
+      font-size: var(--type-sm); color: var(--strata-text-secondary);
     }
     .section__desc {
       font-size: var(--type-sm); color: var(--strata-text-secondary); margin-bottom: var(--space-3); max-width: 640px;
@@ -164,7 +163,7 @@
     }
     .token-grid > div:nth-child(-n+3) {
       background: var(--strata-layer-01); font-weight: 600;
-      color: var(--strata-text-disabled); text-transform: uppercase; letter-spacing: 0.06em;
+      color: var(--strata-text-secondary); font-family: var(--font-sans); font-size: var(--type-sm); font-weight: 500;
     }
     .token-name { color: var(--strata-interactive); }
     .token-value { color: var(--strata-text-secondary); }
@@ -237,9 +236,9 @@
          INTRO
          ═══════════════════════════════════════════════════════════ -->
     <div style="margin-bottom:var(--space-6);">
-      <h1 style="font-size:var(--type-3xl); font-weight:600; letter-spacing:-0.01em; margin-bottom:var(--space-1);">Motion Tokens</h1>
+      <h1 style="font-size:var(--type-3xl); font-weight:500; margin-bottom:var(--space-1);">Motion tokens</h1>
       <p style="font-size:var(--type-base); color:var(--strata-text-secondary); max-width:640px; margin-bottom:var(--space-2);">
-        Standardized durations and easing curves compiled from <code style="font-family:var(--font-mono); font-size:var(--type-sm);">colors.json</code> to CSS, SwiftUI, C#/Unity, Python, and JS. All transitions compose from these primitives.
+        The compiler reads durations and easing curves from <code style="font-family:var(--font-mono); font-size:var(--type-sm);">colors.json</code>. It writes them to CSS, SwiftUI, C#/Unity, Python and JS. All transitions use these tokens.
       </p>
       <div class="rm-indicator">
         <div class="rm-dot"></div>
@@ -252,10 +251,10 @@
          ═══════════════════════════════════════════════════════════ -->
     <section class="section" id="gifs">
       <div class="section__head">
-        <span class="section__title">Curve Visualizations</span>
+        <span class="section__title">Curve visualizations</span>
         <span class="section__tier">Threshold / Reference</span>
       </div>
-      <p class="section__desc">Generated from <code>colors.json</code> Motion tokens. Easing curves plotted as normalized 0-1 progress; duration bars show relative timing.</p>
+      <p class="section__desc">The compiler draws these images from the Motion tokens in <code>colors.json</code>. The curves show progress from 0 to 1. The bars show relative duration.</p>
       <div class="gif-grid">
         <div class="gif-wrap">
           <img src="../build/motion_easing_curves.gif" alt="Easing curves visualization">
@@ -273,12 +272,12 @@
          ═══════════════════════════════════════════════════════════ -->
     <section class="section" id="tokens">
       <div class="section__head">
-        <span class="section__title">Token Reference</span>
+        <span class="section__title">Token reference</span>
         <span class="section__tier">Threshold / Tokens</span>
       </div>
-      <p class="section__desc">Duration and easing tokens live in <code>:root</code> alongside Strata color tokens. Composed shorthands preserve backward compatibility with <code>var(--threshold-fast)</code>.</p>
+      <p class="section__desc">Duration and easing tokens are in <code>:root</code> with the Strata colour tokens. The shorthand tokens keep <code>var(--threshold-fast)</code> working in older code.</p>
 
-      <p style="font-size:var(--type-xs); font-weight:700; color:var(--strata-text-disabled); text-transform:uppercase; letter-spacing:0.1em; margin-bottom:var(--space-1);">Durations</p>
+      <p style="font-size:var(--type-sm); font-weight:500; color:var(--strata-text-primary); margin-bottom:var(--space-1);">Durations</p>
       <div class="token-grid">
         <div>Token</div><div>Value</div><div>Use</div>
         <div class="token-name">--threshold-duration-fast</div><div class="token-value">80ms</div><div class="token-use">Toggle, hover, color</div>
@@ -287,7 +286,7 @@
         <div class="token-name">--threshold-duration-slower</div><div class="token-value">440ms</div><div class="token-use">Page transitions</div>
       </div>
 
-      <p style="font-size:var(--type-xs); font-weight:700; color:var(--strata-text-disabled); text-transform:uppercase; letter-spacing:0.1em; margin-bottom:var(--space-1); margin-top:var(--space-3);">Easing Curves</p>
+      <p style="font-size:var(--type-sm); font-weight:500; color:var(--strata-text-primary); margin-bottom:var(--space-1); margin-top:var(--space-3);">Easing curves</p>
       <div class="token-grid">
         <div>Token</div><div>Value</div><div>Use</div>
         <div class="token-name">--threshold-ease-linear</div><div class="token-value">linear</div><div class="token-use">Data updates, progress</div>
@@ -296,7 +295,7 @@
         <div class="token-name">--threshold-ease-in-out</div><div class="token-value">cubic-bezier(0.65, 0, 0.35, 1)</div><div class="token-use">State toggles</div>
       </div>
 
-      <p style="font-size:var(--type-xs); font-weight:700; color:var(--strata-text-disabled); text-transform:uppercase; letter-spacing:0.1em; margin-bottom:var(--space-1); margin-top:var(--space-3);">Composed Shorthands</p>
+      <p style="font-size:var(--type-sm); font-weight:500; color:var(--strata-text-primary); margin-bottom:var(--space-1); margin-top:var(--space-3);">Composed shorthands</p>
       <div class="token-grid">
         <div>Token</div><div>Expands To</div><div>Use</div>
         <div class="token-name">--threshold-fast</div><div class="token-value">var(--threshold-duration-fast) var(--threshold-ease-linear)</div><div class="token-use">Micro-interactions</div>
@@ -310,10 +309,10 @@
          ═══════════════════════════════════════════════════════════ -->
     <section class="section" id="durations">
       <div class="section__head">
-        <span class="section__title">Duration Comparison</span>
+        <span class="section__title">Duration comparison</span>
         <span class="section__tier">Threshold / Duration</span>
       </div>
-      <p class="section__desc">Click "Play" to see all four durations fire simultaneously. Each bar fills at its actual speed.</p>
+      <p class="section__desc">Click "Play" to start all four durations at the same time. Each bar fills at its real speed.</p>
       <div style="margin-bottom:var(--space-2);">
         <button class="atomos-btn atomos-btn--primary atomos-btn--sm" id="dur-play">Play</button>
         <button class="atomos-btn atomos-btn--ghost atomos-btn--sm" id="dur-reset">Reset</button>
@@ -348,10 +347,10 @@
          ═══════════════════════════════════════════════════════════ -->
     <section class="section" id="easings">
       <div class="section__head">
-        <span class="section__title">Easing Curves</span>
+        <span class="section__title">Easing curves</span>
         <span class="section__tier">Threshold / Easing</span>
       </div>
-      <p class="section__desc">Each canvas draws a 0-1 normalized curve and animates a dot along it. Click "Animate" to trigger.</p>
+      <p class="section__desc">Each canvas draws a curve from 0 to 1 and moves a dot along it. Click "Animate" to start.</p>
       <div style="margin-bottom:var(--space-2);">
         <button class="atomos-btn atomos-btn--primary atomos-btn--sm" id="ease-play">Animate</button>
       </div>
@@ -385,12 +384,12 @@
          ═══════════════════════════════════════════════════════════ -->
     <section class="section" id="live">
       <div class="section__head">
-        <span class="section__title">Live Transitions</span>
+        <span class="section__title">Live transitions</span>
         <span class="section__tier">Threshold / Interactive</span>
       </div>
-      <p class="section__desc">Real CSS transitions using the motion tokens. Each demo composes a duration token with an easing token for its specific use case.</p>
+      <p class="section__desc">These demos use CSS transitions with the motion tokens. Each demo combines one duration token with one easing token.</p>
 
-      <p style="font-size:var(--type-xs); font-weight:700; color:var(--strata-text-disabled); text-transform:uppercase; letter-spacing:0.1em; margin-bottom:var(--space-2);">Entrance / Exit / Toggle / Scale</p>
+      <p style="font-size:var(--type-sm); font-weight:500; color:var(--strata-text-primary); margin-bottom:var(--space-2);">Entrance / Exit / Toggle / Scale</p>
       <div style="margin-bottom:var(--space-2);">
         <button class="atomos-btn atomos-btn--primary atomos-btn--sm" id="demo-trigger">Trigger All</button>
         <button class="atomos-btn atomos-btn--ghost atomos-btn--sm" id="demo-reset">Reset</button>
@@ -418,7 +417,7 @@
         </div>
       </div>
 
-      <p style="font-size:var(--type-xs); font-weight:700; color:var(--strata-text-disabled); text-transform:uppercase; letter-spacing:0.1em; margin-bottom:var(--space-2); margin-top:var(--space-3);">Hover — composed shorthands</p>
+      <p style="font-size:var(--type-sm); font-weight:500; color:var(--strata-text-primary); margin-bottom:var(--space-2); margin-top:var(--space-3);">Hover — composed shorthands</p>
       <div class="shorthand-demo">
         <div class="sh-card">
           <div class="sh-card__title">--threshold-fast</div>
@@ -453,10 +452,10 @@ transition: background var(--threshold-fast), border-color var(--threshold-fast)
          ═══════════════════════════════════════════════════════════ -->
     <section class="section" id="stagger">
       <div class="section__head">
-        <span class="section__title">Staggered Entrance</span>
+        <span class="section__title">Staggered entrance</span>
         <span class="section__tier">Threshold / Pattern</span>
       </div>
-      <p class="section__desc">Each bar delays by <code>50ms * index</code> using CSS custom properties. Cap total stagger time &mdash; 10 items at 50ms = 500ms total. Uses <code>--threshold-duration-slow</code> + <code>--threshold-ease-out</code>.</p>
+      <p class="section__desc">Each bar starts <code>50ms * index</code> after the first. A CSS custom property sets the index. Limit the total delay. For example, 10 items at 50ms take 500ms. The demo uses <code>--threshold-duration-slow</code> and <code>--threshold-ease-out</code>.</p>
       <div style="margin-bottom:var(--space-2);">
         <button class="atomos-btn atomos-btn--primary atomos-btn--sm" id="stagger-play">Play</button>
         <button class="atomos-btn atomos-btn--ghost atomos-btn--sm" id="stagger-reset">Reset</button>
@@ -485,10 +484,10 @@ transition: background var(--threshold-fast), border-color var(--threshold-fast)
          ═══════════════════════════════════════════════════════════ -->
     <section class="section" id="reduced">
       <div class="section__head">
-        <span class="section__title">Reduced Motion</span>
+        <span class="section__title">Reduced motion</span>
         <span class="section__tier">Threshold / Accessibility</span>
       </div>
-      <p class="section__desc">When <code>prefers-reduced-motion: reduce</code> is active, all <code>--threshold-duration-*</code> tokens collapse to <code>0.01ms</code>. This cascades through composed shorthands automatically. No per-component overrides needed.</p>
+      <p class="section__desc">When <code>prefers-reduced-motion: reduce</code> is on, all <code>--threshold-duration-*</code> tokens change to <code>0.01ms</code>. The shorthand tokens use the same values. Components do not need their own overrides.</p>
       <div class="code-block">@media (prefers-reduced-motion: reduce) {
   :root, [data-strata="light"] {
     --threshold-duration-fast:   0.01ms;
@@ -501,7 +500,7 @@ transition: background var(--threshold-fast), border-color var(--threshold-fast)
         <span class="atomos-notice__icon">i</span>
         <div class="atomos-notice__body">
           <div class="atomos-notice__title">Test it</div>
-          <div class="atomos-notice__msg">Enable reduced motion in your OS settings, then replay any demo above. All animations complete instantly while preserving final state.</div>
+          <div class="atomos-notice__msg">Turn on reduced motion in your OS settings. Then play a demo again. Each animation goes to its end state immediately.</div>
         </div>
       </div>
     </section>
@@ -511,10 +510,10 @@ transition: background var(--threshold-fast), border-color var(--threshold-fast)
          ═══════════════════════════════════════════════════════════ -->
     <section class="section" id="platforms">
       <div class="section__head">
-        <span class="section__title">Cross-Platform Output</span>
+        <span class="section__title">Cross-platform output</span>
         <span class="section__tier">Threshold / Platforms</span>
       </div>
-      <p class="section__desc">Motion tokens compile from <code>colors.json</code> to 5 platform targets. Same source, same values, consistent motion everywhere.</p>
+      <p class="section__desc">The compiler writes the motion tokens from <code>colors.json</code> to 5 platform targets. Each target gets the same values.</p>
 
       <div style="display:grid; grid-template-columns:repeat(auto-fill, minmax(280px, 1fr)); gap:1px; background:var(--strata-border);">
         <div class="atomos-card">

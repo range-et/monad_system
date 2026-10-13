@@ -23,16 +23,12 @@
     }
     .section__title {
       font-size: var(--type-lg);
-      font-weight: 600;
+      font-weight: 500;
       color: var(--strata-text-primary);
-      letter-spacing: -0.01em;
     }
     .section__tier {
-      font-size: var(--type-xs);
-      font-family: var(--font-mono);
-      color: var(--strata-text-disabled);
-      text-transform: uppercase;
-      letter-spacing: 0.1em;
+      font-size: var(--type-sm);
+      color: var(--strata-text-secondary);
     }
     .section__desc {
       font-size: var(--type-sm);
@@ -128,12 +124,12 @@
     <!-- AKASHA TOKENS -->
     <section class="section" id="strata">
       <div class="section__head">
-        <span class="section__title">Strata Layer</span>
+        <span class="section__title">Strata layer</span>
         <span class="section__tier">Tier: State &amp; Tokens</span>
       </div>
-      <p class="section__desc">CSS custom properties (<code>--strata-*</code>) are the connective state layer. Every component reads from these. Theme switching rewrites Strata; components never hardcode color.</p>
+      <p class="section__desc">Strata is the set of CSS custom properties (<code>--strata-*</code>). Every component reads its colours from these properties. A theme change rewrites the Strata values. Components do not contain hardcoded colours.</p>
 
-      <p style="font-size:var(--type-xs); font-weight:700; color:var(--strata-text-disabled); text-transform:uppercase; letter-spacing:0.1em; margin-bottom:var(--space-2);">Ground — switches with theme</p>
+      <p style="font-size:var(--type-sm); font-weight:500; color:var(--strata-text-primary); margin-bottom:var(--space-2);">Surfaces — values change with the theme</p>
       <div class="swatch-grid" style="margin-bottom:var(--space-4);">
         <div class="swatch">
           <div class="swatch__color" style="background:var(--strata-bg)"></div>
@@ -161,7 +157,7 @@
         </div>
       </div>
 
-      <p style="font-size:var(--type-xs); font-weight:700; color:var(--strata-text-disabled); text-transform:uppercase; letter-spacing:0.1em; margin-bottom:var(--space-2);">Signal — fixed across themes</p>
+      <p style="font-size:var(--type-sm); font-weight:500; color:var(--strata-text-primary); margin-bottom:var(--space-2);">Signals — values stay the same in both themes</p>
       <div class="swatch-grid">
         <div class="swatch">
           <div class="swatch__color" style="background:var(--strata-interactive)"></div>
@@ -189,7 +185,7 @@
         </div>
       </div>
 
-      <p style="font-size:var(--type-xs); font-weight:700; color:var(--strata-text-disabled); text-transform:uppercase; letter-spacing:0.1em; margin:var(--space-3) 0 var(--space-2);">Ground depth (Layering Model)</p>
+      <p style="font-size:var(--type-sm); font-weight:500; color:var(--strata-text-primary); margin:var(--space-3) 0 var(--space-2);">Ground depth (Layering Model)</p>
       <div class="layer-demo">
         <div class="layer-box" style="background:var(--strata-bg)">bg</div>
         <div class="layer-box" style="background:var(--strata-layer-01)">layer-01</div>
@@ -204,18 +200,18 @@
         <span class="section__title">Typography</span>
         <span class="section__tier">Tier: Base</span>
       </div>
-      <p class="section__desc">Inter (sans), JetBrains Mono (code), Lora (serif). Fluid scale via <code>clamp()</code>. No decorative weight — weight is structural.</p>
+      <p class="section__desc">Helvetica Neue (sans, Inter as fallback), JetBrains Mono (data and code), Lora (serif). Headings use <code>clamp()</code> for a fluid scale. Weight shows structure only.</p>
       <div style="display:flex; flex-direction:column; gap:var(--space-2);">
-        <div style="font-size:var(--type-5xl); font-weight:300; color:var(--strata-text-primary); letter-spacing:-0.03em; line-height:1;">54px — Display Light</div>
-        <div style="font-size:var(--type-4xl); font-weight:300; color:var(--strata-text-primary); letter-spacing:-0.02em; line-height:1.1;">42px — Hero Light</div>
-        <div style="font-size:var(--type-3xl); font-weight:600; letter-spacing:-0.01em;">32px — Page Heading 600</div>
-        <div style="font-size:var(--type-2xl); font-weight:600;">28px — Section Heading 600</div>
-        <div style="font-size:var(--type-xl); font-weight:600;">24px — Subheading 600</div>
-        <div style="font-size:var(--type-base); color:var(--strata-text-secondary);">16px Body — The quick brown fox jumps over the lazy dog. Materially honest type.</div>
-        <div style="font-size:var(--type-sm); color:var(--strata-text-secondary);">14px Secondary — Helper text, captions, labels, secondary descriptions.</div>
-        <div style="font-size:var(--type-xs); color:var(--strata-text-disabled); text-transform:uppercase; letter-spacing:0.1em; font-weight:700; font-family:var(--font-mono);">12px — OVERLINE MONO 700</div>
+        <div style="font-size:var(--type-5xl); font-weight:700; color:var(--strata-text-primary); letter-spacing:-0.02em; line-height:1;">54px — Display Bold</div>
+        <div style="font-size:var(--type-4xl); font-weight:300; color:var(--strata-text-primary); line-height:1.1;">42px — Hero Light</div>
+        <div style="font-size:var(--type-3xl); font-weight:500;">32px — Page heading Medium</div>
+        <div style="font-size:var(--type-2xl); font-weight:500;">28px — Section heading Medium</div>
+        <div style="font-size:var(--type-xl); font-weight:500;">24px — Subheading Medium</div>
+        <div style="font-size:var(--type-base); color:var(--strata-text-secondary);">16px Body — The quick brown fox jumps over the lazy dog.</div>
+        <div style="font-size:var(--type-sm); color:var(--strata-text-secondary);">14px Secondary — Helper text, captions and secondary descriptions.</div>
+        <div style="font-size:var(--type-sm); font-weight:500; color:var(--strata-text-primary);">14px Label — Labels and table headers, Medium, sentence case</div>
         <div style="font-family:var(--font-mono); font-size:var(--type-sm); color:var(--strata-text-secondary);">Mono — const strata = {{ interactive: "#03A9F4" }};</div>
-        <div style="font-family:var(--font-serif); font-size:var(--type-lg); color:var(--strata-text-primary); font-style:italic;">Lora — editorial, longform, annotation contexts only.</div>
+        <div style="font-family:var(--font-serif); font-size:var(--type-lg); color:var(--strata-text-primary); font-style:italic;">Lora — use only for editorial text, long-form text and annotations.</div>
       </div>
     </section>
 
@@ -225,7 +221,7 @@
         <span class="section__title">Atomos — Buttons</span>
         <span class="section__tier">Tier: Atomos / Indivisible</span>
       </div>
-      <p class="section__desc">Four intent variants. No radius. Transitions at <code>80ms linear</code> — immediate, haptic. Hover states are high-contrast, not gentle fades.</p>
+      <p class="section__desc">Buttons have four variants. Corners are square. State changes use an <code>80ms linear</code> transition. Hover states change to a high-contrast colour.</p>
       <div class="row">
         <button class="atomos-btn atomos-btn--primary">Primary</button>
         <button class="atomos-btn atomos-btn--secondary">Secondary</button>
@@ -244,10 +240,10 @@
     <!-- ATOMOS: TAGS & BADGES -->
     <section class="section" id="atomos-tag">
       <div class="section__head">
-        <span class="section__title">Atomos — Tags &amp; Badges</span>
+        <span class="section__title">Atomos — Tags &amp; badges</span>
         <span class="section__tier">Tier: Atomos / Indivisible</span>
       </div>
-      <p class="section__desc">Monospaced labels for state communication. Badges are numeric counters only — never use as tags.</p>
+      <p class="section__desc">Tags show a state in a short mono label. Badges show a count. Do not use a badge as a tag.</p>
       <div class="row" style="margin-bottom:var(--space-2);">
         <span class="atomos-tag atomos-tag--info">info</span>
         <span class="atomos-tag atomos-tag--success">success</span>
@@ -269,7 +265,7 @@
         <span class="section__title">Atomos — Notices</span>
         <span class="section__tier">Tier: Atomos / Indivisible</span>
       </div>
-      <p class="section__desc">Left-border communicates severity. No background gradients — tinted flat fill only. Title + message mandatory.</p>
+      <p class="section__desc">The left border shows the severity. The background is a flat tint of the status colour. Each notice must have a title and a message.</p>
       <div style="display:flex; flex-direction:column; gap:var(--space-2);">
         <div class="atomos-notice atomos-notice--info">
           <span class="atomos-notice__icon">i</span>
@@ -296,7 +292,7 @@
           <span class="atomos-notice__icon">✕</span>
           <div class="atomos-notice__body">
             <div class="atomos-notice__title">Connection refused</div>
-            <div class="atomos-notice__msg">Unable to reach remote. Verify network and try again.</div>
+            <div class="atomos-notice__msg">The remote did not respond. Check the network and try again.</div>
           </div>
         </div>
       </div>
@@ -309,32 +305,32 @@
         <span class="section__tier">Tier: Atomos / Indivisible</span>
       </div>
       <p class="section__desc">
-        <strong>Notice</strong> = ambient status (outlined, peripheral). <strong>Callout</strong> = attention-claiming
-        state (the colour <em>is</em> the field). NASA-discipline "fill, not frame". Use callouts when the user
-        <em>must</em> look at this element first; use notices for background status.
+        A <strong>notice</strong> shows background status with a border and a light tint. A <strong>callout</strong>
+        fills its full area with the status colour. Use a callout when the user must look at this element first.
+        Use a notice for background status.
         <span style="display:block; margin-top:6px; font-family:var(--font-mono); font-size:var(--type-xs); color:var(--strata-text-disabled);">
-          Validated: warning callout averages 84.6% saliency mass-on-target in the perception benchmark
-          (vs ~30% for outlined notices on the same content). See <a href="../benchmark/report.md">benchmark/report.md</a>.
+          In the perception benchmark, the Monad warning callout got 86.2% mean UMSI++ mass-on-target.
+          Material 3 got 86.4%. The difference is less than the render noise of approximately 1 point. See <a href="../benchmark/report.md">benchmark/report.md</a>.
         </span>
       </p>
       <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(320px, 1fr)); gap:var(--space-3);">
 
         <div class="atomos-callout atomos-callout--error">
           <div class="atomos-callout__head">
-            <span>SYSTEM FAULT</span>
-            <span>0xE4 · IMMEDIATE</span>
+            <span>System fault</span>
+            <span>0xE4 · Immediate</span>
           </div>
           <div class="atomos-callout__body">
             <h3 class="atomos-callout__headline">Overpressure</h3>
-            <p class="atomos-callout__sub">Vessel P3 has exceeded the safe operating envelope. Vent now.</p>
+            <p class="atomos-callout__sub">Vessel P3 is above the safe operating limit. Vent now.</p>
             <a href="#" class="atomos-callout__action"><span>Vent now</span></a>
           </div>
         </div>
 
         <div class="atomos-callout atomos-callout--warning">
           <div class="atomos-callout__head">
-            <span>HEART-RATE ZONE</span>
-            <span>Z4 · REDLINE</span>
+            <span>Heart-rate zone</span>
+            <span>Z4 · Redline</span>
           </div>
           <div class="atomos-callout__body">
             <h3 class="atomos-callout__headline">168 bpm</h3>
@@ -345,20 +341,20 @@
 
         <div class="atomos-callout atomos-callout--info">
           <div class="atomos-callout__head">
-            <span>SCHEDULED MAINTENANCE</span>
+            <span>Scheduled maintenance</span>
             <span>02:00 UTC</span>
           </div>
           <div class="atomos-callout__body">
             <h3 class="atomos-callout__headline">30 min</h3>
-            <p class="atomos-callout__sub">Pipeline runs are paused for the maintenance window.</p>
+            <p class="atomos-callout__sub">The system pauses pipeline runs during the maintenance window.</p>
             <a href="#" class="atomos-callout__action"><span>Details</span></a>
           </div>
         </div>
 
         <div class="atomos-callout atomos-callout--success">
           <div class="atomos-callout__head">
-            <span>BUILD PASSED</span>
-            <span>17 ARTIFACTS</span>
+            <span>Build passed</span>
+            <span>17 artifacts</span>
           </div>
           <div class="atomos-callout__body">
             <h3 class="atomos-callout__headline">All green</h3>
@@ -369,7 +365,7 @@
 
       </div>
       <div class="code-block">&lt;div class="atomos-callout atomos-callout--warning"&gt;
-  &lt;div class="atomos-callout__head"&gt;&lt;span&gt;LABEL&lt;/span&gt;&lt;span&gt;META&lt;/span&gt;&lt;/div&gt;
+  &lt;div class="atomos-callout__head"&gt;&lt;span&gt;Label&lt;/span&gt;&lt;span&gt;Meta&lt;/span&gt;&lt;/div&gt;
   &lt;div class="atomos-callout__body"&gt;
     &lt;h3 class="atomos-callout__headline"&gt;Headline&lt;/h3&gt;
     &lt;p class="atomos-callout__sub"&gt;Supporting line.&lt;/p&gt;
@@ -381,29 +377,29 @@
     <!-- ATOMOS: CARDS -->
     <section class="section" id="atomos-card">
       <div class="section__head">
-        <span class="section__title">Atomos — Cards &amp; Tiles</span>
+        <span class="section__title">Atomos — Cards &amp; tiles</span>
         <span class="section__tier">Tier: Atomos / Indivisible</span>
       </div>
-      <p class="section__desc">No border-radius. Depth via 1px border, not shadow. Cards contain; tiles navigate. Stat variant for dashboard KPIs.</p>
+      <p class="section__desc">Corners are square. A 1px border shows depth. Cards hold content. Tiles are links to other views. Use the stat variant for dashboard values.</p>
       <div style="display:grid; grid-template-columns:repeat(auto-fill,minmax(220px,1fr)); gap:1px; background:var(--strata-border); margin-bottom:var(--space-4);">
         <div class="atomos-card">
           <div class="atomos-card__header">
             <span class="atomos-card__title">Standard</span>
             <span class="atomos-tag atomos-tag--info">active</span>
           </div>
-          <div class="atomos-card__body">Default card on strata-layer-01. Border is the only depth signal.</div>
+          <div class="atomos-card__body">The default card uses strata-layer-01. Only the border shows depth.</div>
         </div>
         <div class="atomos-card atomos-card--flat">
           <div class="atomos-card__header">
             <span class="atomos-card__title">Flat</span>
           </div>
-          <div class="atomos-card__body">Subtle border. For dense data layouts where structure is implicit.</div>
+          <div class="atomos-card__body">This card has a light border. Use it in dense data layouts.</div>
         </div>
         <div class="atomos-card atomos-card--interactive" tabindex="0">
           <div class="atomos-card__header">
             <span class="atomos-card__title">Interactive</span>
           </div>
-          <div class="atomos-card__body">Hover to see border shift to interactive color. Keyboard accessible.</div>
+          <div class="atomos-card__body">On hover, the border changes to the interactive colour. The card can receive keyboard focus.</div>
         </div>
         <div class="atomos-tile" tabindex="0">
           <div style="font-weight:600; color:var(--strata-text-primary); margin-bottom:4px; font-size:var(--type-sm);">Tile</div>
@@ -411,7 +407,7 @@
         </div>
       </div>
 
-      <p style="font-size:var(--type-xs); font-weight:700; color:var(--strata-text-disabled); text-transform:uppercase; letter-spacing:0.1em; margin-bottom:var(--space-2);">Stat — for dashboards</p>
+      <p style="font-size:var(--type-sm); font-weight:500; color:var(--strata-text-primary); margin-bottom:var(--space-2);">Stat — for dashboards</p>
       <div style="display:grid; grid-template-columns:repeat(auto-fill,minmax(150px,1fr)); gap:1px; background:var(--strata-border);">
         <div class="atomos-stat atomos-stat--signal">
           <div class="atomos-stat__eyebrow">Requests</div>
@@ -442,7 +438,7 @@
         <span class="section__title">Atomos — Forms</span>
         <span class="section__tier">Tier: Atomos / Indivisible</span>
       </div>
-      <p class="section__desc">Focus state uses inset left-border (not glow ring). Labels are uppercase mono. No rounded inputs.</p>
+      <p class="section__desc">The focus state adds an inset left border. Labels are Helvetica Medium in sentence case. Inputs have square corners.</p>
       <div class="form-demo">
         <div class="atomos-field">
           <label class="atomos-label">Project identifier</label>
@@ -486,7 +482,7 @@
         <span class="section__title">Atomos — Table</span>
         <span class="section__tier">Tier: Atomos / Indivisible</span>
       </div>
-      <p class="section__desc">Column headers are uppercase mono. Zebra stripes are <code>strata-layer-01</code> / <code>strata-bg</code>. Wrap in <code>.atomos-table-wrap</code> for overflow scroll.</p>
+      <p class="section__desc">Column headers are Helvetica Medium in sentence case. Zebra stripes are <code>strata-layer-01</code> / <code>strata-bg</code>. Wrap in <code>.atomos-table-wrap</code> for overflow scroll.</p>
       <div class="atomos-table-wrap">
         <table class="atomos-table atomos-table--zebra">
           <thead>
@@ -545,7 +541,7 @@
         <span class="section__title">Atomos — Progress</span>
         <span class="section__tier">Tier: Atomos / Indivisible</span>
       </div>
-      <p class="section__desc">4px tall — functional, not decorative. Set <code>--progress: N%</code> on the fill. No radius.</p>
+      <p class="section__desc">The bar is 4px tall. Set <code>--progress: N%</code> on the fill. Corners are square.</p>
       <div class="progress-demos">
         <div class="progress-row">
           <span>signal</span>
@@ -573,10 +569,10 @@
     <!-- ATOMOS: DOMAIN HOLDS -->
     <section class="section" id="atomos-hold">
       <div class="section__head">
-        <span class="section__title">Atomos — Domain Holds</span>
+        <span class="section__title">Atomos — Domain holds</span>
         <span class="section__tier">Tier: Atomos / Movement Domain</span>
       </div>
-      <p class="section__desc">These colors are domain-specific and must not be repurposed for generic UI status. They map to physical movement classifications.</p>
+      <p class="section__desc">These colours map to physical movement types. Do not use them for interface status.</p>
       <div class="row">
         <span class="atomos-hold atomos-hold--start">Start</span>
         <span class="atomos-hold atomos-hold--hand">Hand</span>
@@ -592,7 +588,7 @@
         <span class="section__title">Atomos — Textures</span>
         <span class="section__tier">Tier: Atomos / Pattern</span>
       </div>
-      <p class="section__desc">Repeating SVG patterns defined as <code>--strata-texture-*</code> tokens. Functional — chart differentiation, state indication, accessibility. Never decorative.</p>
+      <p class="section__desc">Each pattern is a repeating SVG in a <code>--strata-texture-*</code> token. Use patterns to tell chart series apart, to show state, and to support users who cannot see colour. Do not use patterns as decoration.</p>
 
       <div style="display:grid; grid-template-columns:repeat(auto-fill,minmax(160px,1fr)); gap:1px; background:var(--strata-border); margin-bottom:var(--space-3);">
         <div style="display:flex; flex-direction:column;">
@@ -644,13 +640,13 @@
     <!-- MONAD: SHELL PREVIEW -->
     <section class="section" id="monad-shell">
       <div class="section__head">
-        <span class="section__title">Monad — Shell Preview</span>
+        <span class="section__title">Monad — Shell preview</span>
         <span class="section__tier">Tier: Monad / Structural</span>
       </div>
-      <p class="section__desc">The structural skeleton. Header (48px fixed) + rail (240px) + content. See <code>dashboard.html</code> for a full working Monad shell.</p>
+      <p class="section__desc">The shell has a 48px header, a 240px rail and a content area. <code>dashboard.html</code> shows a full Monad shell.</p>
       <div style="border:1px solid var(--strata-border); overflow:hidden; height:260px;">
         <div style="display:flex; align-items:center; gap:var(--space-2); height:48px; padding:0 var(--space-2); background:var(--strata-layer-01); border-bottom:1px solid var(--strata-border);">
-          <span style="font-size:var(--type-xs); font-weight:700; font-family:var(--font-mono); color:var(--strata-text-primary); letter-spacing:0.06em; text-transform:uppercase;">Monad</span>
+          <span style="font-size:var(--type-sm); font-weight:700; color:var(--strata-text-primary);">Monad</span>
           <span style="font-size:var(--type-xs); font-family:var(--font-mono); color:var(--strata-text-secondary); border-bottom:2px solid var(--strata-interactive); padding-bottom:1px;">Overview</span>
           <span style="font-size:var(--type-xs); font-family:var(--font-mono); color:var(--strata-text-disabled);">Rail</span>
           <span style="font-size:var(--type-xs); font-family:var(--font-mono); color:var(--strata-text-disabled);">Strata</span>

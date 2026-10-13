@@ -39,7 +39,7 @@ The tests verify token propagation across CSS, C#, Python, SwiftUI, VS Code, Gho
 ## Build
 
 ```bash
-pip install -r requirements.txt
+make venv   # creates .venv on uv-managed Python 3.15
 make
 ```
 
@@ -166,7 +166,7 @@ apply_monad_theme("dark")        # or "light"
 
 | Token | Stack |
 |---|---|
-| `--font-sans` | Inter |
+| `--font-sans` | Helvetica Neue (Inter fallback) |
 | `--font-mono` | JetBrains Mono |
 | `--font-serif` | Lora |
 

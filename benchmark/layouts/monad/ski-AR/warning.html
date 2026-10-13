@@ -75,8 +75,7 @@
     #focal-target .warn__bar {
       padding: var(--space-2) var(--space-4);
       display: flex; justify-content: space-between; align-items: center;
-      font-family: var(--font-mono); font-weight: 600;
-      letter-spacing: 0.18em; text-transform: uppercase;
+      font-family: var(--font-sans); font-weight: 500;
       font-size: var(--type-sm);
       color: var(--strata-on-error);
       border-bottom: 1px solid color-mix(in srgb, var(--strata-on-error) 30%, transparent);
@@ -86,11 +85,10 @@
       text-align: left;
     }
     #focal-target .warn__headline {
-      font-family: var(--font-mono);
-      font-size: 5rem; font-weight: 700; line-height: 1.0;
+      font-family: var(--font-sans);
+      font-size: 5rem; font-weight: 700; line-height: 1.0; letter-spacing: -0.02em;
       color: var(--strata-on-error);
       letter-spacing: -0.01em;
-      text-transform: uppercase;
       margin: 0;
     }
     #focal-target .warn__sub {
@@ -106,8 +104,8 @@
       padding: var(--space-2) var(--space-4);
       background: var(--strata-on-error);
       color: var(--strata-error);
-      font-family: var(--font-mono); font-size: var(--type-md);
-      font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase;
+      font-family: var(--font-sans); font-size: var(--type-md);
+      font-weight: 500;
     }
     #focal-target .warn__meta {
       padding: var(--space-2) var(--space-4);
@@ -130,25 +128,25 @@
 
     <div id="focal-target" data-focal="warning callout headline">
       <div class="warn__bar">
-        <span>◆ Master Alarm</span>
+        <span>◆ Master alarm</span>
         <span>T+00:03</span>
       </div>
       <div class="warn__body">
-        <div class="warn__headline">Fall Risk Detected</div>
+        <div class="warn__headline">Fall risk detected</div>
         <div class="warn__sub">Anchor load spike with accelerometer event 3 s ago.</div>
-        <span class="warn__action">Stabilize → Confirm Anchor</span>
+        <span class="warn__action">Stabilize → Confirm anchor</span>
       </div>
       <div class="warn__meta">
         <span>Last secure hold <strong>move 14</strong></span>
-        <span>Partner notified <strong>YES</strong></span>
+        <span>Partner notified <strong>Yes</strong></span>
         <span>HR <strong>192 bpm</strong></span>
       </div>
     </div>
 
     <div class="quiet-strip">
-      <div class="tile">SPD<strong>0</strong></div>
-      <div class="tile">ELEV<strong>2,318 m</strong></div>
-      <div class="tile">GPS<strong>LOCK</strong></div>
+      <div class="tile">Spd<strong>0</strong></div>
+      <div class="tile">Elev<strong>2,318 m</strong></div>
+      <div class="tile">GPS<strong>Lock</strong></div>
     </div>
 
   </div>

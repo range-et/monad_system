@@ -13,18 +13,18 @@
       "alert": {
         "bbox": [
           1512,
-          432.5,
+          431.41,
           360,
-          215
+          217.19
         ],
         "intent": "HR-zone amber flag"
       },
       "warning": {
         "bbox": [
           500,
-          292,
+          332,
           920,
-          496
+          416
         ],
         "intent": "warning callout headline"
       }
@@ -42,9 +42,9 @@
       "alert": {
         "bbox": [
           1492,
-          418.5,
+          417.81,
           380,
-          243
+          244.38
         ],
         "intent": "HR-zone amber flag"
       },
@@ -73,7 +73,7 @@
           24,
           155,
           342,
-          235
+          236.38
         ],
         "intent": "HR-zone amber flag"
       },
@@ -82,7 +82,7 @@
           24,
           64,
           342,
-          400
+          379
         ],
         "intent": "warning callout headline"
       }

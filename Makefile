@@ -1,6 +1,10 @@
-.PHONY: build serve open dev clean install install-vscode install-ghostty install-xcode install-unity install-zsh package-vscode publish-vscode
+.PHONY: venv bench-venv bench build serve open dev clean install install-vscode install-ghostty install-xcode install-unity install-zsh package-vscode publish-vscode
 
-PYTHON    := python3
+# Use the project venv (Python 3.15) when it exists. Create it with `make venv`.
+PYTHON    := $(if $(wildcard .venv/bin/python),.venv/bin/python,python3)
+# The benchmark needs Python 3.13: TensorFlow 2.21 has no wheels for later versions.
+BENCH_PY  := .venv-benchmark/bin/python
+UV        := $(shell command -v /opt/homebrew/bin/uv || command -v uv)
 SRC       := src/compile_color.py
 JSON      := colors.json
 OUT       := build
@@ -22,6 +26,22 @@ build:
 	$(PYTHON) $(SRC) --json_path $(JSON) --output_path $(OUT)/
 	$(PYTHON) src/gen_motion_gifs.py
 	@sips -z 128 128 assets/icon.png --out $(VSCODE_BUILD_DIR)/icon.png > /dev/null 2>&1 || true
+
+## venv            — create .venv on uv-managed Python 3.15 and install requirements.txt
+venv:
+	$(UV) venv --python 3.15 .venv
+	$(UV) pip install --python .venv/bin/python -r requirements.txt
+
+## bench-venv      — create .venv-benchmark on uv-managed Python 3.13 for the perception benchmark
+bench-venv:
+	$(UV) venv --python 3.13 .venv-benchmark
+	$(UV) pip install --python $(BENCH_PY) -r benchmark/requirements.txt
+
+## bench           — build, then render, score and aggregate the perception benchmark
+bench: build
+	$(BENCH_PY) benchmark/render_layouts.py
+	$(BENCH_PY) -m benchmark.score.run_batch
+	$(BENCH_PY) -m benchmark.score.aggregate --write
 
 ## install         — build, then install VS Code + Ghostty + Xcode themes
 install: build install-vscode install-ghostty install-xcode

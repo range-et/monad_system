@@ -88,9 +88,10 @@ def create_monad_system(
  */
 
 /* =========================================================================
-   FONTS — Inter · JetBrains Mono · Lora  (Google Fonts)
+   FONTS — Helvetica (system, per the NASA standards manual) · Inter fallback
+           · JetBrains Mono (data) · Lora  (Google Fonts)
    ========================================================================= */
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&family=JetBrains+Mono:wght@400;600&family=Lora:ital,wght@0,400;0,600;1,400&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;700&family=JetBrains+Mono:wght@400;600;700&family=Lora:ital,wght@0,400;0,600;1,400&display=swap');
 
 /* =========================================================================
    AKASHA — DARK (DEFAULT)
@@ -152,7 +153,7 @@ def create_monad_system(
   --opacity-high:      0.8;
 
   /* Type system */
-  --font-sans:   'Inter', 'Helvetica Neue', Arial, sans-serif;
+  --font-sans:   'Helvetica Neue', Helvetica, 'Inter', Arial, sans-serif;
   --font-mono:   'JetBrains Mono', 'Menlo', 'Courier New', monospace;
   --font-serif:  'Lora', 'Georgia', Times, serif;
 
@@ -230,10 +231,10 @@ body {{
 
 h1, h2, h3, h4, h5, h6 {{
   font-family: var(--font-sans);
-  font-weight: 600;
+  font-weight: 500;
   line-height: 1.2;
   color: var(--strata-text-primary);
-  letter-spacing: -0.01em;
+  letter-spacing: normal;
 }}
 h1 {{ font-size: clamp(1.75rem,  4vw + 0.5rem,  var(--type-4xl)); }}
 h2 {{ font-size: clamp(1.5rem,   3vw + 0.5rem,  var(--type-3xl)); }}
@@ -353,9 +354,9 @@ pre  {{ padding: var(--space-2); overflow-x: auto; border-left: 2px solid var(--
 }}
 .monad-header__name {{
   font-size: var(--type-base);
-  font-weight: 600;
+  font-weight: 700;
   color: var(--strata-text-primary);
-  letter-spacing: 0.01em;
+  letter-spacing: -0.01em;
   white-space: nowrap;
 }}
 .monad-header__actions {{
@@ -375,11 +376,9 @@ pre  {{ padding: var(--space-2); overflow-x: auto; border-left: 2px solid var(--
 }}
 .monad-rail__section {{
   padding: var(--space-2) var(--space-2) var(--space-1);
-  font-size: var(--type-xs);
-  font-weight: 600;
-  color: var(--strata-text-disabled);
-  text-transform: uppercase;
-  letter-spacing: 0.1em;
+  font-size: var(--type-sm);
+  font-weight: 500;
+  color: var(--strata-text-secondary);
 }}
 .monad-rail__item {{
   display: flex;
@@ -554,13 +553,12 @@ pre  {{ padding: var(--space-2); overflow-x: auto; border-left: 2px solid var(--
   padding: 10px var(--space-2);
   font-family: var(--font-sans);
   font-size: var(--type-sm);
-  font-weight: 400;
+  font-weight: 500;
   line-height: 1;
   border: 1px solid transparent;
   cursor: pointer;
   white-space: nowrap;
   text-decoration: none;
-  letter-spacing: 0.01em;
   transition:
     background var(--threshold-fast),
     border-color var(--threshold-fast),
@@ -591,8 +589,8 @@ pre  {{ padding: var(--space-2); overflow-x: auto; border-left: 2px solid var(--
   color: var(--strata-on-error);
   border-color: var(--strata-error);
 }}
-.atomos-btn--danger:hover  {{ background: #d32f2f; border-color: #d32f2f; }}
-.atomos-btn--danger:active {{ background: #b71c1c; border-color: #b71c1c; }}
+.atomos-btn--danger:hover  {{ background: color-mix(in srgb, var(--strata-error) 85%, black); border-color: color-mix(in srgb, var(--strata-error) 85%, black); }}
+.atomos-btn--danger:active {{ background: color-mix(in srgb, var(--strata-error) 75%, black); border-color: color-mix(in srgb, var(--strata-error) 75%, black); }}
 
 .atomos-btn--ghost {{
   background: transparent;
@@ -625,7 +623,7 @@ pre  {{ padding: var(--space-2); overflow-x: auto; border-left: 2px solid var(--
   padding-bottom: var(--space-2);
   border-bottom: 1px solid var(--strata-border-subtle);
 }}
-.atomos-card__title {{ font-size: var(--type-base); font-weight: 600; color: var(--strata-text-primary); }}
+.atomos-card__title {{ font-size: var(--type-base); font-weight: 500; color: var(--strata-text-primary); }}
 .atomos-card__body  {{ color: var(--strata-text-secondary); font-size: var(--type-sm); }}
 
 .atomos-tile {{
@@ -655,11 +653,9 @@ pre  {{ padding: var(--space-2); overflow-x: auto; border-left: 2px solid var(--
 .atomos-stat--error    {{ border-top-color: var(--strata-error); }}
 
 .atomos-stat__eyebrow {{
-  font-size: var(--type-xs);
-  font-weight: 600;
-  color: var(--strata-text-disabled);
-  text-transform: uppercase;
-  letter-spacing: 0.1em;
+  font-size: var(--type-sm);
+  font-weight: 500;
+  color: var(--strata-text-secondary);
   margin-bottom: var(--space-1);
 }}
 .atomos-stat__value {{
@@ -690,7 +686,6 @@ pre  {{ padding: var(--space-2); overflow-x: auto; border-left: 2px solid var(--
   font-weight: 600;
   font-family: var(--font-mono);
   border: 1px solid transparent;
-  letter-spacing: 0.04em;
   white-space: nowrap;
 }}
 .atomos-tag--info    {{ background: var(--strata-info-bg);    color: var(--strata-info);    border-color: var(--strata-info); }}
@@ -727,7 +722,7 @@ pre  {{ padding: var(--space-2); overflow-x: auto; border-left: 2px solid var(--
 }}
 .atomos-notice__icon  {{ flex-shrink: 0; margin-top: 1px; font-family: var(--font-mono); }}
 .atomos-notice__body  {{ flex: 1; }}
-.atomos-notice__title {{ font-weight: 600; color: var(--strata-text-primary); margin-bottom: 2px; letter-spacing: 0.01em; }}
+.atomos-notice__title {{ font-weight: 500; color: var(--strata-text-primary); margin-bottom: 2px; }}
 .atomos-notice__msg   {{ color: var(--strata-text-secondary); }}
 .atomos-notice__close {{
   background: transparent; border: none; cursor: pointer; padding: 0;
@@ -749,9 +744,11 @@ pre  {{ padding: var(--space-2); overflow-x: auto; border-left: 2px solid var(--
    user must look at this element first; use notices for ambient status.
 
    Discipline: solid status field, on-* text token, flush-left, NO decorative
-   icon (the colour and the type are the signal). Headline mono, content sans.
-   Validated: the warning callout averages 84.6% saliency mass-on-target in
-   the perception benchmark; outlined notices average ~30%. */
+   icon (the colour and the type are the signal). Type is Helvetica. The
+   headline is bold. The head and the action use medium weight. All text is
+   sentence case without added letter spacing.
+   Benchmark: the warning callout averages 86.2% UMSI++ mass-on-target in the
+   perception benchmark (benchmark/report.md, run of 13 October 2026). */
 .atomos-callout {{
   padding: 0;
   text-align: left;
@@ -765,22 +762,22 @@ pre  {{ padding: var(--space-2); overflow-x: auto; border-left: 2px solid var(--
 }}
 .atomos-callout__head {{
   display: flex; align-items: center; justify-content: space-between;
+  gap: var(--space-2);
   padding: var(--space-1) var(--space-3);
-  font-family: var(--font-mono);
-  font-size: var(--type-xs);
-  font-weight: 600;
-  letter-spacing: 0.18em;
-  text-transform: uppercase;
+  font-family: var(--font-sans);
+  font-size: var(--type-sm);
+  font-weight: 500;
   border-bottom: 1px solid currentColor;
 }}
 .atomos-callout__body {{
   padding: var(--space-3);
 }}
 .atomos-callout__headline {{
-  font-family: var(--font-mono);
+  font-family: var(--font-sans);
   font-size: var(--type-4xl);
   font-weight: 700; line-height: 1.0;
-  letter-spacing: -0.01em;
+  letter-spacing: -0.02em;
+  font-variant-numeric: tabular-nums;
   margin: 0;
 }}
 .atomos-callout__sub {{
@@ -789,17 +786,14 @@ pre  {{ padding: var(--space-2); overflow-x: auto; border-left: 2px solid var(--
   font-family: var(--font-sans);
   font-size: var(--type-base);
   line-height: 1.45;
-  opacity: 0.88;
 }}
 .atomos-callout__action {{
   display: inline-block;
   margin-top: var(--space-3);
   padding: var(--space-1) var(--space-3);
-  font-family: var(--font-mono);
+  font-family: var(--font-sans);
   font-size: var(--type-sm);
-  font-weight: 700;
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
+  font-weight: 500;
   /* Inverted from the callout: text-color becomes bg, bg becomes text */
   background: currentColor;
 }}
@@ -836,11 +830,9 @@ pre  {{ padding: var(--space-2); overflow-x: auto; border-left: 2px solid var(--
   margin-bottom: var(--space-3);
 }}
 .atomos-label {{
-  font-size: var(--type-xs);
-  font-weight: 600;
-  color: var(--strata-text-secondary);
-  text-transform: uppercase;
-  letter-spacing: 0.08em;
+  font-size: var(--type-sm);
+  font-weight: 500;
+  color: var(--strata-text-primary);
 }}
 
 .atomos-input, .atomos-select, .atomos-textarea {{
@@ -901,7 +893,7 @@ pre  {{ padding: var(--space-2); overflow-x: auto; border-left: 2px solid var(--
   transition: transform var(--threshold-fast), background var(--threshold-fast);
 }}
 .atomos-switch input:checked + .atomos-switch__track {{ background: var(--strata-interactive); border-color: var(--strata-interactive); }}
-.atomos-switch input:checked + .atomos-switch__track::after {{ transform: translateX(16px); background: #fff; }}
+.atomos-switch input:checked + .atomos-switch__track::after {{ transform: translateX(16px); background: var(--strata-on-interactive); }}
 .atomos-switch input {{ position: absolute; opacity: 0; width: 0; height: 0; }}
 .atomos-switch input:focus-visible + .atomos-switch__track {{
   outline: 2px solid var(--strata-interactive);
@@ -927,13 +919,10 @@ pre  {{ padding: var(--space-2); overflow-x: auto; border-left: 2px solid var(--
 .atomos-table th {{
   padding: var(--space-1) var(--space-2);
   text-align: left;
-  font-size: var(--type-xs);
-  font-weight: 700;
-  font-family: var(--font-mono);
-  color: var(--strata-text-disabled);
-  text-transform: uppercase;
-  letter-spacing: 0.08em;
-  border-bottom: 2px solid var(--strata-border);
+  font-size: var(--type-sm);
+  font-weight: 500;
+  color: var(--strata-text-secondary);
+  border-bottom: 1px solid var(--strata-text-primary);
   background: var(--strata-layer-01);
 }}
 .atomos-table td {{
@@ -979,11 +968,9 @@ pre  {{ padding: var(--space-2); overflow-x: auto; border-left: 2px solid var(--
   gap: 6px;
   padding: 3px 8px;
   font-size: var(--type-xs);
-  font-weight: 700;
+  font-weight: 600;
   font-family: var(--font-mono);
   border: 1px solid transparent;
-  letter-spacing: 0.06em;
-  text-transform: uppercase;
 }}
 .atomos-hold::before {{
   content: '';

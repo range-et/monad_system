@@ -11,8 +11,9 @@ Core philosophy: "Form follows Function. If it doesn't facilitate a function, de
 ## Build & Development Commands
 
 ```bash
-# Install Python dependencies
-pip install -r requirements.txt
+# Create .venv on uv-managed Python 3.15 and install requirements.txt
+# (make uses .venv/bin/python when it exists)
+make venv
 
 # Build all artifacts (colors.json → build/)
 make                    # or: make build
@@ -21,10 +22,14 @@ make                    # or: make build
 make dev
 
 # Run tests
-python -m unittest discover -s tests -p 'test_*.py' -v
+.venv/bin/python -m unittest discover -s tests -p 'test_*.py' -v
 
 # Run a single test
-python -m unittest tests.test_compile_color_pipeline.CompileColorPipelineTests.test_name
+.venv/bin/python -m unittest tests.test_compile_color_pipeline.CompileColorPipelineTests.test_name
+
+# Perception benchmark (needs Python 3.13: TensorFlow has no 3.15 wheels)
+make bench-venv         # one time: creates .venv-benchmark
+make bench              # build, render, score, aggregate
 
 # Install themes locally (VS Code, Ghostty, Xcode)
 make install
@@ -63,10 +68,22 @@ colors.json → src/compile_color.py → src/templates/*_template.py → build/
 - Dark theme is `:root` default; light theme uses `[data-strata="light"]`
 - No border-radius, no decorative shadows, no gradients
 - All transitions use `var(--threshold-fast)` (80ms linear)
-- Mono font (`--font-mono`) for data, labels, overlines, numeric values
+- Type follows the NASA Graphics Standards Manual: Helvetica (`--font-sans`), flush left, sentence case. Headings and labels use Helvetica Medium (500). Do not use uppercase letter-spaced labels or overlines.
+- Mono font (`--font-mono`) only for data: numeric values, IDs, tokens, code, timestamps
 - Movement hold colors (`atomos-hold--*`) are domain-specific — never repurpose for UI status
 - `ds-*` classes are retired — do not use
 - **Status colors follow NASA-discipline restraint.** `--strata-error` is **NASA Red (`#E4002B`, PMS 179)** — saturated and uncompromising, reserved for stop-now signaling. It pairs with `--strata-on-error` (near-white) for high-impact white-on-red warning chrome. Other on-* tokens (on-info, on-success, on-warning) stay near-black because their bases pair better with dark foregrounds. The warning IS the red field — don't dress it up with trims or icons; let the colour and the type do the work.
+
+### Writing voice
+
+All copy follows ASD-STE100 Simplified Technical English. This covers UI text, sample pages, READMEs, code comments, commit messages and agent replies. Load the `asd-ste100` skill (`.agents/skills/asd-ste100/`) before you write or edit copy. Use Strict mode for error messages, procedures and tool descriptions. Use STE-flavored mode for prose. Run `python .agents/skills/asd-ste100/scripts/ste-lint.py <file>` on prose files to catch structural errors.
+
+Do not write in the generic AI voice:
+
+- No "It's not X, it's Y" or "not just X, but also Y" contrast framing. State what the thing is.
+- No paired negations ("Never X, never Y.") or slogan fragments ("Nothing moves for its own sake.").
+- No marketing adjectives (seamless, robust, powerful, effortless).
+- No semicolons. One idea per sentence.
 
 ### Testing
 

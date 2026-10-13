@@ -27,12 +27,11 @@
       border-color: var(--strata-border-subtle);
     }
 
-    .route-id {
+    .route-id { font-weight: 500;
       position: absolute; top: var(--space-3); left: var(--space-3);
       padding: var(--space-1) var(--space-2);
-      font-family: var(--font-mono); font-size: var(--type-xs);
+      font-family: var(--font-sans); font-size: var(--type-xs);
       color: var(--strata-text-secondary);
-      letter-spacing: 0.12em; text-transform: uppercase;
     }
     .route-id strong { color: var(--strata-text-primary); font-weight: 600; }
 
@@ -56,10 +55,9 @@
     }
     .hud > .tile { padding: var(--space-3) var(--space-4); min-width: 200px; }
 
-    .tile__eyebrow {
-      font-family: var(--font-mono); font-size: var(--type-xs);
-      color: var(--strata-text-disabled); text-transform: uppercase;
-      letter-spacing: 0.14em;
+    .tile__eyebrow { font-weight: 500;
+      font-family: var(--font-sans); font-size: var(--type-xs);
+      color: var(--strata-text-disabled);
     }
     .tile__value {
       font-family: var(--font-mono);
@@ -82,10 +80,10 @@
 <body>
   <div class="scene">
 
-    <div class="route-id">ROUTE&nbsp;<strong>YOSEMITE&nbsp;V4</strong> · CRUISE</div>
+    <div class="route-id">Route&nbsp;<strong>Yosemite&nbsp;V4</strong> · Cruise</div>
 
     <div class="sysbar">
-      <div class="panel panel--quiet chip"><span class="pip"></span>GPS&nbsp;LOCK</div>
+      <div class="panel panel--quiet chip"><span class="pip"></span>GPS&nbsp;Lock</div>
       <div class="panel panel--quiet chip">BAT&nbsp;78%</div>
     </div>
 

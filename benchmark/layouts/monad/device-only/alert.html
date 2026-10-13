@@ -30,10 +30,9 @@
       padding: var(--space-3) var(--space-3) var(--space-2);
       border-bottom: 1px solid var(--strata-border-subtle);
     }
-    .head__eyebrow {
-      font-family: var(--font-mono); font-size: var(--type-xs);
+    .head__eyebrow { font-weight: 500;
+      font-family: var(--font-sans); font-size: var(--type-xs);
       color: var(--strata-text-disabled);
-      letter-spacing: 0.16em; text-transform: uppercase;
     }
     .head__title {
       margin-top: 4px;
@@ -63,10 +62,9 @@
       border: 1px solid var(--strata-border-subtle);
     }
     .grid .cell { background: var(--strata-layer-01); padding: var(--space-2) var(--space-3); }
-    .grid .cell .k {
-      font-family: var(--font-mono); font-size: var(--type-xs);
+    .grid .cell .k { font-weight: 500;
+      font-family: var(--font-sans); font-size: var(--type-xs);
       color: var(--strata-text-disabled);
-      letter-spacing: 0.14em; text-transform: uppercase;
     }
     .grid .cell .v {
       font-family: var(--font-mono); font-size: var(--type-lg);
@@ -85,11 +83,10 @@
       background: var(--strata-layer-01);
       border: 1px solid var(--strata-border-subtle);
     }
-    .progress .row {
+    .progress .row { font-weight: 500;
       display: flex; justify-content: space-between;
-      font-family: var(--font-mono); font-size: var(--type-xs);
+      font-family: var(--font-sans); font-size: var(--type-xs);
       color: var(--strata-text-secondary);
-      letter-spacing: 0.12em; text-transform: uppercase;
       margin-bottom: 6px;
     }
     .progress .bar { height: 4px; background: var(--strata-layer-02); }
@@ -108,18 +105,18 @@
 <body>
   <div class="statusbar">
     <span>13:14</span>
-    <span class="right"><span><span class="pip pip--ok"></span>BELAY</span><span><span class="pip pip--warn"></span>WX</span><span>BAT 64%</span></span>
+    <span class="right"><span><span class="pip pip--ok"></span>Belay</span><span><span class="pip pip--warn"></span>WX</span><span>BAT 64%</span></span>
   </div>
 
   <div class="head">
-    <div class="head__eyebrow">ROUTE · EL CAP · NOSE</div>
+    <div class="head__eyebrow">Route · El Cap · Nose</div>
     <div class="head__title">Pitch 6 · move 14</div>
   </div>
 
   <div id="focal-target" data-focal="HR zone amber flag" class="atomos-callout atomos-callout--warning">
     <div class="atomos-callout__head">
-      <span>HEART-RATE ZONE</span>
-      <span>Z4 · REDLINE</span>
+      <span>Heart-rate zone</span>
+      <span>Z4 · Redline</span>
     </div>
     <div class="atomos-callout__body">
       <div class="metric">
@@ -135,7 +132,7 @@
     <div class="cell"><div class="k">Grip</div><div class="v">00:34</div></div>
     <div class="cell"><div class="k">On wall</div><div class="v">12:47</div></div>
     <div class="cell"><div class="k">Pump</div><div class="v">78<small>%</small></div></div>
-    <div class="cell"><div class="k">Partner</div><div class="v">ON<small>BELAY</small></div></div>
+    <div class="cell"><div class="k">Partner</div><div class="v">On<small>Belay</small></div></div>
   </div>
 
   <div class="progress">
@@ -144,8 +141,8 @@
   </div>
 
   <div class="footer">
-    <span>WX · CLOUD BUILD</span>
-    <span>SYNCED</span>
+    <span>WX · Cloud build</span>
+    <span>Synced</span>
   </div>
 </body>
 </html>

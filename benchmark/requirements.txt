@@ -1,0 +1,12 @@
+# Perception benchmark dependencies.
+# Python 3.13 is required. TensorFlow 2.21 publishes wheels for CPython 3.13 only.
+# Set up the environment with `make bench-venv`.
+tensorflow==2.21.0
+tf-keras==2.21.0
+torch==2.12.0
+torchvision==0.27.0
+opencv-python==4.13.0.92
+scipy==1.17.1
+numpy==2.4.3
+pillow==12.1.1
+playwright==1.60.0

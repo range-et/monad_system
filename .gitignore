@@ -11,6 +11,7 @@ __pycache__/
 dist/
 *.egg
 .venv/
+.venv-benchmark/
 venv/
 env/
 
@@ -43,10 +44,7 @@ benchmark/ueyes_smoketest/
 benchmark/refs/
 
 # Benchmark — regenerable outputs (PNGs + scoring artefacts, 290+ MB total).
-# Reproduce with:
-#   .venv/bin/python benchmark/render_layouts.py
-#   .venv/bin/python -m benchmark.score.run_batch
-#   .venv/bin/python -m benchmark.score.aggregate --write
+# Reproduce with: make bench-venv (once), then make bench
 benchmark/renders/
 benchmark/scores/
 

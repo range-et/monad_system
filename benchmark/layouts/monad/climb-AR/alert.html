@@ -28,12 +28,11 @@
       border-color: var(--strata-border-subtle);
     }
 
-    .route-id {
+    .route-id { font-weight: 500;
       position: absolute; top: var(--space-3); left: var(--space-3);
       padding: var(--space-1) var(--space-2);
-      font-family: var(--font-mono); font-size: var(--type-xs);
+      font-family: var(--font-sans); font-size: var(--type-xs);
       color: var(--strata-text-secondary);
-      letter-spacing: 0.12em; text-transform: uppercase;
     }
     .route-id strong { color: var(--strata-text-primary); font-weight: 600; }
 
@@ -59,10 +58,9 @@
       background: var(--strata-border-subtle);
     }
     .side .row { padding: var(--space-2) var(--space-3); background: color-mix(in srgb, var(--strata-bg) 92%, transparent); }
-    .side .row .k {
-      font-family: var(--font-mono); font-size: var(--type-xs);
-      color: var(--strata-text-disabled); text-transform: uppercase;
-      letter-spacing: 0.14em;
+    .side .row .k { font-weight: 500;
+      font-family: var(--font-sans); font-size: var(--type-xs);
+      color: var(--strata-text-disabled);
     }
     .side .row .v {
       margin-top: 4px;
@@ -77,11 +75,10 @@
       transform: translateX(-50%);
       width: 720px;
     }
-    .progress-strip .label {
+    .progress-strip .label { font-weight: 500;
       display: flex; justify-content: space-between;
-      font-family: var(--font-mono); font-size: var(--type-xs);
+      font-family: var(--font-sans); font-size: var(--type-xs);
       color: var(--strata-text-secondary);
-      letter-spacing: 0.12em; text-transform: uppercase;
       margin-bottom: 6px;
     }
     .progress-strip .bar {
@@ -113,11 +110,11 @@
 <body>
   <div class="scene">
 
-    <div class="route-id">ROUTE&nbsp;<strong>EL CAP · NOSE</strong> · PITCH&nbsp;6</div>
+    <div class="route-id">Route&nbsp;<strong>El Cap · Nose</strong> · Pitch&nbsp;6</div>
 
     <div class="sysbar">
-      <div class="panel panel--quiet chip"><span class="pip"></span>BELAY&nbsp;ON</div>
-      <div class="panel panel--quiet chip"><span class="pip pip--warn"></span>WX&nbsp;CLOUD</div>
+      <div class="panel panel--quiet chip"><span class="pip"></span>Belay&nbsp;On</div>
+      <div class="panel panel--quiet chip"><span class="pip pip--warn"></span>WX&nbsp;Cloud</div>
       <div class="panel panel--quiet chip">BAT&nbsp;64%</div>
     </div>
 
@@ -142,8 +139,8 @@
 
     <div id="focal-target" data-focal="HR zone amber flag" class="atomos-callout atomos-callout--warning">
       <div class="atomos-callout__head">
-        <span>HEART-RATE ZONE</span>
-        <span>Z4 · REDLINE</span>
+        <span>Heart-rate zone</span>
+        <span>Z4 · Redline</span>
       </div>
       <div class="atomos-callout__body">
         <div class="flag__metric">
